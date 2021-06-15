@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
-    "sourceMap": true,
-    "noImplicitAny": true,
     "module": "commonjs",
     "target": "esnext",
-    "jsx": "react",
-    "lib": ["dom", "es2015", "es2017"]
+    "jsx": "preserve",
+    "lib": ["dom", "esnext"],
+    "strict": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noUnusedLocals": false
   },
-  "include": [
-    "./src/**/*"
-  ]
+  "exclude": ["node_modules", "public", ".cache"]
 }
