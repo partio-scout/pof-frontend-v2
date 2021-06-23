@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import Search from "../search";
-import logo from "../../images/logo.svg";
-import upArrow from "../../images/upArrow.svg";
-import downArrow from "../../images/downArrow.svg";
+import React, { useState } from 'react';
+import Search from '../search';
+import logo from '../../images/logo.svg';
+import upArrow from '../../images/upArrow.svg';
+import downArrow from '../../images/downArrow.svg';
 
 type HeaderItem = {
   name: string;
@@ -16,10 +16,10 @@ type HeaderProps = {
 };
 
 const Header = ({ headerItems }: HeaderProps) => {
-  const [dropDownOpen, setDropDownOpen] = useState(null);
+  const [currentDropDownOpen, setCurrentDropDownOpen] = useState(null);
 
   const toggleDropDown = (index: number) =>
-    dropDownOpen === index ? setDropDownOpen(null) : setDropDownOpen(index);
+    currentDropDownOpen === index ? setCurrentDropDownOpen(null) : setCurrentDropDownOpen(index);
 
   return (
     <div className="border-b border-lightBlue overflow-hidden">
@@ -33,19 +33,12 @@ const Header = ({ headerItems }: HeaderProps) => {
             >
               {headerItem.name.toUpperCase()}
             </span>
-            {dropDownOpen === index && (
-              <img className="mx-1 my-0.5 w-4 inline-block" src={upArrow} />
-            )}
-            {dropDownOpen !== index && (
-              <img className="mx-1 my-0.5 w-4 inline-block" src={downArrow} />
-            )}
-            {headerItem.subMenu && dropDownOpen === index && (
+            {currentDropDownOpen === index && <img className="mx-1 my-0.5 w-4 inline-block" src={upArrow} />}
+            {currentDropDownOpen !== index && <img className="mx-1 my-0.5 w-4 inline-block" src={downArrow} />}
+            {headerItem.subMenu && currentDropDownOpen === index && (
               <div className="flex flex-col w-40 bg-gray-light absolute py-1 font-sourceSansPro cursor-pointer">
                 {headerItem.subMenu.map((subItem: HeaderItem) => (
-                  <a
-                    className="px-2 py-1 text-blue hover:bg-gray"
-                    href={subItem.url}
-                  >
+                  <a className="px-2 py-1 text-blue hover:bg-gray" href={subItem.url}>
                     <span className="block font-bold">{subItem.name}</span>
                     <span className="block">{subItem.ingress}</span>
                   </a>
