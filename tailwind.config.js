@@ -34,12 +34,12 @@ module.exports = {
         },
       },
       spacing: {
-        1: "8px",
-        2: "12px",
-        3: "16px",
-        4: "24px",
-        5: "32px",
-        6: "48px",
+        1: '0.5rem',
+        2: '0.75rem',
+        3: '1rem',
+        4: '1.5rem',
+        5: '2rem',
+        6: '3rem',
       },
     },
     fontFamily: {
