@@ -6,8 +6,8 @@ import downArrow from '../../images/downArrow.svg';
 
 type HeaderItem = {
   name: string;
-  subMenu: Array<HeaderItem>;
-  url: string;
+  subMenu?: Array<HeaderItem>;
+  url?: string;
   ingress?: string;
 };
 
@@ -23,16 +23,11 @@ const Header = ({ headerItems }: HeaderProps) => {
 
   return (
     <div className="border-b border-lightBlue overflow-hidden">
-      <img src={logo} className="mx-4 my-1 w-26 inline-block" />
+      <img src={logo} className="mx-4 my-1 w-26  inline-block" />
       <div className="flex flex-row space-x-4 cursor-default float-right">
         {headerItems.map((headerItem: HeaderItem, index: number) => (
-          <div className="py-4 ">
-            <span
-              className="text-blue font-tondu tracking-wider"
-              onClick={index === 0 ? () => toggleDropDown(index) : undefined}
-            >
-              {headerItem.name.toUpperCase()}
-            </span>
+          <div className="py-4" onClick={index === 0 ? () => toggleDropDown(index) : undefined}>
+            <span className="text-blue font-tondu tracking-wider">{headerItem.name.toUpperCase()}</span>
             {currentDropDownOpen === index && <img className="mx-1 my-0.5 w-4 inline-block" src={upArrow} />}
             {currentDropDownOpen !== index && <img className="mx-1 my-0.5 w-4 inline-block" src={downArrow} />}
             {headerItem.subMenu && currentDropDownOpen === index && (

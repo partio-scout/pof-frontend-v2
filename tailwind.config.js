@@ -1,36 +1,43 @@
 module.exports = {
-  purge: ["./src/**/*.{js,jsx,ts,tsx}"],
+  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      height: {
+        '491': '491px',
+      },
       colors: {
         blue: {
-          DEFAULT: "#253764",
+          DEFAULT: '#253764',
         },
         lightBlue: {
-          DEFAULT: "#93D4F0",
+          DEFAULT: '#93D4F0',
+        },
+        hardBlue: {
+          DEFAULT: '#28AAE1',
         },
         gray: {
-          DEFAULT: "#EAEAEA",
-          light: "#F7F7F7",
+          dark: '#6A6A6A',
+          DEFAULT: '#EAEAEA',
+          light: '#F7F7F7',
         },
         ageYellow: {
-          DEFAULT: "#F5EA2E",
+          DEFAULT: '#F5EA2E',
         },
         ageOrange: {
-          DEFAULT: "#D4791EE",
+          DEFAULT: '#D4791EE',
         },
         agePurple: {
-          DEFAULT: "#5E0F75",
+          DEFAULT: '#5E0F75',
         },
         ageGreen: {
-          DEFAULT: "#33652E",
+          DEFAULT: '#33652E',
         },
         ageBrown: {
-          DEFAULT: "#6E470A",
+          DEFAULT: '#6E470A',
         },
         ageRed: {
-          DEFAULT: "#B9382C",
+          DEFAULT: '#B9382C',
         },
       },
       spacing: {
@@ -43,8 +50,8 @@ module.exports = {
       },
     },
     fontFamily: {
-      tondu: ["Tondu"],
-      sourceSansPro: ["SourcePro"],
+      tondu: ['Tondu'],
+      sourceSansPro: ['SourcePro'],
     },
   },
   variants: {

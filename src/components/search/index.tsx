@@ -1,5 +1,5 @@
-import React from "react";
-import searchLogo from "../../images/search.svg";
+import React from 'react';
+import searchLogo from '../../images/search.svg';
 
 type SearchProps = {
   searchTerm?: string;
