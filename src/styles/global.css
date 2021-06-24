@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Tondu";
+  src: url("../fonts/Tondu-Beta.ttf");
+}
+
+@font-face {
+  font-family: "SourcePro";
+  src: url("../fonts//SourceSansPro-Regular.ttf");
+}
+@font-face {
+  font-family: "SourcePro";
+  src: url("../fonts/SourceSansPro-Bold.ttf");
+  font-weight: bold;
+}
+
+h1 h2 h3 h4 {
+  font-family: 'Tondu', serif;
+}
