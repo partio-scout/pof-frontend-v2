@@ -30,7 +30,7 @@ const FrontPageSection = () => (
       </div>
       <div className="flex flex-row justify-between">
         {ageGroups.map((ageGroup, index: number) => (
-          <div key={index} className="rounded-lg bg-gray-light w-36 h-36 mt-4"></div>
+          <div key={ageGroup.name + index.toString()} className="rounded-lg bg-gray-light w-36 h-36 mt-4"></div>
         ))}
       </div>
     </div>

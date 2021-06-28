@@ -26,7 +26,11 @@ const Header = ({ headerItems }: HeaderProps) => {
       <img src={logo} className="mx-4 my-1 w-26  inline-block" />
       <div className="flex flex-row space-x-4 cursor-default float-right">
         {headerItems.map((headerItem: HeaderItem, index: number) => (
-          <div key={index} className="py-4" onClick={index === 0 ? () => toggleDropDown(index) : undefined}>
+          <div
+            key={headerItem.name + index.toString()}
+            className="py-4"
+            onClick={index === 0 ? () => toggleDropDown(index) : undefined}
+          >
             <span className="text-blue font-tondu tracking-wider">{headerItem.name.toUpperCase()}</span>
             {currentDropDownOpen === index && <img className="mx-1 my-0.5 w-4 inline-block" src={upArrow} />}
             {currentDropDownOpen !== index && <img className="mx-1 my-0.5 w-4 inline-block" src={downArrow} />}
