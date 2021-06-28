@@ -1,57 +1,41 @@
-import React from "react";
-import Header from "../components/header/";
+import React from 'react';
+import CurrentNewsHighlights from '../components/currentNewsHighlights';
+import Layout from '../layouts/default';
+import Hero from '../components/hero';
+import AgeGroups from '../components/ageGroups/frontPageSection';
+
 const IndexPage = () => {
-  const mockHeaderItems = [
+  const mockNews = [
     {
-      name: "Partio-Ohjelma",
-      subMenu: [
-        {
-          name: "Sudenpennut",
-          ingress: "7-9 vuotiaat",
-          url: "/sudenpennut",
-        },
-        {
-          name: "Seikkailijat",
-          ingress: "10-12 vuotiaat",
-          url: "/seikkailijat",
-        },
-        {
-          name: "Tarpojat",
-          ingress: "15-17 vuotiaat",
-          url: "/tarpojat",
-        },
-        {
-          name: "Samoajat",
-          ingress: "15-17 vuotiaat",
-          url: "/samoajat",
-        },
-        {
-          name: "Vaeltajat",
-          ingress: "18-22 vuotiaat",
-          url: "/vaeltajat",
-        },
-        {
-          name: "Perhepartio",
-          ingress: "Lorem ipsum dolor",
-          url: "/perhepartio",
-        },
-      ],
+      title: 'Lorem ipsum dolor ajankohtaista heading',
+      ingress:
+        'Nulla fringilla eros vel ex eleifend accumsan. Phasellus porta massa eu neque viverra varius. Fusce id sapien tortor. Sed bibendum eleifend...',
+      date: '1.8.2021',
+      buttonText: 'Lue lisää',
     },
     {
-      name: "Ajankohtaista",
+      title: 'Lorem ipsum dolor ajankohtaista ',
+      ingress:
+        'Nulla fringilla eros vel ex eleifend accumsan. Phasellus porta massa eu neque viverra varius. Fusce id sapien tortor. Sed bibendum eleifend...',
+      date: '28.8.2021',
+      buttonText: 'Lue lisää',
     },
     {
-      name: "Kampanjat",
-    },
-    {
-      name: "Materiaalit",
-    },
-    {
-      name: "Partiokasvatus",
+      title: 'Lorem ipsum dolor ajankohtaista ',
+      ingress:
+        'Nulla fringilla eros vel ex eleifend accumsan. Phasellus porta massa eu neque viverra varius. Fusce id sapien tortor. Sed bibendum eleifend...',
+      date: '28.8.2021',
+      buttonText: 'Lue lisää',
     },
   ];
 
-  return <Header headerItems={mockHeaderItems} />;
+  return (
+    <Layout>
+      <Hero />
+      <CurrentNewsHighlights currentNews={mockNews} />
+      <AgeGroups />
+    </Layout>
+  );
 };
 
 export default IndexPage;
