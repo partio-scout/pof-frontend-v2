@@ -56,7 +56,7 @@ const DefaultLayout = ({ children }: LayoutProps) => {
   return (
     <div>
       <Header headerItems={mockHeaderItems} />
-      <div className="md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
+      <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
     </div>
   );
 };
