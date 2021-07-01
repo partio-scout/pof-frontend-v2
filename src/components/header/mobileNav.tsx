@@ -24,11 +24,11 @@ const MobileNav = ({
 }: MobileNavProps) => (
   <>
     <div className="flex flex-nowrap align-stretch border-b border-lightBlue sm:hidden max-w-full">
-      {hamburgerMenuOpen ? (
-        <img src={navClose} className="w-6 inline-block border-lightBlue border-r p-2" onClick={toggleHamburger} />
-      ) : (
-        <img src={nav} className="w-6 inline-block border-lightBlue border-r p-2" onClick={toggleHamburger} />
-      )}
+      <img
+        src={hamburgerMenuOpen ? navClose : nav}
+        className="w-6 inline-block border-lightBlue border-r p-2"
+        onClick={toggleHamburger}
+      />
       <img src={logo} className="mx-4 w-24" />
       <div className="flex flex-row space-x-4 cursor-default ml-auto">
         <Search />
@@ -43,8 +43,7 @@ const MobileNav = ({
             onClick={index === 0 ? () => toggleDropDown(index) : undefined}
           >
             <span className="text-blue font-tondu tracking-wider text-xl ml-4">{headerItem.name.toUpperCase()}</span>
-            {currentDropDownOpen === index && <img className="mx-1 my-0.5 w-8 inline-block" src={upArrow} />}
-            {currentDropDownOpen !== index && <img className="mx-1 my-0.5 w-8 inline-block" src={downArrow} />}
+            <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} />
             {headerItem.subMenu && currentDropDownOpen === index && (
               <div className="flex flex-col w-10/12 bg-gray-light rounded-lg py-1 mx-auto font-sourceSansPro cursor-pointer">
                 {headerItem.subMenu.map((subItem: HeaderItem) => (

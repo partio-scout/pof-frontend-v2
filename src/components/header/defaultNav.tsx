@@ -24,8 +24,7 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen }: NavPro
           onClick={index === 0 ? () => toggleDropDown(index) : undefined}
         >
           <span className="text-blue font-tondu tracking-wider">{headerItem.name.toUpperCase()}</span>
-          {currentDropDownOpen === index && <img className="mx-1 my-0.5 w-4 inline-block" src={upArrow} />}
-          {currentDropDownOpen !== index && <img className="mx-1 my-0.5 w-4 inline-block" src={downArrow} />}
+          <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} />
           {headerItem.subMenu && currentDropDownOpen === index && (
             <div className="flex flex-col w-40 bg-gray-light absolute py-1 font-sourceSansPro cursor-pointer">
               {headerItem.subMenu.map((subItem: HeaderItem) => (
