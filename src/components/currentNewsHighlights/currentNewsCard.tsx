@@ -9,7 +9,7 @@ type CurrentNewsCardProps = {
 };
 
 const CurrentNewsCard = ({ title, ingress, date, buttonText }: CurrentNewsCardProps) => (
-  <div className="flex flex-col rounded-lg md:min-w-1/3 w-96 h-491 max-w-md relative">
+  <div className="flex flex-col rounded-lg mx-auto lg:mx-0 my-2 md:my-0 md:min-w-1/3 md:w-96 h-491 max-w-md relative">
     <div>
       <img src={hightLightCover} className="w-full" />
     </div>
