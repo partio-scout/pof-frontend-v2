@@ -3,6 +3,7 @@ import Header from '../components/header';
 
 interface LayoutProps {
   children: React.ReactNode;
+  showBreadCrumbs?: boolean;
 }
 
 const mockHeaderItems = [
@@ -52,11 +53,11 @@ const mockHeaderItems = [
   },
 ];
 
-const DefaultLayout = ({ children }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
   return (
     <div>
-      <Header headerItems={mockHeaderItems} />
-      <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
+      <Header headerItems={mockHeaderItems} showBreadCrumbs={showBreadCrumbs} />
+      <div className="mx-auto">{children}</div>
     </div>
   );
 };

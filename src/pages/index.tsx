@@ -1,6 +1,7 @@
 import React from 'react';
 import CurrentNewsHighlights from '../components/currentNewsHighlights';
 import Layout from '../layouts/default';
+import { PaddedContainer } from '../components/ui.general';
 import Hero from '../components/hero';
 import AgeGroups from '../components/ageGroups/frontPageSection';
 
@@ -31,9 +32,11 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <Hero />
-      <CurrentNewsHighlights currentNews={mockNews} />
-      <AgeGroups />
+      <PaddedContainer>
+        <Hero />
+        <CurrentNewsHighlights currentNews={mockNews} />
+        <AgeGroups />
+      </PaddedContainer>
     </Layout>
   );
 };

@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import DefaultNav from './defaultNav';
 import MobileNav from './mobileNav';
 
-export type HeaderItem = {
+export interface HeaderItem {
   name: string;
   subMenu?: Array<HeaderItem>;
   url?: string;
   ingress?: string;
-};
+}
 
-type HeaderProps = {
+interface HeaderProps {
   headerItems: Array<HeaderItem>;
-};
+  showBreadCrumbs: boolean;
+}
 
-const Header = ({ headerItems }: HeaderProps) => {
+export interface NavProps {
+  headerItems: Array<HeaderItem>;
+  currentDropDownOpen: number | null;
+  toggleDropDown: (index: number) => void;
+  showBreadCrumbs: boolean;
+}
+
+const Header = ({ headerItems, showBreadCrumbs }: HeaderProps) => {
   const [currentDropDownOpen, setCurrentDropDownOpen] = useState<null | number>(null);
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState<boolean>(false);
 
@@ -24,13 +32,20 @@ const Header = ({ headerItems }: HeaderProps) => {
 
   return (
     <>
-      <DefaultNav headerItems={headerItems} currentDropDownOpen={currentDropDownOpen} toggleDropDown={toggleDropDown} />
+      <DefaultNav
+        headerItems={headerItems}
+        currentDropDownOpen={currentDropDownOpen}
+        toggleDropDown={toggleDropDown}
+        showBreadCrumbs={showBreadCrumbs}
+      />
       <MobileNav
         headerItems={headerItems}
         currentDropDownOpen={currentDropDownOpen}
         toggleHamburger={toggleHamburger}
         toggleDropDown={toggleDropDown}
         hamburgerMenuOpen={hamburgerMenuOpen}
+        //TODO: Change away from hardcoded when mobilenav finished
+        showBreadCrumbs={false}
       />
     </>
   );
