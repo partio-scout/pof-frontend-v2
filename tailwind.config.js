@@ -6,12 +6,17 @@ module.exports = {
       height: {
         '491': '491px',
       },
+      width: {
+        '4.5rem': '4.5rem',
+        '23.5rem': '23.5rem',
+      },
       colors: {
         blue: {
           DEFAULT: '#253764',
         },
         lightBlue: {
           DEFAULT: '#93D4F0',
+          light: '#EAF7FC',
         },
         hardBlue: {
           DEFAULT: '#28AAE1',

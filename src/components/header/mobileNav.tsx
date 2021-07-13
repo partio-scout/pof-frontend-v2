@@ -1,5 +1,5 @@
 import React from 'react';
-import { HeaderItem } from '.';
+import { NavProps, HeaderItem } from '.';
 import Search from '../search';
 import nav from '../../images/nav.svg';
 import navClose from '../../images/nav-close.svg';
@@ -7,13 +7,10 @@ import logo from '../../images/logo.svg';
 import upArrow from '../../images/upArrow.svg';
 import downArrow from '../../images/downArrow.svg';
 
-type MobileNavProps = {
-  headerItems: Array<HeaderItem>;
-  currentDropDownOpen: number | null;
+interface MobileNavProps extends NavProps {
   hamburgerMenuOpen: boolean;
   toggleHamburger: () => void;
-  toggleDropDown: (index: number) => void;
-};
+}
 
 const MobileNav = ({
   headerItems,
