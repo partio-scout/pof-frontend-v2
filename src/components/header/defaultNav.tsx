@@ -8,7 +8,12 @@ import logo from '../../images/logo.svg';
 import upArrow from '../../images/upArrow.svg';
 import downArrow from '../../images/downArrow.svg';
 
-const mockBCTrail = 'Partio-ohjelma / Sudenpennut / Suhde itseen / Iltaohjelma';
+const mockBCTrail = [
+  { name: 'Partio-ohjelma', url: '/' },
+  { name: 'Sudenpennut', url: '/sudenpennut' },
+  { name: 'Suhde itseen', url: '/' },
+  { name: 'Iltaohjelma', url: '/' },
+];
 
 const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs }: NavProps) => (
   <>

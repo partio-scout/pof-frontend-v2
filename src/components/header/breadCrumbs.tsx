@@ -1,12 +1,21 @@
 import React from 'react';
 
 type BreadCrumbsProps = {
-  trail: string; //TODO: Change to real one, propably not a string
+  trail: Array<BreadCrumb>;
 };
+
+interface BreadCrumb {
+  name: string;
+  url: string;
+}
 
 const BreadCrumbs = ({ trail }: BreadCrumbsProps) => (
   <div className="w-full bg-lightBlue-light pl-4 py-1 ">
-    <span className="text-blue text-xs">{trail}</span>
+    {trail.map((breadCrumb, index: number) => (
+      <a href={breadCrumb.url} key={breadCrumb.name + index}>
+        <span className="text-blue text-xs">{`${breadCrumb.name} ${index < trail.length - 1 ? ' / ' : ''}`}</span>
+      </a>
+    ))}
   </div>
 );
 
