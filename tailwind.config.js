@@ -10,6 +10,9 @@ module.exports = {
         '4.5rem': '4.5rem',
         '23.5rem': '23.5rem',
       },
+      fontSize: {
+        '2rem': '2rem',
+      },
       colors: {
         blue: {
           DEFAULT: '#253764',
