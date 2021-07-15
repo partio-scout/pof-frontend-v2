@@ -1,6 +1,6 @@
 import React from 'react';
 import { HeaderItem } from '.';
-import Search from '../search';
+import Search from '../search/headerSearchBox';
 import nav from '../../images/nav.svg';
 import navClose from '../../images/nav-close.svg';
 import logo from '../../images/logo.svg';

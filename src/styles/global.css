@@ -17,6 +17,10 @@
   font-weight: bold;
 }
 
+html {
+  color: #253764;
+}
+
 h1, h2, h3, h4 {
   font-family: 'Tondu', serif;
 }
@@ -26,6 +30,9 @@ h1 {
 }
 h2 {
   font-size: 3rem;
+}
+h3 {
+  font-size: 2rem;
 }
 
 h4 {

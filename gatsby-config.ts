@@ -27,5 +27,13 @@ module.exports = {
       },
     },
     'gatsby-plugin-graphql-codegen',
+    {
+      resolve: "gatsby-plugin-react-svg",
+      options: {
+        rule: {
+          include: /\.inline\.svg$/ // See below to configure properly
+        }
+      }
+    }
   ],
 };

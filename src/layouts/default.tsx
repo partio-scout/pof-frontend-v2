@@ -1,5 +1,7 @@
 import React from 'react';
 import Header from '../components/header';
+import Search from '../components/search';
+import { SearchContextProvider } from '../contexts/searchContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -54,10 +56,13 @@ const mockHeaderItems = [
 
 const DefaultLayout = ({ children }: LayoutProps) => {
   return (
-    <div>
-      <Header headerItems={mockHeaderItems} />
-      <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
-    </div>
+    <SearchContextProvider>
+      <div className="relative">
+        <Header headerItems={mockHeaderItems} />
+        <Search />
+        <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
+      </div>
+    </SearchContextProvider>
   );
 };
 
