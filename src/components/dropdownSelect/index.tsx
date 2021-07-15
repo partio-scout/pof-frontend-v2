@@ -20,7 +20,7 @@ const ListItem = ({ title, subTitle }: { title: string; subTitle?: string }) => 
   );
 };
 
-const DropdownSelect = CoreSelect((title, items, toggle, toggleAll) => {
+const DropdownSelect = CoreSelect(({ title, items, toggle, toggleAll }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const allSelected = !items.some((item) => !item.checked);
@@ -29,7 +29,7 @@ const DropdownSelect = CoreSelect((title, items, toggle, toggleAll) => {
   const getTitleText = () => {
     return (
       <span>
-        <strong className="mr-1">{title || 'Valitse'}:</strong>
+        <strong className="mr-1">{title || 'Valitse'}:</strong>
         {allSelected
           ? 'kaikki'
           : selectedItems.length === 0

@@ -14,41 +14,50 @@ interface RenderItem<T> {
 
 /**
  * Function to render the selector
- * @param {string | React.ReactElement} title The title
- * @param {RenderItem[]} items The items for the selector
- * @param {(string) => void} toggle Toggle a single item
- * @param {() => void} toggleAll Toggle all items
  */
-type RenderFunction<T, P> = (
-  title: string | React.ReactElement | undefined,
-  items: RenderItem<T>[],
-  toggle: (id: string) => void,
-  toggleAll: () => void,
-  props?: P
-) => React.ReactElement | null;
+type RenderFunction<TValue, TProps> = (params: RenderParams<TValue, TProps>) => React.ReactElement | null;
 
-export interface SelectProps<T, P = undefined> {
+interface RenderParams<TValue, TProps> {
+  /** The title */
+  title: string | React.ReactElement | undefined;
+  /** The items for the selector */
+  items: RenderItem<TValue>[];
+  /** Toggle a single item */
+  toggle: (id: string) => void;
+  /** Toggle all items */
+  toggleAll: () => void;
+  additionalProps?: TProps;
+}
+
+export interface SelectProps<TValue, TProps = undefined> {
   /** The title for the selector  */
   title?: string | React.ReactElement;
   /** The items for the selector */
-  items: T[];
+  items: TValue[];
   /** Function for getting a title (and subtitle) from an item */
-  getItemTitle: (item: T) => string | { title: string; subtitle?: string };
+  getItemTitle: (item: TValue) => string | { title: string; subtitle?: string };
   /** Called when an item is toggled, with the item */
-  onToggle?: (item: T) => void;
+  onToggle?: (item: TValue) => void;
   /** Called when some item is toggled, with the selected items after that toggle */
-  onChange?: (selectedItems: T[]) => void;
+  onChange?: (selectedItems: TValue[]) => void;
   /** Whether to allow selecting no items. If true, when the last selected item is unselected, all are selected */
   disallowEmpty?: boolean;
-  additionalProps?: P;
+  additionalProps?: TProps;
 }
 
 /**
- * High order function for creating selectors.
- * @returns 
+ * High order component for creating selectors.
  */
-const CoreSelect = <T extends unknown, P = undefined>(render: RenderFunction<T, P>) =>
-  function <K extends T>({ title, items, getItemTitle, onToggle, onChange, disallowEmpty, additionalProps }: SelectProps<K, P>) {
+const CoreSelect = <TValue extends unknown, TProps = undefined>(render: RenderFunction<TValue, TProps>) =>
+  function <K extends TValue>({
+    title,
+    items,
+    getItemTitle,
+    onToggle,
+    onChange,
+    disallowEmpty,
+    additionalProps,
+  }: SelectProps<K, TProps>) {
     const [selectedItems, setSelectedItems] = useState<number[]>(() => items.map((_, i) => i));
     const [prevSelectedItems, setPrevSelectedItems] = useState<number[]>([]);
 
@@ -95,9 +104,9 @@ const CoreSelect = <T extends unknown, P = undefined>(render: RenderFunction<T, 
       }
     };
 
-    return render(
+    return render({
       title,
-      items.map((item, i) => {
+      items: items.map((item, i) => {
         const _title = getItemTitle(item);
         const title = typeof _title === 'string' ? _title : _title.title;
         const subtitle = typeof _title === 'string' ? undefined : _title.subtitle;
@@ -111,13 +120,13 @@ const CoreSelect = <T extends unknown, P = undefined>(render: RenderFunction<T, 
           itemData: item,
         };
       }),
-      (id) => {
+      toggle: (id) => {
         const index = items.findIndex((item) => getItemTitleString(item) === id);
         toggleItem(index);
       },
-      () => toggleAll(),
+      toggleAll: () => toggleAll(),
       additionalProps,
-    );
+    });
   };
 
 export default CoreSelect;
