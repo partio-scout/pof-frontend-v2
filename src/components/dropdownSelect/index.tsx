@@ -41,58 +41,64 @@ const DropdownSelect = CoreSelect(({ title, items, toggle, toggleAll }) => {
     );
   };
 
+  const itemClasses = (checked: boolean) =>
+    clsx('p-2 flex w-full items-start cursor-pointer rounded-lg hover:bg-gray', {
+      'bg-highlightBlue': checked,
+    });
+
   return (
     <ClickAwayListener onClickAway={() => setDropdownOpen(false)}>
-      <div
+      <button
         className={clsx(
-          'relative rounded-2xl h-12 flex px-3 items-center justify-between cursor-pointer',
+          'relative rounded-2xl h-12 flex px-3 items-center justify-between cursor-pointer w-full',
           dropdownOpen ? 'bg-gray' : 'bg-gray-light',
         )}
         onClick={() => {
           setDropdownOpen(!dropdownOpen);
         }}
+        tabIndex={0}
       >
         {getTitleText()}
         <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} />
         {dropdownOpen && (
           <ul className="absolute top-full+1 left-0 w-full bg-gray-light z-10 rounded-xl p-2 space-y-0.5">
-            <li
-              onClick={(e) => {
-                e.stopPropagation();
-                toggleAll();
-              }}
-              className={clsx('p-2 flex items-start cursor-pointer rounded-lg hover:bg-gray', {
-                'bg-highlightBlue': allSelected,
-              })}
-            >
-              <div className="inline-block mr-3 mt-0.5">
-                <Checkbox checked={allSelected} />
-              </div>{' '}
-              <ListItem title={'Kaikki'} />
+            <li>
+              <button
+                onKeyPress={(e) => e.key}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleAll();
+                }}
+                className={itemClasses(allSelected)}
+              >
+                <div className="inline-block mr-3 mt-0.5">
+                  <Checkbox checked={allSelected} />
+                </div>{' '}
+                <ListItem title={'Kaikki'} />
+              </button>
             </li>
             {items.map((item, index) => {
               const itemChecked = allSelected ? false : item.checked;
               return (
-                <li
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    toggle(item.id);
-                  }}
-                  className={clsx('p-2 flex items-start cursor-pointer rounded-lg hover:bg-gray', {
-                    'bg-highlightBlue': itemChecked,
-                  })}
-                  key={index}
-                >
-                  <div className="inline-block mr-3 mt-0.5">
-                    <Checkbox checked={itemChecked} />
-                  </div>{' '}
-                  <ListItem title={item.title} subTitle={item.subtitle} />
+                <li key={index}>
+                  <button
+                    className={itemClasses(itemChecked)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggle(item.id);
+                    }}
+                  >
+                    <div className="inline-block mr-3 mt-0.5">
+                      <Checkbox checked={itemChecked} />
+                    </div>{' '}
+                    <ListItem title={item.title} subTitle={item.subtitle} />
+                  </button>
                 </li>
               );
             })}
           </ul>
         )}
-      </div>
+      </button>
     </ClickAwayListener>
   );
 });

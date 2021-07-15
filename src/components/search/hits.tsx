@@ -8,9 +8,11 @@ const Hits = connectHits<HitsProvided<unknown> & { type: ContentType }, unknown>
   const TypedHit = Hit(type);
 
   return (
-    <div className="flex flex-wrap">
+    <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
       {hits.map((hit) => (
-        <TypedHit hit={hit} key={hit.objectID} />
+        <div className="h-80">
+          <TypedHit hit={hit} key={hit.objectID} />
+        </div>
       ))}
     </div>
   );

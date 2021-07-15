@@ -20,8 +20,8 @@ const Hit =
   (type: ContentType) =>
   ({ hit }: { hit: any }): React.ReactElement => {
     return (
-      <div className="p-3 border-solid border-blue-400 border-2 rounded-lg flex-grow">
-        <h3>{parseType(type)}</h3>
+      <div className="p-3 bg-gray border-2 rounded-lg h-full w-full">
+        <div className="text-2xl uppercase font-extrabold">{parseType(type)}</div>
         {hit.title} <br />
         Ikäryhmä: {hit.age_group.title}
       </div>
