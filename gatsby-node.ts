@@ -6,7 +6,6 @@ const generateRouteName = (name: string) => name.toLowerCase().split(' ').join('
 
 const makeRequest = (graphql, request: string) =>
   new Promise((resolve, reject) => {
-    // Query for nodes to use in creating pages.
     resolve(
       graphql(request).then((result) => {
         if (result.errors) {
@@ -21,7 +20,6 @@ exports.createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage, createNode } = actions;
 
   const getArticles = makeRequest(graphql, getAllActivities).then((result) => {
-    // Create pages for each article.
     result.data.allStrapiActivity.edges.forEach(({ node }) => {
       createPage({
         path: `/${generateRouteName(node.title)}`,
@@ -32,6 +30,5 @@ exports.createPages = async ({ graphql, actions }: CreatePagesArgs) => {
       });
     });
   });
-  // Query for articles nodes to use in creating pages.
   return getArticles;
 };
