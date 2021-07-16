@@ -14,7 +14,9 @@ const Filters = () => {
 
   return (
     <div className="bg-white border-b border-lightBlue">
-      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-3">
+      <div className={clsx('container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-3', {
+        'mb-0': additionalFiltersVisible
+      })}>
         <DropdownSelect
           items={contentTypes}
           title="Sisältötyyppi"
