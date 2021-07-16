@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import CoreSelect from '../coreSelect';
 import CheckIcon from '../../images/check-round.inline.svg';
 
+// TODO: Icons for items. Probably those will come from Strapi (via Algolia).
+
 const PillSelect = CoreSelect<unknown, { itemBorders: boolean }>(
   ({ title, items, toggle, toggleAll, additionalProps }) => {
     const allSelected = !items.some((item) => !item.checked);
