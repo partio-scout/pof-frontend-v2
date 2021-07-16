@@ -7,15 +7,24 @@ import camping from '../../../images/Camping.svg';
 import forest from '../../../images/Forest.svg';
 import sun from '../../../images/Sun.svg';
 import parent from '../../../images/Parent.svg';
+import { ActivityPageData } from '../types';
 
-const locationIcons = {
+interface ActivitySpecsProps {
+  data: ActivityPageData;
+}
+
+interface locationIconsTypes {
+  [key: string]: string;
+}
+
+const locationIcons: locationIconsTypes = {
   kämpällä: camping,
   kololla: home,
   metsässä: forest,
   ulkona: sun,
 };
 
-const ActivitySpecs = ({ data }) => (
+const ActivitySpecs = ({ data }: ActivitySpecsProps) => (
   <div className="mt-8">
     {console.log('RR ActivitySpecs', data)}
     <div className="flex space-x-4">
@@ -49,9 +58,9 @@ const ActivitySpecs = ({ data }) => (
       </div>
       <div className="ml-4 space-y-4 w-1/3">
         <div className="bg-gray-light flex p-4 rounded-xl">
-          {data.locations.map((location) => (
-            <div>
-              <h4 className="text-blue block w-full text-xl">PAIKKA</h4>
+          <div>
+            <h4 className="text-blue block w-full text-xl">PAIKKA</h4>
+            {data.locations.map((location) => (
               <div className="flex mt-2">
                 <div className="rounded-xl bg-ageYellow w-14 h-14 flex align-center justify-center bg-opacity-20">
                   <img className="w-8" src={locationIcons[location.slug]} />
@@ -60,8 +69,8 @@ const ActivitySpecs = ({ data }) => (
                   <span className="ml-4 text-blue font-bold font-tondu font-xl tracking-wider">{location.name}</span>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 

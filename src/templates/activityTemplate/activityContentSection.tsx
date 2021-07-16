@@ -1,7 +1,10 @@
 import React from 'react';
 import BulletImage from './bulletImage';
+import { ActivityPageData } from './types';
 
-interface ActivityContentSectionProps {}
+interface ActivityContentSectionProps {
+  data: ActivityPageData;
+}
 
 const ActivityContentSection = ({ data }: ActivityContentSectionProps) => (
   <div className="flex mt-4 space-x-4">
