@@ -1,13 +1,14 @@
 import React from 'react';
 import clsx from 'clsx';
-import CoreSelect, { SelectProps } from '../coreSelect';
+import CoreSelect from '../coreSelect';
+import CheckIcon from '../../images/check-round.inline.svg';
 
 const PillSelect = CoreSelect<unknown, { itemBorders: boolean }>(
   ({ title, items, toggle, toggleAll, additionalProps }) => {
     const allSelected = !items.some((item) => !item.checked);
 
     const itemClasses = (checked: boolean) =>
-      clsx('p-1 flex flex-0 mr-1 mt-1 items-start cursor-pointer rounded-lg hover:bg-gray text-blue font-bold', {
+      clsx('p-2 flex flex-0 mr-1 mt-1 items-center cursor-pointer rounded-xl hover:bg-gray text-blue font-bold', {
         'border-gray border': additionalProps?.itemBorders,
         'bg-highlightBlue hover:bg-highlightBlue': checked,
         'bg-gray-light': !checked,
@@ -26,6 +27,9 @@ const PillSelect = CoreSelect<unknown, { itemBorders: boolean }>(
               }}
               className={itemClasses(allSelected)}
             >
+              <CheckIcon className={clsx('fill-current text-blue mr-1', {
+                'text-opacity-40': !allSelected
+              })} />
               Kaikki
             </button>
           </li>
