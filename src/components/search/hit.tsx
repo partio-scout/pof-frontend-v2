@@ -23,7 +23,8 @@ const Hit =
       <div className="p-3 bg-gray border-2 rounded-lg h-full w-full">
         <div className="text-2xl uppercase font-extrabold">{parseType(type)}</div>
         {hit.title} <br />
-        Ikäryhmä: {hit.age_group.title}
+        Ikäryhmä: {hit.age_group.title} <br />
+        Muokattu: {hit.updated_at}
       </div>
     );
   };

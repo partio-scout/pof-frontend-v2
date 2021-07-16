@@ -42,6 +42,7 @@ export interface SelectProps<TValue, TProps = undefined> {
   onChange?: (selectedItems: TValue[]) => void;
   /** Whether to allow selecting no items. If true, when the last selected item is unselected, all are selected */
   disallowEmpty?: boolean;
+  selectOne?: boolean;
   additionalProps?: TProps;
 }
 
@@ -56,9 +57,10 @@ const CoreSelect = <TValue extends unknown, TProps = undefined>(render: RenderFu
     onToggle,
     onChange,
     disallowEmpty,
+    selectOne,
     additionalProps,
   }: SelectProps<K, TProps>) {
-    const [selectedItems, setSelectedItems] = useState<number[]>(() => items.map((_, i) => i));
+    const [selectedItems, setSelectedItems] = useState<number[]>(() => (selectOne ? [0] : items.map((_, i) => i)));
     const [prevSelectedItems, setPrevSelectedItems] = useState<number[]>([]);
 
     useEffect(() => {
@@ -76,7 +78,7 @@ const CoreSelect = <TValue extends unknown, TProps = undefined>(render: RenderFu
       const foundIndex = selectedItems.findIndex((x) => x === index);
       let newItems = [...selectedItems];
 
-      if (selectedItems.length === items.length) {
+      if (selectOne || selectedItems.length === items.length) {
         newItems = [index];
       } else if (foundIndex > -1) {
         newItems.splice(foundIndex, 1);
@@ -108,8 +110,7 @@ const CoreSelect = <TValue extends unknown, TProps = undefined>(render: RenderFu
       title,
       items: items.map((item, i) => {
         const _title = getItemTitle(item);
-        const title = typeof _title === 'string' ? _title : _title.title;
-        const subtitle = typeof _title === 'string' ? undefined : _title.subtitle;
+        const { title, subtitle } = typeof _title === 'string' ? { title: _title, subtitle: undefined } : _title;
         const checked = selectedItems.includes(i);
 
         return {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ContentType, contentTypes } from '../../types/content';
+import { contentTypes } from '../../types/content';
 import DropdownSelect from '../dropdownSelect';
 import AdditionalFilters from './additionalFilters';
 import DropdownRefinementList from './dropdownRefinementList';
@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { useSearchContext } from '../../contexts/searchContext';
 
 const Filters = () => {
-  const { state, dispatch } = useSearchContext();
+  const { dispatch } = useSearchContext();
   const [additionalFiltersVisible, setAdditionalFiltersVisible] = useState(false);
 
   return (
@@ -32,11 +32,14 @@ const Filters = () => {
           <img src={additionalFiltersVisible ? MinusIcon : PlusIcon} className="mr-1" />
           Tarkenna hakua
         </button>
+        {/* TODO: The sort selector still needs some love */}
         <DropdownSelect
-          items={['Aakkosjärjestys']}
+          items={['Aakkosjärjestys', 'Uusin ensin', 'Vanhin ensin']}
           title="Järjestä"
           onChange={(selectedItems) => null}
           getItemTitle={(item) => item}
+          additionalProps={{ hideAllToggle: true }}
+          selectOne
         />
       </div>
       <AdditionalFilters visible={additionalFiltersVisible} />

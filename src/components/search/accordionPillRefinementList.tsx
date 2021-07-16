@@ -1,16 +1,10 @@
-import React, { memo } from 'react';
-import { useEffect } from 'react';
+import React from 'react';
 import { connectRefinementList } from 'react-instantsearch-dom';
 import { RefinementListProvided } from 'react-instantsearch-core';
 import AccordionPillSelect from '../accordionPillSelect';
 
 const AccoriondPillRefinementList = connectRefinementList<{ title: string } & RefinementListProvided>(
-  ({ title, items, currentRefinement, refine, canRefine }) => {
-    useEffect(() => {
-      console.log('Current refinement', currentRefinement);
-      console.log('Items', items);
-    }, [items, currentRefinement]);
-
+  ({ title, items,refine, canRefine }) => {
     const getItemTitle = (item: typeof items[0]) => {
       return {
         title: item.label,
