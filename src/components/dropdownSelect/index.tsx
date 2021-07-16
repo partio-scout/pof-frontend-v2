@@ -64,44 +64,47 @@ const DropdownSelect = CoreSelect<unknown, { hideAllToggle: boolean }>(
             <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} />
           </button>
           {dropdownOpen && (
-            <ul className="absolute top-full+1 left-0 w-full bg-gray-light z-10 rounded-xl p-2 space-y-0.5">
-              {!additionalProps?.hideAllToggle && (
-                <li>
-                  <button
-                    onKeyPress={(e) => e.key}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleAll();
-                    }}
-                    className={itemClasses(allSelected)}
-                  >
-                    <div className="inline-block mr-3 mt-0.5">
-                      <Checkbox checked={allSelected} />
-                    </div>{' '}
-                    <ListItem title={'Kaikki'} />
-                  </button>
-                </li>
-              )}
-              {items.map((item, index) => {
-                const itemChecked = allSelected && !additionalProps?.hideAllToggle ? false : item.checked;
-                return (
-                  <li key={index}>
+            <>
+              <div className="w-2 h-2 absolute -bottom-3 left-1/2 transform -translate-x-1/2 rotate-45 bg-gray-light"></div>
+              <ul className="absolute top-full+1 left-0 w-full bg-gray-light z-10 rounded-xl p-2 space-y-0.5">
+                {!additionalProps?.hideAllToggle && (
+                  <li>
                     <button
-                      className={itemClasses(itemChecked)}
+                      onKeyPress={(e) => e.key}
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggle(item.id);
+                        toggleAll();
                       }}
+                      className={itemClasses(allSelected)}
                     >
-                      <div className="flex-shrink-0 mr-3 mt-0.5">
-                        <Checkbox checked={itemChecked} />
+                      <div className="inline-block mr-3 mt-0.5">
+                        <Checkbox checked={allSelected} />
                       </div>{' '}
-                      <ListItem title={item.title} subTitle={item.subtitle} />
+                      <ListItem title={'Kaikki'} />
                     </button>
                   </li>
-                );
-              })}
-            </ul>
+                )}
+                {items.map((item, index) => {
+                  const itemChecked = allSelected && !additionalProps?.hideAllToggle ? false : item.checked;
+                  return (
+                    <li key={index}>
+                      <button
+                        className={itemClasses(itemChecked)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggle(item.id);
+                        }}
+                      >
+                        <div className="flex-shrink-0 mr-3 mt-0.5">
+                          <Checkbox checked={itemChecked} />
+                        </div>{' '}
+                        <ListItem title={item.title} subTitle={item.subtitle} />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
+            </>
           )}
         </div>
       </ClickAwayListener>

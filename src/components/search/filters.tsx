@@ -14,35 +14,39 @@ const Filters = () => {
 
   return (
     <div className="bg-white border-b border-lightBlue">
-      <div className={clsx('container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-3', {
-        'mb-0': additionalFiltersVisible
-      })}>
-        <DropdownSelect
-          items={contentTypes}
-          title="Sisältötyyppi"
-          onChange={(selectedItems) => dispatch({ type: 'set-visible-content-types', payload: selectedItems })}
-          getItemTitle={(item) => item.name}
-        />
-        <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" />
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="my-3">
+          <DropdownSelect
+            items={contentTypes}
+            title="Sisältötyyppi"
+            onChange={(selectedItems) => dispatch({ type: 'set-visible-content-types', payload: selectedItems })}
+            getItemTitle={(item) => item.name}
+          />
+        </div>
+        <div className="my-3">
+          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" />
+        </div>
         <button
           className={clsx(
-            'flex items-center justify-center border border-gray rounded uppercase font-bold h-12 cursor-pointer w-full',
-            additionalFiltersVisible ? 'h-16 bg-blue text-white rounded-b-none border-blue' : '',
+            'flex items-center justify-center border border-gray rounded uppercase font-bold h-12 cursor-pointer w-full my-3',
+            additionalFiltersVisible ? 'h-16 mb-0 bg-blue text-white rounded-b-none border-blue' : '',
           )}
           onClick={() => setAdditionalFiltersVisible(!additionalFiltersVisible)}
         >
           <img src={additionalFiltersVisible ? MinusIcon : PlusIcon} className="mr-1" />
           Tarkenna hakua
         </button>
-        {/* TODO: The sort selector still needs some love */}
-        <DropdownSelect
-          items={['Aakkosjärjestys', 'Uusin ensin', 'Vanhin ensin']}
-          title="Järjestä"
-          onChange={(selectedItems) => null}
-          getItemTitle={(item) => item}
-          additionalProps={{ hideAllToggle: true }}
-          selectOne
-        />
+        <div className="my-3">
+          {/* TODO: The sort selector still needs some love */}
+          <DropdownSelect
+            items={['Aakkosjärjestys', 'Uusin ensin', 'Vanhin ensin']}
+            title="Järjestä"
+            onChange={(selectedItems) => null}
+            getItemTitle={(item) => item}
+            additionalProps={{ hideAllToggle: true }}
+            selectOne
+          />
+        </div>
       </div>
       <AdditionalFilters visible={additionalFiltersVisible} />
     </div>
