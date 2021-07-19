@@ -95,7 +95,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => (
         </div>
         <div className={itemClasses}>
           <div>
-            <h4 className="ml-4 text-blue text-xl">JOHTAJAN TEHTÄVÄ</h4>
+            <h4 className="text-blue text-xl">JOHTAJAN TEHTÄVÄ</h4>
             <div className="text-blue" dangerouslySetInnerHTML={{ __html: data.leader_tasks! }} />
           </div>
         </div>
