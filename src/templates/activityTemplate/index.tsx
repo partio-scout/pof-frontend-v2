@@ -5,7 +5,6 @@ import HeroTitleSection from '../../components/heroTitleSection';
 import { PaddedContainer } from '../../components/ui.general';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
-/* import { ActivityPageData } from './types'; */
 import { PageProps } from 'gatsby';
 import { StrapiActivity } from '../../../graphql-types';
 

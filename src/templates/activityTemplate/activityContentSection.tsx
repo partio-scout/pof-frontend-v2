@@ -26,7 +26,7 @@ const ActivityContentSection = ({ data }: AcitivityContentSectionProps) => (
         </div>
         <div className="ml-4">
           <h4 className="text-blue tracking-wider">{'Kuvaus'}</h4>
-          <div contentEditable="true" dangerouslySetInnerHTML={{ __html: data.content! }}></div>
+          <div dangerouslySetInnerHTML={{ __html: data.content! }}></div>
         </div>
       </div>
     </div>
