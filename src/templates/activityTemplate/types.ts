@@ -1,3 +1,5 @@
+import { StrapiActivity } from '../../../graphql-types';
+
 export interface ActivityPageData {
   title: string;
   activity_group: {

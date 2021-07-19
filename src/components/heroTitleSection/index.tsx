@@ -3,9 +3,9 @@ import sp from '../../images/sudenpennut.svg';
 
 type HeroTitleSectionProps = {
   imageName: string;
-  mainTitle: string;
-  subTitle: string;
   smallMainTitle?: boolean;
+  mainTitle?: string;
+  subTitle?: string;
 };
 
 const HeroTitleSection = ({ imageName, mainTitle, subTitle, smallMainTitle }: HeroTitleSectionProps) => (
@@ -15,7 +15,7 @@ const HeroTitleSection = ({ imageName, mainTitle, subTitle, smallMainTitle }: He
     </div>
     <div className="inline-block ml-4 align-top mt-2 mb-5">
       <h1 className={`text-white tracking-wider ${smallMainTitle && 'text-2rem mt-6 mb-3'}`}>
-        {mainTitle.toUpperCase()}
+        {mainTitle?.toUpperCase()}
       </h1>
       <span className="text-blue text-2xl inline-block">{subTitle}</span>
     </div>

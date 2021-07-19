@@ -1,12 +1,12 @@
 import React from 'react';
 import BulletImage from './bulletImage';
-import { ActivityPageData } from './types';
+import { StrapiActivity } from '../../../graphql-types';
 
-interface ActivityContentSectionProps {
-  data: ActivityPageData;
+interface AcitivityContentSectionProps {
+  data: StrapiActivity;
 }
 
-const ActivityContentSection = ({ data }: ActivityContentSectionProps) => (
+const ActivityContentSection = ({ data }: AcitivityContentSectionProps) => (
   <div className="flex mt-4 space-x-4">
     <div className="w-1/2">
       <div className="flex">
@@ -26,7 +26,7 @@ const ActivityContentSection = ({ data }: ActivityContentSectionProps) => (
         </div>
         <div className="ml-4">
           <h4 className="text-blue tracking-wider">{'Kuvaus'}</h4>
-          <div contentEditable="true" dangerouslySetInnerHTML={{ __html: data.content }}></div>
+          <div contentEditable="true" dangerouslySetInnerHTML={{ __html: data.content! }}></div>
         </div>
       </div>
     </div>
