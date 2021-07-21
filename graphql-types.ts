@@ -324,6 +324,7 @@ export type SitePageContextData = {
   skill_areas?: Maybe<Array<Maybe<SitePageContextDataSkill_Areas>>>;
   locations?: Maybe<Array<Maybe<SitePageContextDataLocations>>>;
   leader_tasks?: Maybe<Scalars['String']>;
+  activity_groups?: Maybe<Array<Maybe<SitePageContextDataActivity_Groups>>>;
 };
 
 export type SitePageContextDataEducational_Objectives = {
@@ -354,6 +355,12 @@ export type SitePageContextDataSkill_Areas = {
 export type SitePageContextDataLocations = {
   name?: Maybe<Scalars['String']>;
   slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataActivity_Groups = {
+  activitygroup_term?: Maybe<Scalars['Int']>;
+  content?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
 };
 
 export type ImageFormat =
@@ -3303,6 +3310,7 @@ export type SitePageContextDataFilterInput = {
   skill_areas?: Maybe<SitePageContextDataSkill_AreasFilterListInput>;
   locations?: Maybe<SitePageContextDataLocationsFilterListInput>;
   leader_tasks?: Maybe<StringQueryOperatorInput>;
+  activity_groups?: Maybe<SitePageContextDataActivity_GroupsFilterListInput>;
 };
 
 export type SitePageContextDataEducational_ObjectivesFilterListInput = {
@@ -3349,6 +3357,16 @@ export type SitePageContextDataLocationsFilterListInput = {
 export type SitePageContextDataLocationsFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   slug?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextDataActivity_GroupsFilterListInput = {
+  elemMatch?: Maybe<SitePageContextDataActivity_GroupsFilterInput>;
+};
+
+export type SitePageContextDataActivity_GroupsFilterInput = {
+  activitygroup_term?: Maybe<IntQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePluginFilterInput = {
@@ -3581,6 +3599,10 @@ export type SitePageFieldsEnum =
   | 'context___data___locations___name'
   | 'context___data___locations___slug'
   | 'context___data___leader_tasks'
+  | 'context___data___activity_groups'
+  | 'context___data___activity_groups___activitygroup_term'
+  | 'context___data___activity_groups___content'
+  | 'context___data___activity_groups___title'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
