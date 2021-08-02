@@ -2,16 +2,30 @@ import React from 'react';
 import clsx from 'clsx';
 import PillRefinementList from './pillRefinementList';
 import AccordionPillRefinementList from './accordionPillRefinementList';
+import TimeIcon from '../../images/time.inline.svg';
+import PlusIcon from '../../images/plus-round.inline.svg';
+import ExclamationIcon from '../../images/exclamation-round.inline.svg';
 
 const AdditionalFilters = ({ visible }: { visible: boolean }) => (
   <div className={clsx('container mx-auto border-t border-lightBlue', { hidden: !visible })}>
     <div className="uppercase text-xl font-tondu mt-4">Aktiviteetit & toteutusvinkit</div>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
       <div className="">
-        <PillRefinementList title="Aktiviteetin pakollisuus" attribute="mandatory" />
+        <PillRefinementList
+          title="Aktiviteetin pakollisuus"
+          attribute="mandatory"
+          getItemTitle={(item) => (item.label === 'true' ? 'Pakollinen' : 'Valinnainen')}
+          getItemIcon={(item) =>
+            item.label === 'true' ? <ExclamationIcon className="fill-current" /> : <PlusIcon className="fill-current" />
+          }
+        />
       </div>
       <div className="">
-        <PillRefinementList title="Aktiviteetin kesto" attribute="duration.slug" />
+        <PillRefinementList
+          title="Aktiviteetin kesto"
+          attribute="duration.slug"
+          getItemIcon={(_) => <TimeIcon className="fill-current" />}
+        />
       </div>
       <div className="">
         <PillRefinementList title="Paikka" attribute="locations.name" />

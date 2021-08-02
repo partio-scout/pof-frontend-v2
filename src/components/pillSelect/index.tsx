@@ -14,7 +14,7 @@ const PillSelect = CoreSelect<unknown, { itemBorders: boolean }>(
         'border-gray border': additionalProps?.itemBorders,
         'bg-highlightBlue hover:bg-highlightBlue': checked,
         'bg-gray-light': !checked,
-        'text-opacity-40': !checked
+        'text-opacity-40': !checked,
       });
 
     return (
@@ -29,9 +29,11 @@ const PillSelect = CoreSelect<unknown, { itemBorders: boolean }>(
               }}
               className={itemClasses(allSelected)}
             >
-              <CheckIcon className={clsx('fill-current text-blue mr-1', {
-                'text-opacity-40': !allSelected
-              })} />
+              <CheckIcon
+                className={clsx('fill-current text-blue mr-1', {
+                  'text-opacity-40': !allSelected,
+                })}
+              />
               Kaikki
             </button>
           </li>
@@ -46,6 +48,15 @@ const PillSelect = CoreSelect<unknown, { itemBorders: boolean }>(
                   }}
                   className={itemClasses(itemChecked)}
                 >
+                  {item.icon && (
+                    <div
+                      className={clsx('text-blue mr-1', {
+                        'text-opacity-40': allSelected ? true : !item.checked,
+                      })}
+                    >
+                      {item.icon}
+                    </div>
+                  )}
                   {item.title}
                 </button>
               </li>

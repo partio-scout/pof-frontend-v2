@@ -9,6 +9,8 @@ interface RenderItem<T> {
   subtitle?: string;
   /** Is the item checked */
   checked: boolean;
+  /** Icon for the item */
+  icon?: string | React.ReactElement;
   itemData: T;
 }
 
@@ -36,6 +38,8 @@ export interface SelectProps<TValue, TProps = undefined> {
   items: TValue[];
   /** Function for getting a title (and subtitle) from an item */
   getItemTitle: (item: TValue) => string | { title: string; subtitle?: string };
+  /** Function for getting an icon for an item */
+  getItemIcon?: (item: TValue) => string | React.ReactElement;
   /** Called when an item is toggled, with the item */
   onToggle?: (item: TValue) => void;
   /** Called when some item is toggled, with the selected items after that toggle */
@@ -54,6 +58,7 @@ const CoreSelect = <TValue extends unknown, TProps = undefined>(render: RenderFu
     title,
     items,
     getItemTitle,
+    getItemIcon,
     onToggle,
     onChange,
     disallowEmpty,
@@ -112,12 +117,14 @@ const CoreSelect = <TValue extends unknown, TProps = undefined>(render: RenderFu
         const _title = getItemTitle(item);
         const { title, subtitle } = typeof _title === 'string' ? { title: _title, subtitle: undefined } : _title;
         const checked = selectedItems.includes(i);
+        const icon = getItemIcon ? getItemIcon(item) : undefined;
 
         return {
           id: title,
           title,
           subtitle,
           checked,
+          icon,
           itemData: item,
         };
       }),
