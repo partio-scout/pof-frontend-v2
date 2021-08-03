@@ -1,26 +1,17 @@
 import React from 'react';
 import clsx from 'clsx';
 import { NavProps, HeaderItem } from '.';
-import BreadCrumbs from './breadCrumbs';
 import Search from '../search/headerSearchBox';
 import logo from '../../images/logo.svg';
 import upArrow from '../../images/upArrow.svg';
 import downArrow from '../../images/downArrow.svg';
 import { useSearchContext } from '../../contexts/searchContext';
 
-const mockBCTrail = [
-  { name: 'Partio-ohjelma', url: '/' },
-  { name: 'Sudenpennut', url: '/sudenpennut' },
-  { name: 'Suhde itseen', url: '/' },
-  { name: 'Iltaohjelma', url: '/' },
-];
-
 const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs }: NavProps) => {
   const { state } = useSearchContext();
   return (
-    <>
       <div
-        className={clsx('flex overflow-hidden h-20', {
+        className={clsx('hidden md:flex overflow-hidden h-20', {
           'border-b border-lightBlue': !showBreadCrumbs || state.searchActive,
         })}
       >
@@ -53,8 +44,6 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
           <Search />
         </div>
       </div>
-      {showBreadCrumbs && !state.searchActive && <BreadCrumbs trail={mockBCTrail} />}
-    </>
   );
 };
 
