@@ -32,7 +32,7 @@ const Search = (): React.ReactElement | null => {
         <div className="flex flex-col h-full">
           <Filters />
           <div className="flex flex-col flex-1 backdrop-filter backdrop-blur-xl bg-opacity-50 bg-white">
-            <div className="container mx-auto">
+            <div className="container mx-auto px-4 md:px-0">
               {state.visibleContentTypes.map(({ name, type }) => (
                 <div className="my-3" key={name}>
                   <Index indexName={`${environment}_${type}`}>

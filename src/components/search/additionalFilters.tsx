@@ -7,9 +7,9 @@ import PlusIcon from '../../images/plus-round.inline.svg';
 import ExclamationIcon from '../../images/exclamation-round.inline.svg';
 
 const AdditionalFilters = ({ visible }: { visible: boolean }) => (
-  <div className={clsx('container mx-auto border-t border-lightBlue', { hidden: !visible })}>
+  <div className={clsx('container mx-auto border-t border-lightBlue px-4 md:px-0', { hidden: !visible })}>
     <div className="uppercase text-xl font-tondu mt-4">Aktiviteetit & toteutusvinkit</div>
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 md:gap-4 mt-4">
       <div className="">
         <PillRefinementList
           title="Aktiviteetin pakollisuus"
@@ -32,7 +32,7 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => (
         <PillRefinementList title="Paikka" attribute="locations.name" />
       </div>
     </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4  my-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  my-4">
       <div className="">
         <AccordionPillRefinementList title="Taitoalueet" attribute="skill_areas.slug" />
       </div>
