@@ -21,6 +21,10 @@ html {
   color: #253764;
 }
 
+p, span {
+  font-family: 'SourcePro', 'sans';
+}
+
 h1, h2, h3, h4 {
   font-family: 'Tondu', serif;
 }
@@ -35,6 +39,34 @@ h3 {
   font-size: 2rem;
 }
 
+h3 {
+  font-size: 2rem;
+}
+
 h4 {
   font-size: 1.5rem;
+}
+
+.opaque-border-yellow {
+  border-color: #F5EA2E;
+  border-width: 20px;
+}
+
+.hyphens-auto {
+  hyphens: auto;
+}
+
+.media-container {
+  position: relative;
+  padding-bottom: 56.25%;
+}
+
+.media-container iframe {
+  position: absolute;
+  top: 0;
+  left:0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
 }

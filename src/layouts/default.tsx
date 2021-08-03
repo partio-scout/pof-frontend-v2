@@ -5,6 +5,7 @@ import { SearchContextProvider } from '../contexts/searchContext';
 
 interface LayoutProps {
   children: React.ReactNode;
+  showBreadCrumbs?: boolean;
 }
 
 const mockHeaderItems = [
@@ -54,11 +55,11 @@ const mockHeaderItems = [
   },
 ];
 
-const DefaultLayout = ({ children }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
   return (
     <SearchContextProvider>
       <div className="relative">
-        <Header headerItems={mockHeaderItems} />
+        <Header headerItems={mockHeaderItems} showBreadCrumbs={showBreadCrumbs} />
         <Search />
         <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
       </div>
