@@ -24,7 +24,6 @@ const Hit =
         <div className="text-2xl uppercase font-extrabold">{parseType(type)}</div>
         {hit.title} <br />
         Ikäryhmä: {hit.age_group.title} <br />
-        Muokattu: {hit.updated_at}
       </div>
     );
   };

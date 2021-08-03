@@ -18,6 +18,7 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => (
           getItemIcon={(item) =>
             item.label === 'true' ? <ExclamationIcon className="fill-current" /> : <PlusIcon className="fill-current" />
           }
+          selectOne
         />
       </div>
       <div className="">

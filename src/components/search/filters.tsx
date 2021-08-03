@@ -38,14 +38,14 @@ const Filters = () => {
         </button>
         <div className="my-3">
           {/* TODO: The sort selector still needs some love */}
-          <DropdownSelect
+          {/* <DropdownSelect
             items={['Aakkosjärjestys', 'Uusin ensin', 'Vanhin ensin']}
             title="Järjestä"
             onChange={(selectedItems) => null}
             getItemTitle={(item) => item}
             additionalProps={{ hideAllToggle: true }}
             selectOne
-          />
+          /> */}
         </div>
       </div>
       <AdditionalFilters visible={additionalFiltersVisible} />
