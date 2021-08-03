@@ -7,6 +7,7 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: 'Partio-Ohjelma',
+    siteUrl: `https://www.partio-ohjelma.fi`,
   },
   plugins: [
     'gatsby-plugin-image',
@@ -31,5 +32,6 @@ module.exports = {
       },
     },
     'gatsby-plugin-graphql-codegen',
+    `gatsby-plugin-sitemap`,
   ],
 };
