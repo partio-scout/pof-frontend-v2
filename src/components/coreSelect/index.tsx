@@ -107,6 +107,7 @@ const useCoreSelect = <TValue,>({
     }
 
     setAllSelected(newItems.length === items.length);
+    setPrevSelectedItems(selectedItems);
     setSelectedItems(newItems);
     onToggle && onToggle(item);
   };
@@ -143,7 +144,7 @@ const useCoreSelect = <TValue,>({
       const item = items.find((item) => _getItemId(item) === id);
       if (item) toggleItem(item);
     },
-    toggleAll: () => toggleAll(),
+    toggleAll,
   };
 };
 
