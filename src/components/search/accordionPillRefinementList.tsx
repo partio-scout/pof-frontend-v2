@@ -4,7 +4,7 @@ import { RefinementListProvided } from 'react-instantsearch-core';
 import AccordionPillSelect from '../accordionPillSelect';
 
 const AccoriondPillRefinementList = connectRefinementList<{ title: string } & RefinementListProvided>(
-  ({ title, items,refine, canRefine }) => {
+  ({ title, items, refine, canRefine }) => {
     const getItemTitle = (item: typeof items[0]) => {
       return {
         title: item.label,

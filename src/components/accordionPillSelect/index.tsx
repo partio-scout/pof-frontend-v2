@@ -5,7 +5,7 @@ import { SelectProps } from '../coreSelect';
 import PlusIcon from '../../images/plus.inline.svg';
 import MinusIcon from '../../images/minus.inline.svg';
 
-function AccordionPillSelect<T, P>({ title, ...props }: SelectProps<T, P>) {
+function AccordionPillSelect<T>({ title, ...props }: SelectProps<T>) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ function AccordionPillSelect<T, P>({ title, ...props }: SelectProps<T, P>) {
           hidden: !open,
         })}
       >
-        <PillSelect {...props} additionalProps={{ itemBorders: true }} />
+        <PillSelect {...props} itemBorders />
       </div>
     </div>
   );

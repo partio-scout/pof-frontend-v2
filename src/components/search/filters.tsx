@@ -25,7 +25,7 @@ const Filters = () => {
           />
         </div>
         <div className="my-3">
-          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" />
+          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" limit={50} />
         </div>
         <button
           className={clsx(

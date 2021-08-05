@@ -26,18 +26,19 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => (
           title="Aktiviteetin kesto"
           attribute="duration.slug"
           getItemIcon={(_) => <TimeIcon className="fill-current" />}
+          limit={50}
         />
       </div>
       <div className="">
-        <PillRefinementList title="Paikka" attribute="locations.name" />
+        <PillRefinementList title="Paikka" attribute="locations.name" limit={50} />
       </div>
     </div>
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  my-4">
       <div className="">
-        <AccordionPillRefinementList title="Taitoalueet" attribute="skill_areas.slug" />
+        <AccordionPillRefinementList title="Taitoalueet" attribute="skill_areas.slug" limit={50} />
       </div>
       <div className="">
-        <AccordionPillRefinementList title="Kasvatustavoitteet" attribute="educational_objectives.slug" />
+        <AccordionPillRefinementList title="Kasvatustavoitteet" attribute="educational_objectives.slug" limit={50} />
       </div>
     </div>
   </div>
