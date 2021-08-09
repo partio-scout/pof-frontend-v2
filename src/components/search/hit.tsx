@@ -17,13 +17,12 @@ const parseType = (type: ContentType) => {
 };
 
 const Hit =
-  (type: ContentType) =>
-  ({ hit }: { hit: any }): React.ReactElement => {
+  ({ hit, type }: { hit: any, type: ContentType }): React.ReactElement => {
     return (
       <div className="p-3 bg-gray border-2 rounded-lg h-full w-full">
         <div className="text-2xl uppercase font-extrabold">{parseType(type)}</div>
-        {hit.title} <br />
-        Ikäryhmä: {hit.age_group.title} <br />
+        {hit?.title} <br />
+        Ikäryhmä: {hit?.age_group?.title} <br />
       </div>
     );
   };

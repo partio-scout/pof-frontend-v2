@@ -5,13 +5,11 @@ import { ContentType } from '../../types/content';
 import Hit from './hit';
 
 const Hits = connectHits<HitsProvided<unknown> & { type: ContentType }, unknown>(({ type, hits }) => {
-  const TypedHit = Hit(type);
-
   return (
     <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
       {hits.map((hit) => (
         <div className="h-80" key={hit.objectID}>
-          <TypedHit hit={hit} />
+          <Hit hit={hit} type={type} />
         </div>
       ))}
     </div>

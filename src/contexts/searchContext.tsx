@@ -1,16 +1,18 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useReducer } from 'react';
+import { SearchState } from 'react-instantsearch-core';
 import { ContentType, SearchableContentType, contentTypes } from '../types/content';
 
 interface SearchContextState {
-  searchTerm: string;
+  searchState: SearchState;
   searchActive: boolean;
   visibleContentTypes: SearchableContentType[];
 }
 type Action =
-  | { type: 'set-search-term'; payload: SearchContextState['searchTerm'] }
+  | { type: 'set-search-term'; payload: SearchState['query'] }
   | { type: 'set-search-active'; payload: SearchContextState['searchActive'] }
-  | { type: 'set-visible-content-types'; payload: SearchContextState['visibleContentTypes'] };
+  | { type: 'set-visible-content-types'; payload: SearchContextState['visibleContentTypes'] }
+  | { type: 'set-search-state'; payload: SearchState };
 
 type Dispatch = (action: Action) => void;
 
@@ -21,9 +23,21 @@ const searchReducer = (state: SearchContextState, action: Action): SearchContext
     case 'set-search-active':
       return { ...state, searchActive: action.payload };
     case 'set-search-term':
-      return { ...state, searchTerm: action.payload };
+      return {
+        ...state,
+        searchState: {
+          ...state.searchState,
+          configure: {
+            ...state.searchState.configure,
+            query: action.payload,
+            aroundLatLng: false,
+          },
+        },
+      };
     case 'set-visible-content-types':
       return { ...state, visibleContentTypes: action.payload };
+    case 'set-search-state':
+      return { ...state, searchState: action.payload };
     default:
       return state;
   }
@@ -39,7 +53,7 @@ export const useSearchContext = () => {
 
 export const SearchContextProvider = ({ children }: { children: React.ReactNode }): React.ReactElement => {
   const [state, dispatch] = useReducer(searchReducer, {
-    searchTerm: '',
+    searchState: {},
     searchActive: false,
     visibleContentTypes: contentTypes,
   });

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
 
 interface RenderItem<T> {
   /** Item's id. Used in toggling items */
@@ -35,6 +35,8 @@ export interface SelectProps<TValue> {
   title?: string | React.ReactElement;
   /** The items for the selector */
   items: TValue[];
+  preselectedItems?: TValue[];
+  getItemChecked?: (item: TValue) => boolean;
   /** Function for getting a title (and subtitle) from an item */
   getItemTitle: (item: TValue) => string | { title: string; subtitle?: string };
   /** Function for getting an icon for an item */
@@ -42,6 +44,7 @@ export interface SelectProps<TValue> {
   getItemId?: (item: TValue) => string;
   /** Called when an item is toggled, with the item */
   onToggle?: (item: TValue) => void;
+  onToggleAll?: () => void;
   /** Called when some item is toggled, with the selected items after that toggle */
   onChange?: (selectedItems: TValue[]) => void;
   /** Whether to allow selecting no items. If true, when the last selected item is unselected, all are selected */
@@ -49,16 +52,88 @@ export interface SelectProps<TValue> {
   selectOne?: boolean;
 }
 
+interface State<TValue> {
+  items: TValue[];
+  selectedItems: string[];
+  prevSelectedItems: string[];
+  allSelected: boolean;
+}
+
+type Action<TValue> =
+  | { type: 'toggleItem'; payload: TValue }
+  | { type: 'toggleAll' }
+  | { type: 'selectAll' }
+  | { type: 'setItems'; payload: TValue[] };
+
+const reducer =
+  <TValue,>(getItemId: (item: TValue) => string, selectOne: boolean, disallowEmpty: boolean) =>
+  (state: State<TValue>, action: Action<TValue>): State<TValue> => {
+    switch (action.type) {
+      case 'toggleItem': {
+        const itemId = getItemId(action.payload);
+
+        const foundIndex = state.selectedItems.findIndex((x) => x === itemId);
+        let newItems = [...state.selectedItems];
+
+        if (selectOne || state.selectedItems.length === state.items.length) {
+          newItems = [itemId];
+        } else if (foundIndex > -1) {
+          newItems.splice(foundIndex, 1);
+        } else {
+          newItems = [...newItems, itemId].sort((a, b) => (a > b ? 1 : -1));
+        }
+
+        if (disallowEmpty && !newItems.length) {
+          newItems = state.items.map(getItemId);
+        }
+        return { ...state, selectedItems: newItems, allSelected: newItems.length === state.items.length };
+      }
+      case 'toggleAll': {
+        if (!state.allSelected) {
+          return {
+            ...state,
+            selectedItems: state.items.map(getItemId),
+            prevSelectedItems: state.selectedItems,
+            allSelected: true,
+          };
+        }
+        return {
+          ...state,
+          selectedItems: state.prevSelectedItems,
+          allSelected: false,
+        };
+      }
+      case 'selectAll': {
+        return {
+          ...state,
+          selectedItems: state.items.map(getItemId),
+          allSelected: true,
+        };
+      }
+      case 'setItems': {
+        return {
+          ...state,
+          items: action.payload,
+        };
+      }
+      default:
+        return state;
+    }
+  };
+
 /**
  * Hook that provides selector logic to components.
  */
 const useCoreSelect = <TValue,>({
   title,
   items,
+  preselectedItems,
   getItemTitle,
   getItemIcon,
   getItemId,
+  getItemChecked,
   onToggle,
+  onToggleAll,
   onChange,
   disallowEmpty,
   selectOne,
@@ -72,55 +147,34 @@ const useCoreSelect = <TValue,>({
     return _getItemTitle(item).title;
   };
 
-  const [selectedItems, setSelectedItems] = useState<string[]>(() =>
-    selectOne ? [_getItemId(items[0])] : items.map((x) => _getItemId(x)),
-  );
-  const [prevSelectedItems, setPrevSelectedItems] = useState<string[]>([]);
-  const [allSelected, setAllSelected] = useState(false);
+  const [state, dispatch] = useReducer(reducer<TValue>(_getItemId, selectOne || false, disallowEmpty || false), {
+    items,
+    selectedItems: preselectedItems?.length ? preselectedItems.map(_getItemId) : items.map(_getItemId),
+    prevSelectedItems: [],
+    allSelected: true,
+  });
 
   useEffect(() => {
-    onChange && onChange(items.filter((item) => selectedItems.includes(_getItemId(item))));
-  }, [selectedItems]);
+    onChange && onChange(items.filter((item) => state.selectedItems.includes(_getItemId(item))));
+  }, [state.selectedItems]);
 
   useEffect(() => {
-    if (allSelected) {
-      setSelectedItems(items.map(_getItemId));
+    dispatch({ type: 'setItems', payload: items });
+    if (state.allSelected) {
+      dispatch({ type: 'selectAll' });
     }
   }, [items]);
 
   const toggleItem = (item: TValue) => {
-    const itemId = _getItemId(item);
-
-    const foundIndex = selectedItems.findIndex((x) => x === itemId);
-    let newItems = [...selectedItems];
-
-    if (selectOne || selectedItems.length === items.length) {
-      newItems = [itemId];
-    } else if (foundIndex > -1) {
-      newItems.splice(foundIndex, 1);
-    } else {
-      newItems = [...newItems, itemId].sort((a, b) => (a > b ? 1 : -1));
+    if (!getItemChecked) {
+      dispatch({ type: 'toggleItem', payload: item });
     }
-
-    if (disallowEmpty && !newItems.length) {
-      newItems = items.map(_getItemId);
-    }
-
-    setAllSelected(newItems.length === items.length);
-    setPrevSelectedItems(selectedItems);
-    setSelectedItems(newItems);
     onToggle && onToggle(item);
   };
 
   const toggleAll = () => {
-    if (selectedItems.length !== items.length) {
-      setAllSelected(true);
-      setPrevSelectedItems(selectedItems);
-      setSelectedItems(items.map(_getItemId));
-    } else {
-      setAllSelected(false);
-      setSelectedItems(prevSelectedItems);
-    }
+    onToggleAll && onToggleAll();
+    if (!getItemChecked) dispatch({ type: 'toggleAll' });
   };
 
   return {
@@ -128,7 +182,7 @@ const useCoreSelect = <TValue,>({
     items: items.map((item) => {
       const _title = getItemTitle(item);
       const { title, subtitle } = typeof _title === 'string' ? { title: _title, subtitle: undefined } : _title;
-      const checked = selectedItems.includes(_getItemId(item));
+      const checked = getItemChecked ? getItemChecked(item) : state.selectedItems.includes(_getItemId(item));
       const icon = getItemIcon ? getItemIcon(item) : undefined;
 
       return {

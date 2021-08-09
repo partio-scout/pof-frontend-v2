@@ -18,6 +18,7 @@ const Search = () => {
               type="text"
               className="p-3 pr-8 bg-gray rounded-2xl h-12 w-80 text-xl"
               placeholder="Hakusana"
+              value={state.searchState.configure?.query || ""}
               autoFocus
               onChange={(e) => dispatch({ type: 'set-search-term', payload: e.target.value })}
             />

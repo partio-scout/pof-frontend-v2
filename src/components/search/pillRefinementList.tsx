@@ -12,30 +12,22 @@ const PillRefinementList = connectRefinementList<
     selectOne?: boolean;
   }
 >(({ title, items, refine, canRefine, getItemTitle, getItemIcon, selectOne }) => {
-  const [oldRefinement, setOldRefinement] = useState<RefinementListProvided['items']>([]);
-
   const getTitle = (item: typeof items[0]) => {
     return {
       title: item.label,
     };
   };
 
-  
   return canRefine ? (
     <PillSelect
-      items={items.sort((a, b) => (a.label > b.label ? 1 : -1))}
+      items={items.filter((x) => x.count).sort((a, b) => (a.label > b.label ? 1 : -1))}
+      preselectedItems={items.filter((x) => x.isRefined)}
       title={title}
       getItemTitle={getItemTitle || getTitle}
       getItemIcon={getItemIcon}
-      onChange={(items) => {
-        // We have to limit the refinement to only when the items have really changed, otherwise this creates a rendering loop
-        if (compareRefinementItems(items, oldRefinement)) {
-          setOldRefinement(items);
-          refine(items.map((item) => item.label))
-        }
-      }}
-      disallowEmpty
-      selectOne={selectOne}
+      getItemChecked={(item) => items.every((item) => !item.isRefined) || item.isRefined}
+      onToggle={(item) => (selectOne ? refine([item.label]) : refine(item.value))}
+      onToggleAll={() => refine([])}
     />
   ) : null;
 });

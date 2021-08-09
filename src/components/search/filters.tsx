@@ -9,7 +9,7 @@ import clsx from 'clsx';
 import { useSearchContext } from '../../contexts/searchContext';
 
 const Filters = () => {
-  const { dispatch } = useSearchContext();
+  const { state, dispatch } = useSearchContext();
   const [additionalFiltersVisible, setAdditionalFiltersVisible] = useState(false);
 
   return (
@@ -25,7 +25,7 @@ const Filters = () => {
           />
         </div>
         <div className="my-3">
-          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" limit={50} />
+          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" limit={50} defaultRefinement={state.searchState.refinementList?.['age_group.title']} />
         </div>
         <button
           className={clsx(
@@ -38,7 +38,7 @@ const Filters = () => {
           Tarkenna hakua
         </button>
         <div className="my-3">
-          {/* TODO: The sort selector still needs some love */}
+          {/* TODO: Have to decide if the order selector is necessary */}
           {/* <DropdownSelect
             items={['Aakkosjärjestys', 'Uusin ensin', 'Vanhin ensin']}
             title="Järjestä"
