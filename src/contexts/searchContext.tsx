@@ -12,7 +12,7 @@ type Action =
   | { type: 'set-search-term'; payload: SearchState['query'] }
   | { type: 'set-search-active'; payload: SearchContextState['searchActive'] }
   | { type: 'set-visible-content-types'; payload: SearchContextState['visibleContentTypes'] }
-  | { type: 'set-search-state'; payload: SearchState };
+  | { type: 'set-search-state'; payload: SearchContextState['searchState'] };
 
 type Dispatch = (action: Action) => void;
 
