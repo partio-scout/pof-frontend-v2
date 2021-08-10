@@ -25,6 +25,7 @@ jobs:
           API_URL: ${{ secrets.PROD_API_URL }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.GATSBY_ALGOLIA_API_KEY }}
+          GATSBY_ALGOLIA_ENVIRONMENT: ${{ secrets.GATSBY_ALGOLIA_ENVIRONMENT }}
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_PROUD_GLACIER_00CAD8203 }}
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)

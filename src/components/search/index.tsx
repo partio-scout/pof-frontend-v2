@@ -9,7 +9,7 @@ import Hits from '../../components/search/hits';
 import { useSearchContext } from '../../contexts/searchContext';
 import Filters from './filters';
 
-const environment = process.env.NODE_ENV;
+const environment = process.env.GATSBY_ALGOLIA_ENVIRONMENT;
 
 const createURL = (state: SearchState) => {
   const url = `?${qs.stringify(state, { arrayFormat: 'brackets' })}`;
