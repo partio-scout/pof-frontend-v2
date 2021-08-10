@@ -35,7 +35,7 @@ const RefinementList = connectRefinementList<
       title={title}
       getItemTitle={getItemTitle}
       preselectedItems={items.filter((x) => x.isRefined)}
-      getItemChecked={(item) => items.every((item) => !item.isRefined) || item.isRefined}
+      getItemSelected={(item) => items.every((item) => !item.isRefined) || item.isRefined}
       onToggle={(item) => refine(item.value)}
       onToggleAll={() => refine([])}
       disallowEmpty

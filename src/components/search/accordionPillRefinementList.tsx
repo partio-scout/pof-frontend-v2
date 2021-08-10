@@ -19,7 +19,7 @@ const AccoriondPillRefinementList = connectRefinementList<
       preselectedItems={items.filter((x) => x.isRefined)}
       title={title}
       getItemTitle={getItemTitle}
-      getItemChecked={(item) => items.every((item) => !item.isRefined) || item.isRefined}
+      getItemSelected={(item) => items.every((item) => !item.isRefined) || item.isRefined}
       onToggle={(item) => (selectOne ? refine([item.label]) : refine(item.value))}
       onToggleAll={() => refine([])}
       disallowEmpty

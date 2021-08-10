@@ -25,7 +25,7 @@ const PillRefinementList = connectRefinementList<
       title={title}
       getItemTitle={getItemTitle || getTitle}
       getItemIcon={getItemIcon}
-      getItemChecked={(item) => items.every((item) => !item.isRefined) || item.isRefined}
+      getItemSelected={(item) => items.every((item) => !item.isRefined) || item.isRefined}
       onToggle={(item) => (selectOne ? refine([item.label]) : refine(item.value))}
       onToggleAll={() => refine([])}
     />

@@ -35,20 +35,25 @@ export interface SelectProps<TValue> {
   title?: string | React.ReactElement;
   /** The items for the selector */
   items: TValue[];
+  /** The default selected items */
   preselectedItems?: TValue[];
-  getItemChecked?: (item: TValue) => boolean;
+  /** Function for testing if item is checked */
+  getItemSelected?: (item: TValue) => boolean;
   /** Function for getting a title (and subtitle) from an item */
   getItemTitle: (item: TValue) => string | { title: string; subtitle?: string };
   /** Function for getting an icon for an item */
   getItemIcon?: (item: TValue) => string | React.ReactElement;
+  /** Function for getting an id for the item that is used in the selection logic */
   getItemId?: (item: TValue) => string;
   /** Called when an item is toggled, with the item */
   onToggle?: (item: TValue) => void;
+  /** Called when selectAll is toggled */
   onToggleAll?: () => void;
   /** Called when some item is toggled, with the selected items after that toggle */
   onChange?: (selectedItems: TValue[]) => void;
-  /** Whether to allow selecting no items. If true, when the last selected item is unselected, all are selected */
+  /** Controlled mode only: Disallow selecting no items. If true, when the last selected item is unselected, all are selected */
   disallowEmpty?: boolean;
+  /** Controlled mode only: Allow only one item to selected at a time */
   selectOne?: boolean;
 }
 
@@ -122,7 +127,10 @@ const reducer =
   };
 
 /**
- * Hook that provides selector logic to components.
+ * Hook that provides selector logic to components. Can be used in controlled or uncontrolled mode. 
+ * In controlled mode this hook keeps its own state of the selection, and in uncontrolled it doesn't.
+ * Uncontrolled mode is activated by passing the prop `getItemSelected` which is then used in determining if an item is selected.
+ * In uncontrolled mode the props `onToggle` and `onToggleAll` can be used to set up event handlers for those actions.
  */
 const useCoreSelect = <TValue,>({
   title,
@@ -131,7 +139,7 @@ const useCoreSelect = <TValue,>({
   getItemTitle,
   getItemIcon,
   getItemId,
-  getItemChecked,
+  getItemSelected,
   onToggle,
   onToggleAll,
   onChange,
@@ -166,15 +174,17 @@ const useCoreSelect = <TValue,>({
   }, [items]);
 
   const toggleItem = (item: TValue) => {
-    if (!getItemChecked) {
+    onToggle && onToggle(item);
+
+    if (!getItemSelected) {
       dispatch({ type: 'toggleItem', payload: item });
     }
-    onToggle && onToggle(item);
   };
 
   const toggleAll = () => {
     onToggleAll && onToggleAll();
-    if (!getItemChecked) dispatch({ type: 'toggleAll' });
+
+    if (!getItemSelected) dispatch({ type: 'toggleAll' });
   };
 
   return {
@@ -182,7 +192,7 @@ const useCoreSelect = <TValue,>({
     items: items.map((item) => {
       const _title = getItemTitle(item);
       const { title, subtitle } = typeof _title === 'string' ? { title: _title, subtitle: undefined } : _title;
-      const checked = getItemChecked ? getItemChecked(item) : state.selectedItems.includes(_getItemId(item));
+      const checked = getItemSelected ? getItemSelected(item) : state.selectedItems.includes(_getItemId(item));
       const icon = getItemIcon ? getItemIcon(item) : undefined;
 
       return {
