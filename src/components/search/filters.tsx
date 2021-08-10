@@ -12,6 +12,13 @@ const Filters = () => {
   const { state, dispatch } = useSearchContext();
   const [additionalFiltersVisible, setAdditionalFiltersVisible] = useState(false);
 
+  const sortAgeGroups = (a: string, b: string): -1 | 0 | 1 => {
+    const matchA = parseInt(/^.*\((\d+)-.+\)$/.exec(a)?.[1] || '-1');
+    const matchB = parseInt(/^.*\((\d+)-.+\)$/.exec(b)?.[1] || '-1');
+
+    return matchA > matchB ? 1 : -1;
+  }
+
   return (
     <div className="bg-white border-b border-lightBlue">
       <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4 px-4 md:px-0">
@@ -25,7 +32,7 @@ const Filters = () => {
           />
         </div>
         <div className="my-3">
-          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" limit={50} defaultRefinement={state.searchState.refinementList?.['age_group.title']} />
+          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" limit={50} defaultRefinement={state.searchState.refinementList?.['age_group.title']} sortFunction={sortAgeGroups} />
         </div>
         <button
           className={clsx(

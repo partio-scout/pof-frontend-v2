@@ -1,38 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connectRefinementList } from 'react-instantsearch-dom';
-import { RefinementListProvided } from 'react-instantsearch-core';
+import { RefinementListProvided, Hit } from 'react-instantsearch-core';
 import DropdownSelect from '../dropdownSelect';
-import { compareRefinementItems } from './utils';
 
-const RefinementList = connectRefinementList<RefinementListProvided & { title: string }>(
-  ({ title, items, refine, canRefine }) => {
-    const getItemTitle = (item: typeof items[0]) => {
-      const match = /^(.+?)\s?(\((.*)\))?$/.exec(item.label);
+const RefinementList = connectRefinementList<
+  RefinementListProvided & {
+    title: string;
+    sortFunction?: (a: string, b: string) => -1 | 0 | 1;
+  }
+>(({ title, items, refine, canRefine, sortFunction }) => {
+  type ItemType = typeof items[0];
 
-      if (match !== null) {
-        return {
-          title: match[1],
-          subtitle: match[3],
-        };
-      }
+  const getItemTitle = (item: ItemType) => {
+    const match = /^(.+?)\s?(\((.*)\))?$/.exec(item.label);
 
+    if (match !== null) {
       return {
-        title: item.label,
+        title: match[1],
+        subtitle: match[3],
       };
+    }
+
+    return {
+      title: item.label,
     };
-    return canRefine ? (
-      <DropdownSelect
-        items={items.sort((a, b) => (a.label > b.label ? 1 : -1))}
-        title={title}
-        getItemTitle={getItemTitle}
-        preselectedItems={items.filter((x) => x.isRefined)}
-        getItemChecked={(item) => items.every((item) => !item.isRefined) || item.isRefined}
-        onToggle={(item) => refine(item.value)}
-        onToggleAll={() => refine([])}
-        disallowEmpty
-      />
-    ) : null;
-  },
-);
+  };
+
+  const sortItems = (a: ItemType, b: ItemType) =>
+    sortFunction ? sortFunction(a.label, b.label) : a.label > b.label ? 1 : -1;
+
+  return canRefine ? (
+    <DropdownSelect
+      items={items.sort(sortItems)}
+      title={title}
+      getItemTitle={getItemTitle}
+      preselectedItems={items.filter((x) => x.isRefined)}
+      getItemChecked={(item) => items.every((item) => !item.isRefined) || item.isRefined}
+      onToggle={(item) => refine(item.value)}
+      onToggleAll={() => refine([])}
+      disallowEmpty
+    />
+  ) : null;
+});
 
 export default RefinementList;
