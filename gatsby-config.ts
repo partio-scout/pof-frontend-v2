@@ -7,6 +7,7 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: 'Partio-Ohjelma',
+    siteUrl: `https://www.partio-ohjelma.fi`,
   },
   plugins: [
     'gatsby-plugin-image',
@@ -32,12 +33,13 @@ module.exports = {
     },
     'gatsby-plugin-graphql-codegen',
     {
-      resolve: "gatsby-plugin-react-svg",
+      resolve: 'gatsby-plugin-react-svg',
       options: {
         rule: {
-          include: /\.inline\.svg$/ // See below to configure properly
-        }
-      }
-    }
+          include: /\.inline\.svg$/, // See below to configure properly
+        },
+      },
+    },
+    `gatsby-plugin-sitemap`,
   ],
 };
