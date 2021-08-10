@@ -96,7 +96,7 @@ const Search = (): React.ReactElement | null => {
     >
       <InstantSearch
         searchClient={client}
-        indexName="development_activity"
+        indexName={`${environment}_activity`}
         searchState={state.searchState}
         onSearchStateChange={onSearchStateChange}
         createURL={createURL}
