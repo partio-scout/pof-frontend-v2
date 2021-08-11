@@ -1,5 +1,8 @@
 import React from 'react';
 import Header from '../components/header';
+import BreadCrumbs from '../components/header/breadCrumbs';
+import Search from '../components/search';
+import { SearchContextProvider } from '../contexts/searchContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -53,12 +56,25 @@ const mockHeaderItems = [
   },
 ];
 
+const mockBCTrail = [
+  { name: 'Partio-ohjelma', url: '/' },
+  { name: 'Sudenpennut', url: '/sudenpennut' },
+  { name: 'Suhde itseen', url: '/' },
+  { name: 'Iltaohjelma', url: '/' },
+];
+
 const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
   return (
-    <div>
-      <Header headerItems={mockHeaderItems} showBreadCrumbs={showBreadCrumbs} />
-      <div className="mx-auto">{children}</div>
-    </div>
+    <SearchContextProvider>
+      <div className="relative">
+        <Header headerItems={mockHeaderItems} showBreadCrumbs={showBreadCrumbs} />
+        <Search />
+        <div>
+          {showBreadCrumbs && <BreadCrumbs trail={mockBCTrail} />}
+          <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
+        </div>
+      </div>
+    </SearchContextProvider>
   );
 };
 

@@ -17,6 +17,10 @@
   font-weight: bold;
 }
 
+html {
+  color: #253764;
+}
+
 p, span {
   font-family: 'SourcePro', 'sans';
 }
@@ -31,11 +35,9 @@ h1 {
 h2 {
   font-size: 3rem;
 }
-
 h3 {
   font-size: 2rem;
 }
-
 h4 {
   font-size: 1.5rem;
 }
