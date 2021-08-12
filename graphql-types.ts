@@ -276,6 +276,7 @@ export type SiteBuildTimeArgs = {
 export type SiteSiteMetadata = {
   title?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
+  siteUrl?: Maybe<Scalars['String']>;
 };
 
 export type SiteFunction = Node & {
@@ -296,15 +297,15 @@ export type SitePage = Node & {
   internalComponentName: Scalars['String'];
   componentChunkName: Scalars['String'];
   matchPath?: Maybe<Scalars['String']>;
-  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
-  pluginCreator?: Maybe<SitePlugin>;
-  pluginCreatorId?: Maybe<Scalars['String']>;
-  componentPath?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  isCreatedByStatefulCreatePages?: Maybe<Scalars['Boolean']>;
   context?: Maybe<SitePageContext>;
+  pluginCreator?: Maybe<SitePlugin>;
+  pluginCreatorId?: Maybe<Scalars['String']>;
+  componentPath?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContext = {
@@ -613,6 +614,282 @@ export type ImageSharpResize = {
   originalName?: Maybe<Scalars['String']>;
 };
 
+export type FrontPage = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  title?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  navigation?: Maybe<Array<Maybe<FrontPageNavigation>>>;
+  strapiId?: Maybe<Scalars['Int']>;
+};
+
+
+export type FrontPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type FrontPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type FrontPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type FrontPageNavigation = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  page?: Maybe<FrontPageNavigationPage>;
+  subnavigation?: Maybe<Array<Maybe<FrontPageNavigationSubnavigation>>>;
+};
+
+export type FrontPageNavigationPage = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  main_text?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+};
+
+
+export type FrontPageNavigationPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type FrontPageNavigationPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type FrontPageNavigationPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type FrontPageNavigationSubnavigation = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  page?: Maybe<FrontPageNavigationSubnavigationPage>;
+};
+
+export type FrontPageNavigationSubnavigationPage = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  main_text?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+};
+
+
+export type FrontPageNavigationSubnavigationPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type FrontPageNavigationSubnavigationPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type FrontPageNavigationSubnavigationPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiFrontPage = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  title?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  navigation?: Maybe<Array<Maybe<StrapiFrontPageNavigation>>>;
+  strapiId?: Maybe<Scalars['Int']>;
+};
+
+
+export type StrapiFrontPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiFrontPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiFrontPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiFrontPageNavigation = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  page?: Maybe<StrapiFrontPageNavigationPage>;
+  subnavigation?: Maybe<Array<Maybe<StrapiFrontPageNavigationSubnavigation>>>;
+};
+
+export type StrapiFrontPageNavigationPage = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  main_text?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+};
+
+
+export type StrapiFrontPageNavigationPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiFrontPageNavigationPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiFrontPageNavigationPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiFrontPageNavigationSubnavigation = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  page?: Maybe<StrapiFrontPageNavigationSubnavigationPage>;
+};
+
+export type StrapiFrontPageNavigationSubnavigationPage = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  main_text?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+};
+
+
+export type StrapiFrontPageNavigationSubnavigationPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiFrontPageNavigationSubnavigationPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiFrontPageNavigationSubnavigationPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiContentpage = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  title?: Maybe<Scalars['String']>;
+  main_text?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  strapiId?: Maybe<Scalars['Int']>;
+};
+
+
+export type StrapiContentpagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiContentpageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiContentpageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
 export type StrapiAgeGroup = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -876,8 +1153,11 @@ export type StrapiAgeGroupActivity_Groups = {
   created_at?: Maybe<Scalars['Date']>;
   updated_at?: Maybe<Scalars['Date']>;
   age_group?: Maybe<Scalars['Int']>;
+  parent_activity_group?: Maybe<Scalars['Int']>;
+  activity_group_category?: Maybe<Scalars['Int']>;
   main_image?: Maybe<StrapiAgeGroupActivity_GroupsMain_Image>;
   logo?: Maybe<StrapiAgeGroupActivity_GroupsLogo>;
+  files?: Maybe<Array<Maybe<StrapiAgeGroupActivity_GroupsFiles>>>;
 };
 
 
@@ -987,23 +1267,12 @@ export type StrapiAgeGroupActivity_GroupsLogoUpdated_AtArgs = {
 
 export type StrapiAgeGroupActivity_GroupsLogoFormats = {
   thumbnail?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsThumbnail>;
-  large?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsLarge>;
   small?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsSmall>;
   medium?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsMedium>;
+  large?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsLarge>;
 };
 
 export type StrapiAgeGroupActivity_GroupsLogoFormatsThumbnail = {
-  ext?: Maybe<Scalars['String']>;
-  url?: Maybe<Scalars['String']>;
-  hash?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  width?: Maybe<Scalars['Int']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsLarge = {
   ext?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   hash?: Maybe<Scalars['String']>;
@@ -1034,6 +1303,47 @@ export type StrapiAgeGroupActivity_GroupsLogoFormatsMedium = {
   size?: Maybe<Scalars['Float']>;
   width?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsLarge = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFiles = {
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localFile?: Maybe<File>;
+};
+
+
+export type StrapiAgeGroupActivity_GroupsFilesCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiAgeGroupActivity_GroupsFilesUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
 };
 
 export type StrapiAgeGroupLocalizations = {
@@ -1171,8 +1481,10 @@ export type StrapiActivityActivity_Group = {
   updated_at?: Maybe<Scalars['Date']>;
   age_group?: Maybe<Scalars['Int']>;
   parent_activity_group?: Maybe<Scalars['Int']>;
+  activity_group_category?: Maybe<Scalars['Int']>;
   main_image?: Maybe<StrapiActivityActivity_GroupMain_Image>;
   logo?: Maybe<StrapiActivityActivity_GroupLogo>;
+  files?: Maybe<Array<Maybe<StrapiActivityActivity_GroupFiles>>>;
 };
 
 
@@ -1281,13 +1593,13 @@ export type StrapiActivityActivity_GroupLogoUpdated_AtArgs = {
 };
 
 export type StrapiActivityActivity_GroupLogoFormats = {
-  thumbnail?: Maybe<StrapiActivityActivity_GroupLogoFormatsThumbnail>;
   small?: Maybe<StrapiActivityActivity_GroupLogoFormatsSmall>;
+  thumbnail?: Maybe<StrapiActivityActivity_GroupLogoFormatsThumbnail>;
   large?: Maybe<StrapiActivityActivity_GroupLogoFormatsLarge>;
   medium?: Maybe<StrapiActivityActivity_GroupLogoFormatsMedium>;
 };
 
-export type StrapiActivityActivity_GroupLogoFormatsThumbnail = {
+export type StrapiActivityActivity_GroupLogoFormatsSmall = {
   ext?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   hash?: Maybe<Scalars['String']>;
@@ -1298,7 +1610,7 @@ export type StrapiActivityActivity_GroupLogoFormatsThumbnail = {
   height?: Maybe<Scalars['Int']>;
 };
 
-export type StrapiActivityActivity_GroupLogoFormatsSmall = {
+export type StrapiActivityActivity_GroupLogoFormatsThumbnail = {
   ext?: Maybe<Scalars['String']>;
   url?: Maybe<Scalars['String']>;
   hash?: Maybe<Scalars['String']>;
@@ -1329,6 +1641,36 @@ export type StrapiActivityActivity_GroupLogoFormatsMedium = {
   size?: Maybe<Scalars['Float']>;
   width?: Maybe<Scalars['Int']>;
   height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiActivityActivity_GroupFiles = {
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localFile?: Maybe<File>;
+};
+
+
+export type StrapiActivityActivity_GroupFilesCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiActivityActivity_GroupFilesUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
 };
 
 export type StrapiActivityAge_Group = {
@@ -1718,6 +2060,7 @@ export type StrapiActivitySuggestions = {
   updated_at?: Maybe<Scalars['Date']>;
   from_web?: Maybe<Scalars['Boolean']>;
   like_count?: Maybe<Scalars['Int']>;
+  files?: Maybe<Array<Maybe<StrapiActivitySuggestionsFiles>>>;
 };
 
 
@@ -1738,6 +2081,36 @@ export type StrapiActivitySuggestionsCreated_AtArgs = {
 
 
 export type StrapiActivitySuggestionsUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiActivitySuggestionsFiles = {
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localFile?: Maybe<File>;
+};
+
+
+export type StrapiActivitySuggestionsFilesCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiActivitySuggestionsFilesUpdated_AtArgs = {
   formatString?: Maybe<Scalars['String']>;
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
@@ -1826,7 +2199,11 @@ export type SitePluginPluginOptions = {
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   apiURL?: Maybe<Scalars['String']>;
-  collectionTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  singleTypes?: Maybe<Array<Maybe<Scalars['String']>>>;
+  output?: Maybe<Scalars['String']>;
+  createLinkInHead?: Maybe<Scalars['Boolean']>;
+  entryLimit?: Maybe<Scalars['Int']>;
+  query?: Maybe<Scalars['String']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
@@ -1870,6 +2247,12 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  frontPage?: Maybe<FrontPage>;
+  allFrontPage: FrontPageConnection;
+  strapiFrontPage?: Maybe<StrapiFrontPage>;
+  allStrapiFrontPage: StrapiFrontPageConnection;
+  strapiContentpage?: Maybe<StrapiContentpage>;
+  allStrapiContentpage: StrapiContentpageConnection;
   strapiAgeGroup?: Maybe<StrapiAgeGroup>;
   allStrapiAgeGroup: StrapiAgeGroupConnection;
   strapiActivity?: Maybe<StrapiActivity>;
@@ -2032,15 +2415,15 @@ export type QuerySitePageArgs = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
-  componentPath?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
   context?: Maybe<SitePageContextFilterInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
+  componentPath?: Maybe<StringQueryOperatorInput>;
 };
 
 
@@ -2068,6 +2451,75 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: Maybe<ImageSharpFilterInput>;
   sort?: Maybe<ImageSharpSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryFrontPageArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  navigation?: Maybe<FrontPageNavigationFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+};
+
+
+export type QueryAllFrontPageArgs = {
+  filter?: Maybe<FrontPageFilterInput>;
+  sort?: Maybe<FrontPageSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryStrapiFrontPageArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  navigation?: Maybe<StrapiFrontPageNavigationFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+};
+
+
+export type QueryAllStrapiFrontPageArgs = {
+  filter?: Maybe<StrapiFrontPageFilterInput>;
+  sort?: Maybe<StrapiFrontPageSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryStrapiContentpageArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  main_text?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+};
+
+
+export type QueryAllStrapiContentpageArgs = {
+  filter?: Maybe<StrapiContentpageFilterInput>;
+  sort?: Maybe<StrapiContentpageSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -2929,6 +3381,7 @@ export type DirectorySortInput = {
 export type SiteSiteMetadataFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   description?: Maybe<StringQueryOperatorInput>;
+  siteUrl?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SiteConnection = {
@@ -2980,6 +3433,7 @@ export type SiteFieldsEnum =
   | 'buildTime'
   | 'siteMetadata___title'
   | 'siteMetadata___description'
+  | 'siteMetadata___siteUrl'
   | 'port'
   | 'host'
   | 'polyfill'
@@ -3262,76 +3716,6 @@ export type SiteFunctionSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type SitePluginFilterInput = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  resolve?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  version?: Maybe<StringQueryOperatorInput>;
-  pluginOptions?: Maybe<SitePluginPluginOptionsFilterInput>;
-  nodeAPIs?: Maybe<StringQueryOperatorInput>;
-  browserAPIs?: Maybe<StringQueryOperatorInput>;
-  ssrAPIs?: Maybe<StringQueryOperatorInput>;
-  pluginFilepath?: Maybe<StringQueryOperatorInput>;
-  packageJson?: Maybe<SitePluginPackageJsonFilterInput>;
-};
-
-export type SitePluginPluginOptionsFilterInput = {
-  base64Width?: Maybe<IntQueryOperatorInput>;
-  stripMetadata?: Maybe<BooleanQueryOperatorInput>;
-  defaultQuality?: Maybe<IntQueryOperatorInput>;
-  failOnError?: Maybe<BooleanQueryOperatorInput>;
-  isTSX?: Maybe<BooleanQueryOperatorInput>;
-  jsxPragma?: Maybe<StringQueryOperatorInput>;
-  allExtensions?: Maybe<BooleanQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  path?: Maybe<StringQueryOperatorInput>;
-  apiURL?: Maybe<StringQueryOperatorInput>;
-  collectionTypes?: Maybe<StringQueryOperatorInput>;
-  pathCheck?: Maybe<BooleanQueryOperatorInput>;
-};
-
-export type SitePluginPackageJsonFilterInput = {
-  name?: Maybe<StringQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  version?: Maybe<StringQueryOperatorInput>;
-  main?: Maybe<StringQueryOperatorInput>;
-  license?: Maybe<StringQueryOperatorInput>;
-  dependencies?: Maybe<SitePluginPackageJsonDependenciesFilterListInput>;
-  devDependencies?: Maybe<SitePluginPackageJsonDevDependenciesFilterListInput>;
-  peerDependencies?: Maybe<SitePluginPackageJsonPeerDependenciesFilterListInput>;
-  keywords?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPackageJsonDependenciesFilterListInput = {
-  elemMatch?: Maybe<SitePluginPackageJsonDependenciesFilterInput>;
-};
-
-export type SitePluginPackageJsonDependenciesFilterInput = {
-  name?: Maybe<StringQueryOperatorInput>;
-  version?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPackageJsonDevDependenciesFilterListInput = {
-  elemMatch?: Maybe<SitePluginPackageJsonDevDependenciesFilterInput>;
-};
-
-export type SitePluginPackageJsonDevDependenciesFilterInput = {
-  name?: Maybe<StringQueryOperatorInput>;
-  version?: Maybe<StringQueryOperatorInput>;
-};
-
-export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
-  elemMatch?: Maybe<SitePluginPackageJsonPeerDependenciesFilterInput>;
-};
-
-export type SitePluginPackageJsonPeerDependenciesFilterInput = {
-  name?: Maybe<StringQueryOperatorInput>;
-  version?: Maybe<StringQueryOperatorInput>;
-};
-
 export type SitePageContextFilterInput = {
   data?: Maybe<SitePageContextDataFilterInput>;
 };
@@ -3408,6 +3792,80 @@ export type SitePageContextDataActivity_GroupsFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
 };
 
+export type SitePluginFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  resolve?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  pluginOptions?: Maybe<SitePluginPluginOptionsFilterInput>;
+  nodeAPIs?: Maybe<StringQueryOperatorInput>;
+  browserAPIs?: Maybe<StringQueryOperatorInput>;
+  ssrAPIs?: Maybe<StringQueryOperatorInput>;
+  pluginFilepath?: Maybe<StringQueryOperatorInput>;
+  packageJson?: Maybe<SitePluginPackageJsonFilterInput>;
+};
+
+export type SitePluginPluginOptionsFilterInput = {
+  base64Width?: Maybe<IntQueryOperatorInput>;
+  stripMetadata?: Maybe<BooleanQueryOperatorInput>;
+  defaultQuality?: Maybe<IntQueryOperatorInput>;
+  failOnError?: Maybe<BooleanQueryOperatorInput>;
+  isTSX?: Maybe<BooleanQueryOperatorInput>;
+  jsxPragma?: Maybe<StringQueryOperatorInput>;
+  allExtensions?: Maybe<BooleanQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  path?: Maybe<StringQueryOperatorInput>;
+  apiURL?: Maybe<StringQueryOperatorInput>;
+  singleTypes?: Maybe<StringQueryOperatorInput>;
+  output?: Maybe<StringQueryOperatorInput>;
+  createLinkInHead?: Maybe<BooleanQueryOperatorInput>;
+  entryLimit?: Maybe<IntQueryOperatorInput>;
+  query?: Maybe<StringQueryOperatorInput>;
+  pathCheck?: Maybe<BooleanQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+  main?: Maybe<StringQueryOperatorInput>;
+  license?: Maybe<StringQueryOperatorInput>;
+  dependencies?: Maybe<SitePluginPackageJsonDependenciesFilterListInput>;
+  devDependencies?: Maybe<SitePluginPackageJsonDevDependenciesFilterListInput>;
+  peerDependencies?: Maybe<SitePluginPackageJsonPeerDependenciesFilterListInput>;
+  keywords?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonDependenciesFilterListInput = {
+  elemMatch?: Maybe<SitePluginPackageJsonDependenciesFilterInput>;
+};
+
+export type SitePluginPackageJsonDependenciesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonDevDependenciesFilterListInput = {
+  elemMatch?: Maybe<SitePluginPackageJsonDevDependenciesFilterInput>;
+};
+
+export type SitePluginPackageJsonDevDependenciesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePluginPackageJsonPeerDependenciesFilterListInput = {
+  elemMatch?: Maybe<SitePluginPackageJsonPeerDependenciesFilterInput>;
+};
+
+export type SitePluginPackageJsonPeerDependenciesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  version?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePageConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SitePageEdge>;
@@ -3459,81 +3917,6 @@ export type SitePageFieldsEnum =
   | 'internalComponentName'
   | 'componentChunkName'
   | 'matchPath'
-  | 'isCreatedByStatefulCreatePages'
-  | 'pluginCreator___id'
-  | 'pluginCreator___parent___id'
-  | 'pluginCreator___parent___parent___id'
-  | 'pluginCreator___parent___parent___children'
-  | 'pluginCreator___parent___children'
-  | 'pluginCreator___parent___children___id'
-  | 'pluginCreator___parent___children___children'
-  | 'pluginCreator___parent___internal___content'
-  | 'pluginCreator___parent___internal___contentDigest'
-  | 'pluginCreator___parent___internal___description'
-  | 'pluginCreator___parent___internal___fieldOwners'
-  | 'pluginCreator___parent___internal___ignoreType'
-  | 'pluginCreator___parent___internal___mediaType'
-  | 'pluginCreator___parent___internal___owner'
-  | 'pluginCreator___parent___internal___type'
-  | 'pluginCreator___children'
-  | 'pluginCreator___children___id'
-  | 'pluginCreator___children___parent___id'
-  | 'pluginCreator___children___parent___children'
-  | 'pluginCreator___children___children'
-  | 'pluginCreator___children___children___id'
-  | 'pluginCreator___children___children___children'
-  | 'pluginCreator___children___internal___content'
-  | 'pluginCreator___children___internal___contentDigest'
-  | 'pluginCreator___children___internal___description'
-  | 'pluginCreator___children___internal___fieldOwners'
-  | 'pluginCreator___children___internal___ignoreType'
-  | 'pluginCreator___children___internal___mediaType'
-  | 'pluginCreator___children___internal___owner'
-  | 'pluginCreator___children___internal___type'
-  | 'pluginCreator___internal___content'
-  | 'pluginCreator___internal___contentDigest'
-  | 'pluginCreator___internal___description'
-  | 'pluginCreator___internal___fieldOwners'
-  | 'pluginCreator___internal___ignoreType'
-  | 'pluginCreator___internal___mediaType'
-  | 'pluginCreator___internal___owner'
-  | 'pluginCreator___internal___type'
-  | 'pluginCreator___resolve'
-  | 'pluginCreator___name'
-  | 'pluginCreator___version'
-  | 'pluginCreator___pluginOptions___base64Width'
-  | 'pluginCreator___pluginOptions___stripMetadata'
-  | 'pluginCreator___pluginOptions___defaultQuality'
-  | 'pluginCreator___pluginOptions___failOnError'
-  | 'pluginCreator___pluginOptions___isTSX'
-  | 'pluginCreator___pluginOptions___jsxPragma'
-  | 'pluginCreator___pluginOptions___allExtensions'
-  | 'pluginCreator___pluginOptions___name'
-  | 'pluginCreator___pluginOptions___path'
-  | 'pluginCreator___pluginOptions___apiURL'
-  | 'pluginCreator___pluginOptions___collectionTypes'
-  | 'pluginCreator___pluginOptions___pathCheck'
-  | 'pluginCreator___nodeAPIs'
-  | 'pluginCreator___browserAPIs'
-  | 'pluginCreator___ssrAPIs'
-  | 'pluginCreator___pluginFilepath'
-  | 'pluginCreator___packageJson___name'
-  | 'pluginCreator___packageJson___description'
-  | 'pluginCreator___packageJson___version'
-  | 'pluginCreator___packageJson___main'
-  | 'pluginCreator___packageJson___license'
-  | 'pluginCreator___packageJson___dependencies'
-  | 'pluginCreator___packageJson___dependencies___name'
-  | 'pluginCreator___packageJson___dependencies___version'
-  | 'pluginCreator___packageJson___devDependencies'
-  | 'pluginCreator___packageJson___devDependencies___name'
-  | 'pluginCreator___packageJson___devDependencies___version'
-  | 'pluginCreator___packageJson___peerDependencies'
-  | 'pluginCreator___packageJson___peerDependencies___name'
-  | 'pluginCreator___packageJson___peerDependencies___version'
-  | 'pluginCreator___packageJson___keywords'
-  | 'pluginCreatorId'
-  | 'componentPath'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -3620,6 +4003,7 @@ export type SitePageFieldsEnum =
   | 'internal___mediaType'
   | 'internal___owner'
   | 'internal___type'
+  | 'isCreatedByStatefulCreatePages'
   | 'context___data___id'
   | 'context___data___educational_objectives'
   | 'context___data___educational_objectives___name'
@@ -3645,7 +4029,85 @@ export type SitePageFieldsEnum =
   | 'context___data___activity_groups'
   | 'context___data___activity_groups___activitygroup_term'
   | 'context___data___activity_groups___content'
-  | 'context___data___activity_groups___title';
+  | 'context___data___activity_groups___title'
+  | 'pluginCreator___id'
+  | 'pluginCreator___parent___id'
+  | 'pluginCreator___parent___parent___id'
+  | 'pluginCreator___parent___parent___children'
+  | 'pluginCreator___parent___children'
+  | 'pluginCreator___parent___children___id'
+  | 'pluginCreator___parent___children___children'
+  | 'pluginCreator___parent___internal___content'
+  | 'pluginCreator___parent___internal___contentDigest'
+  | 'pluginCreator___parent___internal___description'
+  | 'pluginCreator___parent___internal___fieldOwners'
+  | 'pluginCreator___parent___internal___ignoreType'
+  | 'pluginCreator___parent___internal___mediaType'
+  | 'pluginCreator___parent___internal___owner'
+  | 'pluginCreator___parent___internal___type'
+  | 'pluginCreator___children'
+  | 'pluginCreator___children___id'
+  | 'pluginCreator___children___parent___id'
+  | 'pluginCreator___children___parent___children'
+  | 'pluginCreator___children___children'
+  | 'pluginCreator___children___children___id'
+  | 'pluginCreator___children___children___children'
+  | 'pluginCreator___children___internal___content'
+  | 'pluginCreator___children___internal___contentDigest'
+  | 'pluginCreator___children___internal___description'
+  | 'pluginCreator___children___internal___fieldOwners'
+  | 'pluginCreator___children___internal___ignoreType'
+  | 'pluginCreator___children___internal___mediaType'
+  | 'pluginCreator___children___internal___owner'
+  | 'pluginCreator___children___internal___type'
+  | 'pluginCreator___internal___content'
+  | 'pluginCreator___internal___contentDigest'
+  | 'pluginCreator___internal___description'
+  | 'pluginCreator___internal___fieldOwners'
+  | 'pluginCreator___internal___ignoreType'
+  | 'pluginCreator___internal___mediaType'
+  | 'pluginCreator___internal___owner'
+  | 'pluginCreator___internal___type'
+  | 'pluginCreator___resolve'
+  | 'pluginCreator___name'
+  | 'pluginCreator___version'
+  | 'pluginCreator___pluginOptions___base64Width'
+  | 'pluginCreator___pluginOptions___stripMetadata'
+  | 'pluginCreator___pluginOptions___defaultQuality'
+  | 'pluginCreator___pluginOptions___failOnError'
+  | 'pluginCreator___pluginOptions___isTSX'
+  | 'pluginCreator___pluginOptions___jsxPragma'
+  | 'pluginCreator___pluginOptions___allExtensions'
+  | 'pluginCreator___pluginOptions___name'
+  | 'pluginCreator___pluginOptions___path'
+  | 'pluginCreator___pluginOptions___apiURL'
+  | 'pluginCreator___pluginOptions___singleTypes'
+  | 'pluginCreator___pluginOptions___output'
+  | 'pluginCreator___pluginOptions___createLinkInHead'
+  | 'pluginCreator___pluginOptions___entryLimit'
+  | 'pluginCreator___pluginOptions___query'
+  | 'pluginCreator___pluginOptions___pathCheck'
+  | 'pluginCreator___nodeAPIs'
+  | 'pluginCreator___browserAPIs'
+  | 'pluginCreator___ssrAPIs'
+  | 'pluginCreator___pluginFilepath'
+  | 'pluginCreator___packageJson___name'
+  | 'pluginCreator___packageJson___description'
+  | 'pluginCreator___packageJson___version'
+  | 'pluginCreator___packageJson___main'
+  | 'pluginCreator___packageJson___license'
+  | 'pluginCreator___packageJson___dependencies'
+  | 'pluginCreator___packageJson___dependencies___name'
+  | 'pluginCreator___packageJson___dependencies___version'
+  | 'pluginCreator___packageJson___devDependencies'
+  | 'pluginCreator___packageJson___devDependencies___name'
+  | 'pluginCreator___packageJson___devDependencies___version'
+  | 'pluginCreator___packageJson___peerDependencies'
+  | 'pluginCreator___packageJson___peerDependencies___name'
+  | 'pluginCreator___packageJson___peerDependencies___version'
+  | 'pluginCreator___packageJson___keywords'
+  | 'pluginCreatorId'
+  | 'componentPath';
 
 export type SitePageGroupConnection = {
   totalCount: Scalars['Int'];
@@ -3662,15 +4124,15 @@ export type SitePageFilterInput = {
   internalComponentName?: Maybe<StringQueryOperatorInput>;
   componentChunkName?: Maybe<StringQueryOperatorInput>;
   matchPath?: Maybe<StringQueryOperatorInput>;
-  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
-  pluginCreator?: Maybe<SitePluginFilterInput>;
-  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
-  componentPath?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  isCreatedByStatefulCreatePages?: Maybe<BooleanQueryOperatorInput>;
   context?: Maybe<SitePageContextFilterInput>;
+  pluginCreator?: Maybe<SitePluginFilterInput>;
+  pluginCreatorId?: Maybe<StringQueryOperatorInput>;
+  componentPath?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageSortInput = {
@@ -3857,6 +4319,630 @@ export type ImageSharpSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type FrontPageNavigationFilterListInput = {
+  elemMatch?: Maybe<FrontPageNavigationFilterInput>;
+};
+
+export type FrontPageNavigationFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  page?: Maybe<FrontPageNavigationPageFilterInput>;
+  subnavigation?: Maybe<FrontPageNavigationSubnavigationFilterListInput>;
+};
+
+export type FrontPageNavigationPageFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  main_text?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type FrontPageNavigationSubnavigationFilterListInput = {
+  elemMatch?: Maybe<FrontPageNavigationSubnavigationFilterInput>;
+};
+
+export type FrontPageNavigationSubnavigationFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  page?: Maybe<FrontPageNavigationSubnavigationPageFilterInput>;
+};
+
+export type FrontPageNavigationSubnavigationPageFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  main_text?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type FrontPageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<FrontPageEdge>;
+  nodes: Array<FrontPage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<FrontPageGroupConnection>;
+};
+
+
+export type FrontPageConnectionDistinctArgs = {
+  field: FrontPageFieldsEnum;
+};
+
+
+export type FrontPageConnectionMaxArgs = {
+  field: FrontPageFieldsEnum;
+};
+
+
+export type FrontPageConnectionMinArgs = {
+  field: FrontPageFieldsEnum;
+};
+
+
+export type FrontPageConnectionSumArgs = {
+  field: FrontPageFieldsEnum;
+};
+
+
+export type FrontPageConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: FrontPageFieldsEnum;
+};
+
+export type FrontPageEdge = {
+  next?: Maybe<FrontPage>;
+  node: FrontPage;
+  previous?: Maybe<FrontPage>;
+};
+
+export type FrontPageFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'title'
+  | 'locale'
+  | 'published_at'
+  | 'created_at'
+  | 'updated_at'
+  | 'navigation'
+  | 'navigation___id'
+  | 'navigation___title'
+  | 'navigation___page___id'
+  | 'navigation___page___title'
+  | 'navigation___page___main_text'
+  | 'navigation___page___locale'
+  | 'navigation___page___published_at'
+  | 'navigation___page___created_at'
+  | 'navigation___page___updated_at'
+  | 'navigation___subnavigation'
+  | 'navigation___subnavigation___id'
+  | 'navigation___subnavigation___title'
+  | 'navigation___subnavigation___page___id'
+  | 'navigation___subnavigation___page___title'
+  | 'navigation___subnavigation___page___main_text'
+  | 'navigation___subnavigation___page___locale'
+  | 'navigation___subnavigation___page___published_at'
+  | 'navigation___subnavigation___page___created_at'
+  | 'navigation___subnavigation___page___updated_at'
+  | 'strapiId';
+
+export type FrontPageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<FrontPageEdge>;
+  nodes: Array<FrontPage>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type FrontPageFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  navigation?: Maybe<FrontPageNavigationFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+};
+
+export type FrontPageSortInput = {
+  fields?: Maybe<Array<Maybe<FrontPageFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type StrapiFrontPageNavigationFilterListInput = {
+  elemMatch?: Maybe<StrapiFrontPageNavigationFilterInput>;
+};
+
+export type StrapiFrontPageNavigationFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  page?: Maybe<StrapiFrontPageNavigationPageFilterInput>;
+  subnavigation?: Maybe<StrapiFrontPageNavigationSubnavigationFilterListInput>;
+};
+
+export type StrapiFrontPageNavigationPageFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  main_text?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StrapiFrontPageNavigationSubnavigationFilterListInput = {
+  elemMatch?: Maybe<StrapiFrontPageNavigationSubnavigationFilterInput>;
+};
+
+export type StrapiFrontPageNavigationSubnavigationFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  page?: Maybe<StrapiFrontPageNavigationSubnavigationPageFilterInput>;
+};
+
+export type StrapiFrontPageNavigationSubnavigationPageFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  main_text?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StrapiFrontPageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiFrontPageEdge>;
+  nodes: Array<StrapiFrontPage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StrapiFrontPageGroupConnection>;
+};
+
+
+export type StrapiFrontPageConnectionDistinctArgs = {
+  field: StrapiFrontPageFieldsEnum;
+};
+
+
+export type StrapiFrontPageConnectionMaxArgs = {
+  field: StrapiFrontPageFieldsEnum;
+};
+
+
+export type StrapiFrontPageConnectionMinArgs = {
+  field: StrapiFrontPageFieldsEnum;
+};
+
+
+export type StrapiFrontPageConnectionSumArgs = {
+  field: StrapiFrontPageFieldsEnum;
+};
+
+
+export type StrapiFrontPageConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StrapiFrontPageFieldsEnum;
+};
+
+export type StrapiFrontPageEdge = {
+  next?: Maybe<StrapiFrontPage>;
+  node: StrapiFrontPage;
+  previous?: Maybe<StrapiFrontPage>;
+};
+
+export type StrapiFrontPageFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'title'
+  | 'locale'
+  | 'published_at'
+  | 'created_at'
+  | 'updated_at'
+  | 'navigation'
+  | 'navigation___id'
+  | 'navigation___title'
+  | 'navigation___page___id'
+  | 'navigation___page___title'
+  | 'navigation___page___main_text'
+  | 'navigation___page___locale'
+  | 'navigation___page___published_at'
+  | 'navigation___page___created_at'
+  | 'navigation___page___updated_at'
+  | 'navigation___subnavigation'
+  | 'navigation___subnavigation___id'
+  | 'navigation___subnavigation___title'
+  | 'navigation___subnavigation___page___id'
+  | 'navigation___subnavigation___page___title'
+  | 'navigation___subnavigation___page___main_text'
+  | 'navigation___subnavigation___page___locale'
+  | 'navigation___subnavigation___page___published_at'
+  | 'navigation___subnavigation___page___created_at'
+  | 'navigation___subnavigation___page___updated_at'
+  | 'strapiId';
+
+export type StrapiFrontPageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiFrontPageEdge>;
+  nodes: Array<StrapiFrontPage>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type StrapiFrontPageFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  navigation?: Maybe<StrapiFrontPageNavigationFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiFrontPageSortInput = {
+  fields?: Maybe<Array<Maybe<StrapiFrontPageFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type StrapiContentpageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiContentpageEdge>;
+  nodes: Array<StrapiContentpage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StrapiContentpageGroupConnection>;
+};
+
+
+export type StrapiContentpageConnectionDistinctArgs = {
+  field: StrapiContentpageFieldsEnum;
+};
+
+
+export type StrapiContentpageConnectionMaxArgs = {
+  field: StrapiContentpageFieldsEnum;
+};
+
+
+export type StrapiContentpageConnectionMinArgs = {
+  field: StrapiContentpageFieldsEnum;
+};
+
+
+export type StrapiContentpageConnectionSumArgs = {
+  field: StrapiContentpageFieldsEnum;
+};
+
+
+export type StrapiContentpageConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StrapiContentpageFieldsEnum;
+};
+
+export type StrapiContentpageEdge = {
+  next?: Maybe<StrapiContentpage>;
+  node: StrapiContentpage;
+  previous?: Maybe<StrapiContentpage>;
+};
+
+export type StrapiContentpageFieldsEnum =
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'title'
+  | 'main_text'
+  | 'locale'
+  | 'published_at'
+  | 'created_at'
+  | 'updated_at'
+  | 'strapiId';
+
+export type StrapiContentpageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiContentpageEdge>;
+  nodes: Array<StrapiContentpage>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type StrapiContentpageFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  main_text?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiContentpageSortInput = {
+  fields?: Maybe<Array<Maybe<StrapiContentpageFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type StrapiAgeGroupSubactivitygroup_TermFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -4032,8 +5118,11 @@ export type StrapiAgeGroupActivity_GroupsFilterInput = {
   created_at?: Maybe<DateQueryOperatorInput>;
   updated_at?: Maybe<DateQueryOperatorInput>;
   age_group?: Maybe<IntQueryOperatorInput>;
+  parent_activity_group?: Maybe<IntQueryOperatorInput>;
+  activity_group_category?: Maybe<IntQueryOperatorInput>;
   main_image?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFilterInput>;
   logo?: Maybe<StrapiAgeGroupActivity_GroupsLogoFilterInput>;
+  files?: Maybe<StrapiAgeGroupActivity_GroupsFilesFilterListInput>;
 };
 
 export type StrapiAgeGroupActivity_GroupsMain_ImageFilterInput = {
@@ -4087,23 +5176,12 @@ export type StrapiAgeGroupActivity_GroupsLogoFilterInput = {
 
 export type StrapiAgeGroupActivity_GroupsLogoFormatsFilterInput = {
   thumbnail?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsThumbnailFilterInput>;
-  large?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput>;
   small?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsSmallFilterInput>;
   medium?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsMediumFilterInput>;
+  large?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput>;
 };
 
 export type StrapiAgeGroupActivity_GroupsLogoFormatsThumbnailFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput = {
   ext?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
   hash?: Maybe<StringQueryOperatorInput>;
@@ -4134,6 +5212,35 @@ export type StrapiAgeGroupActivity_GroupsLogoFormatsMediumFilterInput = {
   size?: Maybe<FloatQueryOperatorInput>;
   width?: Maybe<IntQueryOperatorInput>;
   height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFilesFilterListInput = {
+  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsFilesFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFilesFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
 };
 
 export type StrapiAgeGroupLocalizationsFilterListInput = {
@@ -4514,6 +5621,8 @@ export type StrapiAgeGroupFieldsEnum =
   | 'activity_groups___created_at'
   | 'activity_groups___updated_at'
   | 'activity_groups___age_group'
+  | 'activity_groups___parent_activity_group'
+  | 'activity_groups___activity_group_category'
   | 'activity_groups___main_image___id'
   | 'activity_groups___main_image___name'
   | 'activity_groups___main_image___width'
@@ -4614,6 +5723,55 @@ export type StrapiAgeGroupFieldsEnum =
   | 'activity_groups___logo___localFile___childrenImageSharp'
   | 'activity_groups___logo___localFile___id'
   | 'activity_groups___logo___localFile___children'
+  | 'activity_groups___files'
+  | 'activity_groups___files___id'
+  | 'activity_groups___files___name'
+  | 'activity_groups___files___hash'
+  | 'activity_groups___files___ext'
+  | 'activity_groups___files___mime'
+  | 'activity_groups___files___size'
+  | 'activity_groups___files___url'
+  | 'activity_groups___files___provider'
+  | 'activity_groups___files___created_at'
+  | 'activity_groups___files___updated_at'
+  | 'activity_groups___files___localFile___sourceInstanceName'
+  | 'activity_groups___files___localFile___absolutePath'
+  | 'activity_groups___files___localFile___relativePath'
+  | 'activity_groups___files___localFile___extension'
+  | 'activity_groups___files___localFile___size'
+  | 'activity_groups___files___localFile___prettySize'
+  | 'activity_groups___files___localFile___modifiedTime'
+  | 'activity_groups___files___localFile___accessTime'
+  | 'activity_groups___files___localFile___changeTime'
+  | 'activity_groups___files___localFile___birthTime'
+  | 'activity_groups___files___localFile___root'
+  | 'activity_groups___files___localFile___dir'
+  | 'activity_groups___files___localFile___base'
+  | 'activity_groups___files___localFile___ext'
+  | 'activity_groups___files___localFile___name'
+  | 'activity_groups___files___localFile___relativeDirectory'
+  | 'activity_groups___files___localFile___dev'
+  | 'activity_groups___files___localFile___mode'
+  | 'activity_groups___files___localFile___nlink'
+  | 'activity_groups___files___localFile___uid'
+  | 'activity_groups___files___localFile___gid'
+  | 'activity_groups___files___localFile___rdev'
+  | 'activity_groups___files___localFile___ino'
+  | 'activity_groups___files___localFile___atimeMs'
+  | 'activity_groups___files___localFile___mtimeMs'
+  | 'activity_groups___files___localFile___ctimeMs'
+  | 'activity_groups___files___localFile___atime'
+  | 'activity_groups___files___localFile___mtime'
+  | 'activity_groups___files___localFile___ctime'
+  | 'activity_groups___files___localFile___birthtime'
+  | 'activity_groups___files___localFile___birthtimeMs'
+  | 'activity_groups___files___localFile___blksize'
+  | 'activity_groups___files___localFile___blocks'
+  | 'activity_groups___files___localFile___url'
+  | 'activity_groups___files___localFile___publicURL'
+  | 'activity_groups___files___localFile___childrenImageSharp'
+  | 'activity_groups___files___localFile___id'
+  | 'activity_groups___files___localFile___children'
   | 'localizations'
   | 'localizations___id'
   | 'localizations___locale'
@@ -4693,8 +5851,10 @@ export type StrapiActivityActivity_GroupFilterInput = {
   updated_at?: Maybe<DateQueryOperatorInput>;
   age_group?: Maybe<IntQueryOperatorInput>;
   parent_activity_group?: Maybe<IntQueryOperatorInput>;
+  activity_group_category?: Maybe<IntQueryOperatorInput>;
   main_image?: Maybe<StrapiActivityActivity_GroupMain_ImageFilterInput>;
   logo?: Maybe<StrapiActivityActivity_GroupLogoFilterInput>;
+  files?: Maybe<StrapiActivityActivity_GroupFilesFilterListInput>;
 };
 
 export type StrapiActivityActivity_GroupMain_ImageFilterInput = {
@@ -4747,13 +5907,13 @@ export type StrapiActivityActivity_GroupLogoFilterInput = {
 };
 
 export type StrapiActivityActivity_GroupLogoFormatsFilterInput = {
-  thumbnail?: Maybe<StrapiActivityActivity_GroupLogoFormatsThumbnailFilterInput>;
   small?: Maybe<StrapiActivityActivity_GroupLogoFormatsSmallFilterInput>;
+  thumbnail?: Maybe<StrapiActivityActivity_GroupLogoFormatsThumbnailFilterInput>;
   large?: Maybe<StrapiActivityActivity_GroupLogoFormatsLargeFilterInput>;
   medium?: Maybe<StrapiActivityActivity_GroupLogoFormatsMediumFilterInput>;
 };
 
-export type StrapiActivityActivity_GroupLogoFormatsThumbnailFilterInput = {
+export type StrapiActivityActivity_GroupLogoFormatsSmallFilterInput = {
   ext?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
   hash?: Maybe<StringQueryOperatorInput>;
@@ -4764,7 +5924,7 @@ export type StrapiActivityActivity_GroupLogoFormatsThumbnailFilterInput = {
   height?: Maybe<IntQueryOperatorInput>;
 };
 
-export type StrapiActivityActivity_GroupLogoFormatsSmallFilterInput = {
+export type StrapiActivityActivity_GroupLogoFormatsThumbnailFilterInput = {
   ext?: Maybe<StringQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
   hash?: Maybe<StringQueryOperatorInput>;
@@ -4795,6 +5955,24 @@ export type StrapiActivityActivity_GroupLogoFormatsMediumFilterInput = {
   size?: Maybe<FloatQueryOperatorInput>;
   width?: Maybe<IntQueryOperatorInput>;
   height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiActivityActivity_GroupFilesFilterListInput = {
+  elemMatch?: Maybe<StrapiActivityActivity_GroupFilesFilterInput>;
+};
+
+export type StrapiActivityActivity_GroupFilesFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
 };
 
 export type StrapiActivityAge_GroupFilterInput = {
@@ -5056,6 +6234,25 @@ export type StrapiActivitySuggestionsFilterInput = {
   updated_at?: Maybe<DateQueryOperatorInput>;
   from_web?: Maybe<BooleanQueryOperatorInput>;
   like_count?: Maybe<IntQueryOperatorInput>;
+  files?: Maybe<StrapiActivitySuggestionsFilesFilterListInput>;
+};
+
+export type StrapiActivitySuggestionsFilesFilterListInput = {
+  elemMatch?: Maybe<StrapiActivitySuggestionsFilesFilterInput>;
+};
+
+export type StrapiActivitySuggestionsFilesFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
 };
 
 export type StrapiActivityLocationsFilterListInput = {
@@ -5251,6 +6448,7 @@ export type StrapiActivityFieldsEnum =
   | 'activity_group___updated_at'
   | 'activity_group___age_group'
   | 'activity_group___parent_activity_group'
+  | 'activity_group___activity_group_category'
   | 'activity_group___main_image___id'
   | 'activity_group___main_image___name'
   | 'activity_group___main_image___width'
@@ -5351,6 +6549,55 @@ export type StrapiActivityFieldsEnum =
   | 'activity_group___logo___localFile___childrenImageSharp'
   | 'activity_group___logo___localFile___id'
   | 'activity_group___logo___localFile___children'
+  | 'activity_group___files'
+  | 'activity_group___files___id'
+  | 'activity_group___files___name'
+  | 'activity_group___files___hash'
+  | 'activity_group___files___ext'
+  | 'activity_group___files___mime'
+  | 'activity_group___files___size'
+  | 'activity_group___files___url'
+  | 'activity_group___files___provider'
+  | 'activity_group___files___created_at'
+  | 'activity_group___files___updated_at'
+  | 'activity_group___files___localFile___sourceInstanceName'
+  | 'activity_group___files___localFile___absolutePath'
+  | 'activity_group___files___localFile___relativePath'
+  | 'activity_group___files___localFile___extension'
+  | 'activity_group___files___localFile___size'
+  | 'activity_group___files___localFile___prettySize'
+  | 'activity_group___files___localFile___modifiedTime'
+  | 'activity_group___files___localFile___accessTime'
+  | 'activity_group___files___localFile___changeTime'
+  | 'activity_group___files___localFile___birthTime'
+  | 'activity_group___files___localFile___root'
+  | 'activity_group___files___localFile___dir'
+  | 'activity_group___files___localFile___base'
+  | 'activity_group___files___localFile___ext'
+  | 'activity_group___files___localFile___name'
+  | 'activity_group___files___localFile___relativeDirectory'
+  | 'activity_group___files___localFile___dev'
+  | 'activity_group___files___localFile___mode'
+  | 'activity_group___files___localFile___nlink'
+  | 'activity_group___files___localFile___uid'
+  | 'activity_group___files___localFile___gid'
+  | 'activity_group___files___localFile___rdev'
+  | 'activity_group___files___localFile___ino'
+  | 'activity_group___files___localFile___atimeMs'
+  | 'activity_group___files___localFile___mtimeMs'
+  | 'activity_group___files___localFile___ctimeMs'
+  | 'activity_group___files___localFile___atime'
+  | 'activity_group___files___localFile___mtime'
+  | 'activity_group___files___localFile___ctime'
+  | 'activity_group___files___localFile___birthtime'
+  | 'activity_group___files___localFile___birthtimeMs'
+  | 'activity_group___files___localFile___blksize'
+  | 'activity_group___files___localFile___blocks'
+  | 'activity_group___files___localFile___url'
+  | 'activity_group___files___localFile___publicURL'
+  | 'activity_group___files___localFile___childrenImageSharp'
+  | 'activity_group___files___localFile___id'
+  | 'activity_group___files___localFile___children'
   | 'age_group___id'
   | 'age_group___title'
   | 'age_group___ingress'
@@ -5564,6 +6811,55 @@ export type StrapiActivityFieldsEnum =
   | 'suggestions___updated_at'
   | 'suggestions___from_web'
   | 'suggestions___like_count'
+  | 'suggestions___files'
+  | 'suggestions___files___id'
+  | 'suggestions___files___name'
+  | 'suggestions___files___hash'
+  | 'suggestions___files___ext'
+  | 'suggestions___files___mime'
+  | 'suggestions___files___size'
+  | 'suggestions___files___url'
+  | 'suggestions___files___provider'
+  | 'suggestions___files___created_at'
+  | 'suggestions___files___updated_at'
+  | 'suggestions___files___localFile___sourceInstanceName'
+  | 'suggestions___files___localFile___absolutePath'
+  | 'suggestions___files___localFile___relativePath'
+  | 'suggestions___files___localFile___extension'
+  | 'suggestions___files___localFile___size'
+  | 'suggestions___files___localFile___prettySize'
+  | 'suggestions___files___localFile___modifiedTime'
+  | 'suggestions___files___localFile___accessTime'
+  | 'suggestions___files___localFile___changeTime'
+  | 'suggestions___files___localFile___birthTime'
+  | 'suggestions___files___localFile___root'
+  | 'suggestions___files___localFile___dir'
+  | 'suggestions___files___localFile___base'
+  | 'suggestions___files___localFile___ext'
+  | 'suggestions___files___localFile___name'
+  | 'suggestions___files___localFile___relativeDirectory'
+  | 'suggestions___files___localFile___dev'
+  | 'suggestions___files___localFile___mode'
+  | 'suggestions___files___localFile___nlink'
+  | 'suggestions___files___localFile___uid'
+  | 'suggestions___files___localFile___gid'
+  | 'suggestions___files___localFile___rdev'
+  | 'suggestions___files___localFile___ino'
+  | 'suggestions___files___localFile___atimeMs'
+  | 'suggestions___files___localFile___mtimeMs'
+  | 'suggestions___files___localFile___ctimeMs'
+  | 'suggestions___files___localFile___atime'
+  | 'suggestions___files___localFile___mtime'
+  | 'suggestions___files___localFile___ctime'
+  | 'suggestions___files___localFile___birthtime'
+  | 'suggestions___files___localFile___birthtimeMs'
+  | 'suggestions___files___localFile___blksize'
+  | 'suggestions___files___localFile___blocks'
+  | 'suggestions___files___localFile___url'
+  | 'suggestions___files___localFile___publicURL'
+  | 'suggestions___files___localFile___childrenImageSharp'
+  | 'suggestions___files___localFile___id'
+  | 'suggestions___files___localFile___children'
   | 'locations'
   | 'locations___id'
   | 'locations___name'
@@ -5922,7 +7218,11 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___name'
   | 'pluginOptions___path'
   | 'pluginOptions___apiURL'
-  | 'pluginOptions___collectionTypes'
+  | 'pluginOptions___singleTypes'
+  | 'pluginOptions___output'
+  | 'pluginOptions___createLinkInHead'
+  | 'pluginOptions___entryLimit'
+  | 'pluginOptions___query'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
