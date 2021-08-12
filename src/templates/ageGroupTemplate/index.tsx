@@ -30,7 +30,6 @@ const mockHighlihts = [
 
 const AgeGroupTemplate = ({ pageContext }: PageProps<object, AgeGroupPageTemplateProps>) => (
   <Layout showBreadCrumbs={true}>
-    {console.log('RR agegroup props: ', pageContext)}
     <div className="relative overflow-hidden h-86 mb-8">
       <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
       <img src={mockHero} className="w-full max-h-6/8 "></img>
