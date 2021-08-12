@@ -7,6 +7,7 @@ import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps } from 'gatsby';
 import { StrapiActivity } from '../../../graphql-types';
+import SuggestionsSection from './suggestionsSection/';
 
 interface ActivityPageTemplateProps {
   data: StrapiActivity;
@@ -30,6 +31,7 @@ const ActivityPageTemplate = ({ pageContext }: PageProps<object, ActivityPageTem
       <h2 className="text-blue mt-2">{pageContext.data.title}</h2>
       <ActivityContentSection data={pageContext.data} />
       <ActivitySpecsSection data={pageContext.data} />
+      <SuggestionsSection data={pageContext.data} activityId={pageContext.data.id} />
     </PaddedContainer>
   </Layout>
 );
