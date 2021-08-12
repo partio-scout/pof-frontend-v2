@@ -4,7 +4,7 @@ import { getAllActivities } from './src/queries/activity';
 import { getAllAgeGroups } from './src/queries/ageGroup';
 import { getFrontPage } from './src/queries/frontPage';
 import { getContentPage } from './src/queries/contentPage';
-import { StrapiFrontPage, StrapiFrontPageNavigation, StrapiContentpage } from './graphql-types';
+import { StrapiFrontPage, StrapiFrontPageNavigation, StrapiContentpage, Maybe } from './graphql-types';
 
 const parseActivityRouteName = (name: string) => name.toLowerCase().split(' ').join('-');
 
@@ -41,7 +41,7 @@ const makeRequest = (graphql: CreatePagesArgs['graphql'], request: string): Prom
   });
 
 exports.createPages = async ({ graphql, actions }: CreatePagesArgs) => {
-  const { createPage, createNode } = actions;
+  const { createPage } = actions;
 
   const promises = pageGenerationObjects.map((pageGenerationObject) =>
     makeRequest(graphql, pageGenerationObject.queryFunction).then((result) => {
@@ -62,7 +62,10 @@ exports.createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   return Promise.all(promises);
 };
 
-async function handleFrontPageData(graphql: CreatePagesArgs['graphql'], createPage: Actions['createPage']) {
+async function handleFrontPageData(
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+) {
   const frontPageResponse = await makeRequest(graphql, getFrontPage);
   const frontPage = (frontPageResponse.data as { strapiFrontPage: StrapiFrontPage }).strapiFrontPage as StrapiFrontPage;
 
@@ -137,6 +140,39 @@ function createStrapiFrontPageNode(
         contentDigest: createContentDigest(node),
       },
       ...rest,
+    },
+    {
+      name: 'custom-strapi-data-plugin',
+    },
+  );
+
+  const navigationItemFilter = (navigationItem: Maybe<StrapiFrontPageNavigation>) =>
+    navigationItem?.id && navigationItem.title && navigationItem.page?.id;
+
+  const navigationData =
+    frontPage.navigation?.filter(navigationItemFilter).map((navigationItem) => ({
+      title: navigationItem?.title,
+      path: '/' + parseActivityRouteName(navigationItem?.page?.title!),
+      subitems: navigationItem?.subnavigation?.filter(navigationItemFilter).map((subitem) => ({
+        title: subitem?.title,
+        path:
+          '/' +
+          parseActivityRouteName(navigationItem?.page?.title!) +
+          '/' +
+          parseActivityRouteName(subitem?.page?.title!),
+      })),
+    })) || [];
+
+  createNode(
+    {
+      id: 'strapi-navigation',
+      children: [],
+      parent: null,
+      internal: {
+        type: 'Navigation',
+        contentDigest: createContentDigest(node),
+      },
+      items: navigationData,
     },
     {
       name: 'custom-strapi-data-plugin',

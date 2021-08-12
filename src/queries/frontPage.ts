@@ -3,16 +3,18 @@ export const getFrontPage = `
   strapiFrontPage {
     title
     navigation {
-      title
       id
+      title
       page {
         id
+        title
       }
       subnavigation {
-        title
         id
+        title
         page {
           id
+          title
         }
       }
     }
