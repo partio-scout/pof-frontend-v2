@@ -27,6 +27,9 @@ module.exports = {
         hardBlue: {
           DEFAULT: '#28AAE1',
         },
+        highlightBlue: {
+          DEFAULT: '#D4EEF9',
+        },
         gray: {
           dark: '#6A6A6A',
           DEFAULT: '#EAEAEA',
@@ -52,12 +55,16 @@ module.exports = {
         },
       },
       spacing: {
+        '0.5': '0.25rem',
         1: '0.5rem',
         2: '0.75rem',
         3: '1rem',
         4: '1.5rem',
         5: '2rem',
         6: '3rem',
+      },
+      inset: {
+        'full+1': 'calc(100% + .5rem)',
       },
     },
     fontFamily: {
