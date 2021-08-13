@@ -1,11 +1,8 @@
-import { graphql, useStaticQuery } from 'gatsby';
-
 export const getAllActivities = `
-{
-  allStrapiActivity {
-    edges {
-      node {
-        strapiId
+  {
+    allStrapiActivity {
+      nodes {
+        id
         educational_objectives {
           name
           slug

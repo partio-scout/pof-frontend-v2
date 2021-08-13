@@ -1,18 +1,14 @@
-import { graphql, useStaticQuery } from 'gatsby';
-
 export const getAllAgeGroups = `
 {
   allStrapiAgeGroup {
-    edges {
-      node {
+    nodes {
+      content
+      activity_groups {
+        activitygroup_term
         content
-        activity_groups {
-          activitygroup_term
-          content
-          title
-        }
         title
       }
+      title
     }
   }
 }

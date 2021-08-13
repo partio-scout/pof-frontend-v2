@@ -28,7 +28,11 @@ module.exports = {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.API_URL,
-        collectionTypes: ['activity', 'age-group'],
+        collectionTypes: ['activity', 'age-group', {
+          name: 'contentpage',
+          endpoint: 'content-pages'
+        }],
+        singleTypes: ['front-page'],
       },
     },
     'gatsby-plugin-graphql-codegen',
