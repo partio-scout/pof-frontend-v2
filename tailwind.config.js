@@ -10,6 +10,9 @@ module.exports = {
         '4.5rem': '4.5rem',
         '23.5rem': '23.5rem',
       },
+      zIndex: {
+        '-10': '-10',
+      },
       fontSize: {
         '2rem': '2rem',
       },
