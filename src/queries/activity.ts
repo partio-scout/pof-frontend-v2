@@ -32,7 +32,17 @@ export const getAllActivities = `
           slug
         }
         leader_tasks
+        suggestions {
+          author
+          id
+          like_count
+          title
+          activity
+          content
+        }
       }
     }
   }
+}
+
 `;
