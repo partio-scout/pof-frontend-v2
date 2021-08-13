@@ -4,7 +4,7 @@ type BreadCrumbsProps = {
   trail: Array<BreadCrumb>;
 };
 
-interface BreadCrumb {
+export interface BreadCrumb {
   name: string;
   url: string;
 }

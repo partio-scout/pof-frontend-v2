@@ -2,7 +2,7 @@ import React from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { useLocation } from '@reach/router';
 import Header, { HeaderItem } from '../components/header';
-import BreadCrumbs from '../components/header/breadCrumbs';
+import BreadCrumbs, { BreadCrumb } from '../components/header/breadCrumbs';
 import Search from '../components/search';
 import { SearchContextProvider } from '../contexts/searchContext';
 import { Maybe, Navigation, NavigationItems, StrapiAgeGroup, SitePage } from '../../graphql-types';
@@ -54,6 +54,32 @@ const mockBCTrail = [
 
 const currentLocale = 'fi';
 
+const checkHeaderItemForPath = (path: string, headerItem: HeaderItem): HeaderItem[] | null => {
+  if (headerItem.url === path) return [headerItem];
+
+  for (const item of headerItem.subMenu || []) {
+    const match = checkHeaderItemForPath(path, item);
+    if (match !== null) return [ headerItem, ...match ];
+  }
+  return null;
+}
+
+const findPath = (path: string, navigation: HeaderItem[]): BreadCrumb[] => {  
+  let foundPath: HeaderItem[]  = [];
+  for (const item of navigation) {
+    const match = checkHeaderItemForPath(path, item);
+    if (match !== null) {
+      foundPath = match;
+      break;
+    };
+  }
+
+  return foundPath.map((item) => ({
+    name: item.name!,
+    url: item.url!,
+  }))
+}
+
 const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
   const { allNavigation, allSitePage } =
     useStaticQuery<{ allNavigation: { nodes: Navigation[] }; allSitePage: { nodes: SitePage[] } }>(navigationQuery);
@@ -90,6 +116,9 @@ const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
   }]
 
   const combinedHeaderItems = programNavigation.concat(navigationItems);
+
+  const path = findPath(pathname, combinedHeaderItems);
+  console.log(path);
 
   return (
     <SearchContextProvider>
