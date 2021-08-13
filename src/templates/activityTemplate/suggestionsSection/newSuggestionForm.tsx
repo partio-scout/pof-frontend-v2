@@ -37,7 +37,7 @@ const NewSuggestionForm = ({
     <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
       <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2 mt-3">
         <div className="w-1/4 space-y-2">
-          <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
+          <input name="title" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
           {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
           <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
           <span className="block text-blue">Lisää liitetiedosto</span>
@@ -62,7 +62,7 @@ const NewSuggestionForm = ({
           <span className="block">Lisää linkki</span>
           <div className="relative">
             <LinkIcon className="fill-current absolute top-3 left-3" />
-            <input defaultValue="url" className={`${inputStyle} pl-6`} onChange={onLinkChange} />
+            <input placeholder="url" className={`${inputStyle} pl-6`} onChange={onLinkChange} />
           </div>
           <div className="flex">
             <input
@@ -82,7 +82,7 @@ const NewSuggestionForm = ({
         <div className="w-3/4 relative">
           <textarea
             className="w-full h-full rounded-xl p-2 text-blue focus:outline-none"
-            name="text"
+            name="content"
             onChange={onFieldChange}
           ></textarea>
           <button

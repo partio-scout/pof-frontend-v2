@@ -5,7 +5,7 @@ import ConfirmationModal from './confirmationModal';
 import { StrapiActivity } from '../../../../graphql-types';
 
 interface SuggestionsSectionProps {
-  activityId: string;
+  activityId: number;
   data: StrapiActivity;
 }
 
@@ -14,17 +14,15 @@ export interface Error {
   err?: any;
 }
 
-const parseActivityId = (id: string) => id.split('_')[1];
-
 interface InitialSuggestion {
-  author: string;
-  text: string;
+  title: string;
+  content: string;
   links: Array<{ url: string; description: string }>;
 }
 
 const initialSuggestion: InitialSuggestion = {
-  author: '',
-  text: '',
+  title: '',
+  content: '',
   links: [],
 };
 
@@ -38,7 +36,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const suggestionValid = () =>
-    newSuggestion.author && newSuggestion.text && newSuggestion.author !== '' && newSuggestion.text !== '';
+    newSuggestion.title && newSuggestion.content && newSuggestion.title !== '' && newSuggestion.content !== '';
 
   const openConfirmationModal = () => {
     setSuggestionPostSent(false);
@@ -58,9 +56,9 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const postNewSuggestion = () => {
     const formData = new FormData();
-    formData.append('data', JSON.stringify({ ...newSuggestion }));
+    formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
     selectedFile && formData.append('files.files', selectedFile!, selectedFile.name);
-    fetch(`${process.env.API_URL}suggestions/${parseActivityId(activityId)}/comment`, {
+    fetch(`${process.env.API_URL}suggestions/new`, {
       method: 'post',
       body: formData,
     })

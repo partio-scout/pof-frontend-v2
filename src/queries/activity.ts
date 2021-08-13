@@ -5,7 +5,7 @@ export const getAllActivities = `
   allStrapiActivity {
     edges {
       node {
-        id
+        strapiId
         educational_objectives {
           name
           slug
@@ -42,7 +42,6 @@ export const getAllActivities = `
           title
           activity
           content
-          published_at(locale: "FI")
         }
       }
     }

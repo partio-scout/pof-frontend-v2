@@ -31,7 +31,7 @@ const ActivityPageTemplate = ({ pageContext }: PageProps<object, ActivityPageTem
       <h2 className="text-blue mt-2">{pageContext.data.title}</h2>
       <ActivityContentSection data={pageContext.data} />
       <ActivitySpecsSection data={pageContext.data} />
-      <SuggestionsSection data={pageContext.data} activityId={pageContext.data.id} />
+      <SuggestionsSection data={pageContext.data} activityId={pageContext.data.strapiId!} />
     </PaddedContainer>
   </Layout>
 );
