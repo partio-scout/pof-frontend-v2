@@ -1,20 +1,28 @@
-export const getFrontPage = `
+export const getAllFrontPages = `
 {
-  strapiFrontPage {
-    title
-    navigation {
-      id
-      title
-      page {
+  allStrapiFrontPage {
+    nodes {
+      locale
+      localizations {
+        locale
         id
-        title
       }
-      subnavigation {
+      title
+      strapiId
+      navigation {
         id
         title
         page {
           id
           title
+        }
+        subnavigation {
+          id
+          title
+          page {
+            id
+            title
+          }
         }
       }
     }

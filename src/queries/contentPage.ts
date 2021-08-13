@@ -1,12 +1,12 @@
+import { commonFragment } from './common';
+
 export const getContentPage = `
   query getContentPage($id: Int!) {
     strapiContentpage(strapiId: { eq: $id }) {
-      title
+      ${commonFragment}
       content
-      locale
       main_text
       ingress
-      strapiId
     }
   }
 `;
