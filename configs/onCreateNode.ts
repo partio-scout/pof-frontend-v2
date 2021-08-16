@@ -2,11 +2,16 @@ import { Actions, CreateNodeArgs, Node } from 'gatsby';
 import { Maybe, StrapiFrontPage, StrapiFrontPageNavigation } from '../graphql-types';
 import { parseActivityRouteName } from './utils';
 
-function createStrapiFrontPageNode(
+/**
+ * Reads navigation data from StrapiFrontPage nodes and write them as Navigation nodes.
+ * NOTE: The Navigation nodes only contain navigation for content pages and NOT for program data (ageGroups, activityGroups and activities).
+ */
+function createNavigationNodes(
   node: Node,
   actions: Actions,
   createContentDigest: CreateNodeArgs['createContentDigest'],
 ) {
+  // This is run for all created nodes but we only want to act on StrapiFrontPages
   if (node.internal.type !== 'StrapiFrontPage') return;
 
   const { createNode } = actions;
@@ -49,7 +54,7 @@ function createStrapiFrontPageNode(
 }
 
 const onCreateNode = ({ node, actions, createContentDigest }: CreateNodeArgs) => {
-  createStrapiFrontPageNode(node, actions, createContentDigest);
+  createNavigationNodes(node, actions, createContentDigest);
 };
 
 export default onCreateNode;
