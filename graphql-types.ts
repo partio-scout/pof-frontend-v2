@@ -10594,3 +10594,20 @@ export type SitePluginSortInput = {
   fields?: Maybe<Array<Maybe<SitePluginFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
+
+export type NavigationsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type NavigationsQuery = { allNavigation: { nodes: Array<(
+      Pick<Navigation, 'id'>
+      & { items?: Maybe<Array<Maybe<(
+        Pick<NavigationItems, 'path' | 'title'>
+        & { subitems?: Maybe<Array<Maybe<Pick<NavigationItemsSubitems, 'path' | 'title'>>>> }
+      )>>> }
+    )> }, allSitePage: { nodes: Array<(
+      Pick<SitePage, 'path'>
+      & { context?: Maybe<(
+        Pick<SitePageContext, 'type'>
+        & { data?: Maybe<Pick<SitePageContextData, 'title' | 'locale' | 'minimum_age' | 'maximum_age'>> }
+      )> }
+    )> } };
