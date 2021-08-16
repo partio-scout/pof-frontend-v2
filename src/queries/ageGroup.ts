@@ -29,6 +29,7 @@ query MyQuery {
       activity_groups {
         id
       }
+      title
     }
   }
 }
