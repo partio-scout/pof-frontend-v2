@@ -58,5 +58,15 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
+    {
+      resolve: `gatsby-plugin-schema-snapshot`,
+      options: {
+        path: `schema.gql`,
+        exclude: {
+          types: ['SitePage']
+        },
+        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
+      },
+    },
   ],
 };
