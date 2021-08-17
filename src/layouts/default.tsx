@@ -6,50 +6,14 @@ import BreadCrumbs, { BreadCrumb } from '../components/header/breadCrumbs';
 import Search from '../components/search';
 import { SearchContextProvider } from '../contexts/searchContext';
 import { Maybe, Navigation, NavigationItems, Program_Navigation } from '../../graphql-types';
+import useNavigation from '../hooks/navigation';
 
 interface LayoutProps {
   children: React.ReactNode;
   showBreadCrumbs?: boolean;
 }
 
-// Since the Navigation nodes contain only content pages' navigation data,
-// we need to get the program data's navigation from the created Gatsby SitePages
-const navigationQuery = graphql`
-  query Navigations {
-    allNavigation {
-      nodes {
-        id
-        items {
-          path
-          title
-          subitems {
-            path
-            title
-          }
-        }
-      }
-    }
-    allProgramNavigation {
-      nodes {
-        id
-        items {
-          path
-          title
-          subitems {
-            path
-            subitems {
-              title
-              path
-            }
-            title
-          }
-          maximum_age
-          minimum_age
-        }
-      }
-    }
-  }
-`;
+
 
 const mockBCTrail = [
   { name: 'Partio-ohjelma', url: '/' },
@@ -87,55 +51,16 @@ const findPath = (path: string, navigation: HeaderItem[]): BreadCrumb[] => {
 };
 
 const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
-  const { allNavigation, allProgramNavigation } =
-    useStaticQuery<{ allNavigation: { nodes: Navigation[] }; allProgramNavigation: { nodes: Program_Navigation[] } }>(
-      navigationQuery,
-    );
-
   const { pathname } = useLocation();
+  const navigation = useNavigation(currentLocale);
 
-  const itemFilter = (item: Maybe<NavigationItems>) => item?.title && item.path;
-
-  const contentPageNavigation: HeaderItem[] =
-    allNavigation?.nodes
-      .find((node) => node.id === 'strapi-navigation-' + currentLocale)
-      ?.items?.filter(itemFilter)
-      .map((item) => ({
-        name: item?.title!,
-        url: item?.path!,
-        subMenu:
-          item?.subitems?.filter(itemFilter).map((subitem) => ({ name: subitem?.title!, url: subitem?.path! })) || [],
-      })) || [];
-
-  // Program data navigation items are filtered by their locale here and not in the graphql query because
-  // Gatsby's useStaticQuery doesn't allow the use of variables.
-  const programItems: HeaderItem[] =
-    allProgramNavigation.nodes
-      .find((node) => node.id === 'strapi-program-navigation-' + currentLocale)
-      ?.items?.sort((a, b) => ((a?.minimum_age || 0) < (b?.minimum_age || 0) ? -1 : 1))
-      .map((node) => ({
-        name: node?.title!.replace(/\s\(.*\)/, '') as string,
-        url: node?.path || undefined,
-        ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
-      })) || [];
-
-  const programNavigation: HeaderItem[] = [
-    {
-      name: 'Partio-ohjelma',
-      url: '/',
-      subMenu: programItems,
-    },
-  ];
-
-  const combinedHeaderItems = programNavigation.concat(contentPageNavigation);
-
-  const path = findPath(pathname, combinedHeaderItems);
+  const path = findPath(pathname, navigation);
   console.log(path);
 
   return (
     <SearchContextProvider>
       <div className="relative">
-        <Header headerItems={combinedHeaderItems} showBreadCrumbs={showBreadCrumbs} />
+        <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
         <Search />
         <div>
           {showBreadCrumbs && <BreadCrumbs trail={mockBCTrail} />}
