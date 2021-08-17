@@ -11,13 +11,13 @@ interface SuggestionsProps {
 const Suggestions = ({ data }: SuggestionsProps) => (
   <>
     {data.suggestions!.map((suggestion) => (
-      <div>
+      <div key={suggestion?.id}>
         <div className="bg-gray-light rounded-t-xl p-4 mt-3">
           <img></img>
           <h4 className="text-blue">{suggestion!.title}</h4>
           <span>{parseDate(suggestion!.published_at)}</span>
           <span className="text-blue font-semibold ml-2 inline-block">
-            {suggestion.title !== '' ? suggestion!.author : 'Anonyymi'}
+            {suggestion?.title !== '' ? suggestion!.author : 'Anonyymi'}
           </span>
           <p>{suggestion!.content}</p>
         </div>
