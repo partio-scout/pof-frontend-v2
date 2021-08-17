@@ -1,6 +1,6 @@
-import { graphql, useStaticQuery } from "gatsby";
-import { Maybe, Navigation, NavigationItems, Program_Navigation } from "../../graphql-types";
-import { HeaderItem } from "../components/header";
+import { graphql, useStaticQuery } from 'gatsby';
+import { Maybe, Navigation, NavigationItems, Program_Navigation } from '../../graphql-types';
+import { HeaderItem } from '../components/header';
 
 // Since the Navigation nodes contain only content pages' navigation data,
 // we need to get the program data's navigation from the created Gatsby SitePages
@@ -47,7 +47,6 @@ const useNavigation = (currentLocale: string) => {
       navigationQuery,
     );
 
-
   const itemFilter = (item: Maybe<NavigationItems>) => item?.title && item.path;
 
   const contentPageNavigation: HeaderItem[] =
@@ -71,6 +70,16 @@ const useNavigation = (currentLocale: string) => {
         name: node?.title!.replace(/\s\(.*\)/, '') as string,
         url: node?.path || undefined,
         ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
+        subMenu:
+          node?.subitems
+            ?.filter(itemFilter)
+            .map((subitem) => ({
+              name: subitem?.title!,
+              url: subitem?.path!,
+              subMenu: subitem?.subitems
+                ?.filter(itemFilter)
+                .map((subsubitem) => ({ name: subsubitem?.title!, url: subsubitem?.path! })),
+            })) || [],
       })) || [];
 
   const programNavigation: HeaderItem[] = [
@@ -82,6 +91,6 @@ const useNavigation = (currentLocale: string) => {
   ];
 
   return programNavigation.concat(contentPageNavigation);
-}
+};
 
-export default useNavigation
+export default useNavigation;
