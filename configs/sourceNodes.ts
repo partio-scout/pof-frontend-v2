@@ -2,10 +2,12 @@ import { SourceNodesArgs } from 'gatsby';
 import { StrapiAgeGroup, StrapiActivityGroup, StrapiActivity, Maybe } from '../graphql-types';
 import { parseActivityRouteName, parseAgeGroupRouteName } from './utils';
 
-interface NavItem {
+interface ProgramNavItem {
   title: string;
   path: string;
-  subitems?: NavItem[];
+  subitems?: ProgramNavItem[];
+  minimum_age?: number;
+  maximum_age?: number;
 }
 
 const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: SourceNodesArgs) => {
@@ -35,17 +37,16 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
   const localeNavigations = ageGroups.map(([locale, ageGroups]) => {
     console.log('Creating ageGroup navigation for locale', locale);
 
-    const nav: NavItem = {
-      title: 'Program',
-      path: '/',
-      subitems: [],
-    };
+    const items: ProgramNavItem[] = [];
 
     for (const ageGroup of ageGroups) {
-      const ageGroupNav: NavItem = {
+      console.log('agegroup', ageGroup.title, 'ages', ageGroup.minimum_age, ageGroup.maximum_age);
+      const ageGroupNav: ProgramNavItem = {
         title: ageGroup.title!,
         path: '/' + parseAgeGroupRouteName(ageGroup.title!),
         subitems: [],
+        minimum_age: ageGroup.minimum_age || undefined,
+        maximum_age: ageGroup.maximum_age || undefined,
       };
 
       for (const activityGroup of ageGroup.activity_groups || []) {
@@ -55,7 +56,7 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
 
         if (!properActivityGroup) continue;
 
-        const activityGroupNav: NavItem = {
+        const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
           path: ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!),
           subitems: [],
@@ -68,7 +69,7 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
 
           if (!properActivity) continue;
 
-          const activityNav: NavItem = {
+          const activityNav: ProgramNavItem = {
             title: properActivity.title!,
             path: activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!),
           };
@@ -79,9 +80,9 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
         ageGroupNav.subitems?.push(activityGroupNav);
       }
 
-      nav.subitems?.push(ageGroupNav);
+      items?.push(ageGroupNav);
     }
-    return { locale, navigation: nav };
+    return { locale, navigation: items };
   });
 
   for (const localeNavigation of localeNavigations) {

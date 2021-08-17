@@ -1,4 +1,4 @@
-### Type definitions saved at 2021-08-17T06:45:06.667Z ###
+### Type definitions saved at 2021-08-17T07:32:34.123Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -421,13 +421,15 @@ type StrapiContentpageLocalizations {
 }
 
 type Program_Navigation implements Node @dontInfer {
-  items: Program_NavigationItems
+  items: [Program_NavigationItems]
 }
 
 type Program_NavigationItems {
   title: String
   path: String
   subitems: [Program_NavigationItemsSubitems]
+  minimum_age: Int
+  maximum_age: Int
 }
 
 type Program_NavigationItemsSubitems {
@@ -437,12 +439,6 @@ type Program_NavigationItemsSubitems {
 }
 
 type Program_NavigationItemsSubitemsSubitems {
-  title: String
-  path: String
-  subitems: [Program_NavigationItemsSubitemsSubitemsSubitems]
-}
-
-type Program_NavigationItemsSubitemsSubitemsSubitems {
   title: String
   path: String
 }
