@@ -1,4 +1,4 @@
-### Type definitions saved at 2021-08-17T07:32:34.123Z ###
+### Type definitions saved at 2021-08-18T06:15:39.838Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -426,6 +426,8 @@ type Program_Navigation implements Node @dontInfer {
 
 type Program_NavigationItems {
   title: String
+  type: String
+  id: Int
   path: String
   subitems: [Program_NavigationItemsSubitems]
   minimum_age: Int
@@ -434,27 +436,35 @@ type Program_NavigationItems {
 
 type Program_NavigationItemsSubitems {
   title: String
+  type: String
+  id: Int
   path: String
   subitems: [Program_NavigationItemsSubitemsSubitems]
 }
 
 type Program_NavigationItemsSubitemsSubitems {
   title: String
+  type: String
+  id: Int
   path: String
 }
 
-type Navigation implements Node @dontInfer {
-  items: [NavigationItems]
+type Content_Navigation implements Node @dontInfer {
+  items: [Content_NavigationItems]
 }
 
-type NavigationItems {
+type Content_NavigationItems {
   title: String
+  type: String
+  id: Int
   path: String
-  subitems: [NavigationItemsSubitems]
+  subitems: [Content_NavigationItemsSubitems]
 }
 
-type NavigationItemsSubitems {
+type Content_NavigationItemsSubitems {
   title: String
+  type: String
+  id: Int
   path: String
 }
 

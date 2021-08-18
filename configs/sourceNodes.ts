@@ -1,23 +1,83 @@
+import { Actions, CreateNodeArgs, Node } from 'gatsby';
 import { SourceNodesArgs } from 'gatsby';
-import { StrapiAgeGroup, StrapiActivityGroup, StrapiActivity, Maybe } from '../graphql-types';
+import {
+  StrapiAgeGroup,
+  StrapiActivityGroup,
+  StrapiActivity,
+  Maybe,
+  StrapiFrontPage,
+  StrapiFrontPageNavigation,
+} from '../graphql-types';
 import { parseActivityRouteName, parseAgeGroupRouteName } from './utils';
 
-interface ProgramNavItem {
+interface ContentNavigationItem {
   title: string;
   path: string;
   subitems?: ProgramNavItem[];
+  type: string;
+  id: number;
+}
+interface ProgramNavItem extends ContentNavigationItem { 
   minimum_age?: number;
   maximum_age?: number;
 }
 
-const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: SourceNodesArgs) => {
-  const { touchNode, createNode } = actions;
+/**
+ * Reads navigation data from StrapiFrontPage nodes and write them as Navigation nodes.
+ * NOTE: The Navigation nodes only contain navigation for content pages and NOT for program data (ageGroups, activityGroups and activities).
+ */
+function createContentNavigationNodes(args: SourceNodesArgs) {
+  const { getNodesByType, actions, createContentDigest } = args;
+  const nodes = getNodesByType('StrapiFrontPage');
 
-  // touch nodes to ensure they aren't garbage collected
-  getNodesByType('Navigation').forEach((node) => {
-    console.log('Touching navigation node', node.id);
-    touchNode(node);
-  });
+  for (const node of nodes) {
+    const { createNode } = actions;
+
+    const frontPage = node as unknown as StrapiFrontPage;
+
+    const navigationItemFilter = (navigationItem: Maybe<StrapiFrontPageNavigation>) =>
+      navigationItem?.id && navigationItem.title && navigationItem.page?.id;
+
+    const navigationData: ContentNavigationItem[] =
+      frontPage.navigation?.filter(navigationItemFilter).map((navigationItem) => ({
+        title: navigationItem?.title!,
+        type: 'ContentPage',
+        id: navigationItem?.page?.id!,
+        path: '/' + parseActivityRouteName(navigationItem?.page?.title!),
+        subitems: navigationItem?.subnavigation?.filter(navigationItemFilter).map((subitem) => ({
+          title: subitem?.title!,
+          type: 'ContentPage',
+          id: subitem?.page?.id!,
+          path:
+            '/' +
+            parseActivityRouteName(navigationItem?.page?.title!) +
+            '/' +
+            parseActivityRouteName(subitem?.page?.title!),
+        })),
+      })) || [];
+
+    createNode(
+      {
+        id: 'strapi-navigation-' + frontPage.locale,
+        children: [],
+        parent: null,
+        internal: {
+          type: 'Content_Navigation',
+          contentDigest: createContentDigest(node),
+        },
+        items: navigationData,
+      },
+      {
+        name: 'custom-strapi-data-plugin',
+      },
+    );
+    console.log('Created navigation node', 'strapi-navigation-' + frontPage.locale);
+  }
+}
+
+function createProgramNavigationNodes(args: SourceNodesArgs) {
+  const { getNodesByType, actions, createContentDigest } = args;
+  const { createNode } = actions;
 
   const getNodesByLocale = <TYPE extends { locale?: Maybe<string> }>(type: string) =>
     getNodesByType(type).reduce((prev, curr) => {
@@ -43,6 +103,8 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
       console.log('agegroup', ageGroup.title, 'ages', ageGroup.minimum_age, ageGroup.maximum_age);
       const ageGroupNav: ProgramNavItem = {
         title: ageGroup.title!,
+        type: 'AgeGroup',
+        id: ageGroup.strapiId!,
         path: '/' + parseAgeGroupRouteName(ageGroup.title!),
         subitems: [],
         minimum_age: ageGroup.minimum_age || undefined,
@@ -58,6 +120,8 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
 
         const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
+          type: 'ActivityGroup',
+          id: properActivityGroup.strapiId!,
           path: ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!),
           subitems: [],
         };
@@ -71,6 +135,8 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
 
           const activityNav: ProgramNavItem = {
             title: properActivity.title!,
+            type: 'Activity',
+            id: properActivity.strapiId!,
             path: activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!),
           };
 
@@ -102,6 +168,11 @@ const sourceNodes = async ({ getNodesByType, actions, createContentDigest }: Sou
       },
     );
   }
+}
+
+const sourceNodes = async (args: SourceNodesArgs) => {
+  createContentNavigationNodes(args);
+  createProgramNavigationNodes(args);
 };
 
 export default sourceNodes;
