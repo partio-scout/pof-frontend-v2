@@ -1,20 +1,24 @@
-import { graphql, useStaticQuery } from 'gatsby';
-import { Maybe, Navigation, NavigationItems, Program_Navigation } from '../../graphql-types';
+import { graphql, useStaticQuery, Node } from 'gatsby';
+import { Content_Navigation, Maybe, Program_Navigation, Program_NavigationItems } from '../../graphql-types';
 import { HeaderItem } from '../components/header';
 
 // Since the Navigation nodes contain only content pages' navigation data,
 // we need to get the program data's navigation from the created Gatsby SitePages
 const navigationQuery = graphql`
   query Navigations {
-    allNavigation {
+    allContentNavigation {
       nodes {
         id
         items {
+          id
           path
           title
+          type
           subitems {
+            id
             path
             title
+            type
           }
         }
       }
@@ -23,18 +27,24 @@ const navigationQuery = graphql`
       nodes {
         id
         items {
-          path
-          title
-          subitems {
-            path
-            subitems {
-              title
-              path
-            }
-            title
-          }
+          id
           maximum_age
           minimum_age
+          path
+          title
+          type
+          subitems {
+            id
+            path
+            title
+            type
+            subitems {
+              id
+              path
+              title
+              type
+            }
+          }
         }
       }
     }
@@ -42,22 +52,29 @@ const navigationQuery = graphql`
 `;
 
 const useNavigation = (currentLocale: string) => {
-  const { allNavigation, allProgramNavigation } =
-    useStaticQuery<{ allNavigation: { nodes: Navigation[] }; allProgramNavigation: { nodes: Program_Navigation[] } }>(
-      navigationQuery,
-    );
+  const { allContentNavigation, allProgramNavigation } = useStaticQuery<{
+    allContentNavigation: { nodes: Content_Navigation[] };
+    allProgramNavigation: { nodes: Program_Navigation[] };
+  }>(navigationQuery);
 
-  const itemFilter = (item: Maybe<NavigationItems>) => item?.title && item.path;
+  const itemFilter = (item: Maybe<Program_NavigationItems>) => item?.title && item.path;
 
   const contentPageNavigation: HeaderItem[] =
-    allNavigation?.nodes
+    allContentNavigation?.nodes
       .find((node) => node.id === 'strapi-navigation-' + currentLocale)
       ?.items?.filter(itemFilter)
       .map((item) => ({
         name: item?.title!,
         url: item?.path!,
+        type: item?.type!,
+        id: item?.id!,
         subMenu:
-          item?.subitems?.filter(itemFilter).map((subitem) => ({ name: subitem?.title!, url: subitem?.path! })) || [],
+          item?.subitems?.filter(itemFilter).map((subitem) => ({
+            name: subitem?.title!,
+            url: subitem?.path!,
+            type: subitem?.type!,
+            id: subitem?.id!,
+          })) || [],
       })) || [];
 
   // Program data navigation items are filtered by their locale here and not in the graphql query because
@@ -70,16 +87,23 @@ const useNavigation = (currentLocale: string) => {
         name: node?.title!.replace(/\s\(.*\)/, '') as string,
         url: node?.path || undefined,
         ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
+        type: node?.type!,
+        id: node?.id!,
         subMenu:
-          node?.subitems
-            ?.filter(itemFilter)
-            .map((subitem) => ({
-              name: subitem?.title!,
-              url: subitem?.path!,
-              subMenu: subitem?.subitems
-                ?.filter(itemFilter)
-                .map((subsubitem) => ({ name: subsubitem?.title!, url: subsubitem?.path! })),
-            })) || [],
+          node?.subitems?.filter(itemFilter).map((subitem) => ({
+            name: subitem?.title!,
+            url: subitem?.path!,
+            type: subitem?.type!,
+            id: subitem?.id!,
+            subMenu: subitem?.subitems
+              ?.filter(itemFilter)
+              .map((subsubitem) => ({
+                name: subsubitem?.title!,
+                url: subsubitem?.path!,
+                type: subsubitem?.type!,
+                id: subsubitem?.id!,
+              })),
+          })) || [],
       })) || [];
 
   const programNavigation: HeaderItem[] = [
@@ -87,6 +111,8 @@ const useNavigation = (currentLocale: string) => {
       name: 'Partio-ohjelma',
       url: '/',
       subMenu: programItems,
+      type: 'Root',
+      id: 0,
     },
   ];
 

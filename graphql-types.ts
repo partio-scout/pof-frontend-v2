@@ -953,6 +953,8 @@ export type Program_Navigation = Node & {
 
 export type Program_NavigationItems = {
   title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
   path?: Maybe<Scalars['String']>;
   subitems?: Maybe<Array<Maybe<Program_NavigationItemsSubitems>>>;
   minimum_age?: Maybe<Scalars['Int']>;
@@ -961,31 +963,39 @@ export type Program_NavigationItems = {
 
 export type Program_NavigationItemsSubitems = {
   title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
   path?: Maybe<Scalars['String']>;
   subitems?: Maybe<Array<Maybe<Program_NavigationItemsSubitemsSubitems>>>;
 };
 
 export type Program_NavigationItemsSubitemsSubitems = {
   title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
   path?: Maybe<Scalars['String']>;
 };
 
-export type Navigation = Node & {
+export type Content_Navigation = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
-  items?: Maybe<Array<Maybe<NavigationItems>>>;
+  items?: Maybe<Array<Maybe<Content_NavigationItems>>>;
 };
 
-export type NavigationItems = {
+export type Content_NavigationItems = {
   title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
   path?: Maybe<Scalars['String']>;
-  subitems?: Maybe<Array<Maybe<NavigationItemsSubitems>>>;
+  subitems?: Maybe<Array<Maybe<Content_NavigationItemsSubitems>>>;
 };
 
-export type NavigationItemsSubitems = {
+export type Content_NavigationItemsSubitems = {
   title?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
   path?: Maybe<Scalars['String']>;
 };
 
@@ -3502,8 +3512,8 @@ export type Query = {
   allStrapiContentpage: StrapiContentpageConnection;
   programNavigation?: Maybe<Program_Navigation>;
   allProgramNavigation: Program_NavigationConnection;
-  navigation?: Maybe<Navigation>;
-  allNavigation: NavigationConnection;
+  contentNavigation?: Maybe<Content_Navigation>;
+  allContentNavigation: Content_NavigationConnection;
   strapiFrontPage?: Maybe<StrapiFrontPage>;
   allStrapiFrontPage: StrapiFrontPageConnection;
   strapiActivityGroup?: Maybe<StrapiActivityGroup>;
@@ -3756,18 +3766,18 @@ export type QueryAllProgramNavigationArgs = {
 };
 
 
-export type QueryNavigationArgs = {
+export type QueryContentNavigationArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  items?: Maybe<NavigationItemsFilterListInput>;
+  items?: Maybe<Content_NavigationItemsFilterListInput>;
 };
 
 
-export type QueryAllNavigationArgs = {
-  filter?: Maybe<NavigationFilterInput>;
-  sort?: Maybe<NavigationSortInput>;
+export type QueryAllContentNavigationArgs = {
+  filter?: Maybe<Content_NavigationFilterInput>;
+  sort?: Maybe<Content_NavigationSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -6267,6 +6277,8 @@ export type Program_NavigationItemsFilterListInput = {
 
 export type Program_NavigationItemsFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   subitems?: Maybe<Program_NavigationItemsSubitemsFilterListInput>;
   minimum_age?: Maybe<IntQueryOperatorInput>;
@@ -6279,6 +6291,8 @@ export type Program_NavigationItemsSubitemsFilterListInput = {
 
 export type Program_NavigationItemsSubitemsFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   subitems?: Maybe<Program_NavigationItemsSubitemsSubitemsFilterListInput>;
 };
@@ -6289,7 +6303,10 @@ export type Program_NavigationItemsSubitemsSubitemsFilterListInput = {
 
 export type Program_NavigationItemsSubitemsSubitemsFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
+  subitems?: Maybe<Program_NavigationItemsSubitemsSubitemsFilterListInput>;
 };
 
 export type Program_NavigationConnection = {
@@ -6426,12 +6443,18 @@ export type Program_NavigationFieldsEnum =
   | 'internal___type'
   | 'items'
   | 'items___title'
+  | 'items___type'
+  | 'items___id'
   | 'items___path'
   | 'items___subitems'
   | 'items___subitems___title'
+  | 'items___subitems___type'
+  | 'items___subitems___id'
   | 'items___subitems___path'
   | 'items___subitems___subitems'
   | 'items___subitems___subitems___title'
+  | 'items___subitems___subitems___type'
+  | 'items___subitems___subitems___id'
   | 'items___subitems___subitems___path'
   | 'items___minimum_age'
   | 'items___maximum_age';
@@ -6458,71 +6481,75 @@ export type Program_NavigationSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
-export type NavigationItemsFilterListInput = {
-  elemMatch?: Maybe<NavigationItemsFilterInput>;
+export type Content_NavigationItemsFilterListInput = {
+  elemMatch?: Maybe<Content_NavigationItemsFilterInput>;
 };
 
-export type NavigationItemsFilterInput = {
+export type Content_NavigationItemsFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
-  subitems?: Maybe<NavigationItemsSubitemsFilterListInput>;
+  subitems?: Maybe<Content_NavigationItemsSubitemsFilterListInput>;
 };
 
-export type NavigationItemsSubitemsFilterListInput = {
-  elemMatch?: Maybe<NavigationItemsSubitemsFilterInput>;
+export type Content_NavigationItemsSubitemsFilterListInput = {
+  elemMatch?: Maybe<Content_NavigationItemsSubitemsFilterInput>;
 };
 
-export type NavigationItemsSubitemsFilterInput = {
+export type Content_NavigationItemsSubitemsFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
 };
 
-export type NavigationConnection = {
+export type Content_NavigationConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<NavigationEdge>;
-  nodes: Array<Navigation>;
+  edges: Array<Content_NavigationEdge>;
+  nodes: Array<Content_Navigation>;
   pageInfo: PageInfo;
   distinct: Array<Scalars['String']>;
   max?: Maybe<Scalars['Float']>;
   min?: Maybe<Scalars['Float']>;
   sum?: Maybe<Scalars['Float']>;
-  group: Array<NavigationGroupConnection>;
+  group: Array<Content_NavigationGroupConnection>;
 };
 
 
-export type NavigationConnectionDistinctArgs = {
-  field: NavigationFieldsEnum;
+export type Content_NavigationConnectionDistinctArgs = {
+  field: Content_NavigationFieldsEnum;
 };
 
 
-export type NavigationConnectionMaxArgs = {
-  field: NavigationFieldsEnum;
+export type Content_NavigationConnectionMaxArgs = {
+  field: Content_NavigationFieldsEnum;
 };
 
 
-export type NavigationConnectionMinArgs = {
-  field: NavigationFieldsEnum;
+export type Content_NavigationConnectionMinArgs = {
+  field: Content_NavigationFieldsEnum;
 };
 
 
-export type NavigationConnectionSumArgs = {
-  field: NavigationFieldsEnum;
+export type Content_NavigationConnectionSumArgs = {
+  field: Content_NavigationFieldsEnum;
 };
 
 
-export type NavigationConnectionGroupArgs = {
+export type Content_NavigationConnectionGroupArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
-  field: NavigationFieldsEnum;
+  field: Content_NavigationFieldsEnum;
 };
 
-export type NavigationEdge = {
-  next?: Maybe<Navigation>;
-  node: Navigation;
-  previous?: Maybe<Navigation>;
+export type Content_NavigationEdge = {
+  next?: Maybe<Content_Navigation>;
+  node: Content_Navigation;
+  previous?: Maybe<Content_Navigation>;
 };
 
-export type NavigationFieldsEnum =
+export type Content_NavigationFieldsEnum =
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -6611,30 +6638,34 @@ export type NavigationFieldsEnum =
   | 'internal___type'
   | 'items'
   | 'items___title'
+  | 'items___type'
+  | 'items___id'
   | 'items___path'
   | 'items___subitems'
   | 'items___subitems___title'
+  | 'items___subitems___type'
+  | 'items___subitems___id'
   | 'items___subitems___path';
 
-export type NavigationGroupConnection = {
+export type Content_NavigationGroupConnection = {
   totalCount: Scalars['Int'];
-  edges: Array<NavigationEdge>;
-  nodes: Array<Navigation>;
+  edges: Array<Content_NavigationEdge>;
+  nodes: Array<Content_Navigation>;
   pageInfo: PageInfo;
   field: Scalars['String'];
   fieldValue?: Maybe<Scalars['String']>;
 };
 
-export type NavigationFilterInput = {
+export type Content_NavigationFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
-  items?: Maybe<NavigationItemsFilterListInput>;
+  items?: Maybe<Content_NavigationItemsFilterListInput>;
 };
 
-export type NavigationSortInput = {
-  fields?: Maybe<Array<Maybe<NavigationFieldsEnum>>>;
+export type Content_NavigationSortInput = {
+  fields?: Maybe<Array<Maybe<Content_NavigationFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
@@ -10867,19 +10898,19 @@ export type Unnamed_1_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFr
 export type NavigationsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type NavigationsQuery = { allNavigation: { nodes: Array<(
-      Pick<Navigation, 'id'>
+export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
+      Pick<Content_Navigation, 'id'>
       & { items?: Maybe<Array<Maybe<(
-        Pick<NavigationItems, 'path' | 'title'>
-        & { subitems?: Maybe<Array<Maybe<Pick<NavigationItemsSubitems, 'path' | 'title'>>>> }
+        Pick<Content_NavigationItems, 'id' | 'path' | 'title' | 'type'>
+        & { subitems?: Maybe<Array<Maybe<Pick<Content_NavigationItemsSubitems, 'id' | 'path' | 'title' | 'type'>>>> }
       )>>> }
     )> }, allProgramNavigation: { nodes: Array<(
       Pick<Program_Navigation, 'id'>
       & { items?: Maybe<Array<Maybe<(
-        Pick<Program_NavigationItems, 'path' | 'title' | 'maximum_age' | 'minimum_age'>
+        Pick<Program_NavigationItems, 'id' | 'maximum_age' | 'minimum_age' | 'path' | 'title' | 'type'>
         & { subitems?: Maybe<Array<Maybe<(
-          Pick<Program_NavigationItemsSubitems, 'path' | 'title'>
-          & { subitems?: Maybe<Array<Maybe<Pick<Program_NavigationItemsSubitemsSubitems, 'title' | 'path'>>>> }
+          Pick<Program_NavigationItemsSubitems, 'id' | 'path' | 'title' | 'type'>
+          & { subitems?: Maybe<Array<Maybe<Pick<Program_NavigationItemsSubitemsSubitems, 'id' | 'path' | 'title' | 'type'>>>> }
         )>>> }
       )>>> }
     )> } };
