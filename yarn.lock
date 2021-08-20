@@ -2580,6 +2580,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-helmet@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@types/react-helmet/-/react-helmet-6.1.2.tgz#e9d7d16b29e4ec5716711c52c35c3cec45819eac"
+  integrity sha512-dcfAZNlWb5JYFbO9CGfrPWLJAyFcT6UeR3u35eBbv8liY2Rg4K7fM1G5+HnwVgot+C+kVwXAZ8pLEn2jsMfTDg==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react-instantsearch-core@*":
   version "6.10.4"
   resolved "https://registry.npmjs.org/@types/react-instantsearch-core/-/react-instantsearch-core-6.10.4.tgz"
