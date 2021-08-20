@@ -3,6 +3,7 @@ export enum ContentType {
   'activity-group' = 'activity-group',
   'age-group' = 'age-group',
   'suggestion' = 'suggestion',
+  'content-page' = 'content-page',
   'others' = 'others',
 }
 
