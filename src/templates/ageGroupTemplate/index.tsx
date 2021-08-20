@@ -5,6 +5,7 @@ import mockHero from '../../images/mockHero.png';
 import Layout from '../../layouts/default';
 import { PageProps } from 'gatsby';
 import { StrapiAgeGroup } from '../../../graphql-types';
+import Metadata from '../../components/metadata';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
@@ -28,16 +29,24 @@ const mockHighlihts = [
   },
 ];
 
-const AgeGroupTemplate = ({ pageContext }: PageProps<object, AgeGroupPageTemplateProps>) => (
-  <Layout showBreadCrumbs={true}>
-    <div className="relative overflow-hidden h-86 mb-8">
-      <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
-      <img src={mockHero} className="w-full max-h-6/8 "></img>
-      {/*    <div className="bg-white w-full h-16"></div> */}
-    </div>
-    <PaddedContainer>
-      <div className="md:w-3/5" dangerouslySetInnerHTML={{ __html: pageContext.data.content }} />
-      {/*   <div className="relative -mt-40 pt-2">
+const currentLocale = 'fi';
+
+const AgeGroupTemplate = ({ pageContext, path }: PageProps<object, AgeGroupPageTemplateProps>) => (
+    <Layout showBreadCrumbs={true}>
+      <Metadata
+        title={pageContext.data.title || ''}
+        description={pageContext.data.ingress || ''}
+        path={path}
+        locale={currentLocale}
+      />
+      <div className="relative overflow-hidden h-86 mb-8">
+        <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
+        <img src={mockHero} className="w-full max-h-6/8 "></img>
+        {/*    <div className="bg-white w-full h-16"></div> */}
+      </div>
+      <PaddedContainer>
+        <div className="md:w-3/5" dangerouslySetInnerHTML={{ __html: pageContext.data.content }} />
+        {/*   <div className="relative -mt-40 pt-2">
         <HeroTitleSection imageName="sudenpennut.svg" mainTitle="Sudenpennut" subTitle="7-9 vuotiaat" />
       </div>
       <div className="flex flex-row  mt-8">
@@ -70,8 +79,8 @@ const AgeGroupTemplate = ({ pageContext }: PageProps<object, AgeGroupPageTemplat
           </div>
         ))}
       </div> */}
-    </PaddedContainer>
-  </Layout>
-);
+      </PaddedContainer>
+    </Layout>
+  );
 
 export default AgeGroupTemplate;

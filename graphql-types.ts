@@ -6306,6 +6306,7 @@ export type Program_NavigationItemsSubitemsSubitemsFilterInput = {
   type?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
+  subitems?: Maybe<Program_NavigationItemsSubitemsSubitemsFilterListInput>;
 };
 
 export type Program_NavigationConnection = {
@@ -10888,6 +10889,11 @@ export type SitePluginSortInput = {
   fields?: Maybe<Array<Maybe<SitePluginFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
+
+export type Unnamed_1_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_1_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
 
 export type NavigationsQueryVariables = Exact<{ [key: string]: never; }>;
 

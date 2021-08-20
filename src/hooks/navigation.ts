@@ -1,4 +1,4 @@
-import { graphql, useStaticQuery } from 'gatsby';
+import { graphql, useStaticQuery, Node } from 'gatsby';
 import { Content_Navigation, Maybe, Program_Navigation, Program_NavigationItems } from '../../graphql-types';
 import { HeaderItem } from '../components/header';
 
