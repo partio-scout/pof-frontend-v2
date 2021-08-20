@@ -6,7 +6,16 @@ export interface MetadataProps {
   title: string;
   description: string;
   path: string;
-  locale: string;
+  locale: 'fi' | 'sv' | 'en' | 'sme' | 'smn';
+}
+
+const languageTerritories = {
+  fi: 'fi_FI',
+  sv: 'sv_SE',
+  en: 'en_US',
+  // These two are probably not correct, couldn't find anything
+  sme: 'sme', 
+  smn: 'smn'
 }
 
 /**
@@ -20,13 +29,11 @@ function Metadata({ description, title, locale, path }: MetadataProps) {
     <Helmet>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <meta property="og:locale" content="fi_FI" />
-      <meta property="og:locale:alternate" content="sv_SE" />
+      <meta property="og:locale" content={languageTerritories[locale]} />
       <meta property="og:type" content="article" />
       <meta property="og:title" content={`${title} | ${metadata.title}`} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={`${metadata.siteUrl}${path}`} />
-      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:title" content={`${title} | ${metadata.title}`} />
     </Helmet>
