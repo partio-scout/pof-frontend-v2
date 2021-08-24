@@ -17,7 +17,7 @@ const Suggestions = ({ data }: SuggestionsProps) => (
           <h4 className="text-blue">{suggestion!.title}</h4>
           <span>{parseDate(suggestion!.published_at)}</span>
           <span className="text-blue font-semibold ml-2 inline-block">
-            {suggestion.title !== '' ? suggestion!.author : 'Anonyymi'}
+            {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}
           </span>
           <p>{suggestion!.content}</p>
         </div>

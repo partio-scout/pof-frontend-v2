@@ -5,6 +5,9 @@ export const getContentPage = `
       content
       locale
       main_text
+      main_image {
+        url
+      }
       ingress
       strapiId
     }
