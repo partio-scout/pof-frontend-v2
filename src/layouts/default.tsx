@@ -1,8 +1,13 @@
 import React from 'react';
+import { useLocation } from '@reach/router';
+import Helmet from 'react-helmet';
 import Header from '../components/header';
 import BreadCrumbs from '../components/header/breadCrumbs';
 import Search from '../components/search';
 import { SearchContextProvider } from '../contexts/searchContext';
+import useNavigation from '../hooks/navigation';
+import useMetadata from '../hooks/metadata';
+import { findBreadcrumbPath } from '../utils/breadcrumbs';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,68 +15,36 @@ interface LayoutProps {
   omitPadding?: boolean;
 }
 
-const mockHeaderItems = [
-  {
-    name: 'Partio-Ohjelma',
-    subMenu: [
-      {
-        name: 'Sudenpennut',
-        ingress: '7-9 vuotiaat',
-        url: '/sudenpennut',
-      },
-      {
-        name: 'Seikkailijat',
-        ingress: '10-12 vuotiaat',
-        url: '/seikkailijat',
-      },
-      {
-        name: 'Tarpojat',
-        ingress: '15-17 vuotiaat',
-        url: '/tarpojat',
-      },
-      {
-        name: 'Samoajat',
-        ingress: '15-17 vuotiaat',
-        url: '/samoajat',
-      },
-      {
-        name: 'Vaeltajat',
-        ingress: '18-22 vuotiaat',
-        url: '/vaeltajat',
-      },
-      {
-        name: 'Perhepartio',
-        ingress: 'Lorem ipsum dolor',
-        url: '/perhepartio',
-      },
-    ],
-  },
-  {
-    name: 'Ajankohtaista',
-  },
-  {
-    name: 'Materiaalit',
-  },
-  {
-    name: 'Partiokasvatus',
-  },
-];
-
-const mockBCTrail = [
-  { name: 'Partio-ohjelma', url: '/' },
-  { name: 'Sudenpennut', url: '/sudenpennut' },
-  { name: 'Suhde itseen', url: '/' },
-  { name: 'Iltaohjelma', url: '/' },
-];
+// TODO get locale dynamically
+const currentLocale = 'fi';
 
 const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false }: LayoutProps) => {
+  const { pathname } = useLocation();
+  const navigation = useNavigation(currentLocale);
+  const metadata = useMetadata(currentLocale);
+
+  const path = findBreadcrumbPath(pathname, navigation);
+
   return (
     <SearchContextProvider>
+      <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
+        <meta name="description" content={metadata.meta_description} />
+        <meta property="og:locale" content="fi_FI" />
+        <meta property="og:locale:alternate" content="sv_SE" />
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={metadata.title} />
+        <meta property="og:description" content={metadata.meta_description} />
+        <meta property="og:url" content={`https://partio-ohjelma.fi`} />
+        <meta property="og:site_name" content={metadata.title} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:description" content={metadata.meta_description} />
+        <meta name="twitter:title" content={metadata.title} />
+      </Helmet>
       <div className="relative">
-        <Header headerItems={mockHeaderItems} showBreadCrumbs={showBreadCrumbs} />
+        <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
         <Search />
         <div>
-          {showBreadCrumbs && <BreadCrumbs trail={mockBCTrail} />}
+          {showBreadCrumbs && <BreadCrumbs trail={path} />}
           <div className={`container ${!omitPadding && 'md:px-24 2xl:px-0'} mx-auto max-w-7xl`}>{children}</div>
         </div>
       </div>

@@ -8,13 +8,22 @@ import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps } from 'gatsby';
 import { StrapiActivity } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
+import Metadata from '../../components/metadata';
 
 interface ActivityPageTemplateProps {
   data: StrapiActivity;
 }
 
-const ActivityPageTemplate = ({ pageContext }: PageProps<object, ActivityPageTemplateProps>) => (
-  <Layout>
+const currentLocale = 'fi';
+
+const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityPageTemplateProps>) => (
+  <Layout showBreadCrumbs>
+    <Metadata
+        title={pageContext.data.title || ''}
+        description={pageContext.data.ingress || ''}
+        path={path}
+        locale={currentLocale}
+      />
     <div className="relative overflow-hidden h-86 mb-8">
       <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
       <img src={mockHero} className="w-full max-h-6/8 "></img>

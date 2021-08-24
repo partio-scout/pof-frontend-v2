@@ -7,6 +7,8 @@ export interface HeaderItem {
   subMenu?: Array<HeaderItem>;
   url?: string;
   ingress?: string;
+  type: string;
+  id: number;
 }
 
 interface HeaderProps {
