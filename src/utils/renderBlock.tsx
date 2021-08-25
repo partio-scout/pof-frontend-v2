@@ -1,6 +1,6 @@
 import React from 'react';
 import { HighLightBlock, LinkBlock, ActivityBlock, GeneralBlock } from '../components/blocks';
-import { ContentPage } from './';
+import { ContentBlock } from '../components/blocks';
 
 const renderBlock = (block: ContentBlock) => {
   switch (block.strapi_component) {

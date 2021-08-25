@@ -15,6 +15,7 @@ export interface ContentBlock {
     updated_at?: string;
   };
   image?: any;
+  strapi_component?: string;
 }
 
 const getWidth = (widthString: string | undefined) => {
