@@ -7,7 +7,7 @@ import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
-import SiblingGroups from './siblingGroups';
+import ActivityGroupList from '../../components/activityGroupList';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -34,6 +34,10 @@ export const query = graphql`
               }
             }
           }
+        }
+        activity_group_category {
+          name
+          id
         }
         title
         strapiId
@@ -120,7 +124,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
         <Suggestions suggestions={suggestions.nodes} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
-        <SiblingGroups groups={otherGroups.nodes} />
+        <ActivityGroupList groups={otherGroups.nodes} />
       </div>
     </Layout>
   );
