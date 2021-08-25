@@ -1,4 +1,4 @@
-### Type definitions saved at 2021-08-25T08:20:34.878Z ###
+### Type definitions saved at 2021-08-25T11:48:16.461Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -2191,4 +2191,353 @@ type StrapiActivityLocalizations {
 
 type StrapiActivityFields {
   path: String
+}
+
+type SitePageContext @derivedTypes {
+  data: SitePageContextData
+  type: String
+  id: Int
+  ageGroupId: Int
+}
+
+type SitePageContextData @derivedTypes {
+  locale: String
+  localizations: [SitePageContextDataLocalizations]
+  title: String
+  updated_at: Date @dateformat
+  created_at: Date @dateformat
+  published_at: Date @dateformat
+  id: String
+  strapiId: Int
+  ingress: String
+  links: [SitePageContextDataLinks]
+  logo: SitePageContextDataLogo
+  maximum_age: Int
+  minimum_age: Int
+  subactivitygroup_term: SitePageContextDataSubactivitygroup_term
+  main_image: SitePageContextDataMain_image
+  activity_groups: [SitePageContextDataActivity_groups]
+  mandatory: Boolean
+  activities: [SitePageContextDataActivities]
+  activity_group_category: SitePageContextDataActivity_group_category
+  activitygroup_term: SitePageContextDataActivitygroup_term
+  subactivity_term: SitePageContextDataSubactivity_term
+  age_group: SitePageContextDataAge_group
+  duration: SitePageContextDataDuration
+  educational_objectives: [SitePageContextDataEducational_objectives]
+  files: [SitePageContextDataFiles]
+  group_sizes: [SitePageContextDataGroup_sizes]
+  images: [SitePageContextDataImages]
+  leader_skills: [SitePageContextDataLeader_skills]
+  leader_tasks: String
+  locations: [SitePageContextDataLocations]
+  preparation_duration: SitePageContextDataPreparation_duration
+  skill_areas: [SitePageContextDataSkill_areas]
+  suggestions: [SitePageContextDataSuggestions]
+  main_text: String
+}
+
+type SitePageContextDataLocalizations {
+  locale: String
+  id: Int
+}
+
+type SitePageContextDataLinks {
+  description: String
+  id: Int
+  url: String
+}
+
+type SitePageContextDataLogo @derivedTypes {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+  formats: SitePageContextDataLogoFormats
+  id: Int
+  localFile: SitePageContextDataLogoLocalFile
+}
+
+type SitePageContextDataLogoFormats @derivedTypes {
+  large: SitePageContextDataLogoFormatsLarge
+  medium: SitePageContextDataLogoFormatsMedium
+  small: SitePageContextDataLogoFormatsSmall
+  thumbnail: SitePageContextDataLogoFormatsThumbnail
+}
+
+type SitePageContextDataLogoFormatsLarge {
+  height: Int
+  mime: String
+  name: String
+  size: Float
+  url: String
+  width: Int
+}
+
+type SitePageContextDataLogoFormatsMedium {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataLogoFormatsSmall {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataLogoFormatsThumbnail {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataLogoLocalFile {
+  publicURL: String
+  url: String
+}
+
+type SitePageContextDataSubactivitygroup_term {
+  locale: String
+  name: String
+  plural: String
+  singular: String
+}
+
+type SitePageContextDataMain_image @derivedTypes {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+  formats: SitePageContextDataMain_imageFormats
+  id: Int
+  localFile: SitePageContextDataMain_imageLocalFile
+}
+
+type SitePageContextDataMain_imageFormats @derivedTypes {
+  large: SitePageContextDataMain_imageFormatsLarge
+  medium: SitePageContextDataMain_imageFormatsMedium
+  small: SitePageContextDataMain_imageFormatsSmall
+  thumbnail: SitePageContextDataMain_imageFormatsThumbnail
+}
+
+type SitePageContextDataMain_imageFormatsLarge {
+  height: Int
+  mime: String
+  name: String
+  size: Float
+  url: String
+  width: Int
+}
+
+type SitePageContextDataMain_imageFormatsMedium {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataMain_imageFormatsSmall {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataMain_imageFormatsThumbnail {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataMain_imageLocalFile {
+  publicURL: String
+  url: String
+}
+
+type SitePageContextDataActivity_groups {
+  id: Int
+}
+
+type SitePageContextDataActivities {
+  id: Int
+  title: String
+}
+
+type SitePageContextDataActivity_group_category {
+  name: String
+}
+
+type SitePageContextDataActivitygroup_term {
+  name: String
+  plural: String
+  singular: String
+}
+
+type SitePageContextDataSubactivity_term {
+  name: String
+  plural: String
+  singular: String
+}
+
+type SitePageContextDataAge_group {
+  id: Int
+  title: String
+}
+
+type SitePageContextDataDuration {
+  locale: String
+  name: String
+  slug: String
+  id: Int
+}
+
+type SitePageContextDataEducational_objectives {
+  id: Int
+  locale: String
+  name: String
+  slug: String
+}
+
+type SitePageContextDataFiles {
+  url: String
+  size: Float
+  name: String
+  mime: String
+  id: Int
+}
+
+type SitePageContextDataGroup_sizes {
+  slug: String
+  name: String
+  locale: String
+  id: Int
+}
+
+type SitePageContextDataImages @derivedTypes {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+  formats: SitePageContextDataImagesFormats
+}
+
+type SitePageContextDataImagesFormats @derivedTypes {
+  large: SitePageContextDataImagesFormatsLarge
+  medium: SitePageContextDataImagesFormatsMedium
+  small: SitePageContextDataImagesFormatsSmall
+  thumbnail: SitePageContextDataImagesFormatsThumbnail
+}
+
+type SitePageContextDataImagesFormatsLarge {
+  height: Int
+  mime: String
+  name: String
+  size: Float
+  url: String
+  width: Int
+}
+
+type SitePageContextDataImagesFormatsMedium {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataImagesFormatsSmall {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataImagesFormatsThumbnail {
+  width: Int
+  url: String
+  size: Float
+  name: String
+  mime: String
+  height: Int
+}
+
+type SitePageContextDataLeader_skills {
+  id: Int
+  locale: String
+  name: String
+  slug: String
+}
+
+type SitePageContextDataLocations {
+  slug: String
+  name: String
+  locale: String
+  id: Int
+}
+
+type SitePageContextDataPreparation_duration {
+  slug: String
+  name: String
+  locale: String
+  id: Int
+}
+
+type SitePageContextDataSkill_areas {
+  slug: String
+  name: String
+  locale: String
+  id: Int
+}
+
+type SitePageContextDataSuggestions @derivedTypes {
+  author: String
+  content: String
+  from_web: Boolean
+  id: Int
+  like_count: Int
+  locale: String
+  title: String
+  published_at: Date @dateformat
+  links: [SitePageContextDataSuggestionsLinks]
+  files: [SitePageContextDataSuggestionsFiles]
+}
+
+type SitePageContextDataSuggestionsLinks {
+  url: String
+  id: Int
+  description: String
+}
+
+type SitePageContextDataSuggestionsFiles {
+  url: String
+  size: Float
+  name: String
+  mime: String
+  id: Int
 }
