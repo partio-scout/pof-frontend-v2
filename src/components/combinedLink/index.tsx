@@ -7,15 +7,15 @@ import React from 'react';
 const CombinedLink = ({ to, className, children }: { to: string; className?: string; children: React.ReactNode }) => {
   if (to.startsWith('/')) {
     return (
-      <a href={to} className={className}>
+      <Link to={to} className={className}>
         {children}
-      </a>
+      </Link>
     );
   }
   return (
-    <Link to={to} className={className}>
+    <a href={to} className={className}>
       {children}
-    </Link>
+    </a>
   );
 };
 
