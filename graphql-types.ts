@@ -339,7 +339,6 @@ export type SitePageContextData = {
   educational_objectives?: Maybe<Array<Maybe<SitePageContextDataEducational_Objectives>>>;
   files?: Maybe<Array<Maybe<SitePageContextDataFiles>>>;
   group_sizes?: Maybe<Array<Maybe<SitePageContextDataGroup_Sizes>>>;
-  images?: Maybe<Array<Maybe<SitePageContextDataImages>>>;
   leader_skills?: Maybe<Array<Maybe<SitePageContextDataLeader_Skills>>>;
   leader_tasks?: Maybe<Scalars['String']>;
   locations?: Maybe<Array<Maybe<SitePageContextDataLocations>>>;
@@ -526,59 +525,6 @@ export type SitePageContextDataGroup_Sizes = {
   name?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataImages = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-  formats?: Maybe<SitePageContextDataImagesFormats>;
-};
-
-export type SitePageContextDataImagesFormats = {
-  large?: Maybe<SitePageContextDataImagesFormatsLarge>;
-  medium?: Maybe<SitePageContextDataImagesFormatsMedium>;
-  small?: Maybe<SitePageContextDataImagesFormatsSmall>;
-  thumbnail?: Maybe<SitePageContextDataImagesFormatsThumbnail>;
-};
-
-export type SitePageContextDataImagesFormatsLarge = {
-  height?: Maybe<Scalars['Int']>;
-  mime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  url?: Maybe<Scalars['String']>;
-  width?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataImagesFormatsMedium = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataImagesFormatsSmall = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataImagesFormatsThumbnail = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
 };
 
 export type SitePageContextDataLeader_Skills = {
@@ -5287,7 +5233,6 @@ export type SitePageContextDataFilterInput = {
   educational_objectives?: Maybe<SitePageContextDataEducational_ObjectivesFilterListInput>;
   files?: Maybe<SitePageContextDataFilesFilterListInput>;
   group_sizes?: Maybe<SitePageContextDataGroup_SizesFilterListInput>;
-  images?: Maybe<SitePageContextDataImagesFilterListInput>;
   leader_skills?: Maybe<SitePageContextDataLeader_SkillsFilterListInput>;
   leader_tasks?: Maybe<StringQueryOperatorInput>;
   locations?: Maybe<SitePageContextDataLocationsFilterListInput>;
@@ -5502,63 +5447,6 @@ export type SitePageContextDataGroup_SizesFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<IntQueryOperatorInput>;
-};
-
-export type SitePageContextDataImagesFilterListInput = {
-  elemMatch?: Maybe<SitePageContextDataImagesFilterInput>;
-};
-
-export type SitePageContextDataImagesFilterInput = {
-  width?: Maybe<IntQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-  formats?: Maybe<SitePageContextDataImagesFormatsFilterInput>;
-};
-
-export type SitePageContextDataImagesFormatsFilterInput = {
-  large?: Maybe<SitePageContextDataImagesFormatsLargeFilterInput>;
-  medium?: Maybe<SitePageContextDataImagesFormatsMediumFilterInput>;
-  small?: Maybe<SitePageContextDataImagesFormatsSmallFilterInput>;
-  thumbnail?: Maybe<SitePageContextDataImagesFormatsThumbnailFilterInput>;
-};
-
-export type SitePageContextDataImagesFormatsLargeFilterInput = {
-  height?: Maybe<IntQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-};
-
-export type SitePageContextDataImagesFormatsMediumFilterInput = {
-  width?: Maybe<IntQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type SitePageContextDataImagesFormatsSmallFilterInput = {
-  width?: Maybe<IntQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type SitePageContextDataImagesFormatsThumbnailFilterInput = {
-  width?: Maybe<IntQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePageContextDataLeader_SkillsFilterListInput = {
@@ -5962,13 +5850,6 @@ export type SitePageFieldsEnum =
   | 'context___data___group_sizes___name'
   | 'context___data___group_sizes___locale'
   | 'context___data___group_sizes___id'
-  | 'context___data___images'
-  | 'context___data___images___width'
-  | 'context___data___images___url'
-  | 'context___data___images___size'
-  | 'context___data___images___name'
-  | 'context___data___images___mime'
-  | 'context___data___images___height'
   | 'context___data___leader_skills'
   | 'context___data___leader_skills___id'
   | 'context___data___leader_skills___locale'

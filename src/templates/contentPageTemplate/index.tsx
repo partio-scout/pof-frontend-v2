@@ -2,6 +2,7 @@ import React from 'react';
 import Layout from '../../layouts/default';
 import renderBlock from '../../utils/renderBlock';
 import { StrapiContentpage } from '../../../graphql-types';
+import { ContentBlock } from '../../components/blocks';
 
 interface ContentPageTemplateProps {
   pageContext: {
@@ -13,23 +14,13 @@ interface MainContentProps {
   data: StrapiContentpage;
 }
 
-export interface ContentBlock {
-  block_width: {
-    id: number;
-    name: string;
-    created_at: string;
-    updated_at: string;
-  };
-  image: any;
-}
-
 const MainContent = ({ data }: MainContentProps) => (
   <div className="flex flex-wrap px-20">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
       <p>{data.ingress}</p>
     </div>
-    {data.main_image && <img className="w-full md:w-1/2" src={data.main_image.url}></img>}
+    {data.main_image && <img className="w-full md:w-1/2" src={data.main_image.url!}></img>}
   </div>
 );
 

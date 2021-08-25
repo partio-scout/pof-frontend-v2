@@ -1,5 +1,6 @@
 import React from 'react';
-import { HighLightBlock, LinkBlock, ActivityBlock, ContentBlock } from '../components/blocks';
+import { HighLightBlock, LinkBlock, ActivityBlock, GeneralBlock } from '../components/blocks';
+import { ContentPage } from './';
 
 const renderBlock = (block: ContentBlock) => {
   switch (block.strapi_component) {
@@ -13,7 +14,7 @@ const renderBlock = (block: ContentBlock) => {
       return <ActivityBlock block={block} />;
       break;
     default:
-      return <ContentBlock block={block} />;
+      return <GeneralBlock block={block} />;
   }
 };
 

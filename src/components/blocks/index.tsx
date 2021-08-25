@@ -1,7 +1,23 @@
 import React from 'react';
 import ActivityCard from '../activityCard';
+import { StrapiActivity } from '../../../graphql-types';
 
-const getWidth = (widthString: string) => {
+export interface ContentBlock {
+  title?: string;
+  text?: string;
+  background?: any;
+  activities?: Array<StrapiActivity>;
+  url?: string;
+  block_width: {
+    id?: number;
+    name?: string;
+    created_at?: string;
+    updated_at?: string;
+  };
+  image?: any;
+}
+
+const getWidth = (widthString: string | undefined) => {
   switch (widthString) {
     case '1/2':
       return 'md:w-1/2';
@@ -21,7 +37,11 @@ const getWidth = (widthString: string) => {
   }
 };
 
-export const ContentBlock = ({ block }) => (
+interface CommomnBlockProps {
+  block: ContentBlock;
+}
+
+export const GeneralBlock = ({ block }: CommomnBlockProps) => (
   <div className={`${getWidth(block.block_width?.name)} flex-none inline-block mt-4 px-20 w-full`}>
     {block.title && <h2>{block.title.toUpperCase()}</h2>}
     {block.text && <div className="text-blue" dangerouslySetInnerHTML={{ __html: block.text }} />}
@@ -29,7 +49,7 @@ export const ContentBlock = ({ block }) => (
   </div>
 );
 
-export const LinkBlock = ({ block }) => (
+export const LinkBlock = ({ block }: CommomnBlockProps) => (
   <a
     href={block.url}
     className={`${getWidth(
@@ -40,7 +60,7 @@ export const LinkBlock = ({ block }) => (
   </a>
 );
 
-export const HighLightBlock = ({ block }) => (
+export const HighLightBlock = ({ block }: CommomnBlockProps) => (
   <div
     className="inline-block mt-10 text-center justify-center p-2 bg-cover"
     style={{ backgroundImage: `url(${block.background.url})` }}
@@ -53,10 +73,8 @@ export const HighLightBlock = ({ block }) => (
   </div>
 );
 
-export const ActivityBlock = ({ block }) => (
+export const ActivityBlock = ({ block }: CommomnBlockProps) => (
   <div className="mt-4 flex flex-wrap space-x-2">
-    {block.activities.map((activity) => (
-      <ActivityCard activity={activity} />
-    ))}
+    {block.activities && block.activities.map((activity) => <ActivityCard activity={activity} />)}
   </div>
 );
