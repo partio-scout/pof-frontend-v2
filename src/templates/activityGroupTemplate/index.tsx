@@ -1,11 +1,13 @@
-import { PageProps, useStaticQuery, graphql, Link } from 'gatsby';
+import { PageProps, graphql } from 'gatsby';
 import React from 'react';
 import { StrapiActivity, StrapiActivityGroup, StrapiAgeGroup, StrapiSuggestion } from '../../../graphql-types';
 import CombinedLink from '../../components/combinedLink';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
-import { PaddedContainer } from '../../components/ui.general';
 import Layout from '../../layouts/default';
+import Suggestions from './suggestions';
+import Activities from './activities';
+import SiblingGroups from './siblingGroups';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -27,7 +29,7 @@ export const query = graphql`
         logo {
           localFile {
             childImageSharp {
-              fixed(height: 200) {
+              fixed(height: 150) {
                 src
               }
             }
@@ -114,46 +116,11 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
             </div>
           )}
         </div>
-        <div className="masonry before:box-inherit after:box-inherit mb-5">
-          {activities?.nodes.map((activity) => (
-            // TODO real activity cards
-            <Link
-              to={activity.fields?.path || ''}
-              className="block break-inside bg-gray-light rounded-2xl p-8 mb-3"
-              key={activity?.id}
-            >
-              {activity?.title}
-            </Link>
-          ))}
-        </div>
+        <Activities activities={activities.nodes} />
         <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-5 mt-2">
-          {suggestions.nodes.map((suggestion) => (
-            <div className="bg-gray-light rounded-2xl p-8" key={suggestion.id}>
-              <p>{suggestion.title}</p>
-              <p>{suggestion.content}</p>
-            </div>
-          ))}
-        </div>
-        <h2>Muut {activitygroup_term?.plural}</h2>
-        <div className="flex flex-row justify-center lg:px-20 flex-wrap mb-5 mt-2">
-          {otherGroups?.nodes
-            .sort((a, b) => (a.title! > b.title! ? 1 : -1))
-            .map((group) => (
-              <div className="w-44 h-44 m-2 transform transition-transform duration-100 hover:scale-110 bg-gray-light rounded-2xl p-2 text-center">
-                <CombinedLink to={group.fields?.path || ''} className="flex flex-col h-full">
-                  {group.title}
-                  <div className="flex flex-grow justify-center items-center">
-                    <img
-                      src={group?.logo?.localFile?.childImageSharp?.fixed?.src || ''}
-                      alt={group?.title || ''}
-                      className="h-20 w-20"
-                    />
-                  </div>
-                </CombinedLink>
-              </div>
-            ))}
-        </div>
+        <Suggestions suggestions={suggestions.nodes} />
+        <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
+        <SiblingGroups groups={otherGroups.nodes} />
       </div>
     </Layout>
   );
