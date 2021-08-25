@@ -13,6 +13,10 @@ query getActivityGroup($id: Int!) {
       size
       mime
       id
+      localFile {
+        publicURL
+        url
+      }
     }
     main_image {
       name
@@ -20,9 +24,14 @@ query getActivityGroup($id: Int!) {
       size
       mime
       id
+      localFile {
+        publicURL
+        url
+      }
     }
     activities {
       id
+      title
     }
     activity_group_category {
       name
@@ -41,6 +50,14 @@ query getActivityGroup($id: Int!) {
       name
       plural
       singular
+    }
+    age_group {
+      id
+      title
+    }
+    links {
+      description
+      url
     }
   }
 }

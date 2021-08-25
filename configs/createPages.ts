@@ -49,7 +49,8 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
       component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
       context: {
         data: ageGroup,
-        type: 'ageGroup'
+        type: 'ageGroup',
+        id: ageGroup.strapiId,
       },
     });
     pageCreationlResults.ageGroups.push(ageGroup.title!);
@@ -78,7 +79,9 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
         component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
         context: {
           data: activityGroupData,
-          type: 'activityGroup'
+          type: 'activityGroup',
+          id: activityGroupData.strapiId,
+          ageGroupId: activityGroupData.age_group?.id,
         },
       });
       pageCreationlResults.activityGroups.push(activityGroupData?.title!);
@@ -107,7 +110,9 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
           component: path.resolve(`src/templates/activityTemplate/index.tsx`),
           context: {
             data: activityData,
-            type: 'activity'
+            type: 'activity',
+            id: activityData.strapiId,
+            activityGroupId: activityData.activity_group?.id,
           },
         });
         pageCreationlResults.activities.push(activityData?.title!);

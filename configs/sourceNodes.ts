@@ -1,4 +1,4 @@
-import { SourceNodesArgs } from 'gatsby';
+import { Node, SourceNodesArgs } from 'gatsby';
 import {
   StrapiAgeGroup,
   StrapiActivityGroup,
@@ -76,7 +76,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
 
 function createProgramNavigationNodes(args: SourceNodesArgs) {
   const { getNodesByType, actions, createContentDigest } = args;
-  const { createNode } = actions;
+  const { createNode, createNodeField } = actions;
 
   const getNodesByLocale = <TYPE extends { locale?: Maybe<string> }>(type: string) =>
     getNodesByType(type).reduce((prev, curr) => {
@@ -99,16 +99,23 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
     const items: ProgramNavItem[] = [];
 
     for (const ageGroup of ageGroups) {
-      console.log('agegroup', ageGroup.title, 'ages', ageGroup.minimum_age, ageGroup.maximum_age);
+      const ageGroupPath = '/' + parseAgeGroupRouteName(ageGroup.title!);
+      
       const ageGroupNav: ProgramNavItem = {
         title: ageGroup.title!,
         type: 'AgeGroup',
         id: ageGroup.strapiId!,
-        path: '/' + parseAgeGroupRouteName(ageGroup.title!),
+        path: ageGroupPath,
         subitems: [],
         minimum_age: ageGroup.minimum_age || undefined,
         maximum_age: ageGroup.maximum_age || undefined,
       };
+
+      createNodeField({
+        node: ageGroup as unknown as Node,
+        name: 'path',
+        value: ageGroupPath,
+      });
 
       for (const activityGroup of ageGroup.activity_groups || []) {
         if (!activityGroup?.id) continue;
@@ -117,13 +124,21 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
         if (!properActivityGroup) continue;
 
+        const activityGroupPath = ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!);
+
         const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
           type: 'ActivityGroup',
           id: properActivityGroup.strapiId!,
-          path: ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!),
+          path: activityGroupPath,
           subitems: [],
         };
+
+        createNodeField({
+          node: properActivityGroup as unknown as Node,
+          name: 'path',
+          value: activityGroupPath,
+        });
 
         for (const activity of properActivityGroup.activities || []) {
           if (!activity?.id) continue;
@@ -132,12 +147,20 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
           if (!properActivity) continue;
 
+          const activityPath = activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!);
+
           const activityNav: ProgramNavItem = {
             title: properActivity.title!,
             type: 'Activity',
             id: properActivity.strapiId!,
-            path: activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!),
+            path: activityPath,
           };
+
+          createNodeField({
+            node: properActivity as unknown as Node,
+            name: 'path',
+            value: activityPath,
+          });
 
           activityGroupNav.subitems?.push(activityNav);
         }
