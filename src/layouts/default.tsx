@@ -12,12 +12,13 @@ import { findBreadcrumbPath } from '../utils/breadcrumbs';
 interface LayoutProps {
   children: React.ReactNode;
   showBreadCrumbs?: boolean;
+  omitPadding?: boolean;
 }
 
 // TODO get locale dynamically
 const currentLocale = 'fi';
 
-const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false }: LayoutProps) => {
   const { pathname } = useLocation();
   const navigation = useNavigation(currentLocale);
   const metadata = useMetadata(currentLocale);
@@ -44,7 +45,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false }: LayoutProps) => {
         <Search />
         <div>
           {showBreadCrumbs && <BreadCrumbs trail={path} />}
-          <div className="container md:px-24 2xl:px-0 mx-auto max-w-7xl">{children}</div>
+          <div className={`container ${!omitPadding && 'md:px-24 2xl:px-0'} mx-auto max-w-7xl`}>{children}</div>
         </div>
       </div>
     </SearchContextProvider>
