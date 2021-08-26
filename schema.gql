@@ -410,8 +410,53 @@ type StrapiContentpage implements Node @dontInfer {
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  main_image: StrapiContentpageMain_image
   localizations: [StrapiContentpageLocalizations]
   strapiId: Int
+}
+
+type StrapiContentpageMain_image @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiContentpageMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiContentpageMain_imageFormats @derivedTypes {
+  small: StrapiContentpageMain_imageFormatsSmall
+  thumbnail: StrapiContentpageMain_imageFormatsThumbnail
+}
+
+type StrapiContentpageMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiContentpageMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
 }
 
 type StrapiContentpageLocalizations {
@@ -499,6 +544,51 @@ type StrapiFrontPageNavigationPage {
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  main_image: StrapiFrontPageNavigationPageMain_image
+}
+
+type StrapiFrontPageNavigationPageMain_image @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiFrontPageNavigationPageMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiFrontPageNavigationPageMain_imageFormats @derivedTypes {
+  small: StrapiFrontPageNavigationPageMain_imageFormatsSmall
+  thumbnail: StrapiFrontPageNavigationPageMain_imageFormatsThumbnail
+}
+
+type StrapiFrontPageNavigationPageMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiFrontPageNavigationPageMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
 }
 
 type StrapiFrontPageNavigationSubnavigation {
@@ -510,11 +600,57 @@ type StrapiFrontPageNavigationSubnavigation {
 type StrapiFrontPageNavigationSubnavigationPage {
   id: Int
   title: String
+  ingress: String
   main_text: String
   locale: String
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  main_image: StrapiFrontPageNavigationSubnavigationPageMain_image
+}
+
+type StrapiFrontPageNavigationSubnavigationPageMain_image @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiFrontPageNavigationSubnavigationPageMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiFrontPageNavigationSubnavigationPageMain_imageFormats @derivedTypes {
+  small: StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsSmall
+  thumbnail: StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsThumbnail
+}
+
+type StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
 }
 
 type StrapiFrontPageLocalizations {
@@ -748,6 +884,7 @@ type StrapiActivityGroup implements Node @dontInfer {
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  parent_activity_group: Int
   age_group: StrapiActivityGroupAge_group
   activity_group_category: StrapiActivityGroupActivity_group_category
   links: [StrapiActivityGroupLinks]
@@ -1608,6 +1745,8 @@ type StrapiActivityActivity_group {
   title: String
   ingress: String
   content: String
+  minimum_age: Int
+  maximum_age: Int
   wp_guid: String
   mandatory: Boolean
   subactivity_term: Int
