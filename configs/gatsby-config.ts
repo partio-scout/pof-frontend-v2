@@ -11,9 +11,9 @@ module.exports = {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
-  flags: {
-    FAST_DEV: true,
-  },
+  // flags: {
+  //   FAST_DEV: true,
+  // },
   plugins: [
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',

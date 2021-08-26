@@ -6,7 +6,7 @@ import {
   StrapiActivity,
   StrapiFrontPage,
   StrapiFrontPageNavigation,
-  StrapiContentpage,
+  StrapiContentPage,
 } from '../graphql-types';
 import { getActivity } from '../src/queries/activity';
 import { getActivityGroup } from '../src/queries/activityGroup';
@@ -187,7 +187,7 @@ async function fetchAndCreateContentPage(
   id: number,
   pagePath: string,
 ) {
-  const pageDataResponse = await graphql<{ strapiContentpage: StrapiContentpage }>(getContentPage, {
+  const pageDataResponse = await graphql<{ strapiContentpage: StrapiContentPage }>(getContentPage, {
     id,
   });
 

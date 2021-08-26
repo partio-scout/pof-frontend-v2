@@ -38,7 +38,9 @@ export const query = graphql`
         activity_group_category {
           name
           id
+          sort_order
         }
+        sort_order
         title
         strapiId
       }

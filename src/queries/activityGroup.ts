@@ -7,6 +7,7 @@ query getActivityGroup($id: Int!) {
     ingress
     content
     mandatory
+    sort_order
     logo {
       ${mediaFragment}
     }
@@ -19,6 +20,7 @@ query getActivityGroup($id: Int!) {
     }
     activity_group_category {
       name
+      sort_order
     }
     activitygroup_term {
       name
