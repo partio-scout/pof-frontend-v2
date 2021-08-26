@@ -1,4 +1,4 @@
-import { commonFragment } from "./common";
+import { commonFragment, mediaFragment } from './common';
 
 export const getActivityGroup = `
 query getActivityGroup($id: Int!) {
@@ -8,26 +8,10 @@ query getActivityGroup($id: Int!) {
     content
     mandatory
     logo {
-      name
-      url
-      size
-      mime
-      id
-      localFile {
-        publicURL
-        url
-      }
+      ${mediaFragment}
     }
     main_image {
-      name
-      url
-      size
-      mime
-      id
-      localFile {
-        publicURL
-        url
-      }
+      ${mediaFragment}
     }
     activities {
       id

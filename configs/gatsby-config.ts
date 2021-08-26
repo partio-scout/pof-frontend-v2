@@ -11,6 +11,9 @@ module.exports = {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
+  flags: {
+    FAST_DEV: true,
+  },
   plugins: [
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
@@ -29,16 +32,16 @@ module.exports = {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.API_URL,
+        queryLimit: -1,
         collectionTypes: [
-          { name: 'activity', api: { qs: { _limit: fetchLimit, _locale: 'all' } } },
-          { name: 'age-group', api: { qs: { _limit: fetchLimit, _locale: 'all' } } },
-          { name: 'activity-group', api: { qs: { _limit: fetchLimit, _locale: 'all' } } },
+          { name: 'activity', api: { qs: { _locale: 'all' } } },
+          { name: 'age-group', api: { qs: { _locale: 'all' } } },
+          { name: 'activity-group', api: { qs: { _locale: 'all' } } },
           {
-            name: 'contentpage',
-            endpoint: 'content-pages',
-            api: { qs: { _limit: fetchLimit, _locale: 'all' } },
+            name: 'content-page',
+            api: { qs: { _locale: 'all' } },
           },
-          { name: 'suggestion', api: { qs: { _limit: fetchLimit, _locale: 'all' } } },
+          { name: 'suggestion', api: { qs: { _locale: 'all' } } },
         ],
         singleTypes: [
           { name: 'front-page', api: { qs: { _locale: 'fi' } } },

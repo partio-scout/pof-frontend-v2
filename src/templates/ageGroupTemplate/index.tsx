@@ -3,84 +3,100 @@ import HeroTitleSection from '../../components/heroTitleSection';
 import { PaddedContainer } from '../../components/ui.general';
 import mockHero from '../../images/mockHero.png';
 import Layout from '../../layouts/default';
-import { PageProps } from 'gatsby';
-import { StrapiAgeGroup } from '../../../graphql-types';
+import { graphql, PageProps } from 'gatsby';
+import { Maybe, StrapiActivityGroup, StrapiAgeGroup, StrapiAgeGroupActivity_Groups } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
+import CombinedLink from '../../components/combinedLink';
+import ActivityGroupList from '../../components/activityGroupList';
+import { prependApiUrl } from '../../utils/helpers';
+import PillLink from '../../components/pillLink';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
 }
 
-/* 
-type AgeGroupTemplateProps = {
-  ageGroupName: string;
-  ingress: string;
-  body: string;
-}; */
+export const query = graphql`
+  query ActivityGroupQuery($id: Int) {
+    activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
+      nodes {
+        fields {
+          path
+        }
+        logo {
+          url
+          formats {
+            thumbnail {
+              width
+              url
+              size
+              name
+              mime
+              height
+            }
+          }
+        }
+        activity_group_category {
+          name
+          id
+        }
+        title
+        strapiId
+      }
+    }
+  }
+`;
 
-const mockLinks = [{ name: 'Kirjan nettiversio' }, { name: 'Akelan opas' }, { name: 'Mallitoimintasuunnitelma' }];
-
-const mockHighlihts = [
-  {
-    title: 'LOREM IPSUM DOLOR SIT AMET VIDEO',
-    bread:
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien. Nulla fringilla eros vel ex eleifend accumsan. Phasellus porta massa eu neque viverra varius. Fusce id sapien tortor. Vestibulum at aliquam nunc. Sed bibendum eleifend maximus.',
-    url: 'https://www.youtube.com/embed/LXb3EKWsInQ',
-  },
-];
+interface QueryType {
+  activityGroups: { nodes: StrapiActivityGroup[] };
+}
 
 const currentLocale = 'fi';
 
-const AgeGroupTemplate = ({ pageContext, path }: PageProps<object, AgeGroupPageTemplateProps>) => (
+const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
+  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term } =
+    pageContext.data;
+
+  const activityGroups = data.activityGroups.nodes;
+
+  // TODO translate
+  const subTitle = `${minimum_age}-${maximum_age} vuotiaat`;
+
+  return (
     <Layout showBreadCrumbs={true}>
-      <Metadata
-        title={pageContext.data.title || ''}
-        description={pageContext.data.ingress || ''}
-        path={path}
-        locale={currentLocale}
-      />
+      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
-        <img src={mockHero} className="w-full max-h-6/8 "></img>
-        {/*    <div className="bg-white w-full h-16"></div> */}
+        <img src={prependApiUrl(main_image?.url) || ''} className="w-full max-h-6/8 "></img>
       </div>
-      <PaddedContainer>
-        <div className="md:w-3/5" dangerouslySetInnerHTML={{ __html: pageContext.data.content }} />
-        {/*   <div className="relative -mt-40 pt-2">
-        <HeroTitleSection imageName="sudenpennut.svg" mainTitle="Sudenpennut" subTitle="7-9 vuotiaat" />
-      </div>
-      <div className="flex flex-row  mt-8">
-        <div className="md:w-3/5" dangerouslySetInnerHTML={{__html: pageContext.data.content}}>
+      <div className="px-8 md:px-0">
+        <div className="relative -mt-40 pt-2">
+          <HeroTitleSection
+            mainTitle={title || ''}
+            subTitle={subTitle}
+            imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
+            smallMainTitle
+          />
         </div>
-        <div className="w-full md:w-1/4 md:ml-4 lg:ml-auto">
-          {mockLinks.map((link, key: number) => (
-            <div className="bg-gray-light py-3 w-23.5rem pl-3 mb-4 rounded-xl" key={link.name + key}>
-              <div className="bg-ageYellow w-16 h-16 rounded-xl inline-block mr-4 align-middle opacity-40"></div>
-              <span className="font-tondu text-blue hyphen-auto align-middle break-word">
-                {link.name.toUpperCase()}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-      <div>
-        {mockHighlihts.map((highlight, key: number) => (
-          <div className="flex flex-row" key={highlight.title + key}>
-            <div className="w-full md:w-1/2">
-              <div className="media-container">
-                <iframe className="" src={highlight.url} title="video" />
-              </div>
-            </div>
-
-            <div className="w-full md:w-1/2 inline-block md:ml-4">
-              <h2 className="text-blue tracking-wider">{highlight.title}</h2>
-              <p className="text-blue">{highlight.bread}</p>
-            </div>
+        <div className="flex flex-col md:flex-row py-5">
+          <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
+            <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress}</div>
+            <div className="" dangerouslySetInnerHTML={{ __html: content || '' }} />
           </div>
-        ))}
-      </div> */}
-      </PaddedContainer>
+          {(links?.length || 0) > 0 && (
+            <div className="flex flex-row md:flex-col">
+              {links?.map((link) => (
+                <div className="mb-1 mr-2 md:mr-0">
+                  <PillLink to={link?.url || ''}>{link?.description}</PillLink>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <h2 className="uppercase text-center mb-6">{subactivitygroup_term?.plural}</h2>
+        <ActivityGroupList groups={activityGroups} />
+      </div>
     </Layout>
   );
+};
 
 export default AgeGroupTemplate;
