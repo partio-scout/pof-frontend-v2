@@ -18,7 +18,7 @@ const MainContent = ({ data }: MainContentProps) => (
   <div className="flex flex-wrap px-20">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
-      <p>{data.main_text}</p>
+      <div dangerouslySetInnerHTML={{ __html: data.main_text! }}></div>
     </div>
     {data.main_image && <img className="w-full md:w-1/2" src={data.main_image.url!}></img>}
   </div>

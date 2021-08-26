@@ -53,6 +53,8 @@ export const GeneralBlock = ({ block }: CommomnBlockProps) => (
 export const LinkBlock = ({ block }: CommomnBlockProps) => (
   <a
     href={block.url}
+    target="_blank"
+    rel="noopener noreferrer"
     className={`${getWidth(
       block.block_width?.name,
     )}inline-block mt-4 px-20 md:w-full bg-gray-light font-tondu text-blue w-full py-4 justify-center text-center rounded-xl`}
