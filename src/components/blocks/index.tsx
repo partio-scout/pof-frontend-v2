@@ -24,7 +24,7 @@ const getWidth = (widthString: string | undefined) => {
       return 'md:w-1/2';
       break;
     case '1/1':
-      return 'md:w-full';
+      return 'w-full';
       break;
     case '1/3':
       return 'md:w-1/3';
