@@ -1,17 +1,17 @@
 import React from 'react';
 import Layout from '../../layouts/default';
 import renderBlock from '../../utils/renderBlock';
-import { StrapiContentpage } from '../../../graphql-types';
+import { StrapiContentPage } from '../../../graphql-types';
 import { ContentBlock } from '../../components/blocks';
 
 interface ContentPageTemplateProps {
   pageContext: {
-    data: StrapiContentpage;
+    data: StrapiContentPage;
   };
 }
 
 interface MainContentProps {
-  data: StrapiContentpage;
+  data: StrapiContentPage;
 }
 
 const MainContent = ({ data }: MainContentProps) => (
