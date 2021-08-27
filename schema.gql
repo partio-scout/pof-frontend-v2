@@ -1365,6 +1365,7 @@ type StrapiContentPage implements Node @dontInfer {
   main_image: StrapiContentPageMain_image
   localizations: [StrapiContentPageLocalizations]
   strapiId: Int
+  fields: StrapiAgeGroupFields
 }
 
 type StrapiContentPageMain_image {

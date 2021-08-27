@@ -1,7 +1,6 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
 import { StrapiActivity, StrapiActivityGroup, StrapiAgeGroup, StrapiSuggestion } from '../../../graphql-types';
-import CombinedLink from '../../components/combinedLink';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';
@@ -88,8 +87,17 @@ interface QueryType {
 const currentLocale = 'fi';
 
 const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
-  const { title, ingress, main_image, age_group, logo, links, activity_group_category, activitygroup_term,content_area } =
-    pageContext.data;
+  const {
+    title,
+    ingress,
+    main_image,
+    age_group,
+    logo,
+    links,
+    activity_group_category,
+    activitygroup_term,
+    content_area,
+  } = pageContext.data;
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
   const subTitle = age_group?.title
