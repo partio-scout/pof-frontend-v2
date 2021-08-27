@@ -88,7 +88,7 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
             <div className="" dangerouslySetInnerHTML={{ __html: content || '' }} />
           </div>
           {(links?.length || 0) > 0 && (
-            <div className="flex flex-row md:flex-col">
+            <div className="flex flex-row md:max-w-sm md:flex-col">
               {links?.map((link) => (
                 <div className="mb-1 mr-2 md:mr-0">
                   <PillLink to={link?.url || ''}>{link?.description}</PillLink>
