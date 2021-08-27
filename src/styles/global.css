@@ -27,6 +27,8 @@ p, span {
 
 h1, h2, h3, h4 {
   font-family: 'Tondu', serif;
+  letter-spacing: 0.05em;
+  color: #253764;
 }
 
 h1 {

@@ -6,6 +6,9 @@ export const getContentPage = `
       ${commonFragment}
       content
       main_text
+      main_image {
+        url
+      }
       ingress
     }
   }
