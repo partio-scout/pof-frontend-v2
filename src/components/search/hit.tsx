@@ -3,6 +3,7 @@ import { ContentType } from '../../types/content';
 import { HeaderItem } from '../header';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { Link } from 'gatsby';
+import CombinedLink from '../combinedLink';
 
 const parseType = (type: ContentType) => {
   switch (type) {
@@ -54,7 +55,7 @@ const Hit = ({
       <div className="text-2xl uppercase font-extrabold">{parseType(type)}</div>
       {hit?.title} <br />
       Ikäryhmä: {hit?.age_group?.title} <br />
-      <Link to={linkUrl}>Linkki</Link>
+      <CombinedLink to={linkUrl}>Linkki</CombinedLink>
     </div>
   );
 };

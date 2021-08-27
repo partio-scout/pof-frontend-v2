@@ -308,280 +308,6 @@ export type SitePage = Node & {
   componentPath?: Maybe<Scalars['String']>;
 };
 
-export type SitePageContext = {
-  data?: Maybe<SitePageContextData>;
-  type?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextData = {
-  locale?: Maybe<Scalars['String']>;
-  localizations?: Maybe<Array<Maybe<SitePageContextDataLocalizations>>>;
-  title?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['Date']>;
-  created_at?: Maybe<Scalars['Date']>;
-  published_at?: Maybe<Scalars['Date']>;
-  id?: Maybe<Scalars['String']>;
-  strapiId?: Maybe<Scalars['Int']>;
-  ingress?: Maybe<Scalars['String']>;
-  links?: Maybe<Array<Maybe<SitePageContextDataLinks>>>;
-  logo?: Maybe<SitePageContextDataLogo>;
-  maximum_age?: Maybe<Scalars['Int']>;
-  minimum_age?: Maybe<Scalars['Int']>;
-  subactivitygroup_term?: Maybe<SitePageContextDataSubactivitygroup_Term>;
-  main_image?: Maybe<SitePageContextDataMain_Image>;
-  activity_groups?: Maybe<Array<Maybe<SitePageContextDataActivity_Groups>>>;
-  mandatory?: Maybe<Scalars['Boolean']>;
-  activities?: Maybe<Array<Maybe<SitePageContextDataActivities>>>;
-  activity_group_category?: Maybe<SitePageContextDataActivity_Group_Category>;
-  activitygroup_term?: Maybe<SitePageContextDataActivitygroup_Term>;
-  subactivity_term?: Maybe<SitePageContextDataSubactivity_Term>;
-  duration?: Maybe<SitePageContextDataDuration>;
-  educational_objectives?: Maybe<Array<Maybe<SitePageContextDataEducational_Objectives>>>;
-  files?: Maybe<Array<Maybe<SitePageContextDataFiles>>>;
-  group_sizes?: Maybe<Array<Maybe<SitePageContextDataGroup_Sizes>>>;
-  leader_skills?: Maybe<Array<Maybe<SitePageContextDataLeader_Skills>>>;
-  leader_tasks?: Maybe<Scalars['String']>;
-  locations?: Maybe<Array<Maybe<SitePageContextDataLocations>>>;
-  preparation_duration?: Maybe<SitePageContextDataPreparation_Duration>;
-  skill_areas?: Maybe<Array<Maybe<SitePageContextDataSkill_Areas>>>;
-  suggestions?: Maybe<Array<Maybe<SitePageContextDataSuggestions>>>;
-  main_text?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataLocalizations = {
-  locale?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataLinks = {
-  description?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataLogo = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-  formats?: Maybe<SitePageContextDataLogoFormats>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataLogoFormats = {
-  large?: Maybe<SitePageContextDataLogoFormatsLarge>;
-  medium?: Maybe<SitePageContextDataLogoFormatsMedium>;
-  small?: Maybe<SitePageContextDataLogoFormatsSmall>;
-  thumbnail?: Maybe<SitePageContextDataLogoFormatsThumbnail>;
-};
-
-export type SitePageContextDataLogoFormatsLarge = {
-  height?: Maybe<Scalars['Int']>;
-  mime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  url?: Maybe<Scalars['String']>;
-  width?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataLogoFormatsMedium = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataLogoFormatsSmall = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataLogoFormatsThumbnail = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataSubactivitygroup_Term = {
-  locale?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  plural?: Maybe<Scalars['String']>;
-  singular?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataMain_Image = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-  formats?: Maybe<SitePageContextDataMain_ImageFormats>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataMain_ImageFormats = {
-  large?: Maybe<SitePageContextDataMain_ImageFormatsLarge>;
-  medium?: Maybe<SitePageContextDataMain_ImageFormatsMedium>;
-  small?: Maybe<SitePageContextDataMain_ImageFormatsSmall>;
-  thumbnail?: Maybe<SitePageContextDataMain_ImageFormatsThumbnail>;
-};
-
-export type SitePageContextDataMain_ImageFormatsLarge = {
-  height?: Maybe<Scalars['Int']>;
-  mime?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  url?: Maybe<Scalars['String']>;
-  width?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataMain_ImageFormatsMedium = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataMain_ImageFormatsSmall = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataMain_ImageFormatsThumbnail = {
-  width?: Maybe<Scalars['Int']>;
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataActivity_Groups = {
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataActivities = {
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataActivity_Group_Category = {
-  name?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataActivitygroup_Term = {
-  name?: Maybe<Scalars['String']>;
-  plural?: Maybe<Scalars['String']>;
-  singular?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataSubactivity_Term = {
-  name?: Maybe<Scalars['String']>;
-  plural?: Maybe<Scalars['String']>;
-  singular?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataDuration = {
-  locale?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataEducational_Objectives = {
-  id?: Maybe<Scalars['Int']>;
-  locale?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataFiles = {
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataGroup_Sizes = {
-  slug?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataLeader_Skills = {
-  id?: Maybe<Scalars['Int']>;
-  locale?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  slug?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataLocations = {
-  slug?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataPreparation_Duration = {
-  slug?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataSkill_Areas = {
-  slug?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
-export type SitePageContextDataSuggestions = {
-  author?: Maybe<Scalars['String']>;
-  content?: Maybe<Scalars['String']>;
-  from_web?: Maybe<Scalars['Boolean']>;
-  id?: Maybe<Scalars['Int']>;
-  like_count?: Maybe<Scalars['Int']>;
-  locale?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  published_at?: Maybe<Scalars['Date']>;
-  links?: Maybe<Array<Maybe<SitePageContextDataSuggestionsLinks>>>;
-  files?: Maybe<Array<Maybe<SitePageContextDataSuggestionsFiles>>>;
-};
-
-export type SitePageContextDataSuggestionsLinks = {
-  url?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  description?: Maybe<Scalars['String']>;
-};
-
-export type SitePageContextDataSuggestionsFiles = {
-  url?: Maybe<Scalars['String']>;
-  size?: Maybe<Scalars['Float']>;
-  name?: Maybe<Scalars['String']>;
-  mime?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-};
-
 export type ImageFormat =
   | 'NO_CHANGE'
   | 'AUTO'
@@ -830,6 +556,57 @@ export type ImageSharpResize = {
   height?: Maybe<Scalars['Int']>;
   aspectRatio?: Maybe<Scalars['Float']>;
   originalName?: Maybe<Scalars['String']>;
+};
+
+export type StrapiAgeGroup = Node & {
+  upper_content_area?: Maybe<Scalars['JSON']>;
+  lower_content_area?: Maybe<Scalars['JSON']>;
+  title?: Maybe<Scalars['String']>;
+  ingress?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  minimum_age?: Maybe<Scalars['Int']>;
+  maximum_age?: Maybe<Scalars['Int']>;
+  wp_guid?: Maybe<Scalars['String']>;
+  subactivitygroup_term?: Maybe<StrapiAgeGroupSubactivitygroup_Term>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  links?: Maybe<Array<Maybe<StrapiAgeGroupLinks>>>;
+  main_image?: Maybe<StrapiAgeGroupMain_Image>;
+  logo?: Maybe<StrapiAgeGroupLogo>;
+  activity_groups?: Maybe<Array<Maybe<StrapiAgeGroupActivity_Groups>>>;
+  localizations?: Maybe<Array<Maybe<StrapiAgeGroupLocalizations>>>;
+  strapiId?: Maybe<Scalars['Int']>;
+  fields?: Maybe<StrapiAgeGroupFields>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type StrapiAgeGroupPublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiAgeGroupCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiAgeGroupUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
 };
 
 export type StrapiContentpage = Node & {
@@ -1268,6 +1045,318 @@ export type StrapiFrontPageLocalizationsPublished_AtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type StrapiSuggestion = Node & {
+  title?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  activity?: Maybe<StrapiSuggestionActivity>;
+  wp_guid?: Maybe<Scalars['String']>;
+  author?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  from_web?: Maybe<Scalars['Boolean']>;
+  like_count?: Maybe<Scalars['Int']>;
+  links?: Maybe<Array<Maybe<StrapiSuggestionLinks>>>;
+  files?: Maybe<Array<Maybe<StrapiSuggestionFiles>>>;
+  strapiId?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type StrapiSuggestionPublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionActivity = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  mandatory?: Maybe<Scalars['Boolean']>;
+  ingress?: Maybe<Scalars['String']>;
+  wp_guid?: Maybe<Scalars['String']>;
+  leader_tasks?: Maybe<Scalars['String']>;
+  activity_term?: Maybe<Scalars['Int']>;
+  duration?: Maybe<Scalars['Int']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  activity_group?: Maybe<Scalars['Int']>;
+  age_group?: Maybe<Scalars['Int']>;
+  preparation_duration?: Maybe<Scalars['Int']>;
+  logo?: Maybe<StrapiSuggestionActivityLogo>;
+  images?: Maybe<Array<Maybe<StrapiSuggestionActivityImages>>>;
+};
+
+
+export type StrapiSuggestionActivityPublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionActivityCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionActivityUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionActivityLogo = {
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+  formats?: Maybe<StrapiSuggestionActivityLogoFormats>;
+  hash?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localFile?: Maybe<File>;
+};
+
+
+export type StrapiSuggestionActivityLogoCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionActivityLogoUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionActivityLogoFormats = {
+  thumbnail?: Maybe<StrapiSuggestionActivityLogoFormatsThumbnail>;
+};
+
+export type StrapiSuggestionActivityLogoFormatsThumbnail = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionActivityImages = {
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+  formats?: Maybe<StrapiSuggestionActivityImagesFormats>;
+  hash?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localFile?: Maybe<File>;
+};
+
+
+export type StrapiSuggestionActivityImagesCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionActivityImagesUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionActivityImagesFormats = {
+  large?: Maybe<StrapiSuggestionActivityImagesFormatsLarge>;
+  small?: Maybe<StrapiSuggestionActivityImagesFormatsSmall>;
+  medium?: Maybe<StrapiSuggestionActivityImagesFormatsMedium>;
+  thumbnail?: Maybe<StrapiSuggestionActivityImagesFormatsThumbnail>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsLarge = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsSmall = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsMedium = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsThumbnail = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionLinks = {
+  id?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionFiles = {
+  id?: Maybe<Scalars['Int']>;
+  name?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+  formats?: Maybe<StrapiSuggestionFilesFormats>;
+  hash?: Maybe<Scalars['String']>;
+  ext?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  provider?: Maybe<Scalars['String']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localFile?: Maybe<File>;
+};
+
+
+export type StrapiSuggestionFilesCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiSuggestionFilesUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionFilesFormats = {
+  large?: Maybe<StrapiSuggestionFilesFormatsLarge>;
+  small?: Maybe<StrapiSuggestionFilesFormatsSmall>;
+  medium?: Maybe<StrapiSuggestionFilesFormatsMedium>;
+  thumbnail?: Maybe<StrapiSuggestionFilesFormatsThumbnail>;
+};
+
+export type StrapiSuggestionFilesFormatsLarge = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionFilesFormatsSmall = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionFilesFormatsMedium = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type StrapiSuggestionFilesFormatsThumbnail = {
+  ext?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+  hash?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  width?: Maybe<Scalars['Int']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
 export type StrapiActivityGroup = Node & {
   title?: Maybe<Scalars['String']>;
   ingress?: Maybe<Scalars['String']>;
@@ -1291,6 +1380,7 @@ export type StrapiActivityGroup = Node & {
   activities?: Maybe<Array<Maybe<StrapiActivityGroupActivities>>>;
   localizations?: Maybe<Array<Maybe<StrapiActivityGroupLocalizations>>>;
   strapiId?: Maybe<Scalars['Int']>;
+  fields?: Maybe<StrapiActivityGroupFields>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2032,52 +2122,8 @@ export type StrapiActivityGroupLocalizationsPublished_AtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
-export type StrapiAgeGroup = Node & {
-  title?: Maybe<Scalars['String']>;
-  ingress?: Maybe<Scalars['String']>;
-  content?: Maybe<Scalars['String']>;
-  minimum_age?: Maybe<Scalars['Int']>;
-  maximum_age?: Maybe<Scalars['Int']>;
-  wp_guid?: Maybe<Scalars['String']>;
-  subactivitygroup_term?: Maybe<StrapiAgeGroupSubactivitygroup_Term>;
-  locale?: Maybe<Scalars['String']>;
-  published_at?: Maybe<Scalars['Date']>;
-  created_at?: Maybe<Scalars['Date']>;
-  updated_at?: Maybe<Scalars['Date']>;
-  links?: Maybe<Array<Maybe<StrapiAgeGroupLinks>>>;
-  main_image?: Maybe<StrapiAgeGroupMain_Image>;
-  logo?: Maybe<StrapiAgeGroupLogo>;
-  activity_groups?: Maybe<Array<Maybe<StrapiAgeGroupActivity_Groups>>>;
-  localizations?: Maybe<Array<Maybe<StrapiAgeGroupLocalizations>>>;
-  strapiId?: Maybe<Scalars['Int']>;
-  id: Scalars['ID'];
-  parent?: Maybe<Node>;
-  children: Array<Node>;
-  internal: Internal;
-};
-
-
-export type StrapiAgeGroupPublished_AtArgs = {
-  formatString?: Maybe<Scalars['String']>;
-  fromNow?: Maybe<Scalars['Boolean']>;
-  difference?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-};
-
-
-export type StrapiAgeGroupCreated_AtArgs = {
-  formatString?: Maybe<Scalars['String']>;
-  fromNow?: Maybe<Scalars['Boolean']>;
-  difference?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
-};
-
-
-export type StrapiAgeGroupUpdated_AtArgs = {
-  formatString?: Maybe<Scalars['String']>;
-  fromNow?: Maybe<Scalars['Boolean']>;
-  difference?: Maybe<Scalars['String']>;
-  locale?: Maybe<Scalars['String']>;
+export type StrapiActivityGroupFields = {
+  path?: Maybe<Scalars['String']>;
 };
 
 export type StrapiAgeGroupSubactivitygroup_Term = {
@@ -2510,6 +2556,10 @@ export type StrapiAgeGroupLocalizationsPublished_AtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type StrapiAgeGroupFields = {
+  path?: Maybe<Scalars['String']>;
+};
+
 export type StrapiActivity = Node & {
   title?: Maybe<Scalars['String']>;
   content?: Maybe<Scalars['String']>;
@@ -2537,6 +2587,7 @@ export type StrapiActivity = Node & {
   locations?: Maybe<Array<Maybe<StrapiActivityLocations>>>;
   localizations?: Maybe<Array<Maybe<StrapiActivityLocalizations>>>;
   strapiId?: Maybe<Scalars['Int']>;
+  fields?: Maybe<StrapiActivityFields>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -3542,6 +3593,391 @@ export type StrapiActivityLocalizationsPublished_AtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type StrapiActivityFields = {
+  path?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContext = {
+  data?: Maybe<SitePageContextData>;
+  type?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  ageGroupId?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextData = {
+  locale?: Maybe<Scalars['String']>;
+  localizations?: Maybe<Array<Maybe<SitePageContextDataLocalizations>>>;
+  title?: Maybe<Scalars['String']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  published_at?: Maybe<Scalars['Date']>;
+  id?: Maybe<Scalars['String']>;
+  strapiId?: Maybe<Scalars['Int']>;
+  ingress?: Maybe<Scalars['String']>;
+  links?: Maybe<Array<Maybe<SitePageContextDataLinks>>>;
+  logo?: Maybe<SitePageContextDataLogo>;
+  maximum_age?: Maybe<Scalars['Int']>;
+  minimum_age?: Maybe<Scalars['Int']>;
+  subactivitygroup_term?: Maybe<SitePageContextDataSubactivitygroup_Term>;
+  main_image?: Maybe<SitePageContextDataMain_Image>;
+  activity_groups?: Maybe<Array<Maybe<SitePageContextDataActivity_Groups>>>;
+  mandatory?: Maybe<Scalars['Boolean']>;
+  activities?: Maybe<Array<Maybe<SitePageContextDataActivities>>>;
+  activity_group_category?: Maybe<SitePageContextDataActivity_Group_Category>;
+  activitygroup_term?: Maybe<SitePageContextDataActivitygroup_Term>;
+  subactivity_term?: Maybe<SitePageContextDataSubactivity_Term>;
+  age_group?: Maybe<SitePageContextDataAge_Group>;
+  duration?: Maybe<SitePageContextDataDuration>;
+  educational_objectives?: Maybe<Array<Maybe<SitePageContextDataEducational_Objectives>>>;
+  files?: Maybe<Array<Maybe<SitePageContextDataFiles>>>;
+  group_sizes?: Maybe<Array<Maybe<SitePageContextDataGroup_Sizes>>>;
+  images?: Maybe<Array<Maybe<SitePageContextDataImages>>>;
+  leader_skills?: Maybe<Array<Maybe<SitePageContextDataLeader_Skills>>>;
+  leader_tasks?: Maybe<Scalars['String']>;
+  locations?: Maybe<Array<Maybe<SitePageContextDataLocations>>>;
+  preparation_duration?: Maybe<SitePageContextDataPreparation_Duration>;
+  skill_areas?: Maybe<Array<Maybe<SitePageContextDataSkill_Areas>>>;
+  suggestions?: Maybe<Array<Maybe<SitePageContextDataSuggestions>>>;
+  main_text?: Maybe<Scalars['String']>;
+};
+
+
+export type SitePageContextDataUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SitePageContextDataCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type SitePageContextDataPublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataLocalizations = {
+  locale?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLinks = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataLogo = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+  formats?: Maybe<SitePageContextDataLogoFormats>;
+  id?: Maybe<Scalars['Int']>;
+  localFile?: Maybe<SitePageContextDataLogoLocalFile>;
+};
+
+export type SitePageContextDataLogoFormats = {
+  large?: Maybe<SitePageContextDataLogoFormatsLarge>;
+  medium?: Maybe<SitePageContextDataLogoFormatsMedium>;
+  small?: Maybe<SitePageContextDataLogoFormatsSmall>;
+  thumbnail?: Maybe<SitePageContextDataLogoFormatsThumbnail>;
+};
+
+export type SitePageContextDataLogoFormatsLarge = {
+  height?: Maybe<Scalars['Int']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLogoFormatsMedium = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLogoFormatsSmall = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLogoFormatsThumbnail = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLogoLocalFile = {
+  publicURL?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataSubactivitygroup_Term = {
+  locale?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  plural?: Maybe<Scalars['String']>;
+  singular?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataMain_Image = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+  formats?: Maybe<SitePageContextDataMain_ImageFormats>;
+  id?: Maybe<Scalars['Int']>;
+  localFile?: Maybe<SitePageContextDataMain_ImageLocalFile>;
+};
+
+export type SitePageContextDataMain_ImageFormats = {
+  large?: Maybe<SitePageContextDataMain_ImageFormatsLarge>;
+  medium?: Maybe<SitePageContextDataMain_ImageFormatsMedium>;
+  small?: Maybe<SitePageContextDataMain_ImageFormatsSmall>;
+  thumbnail?: Maybe<SitePageContextDataMain_ImageFormatsThumbnail>;
+};
+
+export type SitePageContextDataMain_ImageFormatsLarge = {
+  height?: Maybe<Scalars['Int']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataMain_ImageFormatsMedium = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataMain_ImageFormatsSmall = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataMain_ImageFormatsThumbnail = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataMain_ImageLocalFile = {
+  publicURL?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataActivity_Groups = {
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataActivities = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataActivity_Group_Category = {
+  name?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataActivitygroup_Term = {
+  name?: Maybe<Scalars['String']>;
+  plural?: Maybe<Scalars['String']>;
+  singular?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataSubactivity_Term = {
+  name?: Maybe<Scalars['String']>;
+  plural?: Maybe<Scalars['String']>;
+  singular?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataAge_Group = {
+  id?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataDuration = {
+  locale?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataEducational_Objectives = {
+  id?: Maybe<Scalars['Int']>;
+  locale?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataFiles = {
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataGroup_Sizes = {
+  slug?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataImages = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+  formats?: Maybe<SitePageContextDataImagesFormats>;
+};
+
+export type SitePageContextDataImagesFormats = {
+  large?: Maybe<SitePageContextDataImagesFormatsLarge>;
+  medium?: Maybe<SitePageContextDataImagesFormatsMedium>;
+  small?: Maybe<SitePageContextDataImagesFormatsSmall>;
+  thumbnail?: Maybe<SitePageContextDataImagesFormatsThumbnail>;
+};
+
+export type SitePageContextDataImagesFormatsLarge = {
+  height?: Maybe<Scalars['Int']>;
+  mime?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  url?: Maybe<Scalars['String']>;
+  width?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataImagesFormatsMedium = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataImagesFormatsSmall = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataImagesFormatsThumbnail = {
+  width?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLeader_Skills = {
+  id?: Maybe<Scalars['Int']>;
+  locale?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataLocations = {
+  slug?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataPreparation_Duration = {
+  slug?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataSkill_Areas = {
+  slug?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataSuggestions = {
+  author?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['String']>;
+  from_web?: Maybe<Scalars['Boolean']>;
+  id?: Maybe<Scalars['Int']>;
+  like_count?: Maybe<Scalars['Int']>;
+  locale?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  links?: Maybe<Array<Maybe<SitePageContextDataSuggestionsLinks>>>;
+  files?: Maybe<Array<Maybe<SitePageContextDataSuggestionsFiles>>>;
+};
+
+
+export type SitePageContextDataSuggestionsPublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataSuggestionsLinks = {
+  url?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+};
+
+export type SitePageContextDataSuggestionsFiles = {
+  url?: Maybe<Scalars['String']>;
+  size?: Maybe<Scalars['Float']>;
+  name?: Maybe<Scalars['String']>;
+  mime?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+};
+
 export type SiteBuildMetadata = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -3668,6 +4104,8 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  strapiAgeGroup?: Maybe<StrapiAgeGroup>;
+  allStrapiAgeGroup: StrapiAgeGroupConnection;
   strapiContentpage?: Maybe<StrapiContentpage>;
   allStrapiContentpage: StrapiContentpageConnection;
   programNavigation?: Maybe<Program_Navigation>;
@@ -3676,10 +4114,10 @@ export type Query = {
   allContentNavigation: Content_NavigationConnection;
   strapiFrontPage?: Maybe<StrapiFrontPage>;
   allStrapiFrontPage: StrapiFrontPageConnection;
+  strapiSuggestion?: Maybe<StrapiSuggestion>;
+  allStrapiSuggestion: StrapiSuggestionConnection;
   strapiActivityGroup?: Maybe<StrapiActivityGroup>;
   allStrapiActivityGroup: StrapiActivityGroupConnection;
-  strapiAgeGroup?: Maybe<StrapiAgeGroup>;
-  allStrapiAgeGroup: StrapiAgeGroupConnection;
   strapiActivity?: Maybe<StrapiActivity>;
   allStrapiActivity: StrapiActivityConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
@@ -3881,6 +4319,42 @@ export type QueryAllImageSharpArgs = {
 };
 
 
+export type QueryStrapiAgeGroupArgs = {
+  upper_content_area?: Maybe<JsonQueryOperatorInput>;
+  lower_content_area?: Maybe<JsonQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  ingress?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  minimum_age?: Maybe<IntQueryOperatorInput>;
+  maximum_age?: Maybe<IntQueryOperatorInput>;
+  wp_guid?: Maybe<StringQueryOperatorInput>;
+  subactivitygroup_term?: Maybe<StrapiAgeGroupSubactivitygroup_TermFilterInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  links?: Maybe<StrapiAgeGroupLinksFilterListInput>;
+  main_image?: Maybe<StrapiAgeGroupMain_ImageFilterInput>;
+  logo?: Maybe<StrapiAgeGroupLogoFilterInput>;
+  activity_groups?: Maybe<StrapiAgeGroupActivity_GroupsFilterListInput>;
+  localizations?: Maybe<StrapiAgeGroupLocalizationsFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  fields?: Maybe<StrapiAgeGroupFieldsFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllStrapiAgeGroupArgs = {
+  filter?: Maybe<StrapiAgeGroupFilterInput>;
+  sort?: Maybe<StrapiAgeGroupSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryStrapiContentpageArgs = {
   content?: Maybe<JsonQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
@@ -3970,6 +4444,36 @@ export type QueryAllStrapiFrontPageArgs = {
 };
 
 
+export type QueryStrapiSuggestionArgs = {
+  title?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  activity?: Maybe<StrapiSuggestionActivityFilterInput>;
+  wp_guid?: Maybe<StringQueryOperatorInput>;
+  author?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  from_web?: Maybe<BooleanQueryOperatorInput>;
+  like_count?: Maybe<IntQueryOperatorInput>;
+  links?: Maybe<StrapiSuggestionLinksFilterListInput>;
+  files?: Maybe<StrapiSuggestionFilesFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllStrapiSuggestionArgs = {
+  filter?: Maybe<StrapiSuggestionFilterInput>;
+  sort?: Maybe<StrapiSuggestionSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryStrapiActivityGroupArgs = {
   title?: Maybe<StringQueryOperatorInput>;
   ingress?: Maybe<StringQueryOperatorInput>;
@@ -3993,6 +4497,7 @@ export type QueryStrapiActivityGroupArgs = {
   activities?: Maybe<StrapiActivityGroupActivitiesFilterListInput>;
   localizations?: Maybe<StrapiActivityGroupLocalizationsFilterListInput>;
   strapiId?: Maybe<IntQueryOperatorInput>;
+  fields?: Maybe<StrapiActivityGroupFieldsFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -4003,39 +4508,6 @@ export type QueryStrapiActivityGroupArgs = {
 export type QueryAllStrapiActivityGroupArgs = {
   filter?: Maybe<StrapiActivityGroupFilterInput>;
   sort?: Maybe<StrapiActivityGroupSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryStrapiAgeGroupArgs = {
-  title?: Maybe<StringQueryOperatorInput>;
-  ingress?: Maybe<StringQueryOperatorInput>;
-  content?: Maybe<StringQueryOperatorInput>;
-  minimum_age?: Maybe<IntQueryOperatorInput>;
-  maximum_age?: Maybe<IntQueryOperatorInput>;
-  wp_guid?: Maybe<StringQueryOperatorInput>;
-  subactivitygroup_term?: Maybe<StrapiAgeGroupSubactivitygroup_TermFilterInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
-  published_at?: Maybe<DateQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  links?: Maybe<StrapiAgeGroupLinksFilterListInput>;
-  main_image?: Maybe<StrapiAgeGroupMain_ImageFilterInput>;
-  logo?: Maybe<StrapiAgeGroupLogoFilterInput>;
-  activity_groups?: Maybe<StrapiAgeGroupActivity_GroupsFilterListInput>;
-  localizations?: Maybe<StrapiAgeGroupLocalizationsFilterListInput>;
-  strapiId?: Maybe<IntQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-};
-
-
-export type QueryAllStrapiAgeGroupArgs = {
-  filter?: Maybe<StrapiAgeGroupFilterInput>;
-  sort?: Maybe<StrapiAgeGroupSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -4068,6 +4540,7 @@ export type QueryStrapiActivityArgs = {
   locations?: Maybe<StrapiActivityLocationsFilterListInput>;
   localizations?: Maybe<StrapiActivityLocalizationsFilterListInput>;
   strapiId?: Maybe<IntQueryOperatorInput>;
+  fields?: Maybe<StrapiActivityFieldsFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -5205,6 +5678,8 @@ export type SiteFunctionSortInput = {
 export type SitePageContextFilterInput = {
   data?: Maybe<SitePageContextDataFilterInput>;
   type?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
+  ageGroupId?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePageContextDataFilterInput = {
@@ -5229,10 +5704,12 @@ export type SitePageContextDataFilterInput = {
   activity_group_category?: Maybe<SitePageContextDataActivity_Group_CategoryFilterInput>;
   activitygroup_term?: Maybe<SitePageContextDataActivitygroup_TermFilterInput>;
   subactivity_term?: Maybe<SitePageContextDataSubactivity_TermFilterInput>;
+  age_group?: Maybe<SitePageContextDataAge_GroupFilterInput>;
   duration?: Maybe<SitePageContextDataDurationFilterInput>;
   educational_objectives?: Maybe<SitePageContextDataEducational_ObjectivesFilterListInput>;
   files?: Maybe<SitePageContextDataFilesFilterListInput>;
   group_sizes?: Maybe<SitePageContextDataGroup_SizesFilterListInput>;
+  images?: Maybe<SitePageContextDataImagesFilterListInput>;
   leader_skills?: Maybe<SitePageContextDataLeader_SkillsFilterListInput>;
   leader_tasks?: Maybe<StringQueryOperatorInput>;
   locations?: Maybe<SitePageContextDataLocationsFilterListInput>;
@@ -5270,6 +5747,7 @@ export type SitePageContextDataLogoFilterInput = {
   height?: Maybe<IntQueryOperatorInput>;
   formats?: Maybe<SitePageContextDataLogoFormatsFilterInput>;
   id?: Maybe<IntQueryOperatorInput>;
+  localFile?: Maybe<SitePageContextDataLogoLocalFileFilterInput>;
 };
 
 export type SitePageContextDataLogoFormatsFilterInput = {
@@ -5315,6 +5793,11 @@ export type SitePageContextDataLogoFormatsThumbnailFilterInput = {
   height?: Maybe<IntQueryOperatorInput>;
 };
 
+export type SitePageContextDataLogoLocalFileFilterInput = {
+  publicURL?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePageContextDataSubactivitygroup_TermFilterInput = {
   locale?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -5331,6 +5814,7 @@ export type SitePageContextDataMain_ImageFilterInput = {
   height?: Maybe<IntQueryOperatorInput>;
   formats?: Maybe<SitePageContextDataMain_ImageFormatsFilterInput>;
   id?: Maybe<IntQueryOperatorInput>;
+  localFile?: Maybe<SitePageContextDataMain_ImageLocalFileFilterInput>;
 };
 
 export type SitePageContextDataMain_ImageFormatsFilterInput = {
@@ -5376,6 +5860,11 @@ export type SitePageContextDataMain_ImageFormatsThumbnailFilterInput = {
   height?: Maybe<IntQueryOperatorInput>;
 };
 
+export type SitePageContextDataMain_ImageLocalFileFilterInput = {
+  publicURL?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePageContextDataActivity_GroupsFilterListInput = {
   elemMatch?: Maybe<SitePageContextDataActivity_GroupsFilterInput>;
 };
@@ -5390,6 +5879,7 @@ export type SitePageContextDataActivitiesFilterListInput = {
 
 export type SitePageContextDataActivitiesFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextDataActivity_Group_CategoryFilterInput = {
@@ -5406,6 +5896,11 @@ export type SitePageContextDataSubactivity_TermFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   plural?: Maybe<StringQueryOperatorInput>;
   singular?: Maybe<StringQueryOperatorInput>;
+};
+
+export type SitePageContextDataAge_GroupFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextDataDurationFilterInput = {
@@ -5447,6 +5942,63 @@ export type SitePageContextDataGroup_SizesFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextDataImagesFilterListInput = {
+  elemMatch?: Maybe<SitePageContextDataImagesFilterInput>;
+};
+
+export type SitePageContextDataImagesFilterInput = {
+  width?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<SitePageContextDataImagesFormatsFilterInput>;
+};
+
+export type SitePageContextDataImagesFormatsFilterInput = {
+  large?: Maybe<SitePageContextDataImagesFormatsLargeFilterInput>;
+  medium?: Maybe<SitePageContextDataImagesFormatsMediumFilterInput>;
+  small?: Maybe<SitePageContextDataImagesFormatsSmallFilterInput>;
+  thumbnail?: Maybe<SitePageContextDataImagesFormatsThumbnailFilterInput>;
+};
+
+export type SitePageContextDataImagesFormatsLargeFilterInput = {
+  height?: Maybe<IntQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextDataImagesFormatsMediumFilterInput = {
+  width?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextDataImagesFormatsSmallFilterInput = {
+  width?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextDataImagesFormatsThumbnailFilterInput = {
+  width?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
 };
 
 export type SitePageContextDataLeader_SkillsFilterListInput = {
@@ -5823,6 +6375,7 @@ export type SitePageFieldsEnum =
   | 'context___data___mandatory'
   | 'context___data___activities'
   | 'context___data___activities___id'
+  | 'context___data___activities___title'
   | 'context___data___activity_group_category___name'
   | 'context___data___activitygroup_term___name'
   | 'context___data___activitygroup_term___plural'
@@ -5830,6 +6383,8 @@ export type SitePageFieldsEnum =
   | 'context___data___subactivity_term___name'
   | 'context___data___subactivity_term___plural'
   | 'context___data___subactivity_term___singular'
+  | 'context___data___age_group___id'
+  | 'context___data___age_group___title'
   | 'context___data___duration___locale'
   | 'context___data___duration___name'
   | 'context___data___duration___slug'
@@ -5850,6 +6405,13 @@ export type SitePageFieldsEnum =
   | 'context___data___group_sizes___name'
   | 'context___data___group_sizes___locale'
   | 'context___data___group_sizes___id'
+  | 'context___data___images'
+  | 'context___data___images___width'
+  | 'context___data___images___url'
+  | 'context___data___images___size'
+  | 'context___data___images___name'
+  | 'context___data___images___mime'
+  | 'context___data___images___height'
   | 'context___data___leader_skills'
   | 'context___data___leader_skills___id'
   | 'context___data___leader_skills___locale'
@@ -5883,6 +6445,8 @@ export type SitePageFieldsEnum =
   | 'context___data___suggestions___files'
   | 'context___data___main_text'
   | 'context___type'
+  | 'context___id'
+  | 'context___ageGroupId'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
   | 'pluginCreator___parent___parent___id'
@@ -6175,6 +6739,906 @@ export type ImageSharpGroupConnection = {
 
 export type ImageSharpSortInput = {
   fields?: Maybe<Array<Maybe<ImageSharpFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
+export type StrapiAgeGroupSubactivitygroup_TermFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  singular?: Maybe<StringQueryOperatorInput>;
+  plural?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupLinksFilterListInput = {
+  elemMatch?: Maybe<StrapiAgeGroupLinksFilterInput>;
+};
+
+export type StrapiAgeGroupLinksFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupMain_ImageFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  alternativeText?: Maybe<StringQueryOperatorInput>;
+  caption?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiAgeGroupMain_ImageFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiAgeGroupMain_ImageFormatsFilterInput = {
+  large?: Maybe<StrapiAgeGroupMain_ImageFormatsLargeFilterInput>;
+  small?: Maybe<StrapiAgeGroupMain_ImageFormatsSmallFilterInput>;
+  medium?: Maybe<StrapiAgeGroupMain_ImageFormatsMediumFilterInput>;
+  thumbnail?: Maybe<StrapiAgeGroupMain_ImageFormatsThumbnailFilterInput>;
+};
+
+export type StrapiAgeGroupMain_ImageFormatsLargeFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupMain_ImageFormatsSmallFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupMain_ImageFormatsMediumFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupMain_ImageFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupLogoFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiAgeGroupLogoFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiAgeGroupLogoFormatsFilterInput = {
+  large?: Maybe<StrapiAgeGroupLogoFormatsLargeFilterInput>;
+  small?: Maybe<StrapiAgeGroupLogoFormatsSmallFilterInput>;
+  medium?: Maybe<StrapiAgeGroupLogoFormatsMediumFilterInput>;
+  thumbnail?: Maybe<StrapiAgeGroupLogoFormatsThumbnailFilterInput>;
+};
+
+export type StrapiAgeGroupLogoFormatsLargeFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupLogoFormatsSmallFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupLogoFormatsMediumFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupLogoFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFilterListInput = {
+  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  ingress?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  wp_guid?: Maybe<StringQueryOperatorInput>;
+  mandatory?: Maybe<BooleanQueryOperatorInput>;
+  subactivity_term?: Maybe<IntQueryOperatorInput>;
+  subactivitygroup_term?: Maybe<IntQueryOperatorInput>;
+  activitygroup_term?: Maybe<IntQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  age_group?: Maybe<IntQueryOperatorInput>;
+  activity_group_category?: Maybe<IntQueryOperatorInput>;
+  links?: Maybe<StrapiAgeGroupActivity_GroupsLinksFilterListInput>;
+  main_image?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFilterInput>;
+  logo?: Maybe<StrapiAgeGroupActivity_GroupsLogoFilterInput>;
+  files?: Maybe<StrapiAgeGroupActivity_GroupsFilesFilterListInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLinksFilterListInput = {
+  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsLinksFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLinksFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsMain_ImageFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsMain_ImageFormatsFilterInput = {
+  thumbnail?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFormatsThumbnailFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsMain_ImageFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsFilterInput = {
+  small?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsSmallFilterInput>;
+  thumbnail?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsThumbnailFilterInput>;
+  medium?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsMediumFilterInput>;
+  large?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsSmallFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsMediumFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFilesFilterListInput = {
+  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsFilesFilterInput>;
+};
+
+export type StrapiAgeGroupActivity_GroupsFilesFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiAgeGroupLocalizationsFilterListInput = {
+  elemMatch?: Maybe<StrapiAgeGroupLocalizationsFilterInput>;
+};
+
+export type StrapiAgeGroupLocalizationsFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupFieldsFilterInput = {
+  path?: Maybe<StringQueryOperatorInput>;
+};
+
+export type StrapiAgeGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiAgeGroupEdge>;
+  nodes: Array<StrapiAgeGroup>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StrapiAgeGroupGroupConnection>;
+};
+
+
+export type StrapiAgeGroupConnectionDistinctArgs = {
+  field: StrapiAgeGroupFieldsEnum;
+};
+
+
+export type StrapiAgeGroupConnectionMaxArgs = {
+  field: StrapiAgeGroupFieldsEnum;
+};
+
+
+export type StrapiAgeGroupConnectionMinArgs = {
+  field: StrapiAgeGroupFieldsEnum;
+};
+
+
+export type StrapiAgeGroupConnectionSumArgs = {
+  field: StrapiAgeGroupFieldsEnum;
+};
+
+
+export type StrapiAgeGroupConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StrapiAgeGroupFieldsEnum;
+};
+
+export type StrapiAgeGroupEdge = {
+  next?: Maybe<StrapiAgeGroup>;
+  node: StrapiAgeGroup;
+  previous?: Maybe<StrapiAgeGroup>;
+};
+
+export type StrapiAgeGroupFieldsEnum =
+  | 'upper_content_area'
+  | 'lower_content_area'
+  | 'title'
+  | 'ingress'
+  | 'content'
+  | 'minimum_age'
+  | 'maximum_age'
+  | 'wp_guid'
+  | 'subactivitygroup_term___id'
+  | 'subactivitygroup_term___name'
+  | 'subactivitygroup_term___singular'
+  | 'subactivitygroup_term___plural'
+  | 'subactivitygroup_term___locale'
+  | 'subactivitygroup_term___created_at'
+  | 'subactivitygroup_term___updated_at'
+  | 'locale'
+  | 'published_at'
+  | 'created_at'
+  | 'updated_at'
+  | 'links'
+  | 'links___id'
+  | 'links___description'
+  | 'links___url'
+  | 'main_image___id'
+  | 'main_image___name'
+  | 'main_image___alternativeText'
+  | 'main_image___caption'
+  | 'main_image___width'
+  | 'main_image___height'
+  | 'main_image___formats___large___ext'
+  | 'main_image___formats___large___url'
+  | 'main_image___formats___large___hash'
+  | 'main_image___formats___large___mime'
+  | 'main_image___formats___large___name'
+  | 'main_image___formats___large___size'
+  | 'main_image___formats___large___width'
+  | 'main_image___formats___large___height'
+  | 'main_image___formats___small___ext'
+  | 'main_image___formats___small___url'
+  | 'main_image___formats___small___hash'
+  | 'main_image___formats___small___mime'
+  | 'main_image___formats___small___name'
+  | 'main_image___formats___small___size'
+  | 'main_image___formats___small___width'
+  | 'main_image___formats___small___height'
+  | 'main_image___formats___medium___ext'
+  | 'main_image___formats___medium___url'
+  | 'main_image___formats___medium___hash'
+  | 'main_image___formats___medium___mime'
+  | 'main_image___formats___medium___name'
+  | 'main_image___formats___medium___size'
+  | 'main_image___formats___medium___width'
+  | 'main_image___formats___medium___height'
+  | 'main_image___formats___thumbnail___ext'
+  | 'main_image___formats___thumbnail___url'
+  | 'main_image___formats___thumbnail___hash'
+  | 'main_image___formats___thumbnail___mime'
+  | 'main_image___formats___thumbnail___name'
+  | 'main_image___formats___thumbnail___size'
+  | 'main_image___formats___thumbnail___width'
+  | 'main_image___formats___thumbnail___height'
+  | 'main_image___hash'
+  | 'main_image___ext'
+  | 'main_image___mime'
+  | 'main_image___size'
+  | 'main_image___url'
+  | 'main_image___provider'
+  | 'main_image___created_at'
+  | 'main_image___updated_at'
+  | 'main_image___localFile___sourceInstanceName'
+  | 'main_image___localFile___absolutePath'
+  | 'main_image___localFile___relativePath'
+  | 'main_image___localFile___extension'
+  | 'main_image___localFile___size'
+  | 'main_image___localFile___prettySize'
+  | 'main_image___localFile___modifiedTime'
+  | 'main_image___localFile___accessTime'
+  | 'main_image___localFile___changeTime'
+  | 'main_image___localFile___birthTime'
+  | 'main_image___localFile___root'
+  | 'main_image___localFile___dir'
+  | 'main_image___localFile___base'
+  | 'main_image___localFile___ext'
+  | 'main_image___localFile___name'
+  | 'main_image___localFile___relativeDirectory'
+  | 'main_image___localFile___dev'
+  | 'main_image___localFile___mode'
+  | 'main_image___localFile___nlink'
+  | 'main_image___localFile___uid'
+  | 'main_image___localFile___gid'
+  | 'main_image___localFile___rdev'
+  | 'main_image___localFile___ino'
+  | 'main_image___localFile___atimeMs'
+  | 'main_image___localFile___mtimeMs'
+  | 'main_image___localFile___ctimeMs'
+  | 'main_image___localFile___atime'
+  | 'main_image___localFile___mtime'
+  | 'main_image___localFile___ctime'
+  | 'main_image___localFile___birthtime'
+  | 'main_image___localFile___birthtimeMs'
+  | 'main_image___localFile___blksize'
+  | 'main_image___localFile___blocks'
+  | 'main_image___localFile___url'
+  | 'main_image___localFile___publicURL'
+  | 'main_image___localFile___childrenImageSharp'
+  | 'main_image___localFile___childrenImageSharp___gatsbyImageData'
+  | 'main_image___localFile___childrenImageSharp___id'
+  | 'main_image___localFile___childrenImageSharp___children'
+  | 'main_image___localFile___childImageSharp___gatsbyImageData'
+  | 'main_image___localFile___childImageSharp___id'
+  | 'main_image___localFile___childImageSharp___children'
+  | 'main_image___localFile___id'
+  | 'main_image___localFile___parent___id'
+  | 'main_image___localFile___parent___children'
+  | 'main_image___localFile___children'
+  | 'main_image___localFile___children___id'
+  | 'main_image___localFile___children___children'
+  | 'main_image___localFile___internal___content'
+  | 'main_image___localFile___internal___contentDigest'
+  | 'main_image___localFile___internal___description'
+  | 'main_image___localFile___internal___fieldOwners'
+  | 'main_image___localFile___internal___ignoreType'
+  | 'main_image___localFile___internal___mediaType'
+  | 'main_image___localFile___internal___owner'
+  | 'main_image___localFile___internal___type'
+  | 'logo___id'
+  | 'logo___name'
+  | 'logo___width'
+  | 'logo___height'
+  | 'logo___formats___large___ext'
+  | 'logo___formats___large___url'
+  | 'logo___formats___large___hash'
+  | 'logo___formats___large___mime'
+  | 'logo___formats___large___name'
+  | 'logo___formats___large___size'
+  | 'logo___formats___large___width'
+  | 'logo___formats___large___height'
+  | 'logo___formats___small___ext'
+  | 'logo___formats___small___url'
+  | 'logo___formats___small___hash'
+  | 'logo___formats___small___mime'
+  | 'logo___formats___small___name'
+  | 'logo___formats___small___size'
+  | 'logo___formats___small___width'
+  | 'logo___formats___small___height'
+  | 'logo___formats___medium___ext'
+  | 'logo___formats___medium___url'
+  | 'logo___formats___medium___hash'
+  | 'logo___formats___medium___mime'
+  | 'logo___formats___medium___name'
+  | 'logo___formats___medium___size'
+  | 'logo___formats___medium___width'
+  | 'logo___formats___medium___height'
+  | 'logo___formats___thumbnail___ext'
+  | 'logo___formats___thumbnail___url'
+  | 'logo___formats___thumbnail___hash'
+  | 'logo___formats___thumbnail___mime'
+  | 'logo___formats___thumbnail___name'
+  | 'logo___formats___thumbnail___size'
+  | 'logo___formats___thumbnail___width'
+  | 'logo___formats___thumbnail___height'
+  | 'logo___hash'
+  | 'logo___ext'
+  | 'logo___mime'
+  | 'logo___size'
+  | 'logo___url'
+  | 'logo___provider'
+  | 'logo___created_at'
+  | 'logo___updated_at'
+  | 'logo___localFile___sourceInstanceName'
+  | 'logo___localFile___absolutePath'
+  | 'logo___localFile___relativePath'
+  | 'logo___localFile___extension'
+  | 'logo___localFile___size'
+  | 'logo___localFile___prettySize'
+  | 'logo___localFile___modifiedTime'
+  | 'logo___localFile___accessTime'
+  | 'logo___localFile___changeTime'
+  | 'logo___localFile___birthTime'
+  | 'logo___localFile___root'
+  | 'logo___localFile___dir'
+  | 'logo___localFile___base'
+  | 'logo___localFile___ext'
+  | 'logo___localFile___name'
+  | 'logo___localFile___relativeDirectory'
+  | 'logo___localFile___dev'
+  | 'logo___localFile___mode'
+  | 'logo___localFile___nlink'
+  | 'logo___localFile___uid'
+  | 'logo___localFile___gid'
+  | 'logo___localFile___rdev'
+  | 'logo___localFile___ino'
+  | 'logo___localFile___atimeMs'
+  | 'logo___localFile___mtimeMs'
+  | 'logo___localFile___ctimeMs'
+  | 'logo___localFile___atime'
+  | 'logo___localFile___mtime'
+  | 'logo___localFile___ctime'
+  | 'logo___localFile___birthtime'
+  | 'logo___localFile___birthtimeMs'
+  | 'logo___localFile___blksize'
+  | 'logo___localFile___blocks'
+  | 'logo___localFile___url'
+  | 'logo___localFile___publicURL'
+  | 'logo___localFile___childrenImageSharp'
+  | 'logo___localFile___childrenImageSharp___gatsbyImageData'
+  | 'logo___localFile___childrenImageSharp___id'
+  | 'logo___localFile___childrenImageSharp___children'
+  | 'logo___localFile___childImageSharp___gatsbyImageData'
+  | 'logo___localFile___childImageSharp___id'
+  | 'logo___localFile___childImageSharp___children'
+  | 'logo___localFile___id'
+  | 'logo___localFile___parent___id'
+  | 'logo___localFile___parent___children'
+  | 'logo___localFile___children'
+  | 'logo___localFile___children___id'
+  | 'logo___localFile___children___children'
+  | 'logo___localFile___internal___content'
+  | 'logo___localFile___internal___contentDigest'
+  | 'logo___localFile___internal___description'
+  | 'logo___localFile___internal___fieldOwners'
+  | 'logo___localFile___internal___ignoreType'
+  | 'logo___localFile___internal___mediaType'
+  | 'logo___localFile___internal___owner'
+  | 'logo___localFile___internal___type'
+  | 'activity_groups'
+  | 'activity_groups___id'
+  | 'activity_groups___title'
+  | 'activity_groups___ingress'
+  | 'activity_groups___content'
+  | 'activity_groups___wp_guid'
+  | 'activity_groups___mandatory'
+  | 'activity_groups___subactivity_term'
+  | 'activity_groups___subactivitygroup_term'
+  | 'activity_groups___activitygroup_term'
+  | 'activity_groups___locale'
+  | 'activity_groups___published_at'
+  | 'activity_groups___created_at'
+  | 'activity_groups___updated_at'
+  | 'activity_groups___age_group'
+  | 'activity_groups___activity_group_category'
+  | 'activity_groups___links'
+  | 'activity_groups___links___id'
+  | 'activity_groups___links___description'
+  | 'activity_groups___links___url'
+  | 'activity_groups___main_image___id'
+  | 'activity_groups___main_image___name'
+  | 'activity_groups___main_image___width'
+  | 'activity_groups___main_image___height'
+  | 'activity_groups___main_image___hash'
+  | 'activity_groups___main_image___ext'
+  | 'activity_groups___main_image___mime'
+  | 'activity_groups___main_image___size'
+  | 'activity_groups___main_image___url'
+  | 'activity_groups___main_image___provider'
+  | 'activity_groups___main_image___created_at'
+  | 'activity_groups___main_image___updated_at'
+  | 'activity_groups___main_image___localFile___sourceInstanceName'
+  | 'activity_groups___main_image___localFile___absolutePath'
+  | 'activity_groups___main_image___localFile___relativePath'
+  | 'activity_groups___main_image___localFile___extension'
+  | 'activity_groups___main_image___localFile___size'
+  | 'activity_groups___main_image___localFile___prettySize'
+  | 'activity_groups___main_image___localFile___modifiedTime'
+  | 'activity_groups___main_image___localFile___accessTime'
+  | 'activity_groups___main_image___localFile___changeTime'
+  | 'activity_groups___main_image___localFile___birthTime'
+  | 'activity_groups___main_image___localFile___root'
+  | 'activity_groups___main_image___localFile___dir'
+  | 'activity_groups___main_image___localFile___base'
+  | 'activity_groups___main_image___localFile___ext'
+  | 'activity_groups___main_image___localFile___name'
+  | 'activity_groups___main_image___localFile___relativeDirectory'
+  | 'activity_groups___main_image___localFile___dev'
+  | 'activity_groups___main_image___localFile___mode'
+  | 'activity_groups___main_image___localFile___nlink'
+  | 'activity_groups___main_image___localFile___uid'
+  | 'activity_groups___main_image___localFile___gid'
+  | 'activity_groups___main_image___localFile___rdev'
+  | 'activity_groups___main_image___localFile___ino'
+  | 'activity_groups___main_image___localFile___atimeMs'
+  | 'activity_groups___main_image___localFile___mtimeMs'
+  | 'activity_groups___main_image___localFile___ctimeMs'
+  | 'activity_groups___main_image___localFile___atime'
+  | 'activity_groups___main_image___localFile___mtime'
+  | 'activity_groups___main_image___localFile___ctime'
+  | 'activity_groups___main_image___localFile___birthtime'
+  | 'activity_groups___main_image___localFile___birthtimeMs'
+  | 'activity_groups___main_image___localFile___blksize'
+  | 'activity_groups___main_image___localFile___blocks'
+  | 'activity_groups___main_image___localFile___url'
+  | 'activity_groups___main_image___localFile___publicURL'
+  | 'activity_groups___main_image___localFile___childrenImageSharp'
+  | 'activity_groups___main_image___localFile___id'
+  | 'activity_groups___main_image___localFile___children'
+  | 'activity_groups___logo___id'
+  | 'activity_groups___logo___name'
+  | 'activity_groups___logo___width'
+  | 'activity_groups___logo___height'
+  | 'activity_groups___logo___hash'
+  | 'activity_groups___logo___ext'
+  | 'activity_groups___logo___mime'
+  | 'activity_groups___logo___size'
+  | 'activity_groups___logo___url'
+  | 'activity_groups___logo___provider'
+  | 'activity_groups___logo___created_at'
+  | 'activity_groups___logo___updated_at'
+  | 'activity_groups___logo___localFile___sourceInstanceName'
+  | 'activity_groups___logo___localFile___absolutePath'
+  | 'activity_groups___logo___localFile___relativePath'
+  | 'activity_groups___logo___localFile___extension'
+  | 'activity_groups___logo___localFile___size'
+  | 'activity_groups___logo___localFile___prettySize'
+  | 'activity_groups___logo___localFile___modifiedTime'
+  | 'activity_groups___logo___localFile___accessTime'
+  | 'activity_groups___logo___localFile___changeTime'
+  | 'activity_groups___logo___localFile___birthTime'
+  | 'activity_groups___logo___localFile___root'
+  | 'activity_groups___logo___localFile___dir'
+  | 'activity_groups___logo___localFile___base'
+  | 'activity_groups___logo___localFile___ext'
+  | 'activity_groups___logo___localFile___name'
+  | 'activity_groups___logo___localFile___relativeDirectory'
+  | 'activity_groups___logo___localFile___dev'
+  | 'activity_groups___logo___localFile___mode'
+  | 'activity_groups___logo___localFile___nlink'
+  | 'activity_groups___logo___localFile___uid'
+  | 'activity_groups___logo___localFile___gid'
+  | 'activity_groups___logo___localFile___rdev'
+  | 'activity_groups___logo___localFile___ino'
+  | 'activity_groups___logo___localFile___atimeMs'
+  | 'activity_groups___logo___localFile___mtimeMs'
+  | 'activity_groups___logo___localFile___ctimeMs'
+  | 'activity_groups___logo___localFile___atime'
+  | 'activity_groups___logo___localFile___mtime'
+  | 'activity_groups___logo___localFile___ctime'
+  | 'activity_groups___logo___localFile___birthtime'
+  | 'activity_groups___logo___localFile___birthtimeMs'
+  | 'activity_groups___logo___localFile___blksize'
+  | 'activity_groups___logo___localFile___blocks'
+  | 'activity_groups___logo___localFile___url'
+  | 'activity_groups___logo___localFile___publicURL'
+  | 'activity_groups___logo___localFile___childrenImageSharp'
+  | 'activity_groups___logo___localFile___id'
+  | 'activity_groups___logo___localFile___children'
+  | 'activity_groups___files'
+  | 'activity_groups___files___id'
+  | 'activity_groups___files___name'
+  | 'activity_groups___files___hash'
+  | 'activity_groups___files___ext'
+  | 'activity_groups___files___mime'
+  | 'activity_groups___files___size'
+  | 'activity_groups___files___url'
+  | 'activity_groups___files___provider'
+  | 'activity_groups___files___created_at'
+  | 'activity_groups___files___updated_at'
+  | 'activity_groups___files___localFile___sourceInstanceName'
+  | 'activity_groups___files___localFile___absolutePath'
+  | 'activity_groups___files___localFile___relativePath'
+  | 'activity_groups___files___localFile___extension'
+  | 'activity_groups___files___localFile___size'
+  | 'activity_groups___files___localFile___prettySize'
+  | 'activity_groups___files___localFile___modifiedTime'
+  | 'activity_groups___files___localFile___accessTime'
+  | 'activity_groups___files___localFile___changeTime'
+  | 'activity_groups___files___localFile___birthTime'
+  | 'activity_groups___files___localFile___root'
+  | 'activity_groups___files___localFile___dir'
+  | 'activity_groups___files___localFile___base'
+  | 'activity_groups___files___localFile___ext'
+  | 'activity_groups___files___localFile___name'
+  | 'activity_groups___files___localFile___relativeDirectory'
+  | 'activity_groups___files___localFile___dev'
+  | 'activity_groups___files___localFile___mode'
+  | 'activity_groups___files___localFile___nlink'
+  | 'activity_groups___files___localFile___uid'
+  | 'activity_groups___files___localFile___gid'
+  | 'activity_groups___files___localFile___rdev'
+  | 'activity_groups___files___localFile___ino'
+  | 'activity_groups___files___localFile___atimeMs'
+  | 'activity_groups___files___localFile___mtimeMs'
+  | 'activity_groups___files___localFile___ctimeMs'
+  | 'activity_groups___files___localFile___atime'
+  | 'activity_groups___files___localFile___mtime'
+  | 'activity_groups___files___localFile___ctime'
+  | 'activity_groups___files___localFile___birthtime'
+  | 'activity_groups___files___localFile___birthtimeMs'
+  | 'activity_groups___files___localFile___blksize'
+  | 'activity_groups___files___localFile___blocks'
+  | 'activity_groups___files___localFile___url'
+  | 'activity_groups___files___localFile___publicURL'
+  | 'activity_groups___files___localFile___childrenImageSharp'
+  | 'activity_groups___files___localFile___id'
+  | 'activity_groups___files___localFile___children'
+  | 'localizations'
+  | 'localizations___id'
+  | 'localizations___locale'
+  | 'localizations___published_at'
+  | 'strapiId'
+  | 'fields___path'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type StrapiAgeGroupGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiAgeGroupEdge>;
+  nodes: Array<StrapiAgeGroup>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type StrapiAgeGroupFilterInput = {
+  upper_content_area?: Maybe<JsonQueryOperatorInput>;
+  lower_content_area?: Maybe<JsonQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  ingress?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  minimum_age?: Maybe<IntQueryOperatorInput>;
+  maximum_age?: Maybe<IntQueryOperatorInput>;
+  wp_guid?: Maybe<StringQueryOperatorInput>;
+  subactivitygroup_term?: Maybe<StrapiAgeGroupSubactivitygroup_TermFilterInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  links?: Maybe<StrapiAgeGroupLinksFilterListInput>;
+  main_image?: Maybe<StrapiAgeGroupMain_ImageFilterInput>;
+  logo?: Maybe<StrapiAgeGroupLogoFilterInput>;
+  activity_groups?: Maybe<StrapiAgeGroupActivity_GroupsFilterListInput>;
+  localizations?: Maybe<StrapiAgeGroupLocalizationsFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  fields?: Maybe<StrapiAgeGroupFieldsFilterInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type StrapiAgeGroupSortInput = {
+  fields?: Maybe<Array<Maybe<StrapiAgeGroupFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
@@ -7252,6 +8716,614 @@ export type StrapiFrontPageSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type StrapiSuggestionActivityFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  mandatory?: Maybe<BooleanQueryOperatorInput>;
+  ingress?: Maybe<StringQueryOperatorInput>;
+  wp_guid?: Maybe<StringQueryOperatorInput>;
+  leader_tasks?: Maybe<StringQueryOperatorInput>;
+  activity_term?: Maybe<IntQueryOperatorInput>;
+  duration?: Maybe<IntQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  activity_group?: Maybe<IntQueryOperatorInput>;
+  age_group?: Maybe<IntQueryOperatorInput>;
+  preparation_duration?: Maybe<IntQueryOperatorInput>;
+  logo?: Maybe<StrapiSuggestionActivityLogoFilterInput>;
+  images?: Maybe<StrapiSuggestionActivityImagesFilterListInput>;
+};
+
+export type StrapiSuggestionActivityLogoFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiSuggestionActivityLogoFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiSuggestionActivityLogoFormatsFilterInput = {
+  thumbnail?: Maybe<StrapiSuggestionActivityLogoFormatsThumbnailFilterInput>;
+};
+
+export type StrapiSuggestionActivityLogoFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionActivityImagesFilterListInput = {
+  elemMatch?: Maybe<StrapiSuggestionActivityImagesFilterInput>;
+};
+
+export type StrapiSuggestionActivityImagesFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiSuggestionActivityImagesFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsFilterInput = {
+  large?: Maybe<StrapiSuggestionActivityImagesFormatsLargeFilterInput>;
+  small?: Maybe<StrapiSuggestionActivityImagesFormatsSmallFilterInput>;
+  medium?: Maybe<StrapiSuggestionActivityImagesFormatsMediumFilterInput>;
+  thumbnail?: Maybe<StrapiSuggestionActivityImagesFormatsThumbnailFilterInput>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsLargeFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsSmallFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsMediumFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionActivityImagesFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionLinksFilterListInput = {
+  elemMatch?: Maybe<StrapiSuggestionLinksFilterInput>;
+};
+
+export type StrapiSuggestionLinksFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+};
+
+export type StrapiSuggestionFilesFilterListInput = {
+  elemMatch?: Maybe<StrapiSuggestionFilesFilterInput>;
+};
+
+export type StrapiSuggestionFilesFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+  formats?: Maybe<StrapiSuggestionFilesFormatsFilterInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  ext?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  provider?: Maybe<StringQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localFile?: Maybe<FileFilterInput>;
+};
+
+export type StrapiSuggestionFilesFormatsFilterInput = {
+  large?: Maybe<StrapiSuggestionFilesFormatsLargeFilterInput>;
+  small?: Maybe<StrapiSuggestionFilesFormatsSmallFilterInput>;
+  medium?: Maybe<StrapiSuggestionFilesFormatsMediumFilterInput>;
+  thumbnail?: Maybe<StrapiSuggestionFilesFormatsThumbnailFilterInput>;
+};
+
+export type StrapiSuggestionFilesFormatsLargeFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionFilesFormatsSmallFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionFilesFormatsMediumFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionFilesFormatsThumbnailFilterInput = {
+  ext?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
+  hash?: Maybe<StringQueryOperatorInput>;
+  mime?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  size?: Maybe<FloatQueryOperatorInput>;
+  width?: Maybe<IntQueryOperatorInput>;
+  height?: Maybe<IntQueryOperatorInput>;
+};
+
+export type StrapiSuggestionConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiSuggestionEdge>;
+  nodes: Array<StrapiSuggestion>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StrapiSuggestionGroupConnection>;
+};
+
+
+export type StrapiSuggestionConnectionDistinctArgs = {
+  field: StrapiSuggestionFieldsEnum;
+};
+
+
+export type StrapiSuggestionConnectionMaxArgs = {
+  field: StrapiSuggestionFieldsEnum;
+};
+
+
+export type StrapiSuggestionConnectionMinArgs = {
+  field: StrapiSuggestionFieldsEnum;
+};
+
+
+export type StrapiSuggestionConnectionSumArgs = {
+  field: StrapiSuggestionFieldsEnum;
+};
+
+
+export type StrapiSuggestionConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StrapiSuggestionFieldsEnum;
+};
+
+export type StrapiSuggestionEdge = {
+  next?: Maybe<StrapiSuggestion>;
+  node: StrapiSuggestion;
+  previous?: Maybe<StrapiSuggestion>;
+};
+
+export type StrapiSuggestionFieldsEnum =
+  | 'title'
+  | 'content'
+  | 'activity___id'
+  | 'activity___title'
+  | 'activity___content'
+  | 'activity___mandatory'
+  | 'activity___ingress'
+  | 'activity___wp_guid'
+  | 'activity___leader_tasks'
+  | 'activity___activity_term'
+  | 'activity___duration'
+  | 'activity___locale'
+  | 'activity___published_at'
+  | 'activity___created_at'
+  | 'activity___updated_at'
+  | 'activity___activity_group'
+  | 'activity___age_group'
+  | 'activity___preparation_duration'
+  | 'activity___logo___id'
+  | 'activity___logo___name'
+  | 'activity___logo___width'
+  | 'activity___logo___height'
+  | 'activity___logo___hash'
+  | 'activity___logo___ext'
+  | 'activity___logo___mime'
+  | 'activity___logo___size'
+  | 'activity___logo___url'
+  | 'activity___logo___provider'
+  | 'activity___logo___created_at'
+  | 'activity___logo___updated_at'
+  | 'activity___logo___localFile___sourceInstanceName'
+  | 'activity___logo___localFile___absolutePath'
+  | 'activity___logo___localFile___relativePath'
+  | 'activity___logo___localFile___extension'
+  | 'activity___logo___localFile___size'
+  | 'activity___logo___localFile___prettySize'
+  | 'activity___logo___localFile___modifiedTime'
+  | 'activity___logo___localFile___accessTime'
+  | 'activity___logo___localFile___changeTime'
+  | 'activity___logo___localFile___birthTime'
+  | 'activity___logo___localFile___root'
+  | 'activity___logo___localFile___dir'
+  | 'activity___logo___localFile___base'
+  | 'activity___logo___localFile___ext'
+  | 'activity___logo___localFile___name'
+  | 'activity___logo___localFile___relativeDirectory'
+  | 'activity___logo___localFile___dev'
+  | 'activity___logo___localFile___mode'
+  | 'activity___logo___localFile___nlink'
+  | 'activity___logo___localFile___uid'
+  | 'activity___logo___localFile___gid'
+  | 'activity___logo___localFile___rdev'
+  | 'activity___logo___localFile___ino'
+  | 'activity___logo___localFile___atimeMs'
+  | 'activity___logo___localFile___mtimeMs'
+  | 'activity___logo___localFile___ctimeMs'
+  | 'activity___logo___localFile___atime'
+  | 'activity___logo___localFile___mtime'
+  | 'activity___logo___localFile___ctime'
+  | 'activity___logo___localFile___birthtime'
+  | 'activity___logo___localFile___birthtimeMs'
+  | 'activity___logo___localFile___blksize'
+  | 'activity___logo___localFile___blocks'
+  | 'activity___logo___localFile___url'
+  | 'activity___logo___localFile___publicURL'
+  | 'activity___logo___localFile___childrenImageSharp'
+  | 'activity___logo___localFile___id'
+  | 'activity___logo___localFile___children'
+  | 'activity___images'
+  | 'activity___images___id'
+  | 'activity___images___name'
+  | 'activity___images___width'
+  | 'activity___images___height'
+  | 'activity___images___hash'
+  | 'activity___images___ext'
+  | 'activity___images___mime'
+  | 'activity___images___size'
+  | 'activity___images___url'
+  | 'activity___images___provider'
+  | 'activity___images___created_at'
+  | 'activity___images___updated_at'
+  | 'activity___images___localFile___sourceInstanceName'
+  | 'activity___images___localFile___absolutePath'
+  | 'activity___images___localFile___relativePath'
+  | 'activity___images___localFile___extension'
+  | 'activity___images___localFile___size'
+  | 'activity___images___localFile___prettySize'
+  | 'activity___images___localFile___modifiedTime'
+  | 'activity___images___localFile___accessTime'
+  | 'activity___images___localFile___changeTime'
+  | 'activity___images___localFile___birthTime'
+  | 'activity___images___localFile___root'
+  | 'activity___images___localFile___dir'
+  | 'activity___images___localFile___base'
+  | 'activity___images___localFile___ext'
+  | 'activity___images___localFile___name'
+  | 'activity___images___localFile___relativeDirectory'
+  | 'activity___images___localFile___dev'
+  | 'activity___images___localFile___mode'
+  | 'activity___images___localFile___nlink'
+  | 'activity___images___localFile___uid'
+  | 'activity___images___localFile___gid'
+  | 'activity___images___localFile___rdev'
+  | 'activity___images___localFile___ino'
+  | 'activity___images___localFile___atimeMs'
+  | 'activity___images___localFile___mtimeMs'
+  | 'activity___images___localFile___ctimeMs'
+  | 'activity___images___localFile___atime'
+  | 'activity___images___localFile___mtime'
+  | 'activity___images___localFile___ctime'
+  | 'activity___images___localFile___birthtime'
+  | 'activity___images___localFile___birthtimeMs'
+  | 'activity___images___localFile___blksize'
+  | 'activity___images___localFile___blocks'
+  | 'activity___images___localFile___url'
+  | 'activity___images___localFile___publicURL'
+  | 'activity___images___localFile___childrenImageSharp'
+  | 'activity___images___localFile___id'
+  | 'activity___images___localFile___children'
+  | 'wp_guid'
+  | 'author'
+  | 'locale'
+  | 'published_at'
+  | 'created_at'
+  | 'updated_at'
+  | 'from_web'
+  | 'like_count'
+  | 'links'
+  | 'links___id'
+  | 'links___description'
+  | 'links___url'
+  | 'files'
+  | 'files___id'
+  | 'files___name'
+  | 'files___width'
+  | 'files___height'
+  | 'files___formats___large___ext'
+  | 'files___formats___large___url'
+  | 'files___formats___large___hash'
+  | 'files___formats___large___mime'
+  | 'files___formats___large___name'
+  | 'files___formats___large___size'
+  | 'files___formats___large___width'
+  | 'files___formats___large___height'
+  | 'files___formats___small___ext'
+  | 'files___formats___small___url'
+  | 'files___formats___small___hash'
+  | 'files___formats___small___mime'
+  | 'files___formats___small___name'
+  | 'files___formats___small___size'
+  | 'files___formats___small___width'
+  | 'files___formats___small___height'
+  | 'files___formats___medium___ext'
+  | 'files___formats___medium___url'
+  | 'files___formats___medium___hash'
+  | 'files___formats___medium___mime'
+  | 'files___formats___medium___name'
+  | 'files___formats___medium___size'
+  | 'files___formats___medium___width'
+  | 'files___formats___medium___height'
+  | 'files___formats___thumbnail___ext'
+  | 'files___formats___thumbnail___url'
+  | 'files___formats___thumbnail___hash'
+  | 'files___formats___thumbnail___mime'
+  | 'files___formats___thumbnail___name'
+  | 'files___formats___thumbnail___size'
+  | 'files___formats___thumbnail___width'
+  | 'files___formats___thumbnail___height'
+  | 'files___hash'
+  | 'files___ext'
+  | 'files___mime'
+  | 'files___size'
+  | 'files___url'
+  | 'files___provider'
+  | 'files___created_at'
+  | 'files___updated_at'
+  | 'files___localFile___sourceInstanceName'
+  | 'files___localFile___absolutePath'
+  | 'files___localFile___relativePath'
+  | 'files___localFile___extension'
+  | 'files___localFile___size'
+  | 'files___localFile___prettySize'
+  | 'files___localFile___modifiedTime'
+  | 'files___localFile___accessTime'
+  | 'files___localFile___changeTime'
+  | 'files___localFile___birthTime'
+  | 'files___localFile___root'
+  | 'files___localFile___dir'
+  | 'files___localFile___base'
+  | 'files___localFile___ext'
+  | 'files___localFile___name'
+  | 'files___localFile___relativeDirectory'
+  | 'files___localFile___dev'
+  | 'files___localFile___mode'
+  | 'files___localFile___nlink'
+  | 'files___localFile___uid'
+  | 'files___localFile___gid'
+  | 'files___localFile___rdev'
+  | 'files___localFile___ino'
+  | 'files___localFile___atimeMs'
+  | 'files___localFile___mtimeMs'
+  | 'files___localFile___ctimeMs'
+  | 'files___localFile___atime'
+  | 'files___localFile___mtime'
+  | 'files___localFile___ctime'
+  | 'files___localFile___birthtime'
+  | 'files___localFile___birthtimeMs'
+  | 'files___localFile___blksize'
+  | 'files___localFile___blocks'
+  | 'files___localFile___url'
+  | 'files___localFile___publicURL'
+  | 'files___localFile___childrenImageSharp'
+  | 'files___localFile___childrenImageSharp___gatsbyImageData'
+  | 'files___localFile___childrenImageSharp___id'
+  | 'files___localFile___childrenImageSharp___children'
+  | 'files___localFile___childImageSharp___gatsbyImageData'
+  | 'files___localFile___childImageSharp___id'
+  | 'files___localFile___childImageSharp___children'
+  | 'files___localFile___id'
+  | 'files___localFile___parent___id'
+  | 'files___localFile___parent___children'
+  | 'files___localFile___children'
+  | 'files___localFile___children___id'
+  | 'files___localFile___children___children'
+  | 'files___localFile___internal___content'
+  | 'files___localFile___internal___contentDigest'
+  | 'files___localFile___internal___description'
+  | 'files___localFile___internal___fieldOwners'
+  | 'files___localFile___internal___ignoreType'
+  | 'files___localFile___internal___mediaType'
+  | 'files___localFile___internal___owner'
+  | 'files___localFile___internal___type'
+  | 'strapiId'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type StrapiSuggestionGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiSuggestionEdge>;
+  nodes: Array<StrapiSuggestion>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type StrapiSuggestionFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
+  activity?: Maybe<StrapiSuggestionActivityFilterInput>;
+  wp_guid?: Maybe<StringQueryOperatorInput>;
+  author?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  from_web?: Maybe<BooleanQueryOperatorInput>;
+  like_count?: Maybe<IntQueryOperatorInput>;
+  links?: Maybe<StrapiSuggestionLinksFilterListInput>;
+  files?: Maybe<StrapiSuggestionFilesFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type StrapiSuggestionSortInput = {
+  fields?: Maybe<Array<Maybe<StrapiSuggestionFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type StrapiActivityGroupSubactivity_TermFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -7741,6 +9813,10 @@ export type StrapiActivityGroupLocalizationsFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   published_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StrapiActivityGroupFieldsFilterInput = {
+  path?: Maybe<StringQueryOperatorInput>;
 };
 
 export type StrapiActivityGroupConnection = {
@@ -8363,6 +10439,7 @@ export type StrapiActivityGroupFieldsEnum =
   | 'localizations___locale'
   | 'localizations___published_at'
   | 'strapiId'
+  | 'fields___path'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -8482,6 +10559,7 @@ export type StrapiActivityGroupFilterInput = {
   activities?: Maybe<StrapiActivityGroupActivitiesFilterListInput>;
   localizations?: Maybe<StrapiActivityGroupLocalizationsFilterListInput>;
   strapiId?: Maybe<IntQueryOperatorInput>;
+  fields?: Maybe<StrapiActivityGroupFieldsFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -8490,896 +10568,6 @@ export type StrapiActivityGroupFilterInput = {
 
 export type StrapiActivityGroupSortInput = {
   fields?: Maybe<Array<Maybe<StrapiActivityGroupFieldsEnum>>>;
-  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
-};
-
-export type StrapiAgeGroupSubactivitygroup_TermFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  singular?: Maybe<StringQueryOperatorInput>;
-  plural?: Maybe<StringQueryOperatorInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupLinksFilterListInput = {
-  elemMatch?: Maybe<StrapiAgeGroupLinksFilterInput>;
-};
-
-export type StrapiAgeGroupLinksFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupMain_ImageFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  alternativeText?: Maybe<StringQueryOperatorInput>;
-  caption?: Maybe<StringQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-  formats?: Maybe<StrapiAgeGroupMain_ImageFormatsFilterInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  ext?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  provider?: Maybe<StringQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  localFile?: Maybe<FileFilterInput>;
-};
-
-export type StrapiAgeGroupMain_ImageFormatsFilterInput = {
-  large?: Maybe<StrapiAgeGroupMain_ImageFormatsLargeFilterInput>;
-  small?: Maybe<StrapiAgeGroupMain_ImageFormatsSmallFilterInput>;
-  medium?: Maybe<StrapiAgeGroupMain_ImageFormatsMediumFilterInput>;
-  thumbnail?: Maybe<StrapiAgeGroupMain_ImageFormatsThumbnailFilterInput>;
-};
-
-export type StrapiAgeGroupMain_ImageFormatsLargeFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupMain_ImageFormatsSmallFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupMain_ImageFormatsMediumFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupMain_ImageFormatsThumbnailFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupLogoFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-  formats?: Maybe<StrapiAgeGroupLogoFormatsFilterInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  ext?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  provider?: Maybe<StringQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  localFile?: Maybe<FileFilterInput>;
-};
-
-export type StrapiAgeGroupLogoFormatsFilterInput = {
-  large?: Maybe<StrapiAgeGroupLogoFormatsLargeFilterInput>;
-  small?: Maybe<StrapiAgeGroupLogoFormatsSmallFilterInput>;
-  medium?: Maybe<StrapiAgeGroupLogoFormatsMediumFilterInput>;
-  thumbnail?: Maybe<StrapiAgeGroupLogoFormatsThumbnailFilterInput>;
-};
-
-export type StrapiAgeGroupLogoFormatsLargeFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupLogoFormatsSmallFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupLogoFormatsMediumFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupLogoFormatsThumbnailFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsFilterListInput = {
-  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  title?: Maybe<StringQueryOperatorInput>;
-  ingress?: Maybe<StringQueryOperatorInput>;
-  content?: Maybe<StringQueryOperatorInput>;
-  wp_guid?: Maybe<StringQueryOperatorInput>;
-  mandatory?: Maybe<BooleanQueryOperatorInput>;
-  subactivity_term?: Maybe<IntQueryOperatorInput>;
-  subactivitygroup_term?: Maybe<IntQueryOperatorInput>;
-  activitygroup_term?: Maybe<IntQueryOperatorInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
-  published_at?: Maybe<DateQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  age_group?: Maybe<IntQueryOperatorInput>;
-  activity_group_category?: Maybe<IntQueryOperatorInput>;
-  links?: Maybe<StrapiAgeGroupActivity_GroupsLinksFilterListInput>;
-  main_image?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFilterInput>;
-  logo?: Maybe<StrapiAgeGroupActivity_GroupsLogoFilterInput>;
-  files?: Maybe<StrapiAgeGroupActivity_GroupsFilesFilterListInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLinksFilterListInput = {
-  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsLinksFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLinksFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  description?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsMain_ImageFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-  formats?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFormatsFilterInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  ext?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  provider?: Maybe<StringQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  localFile?: Maybe<FileFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsMain_ImageFormatsFilterInput = {
-  thumbnail?: Maybe<StrapiAgeGroupActivity_GroupsMain_ImageFormatsThumbnailFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsMain_ImageFormatsThumbnailFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-  formats?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsFilterInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  ext?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  provider?: Maybe<StringQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  localFile?: Maybe<FileFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsFilterInput = {
-  small?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsSmallFilterInput>;
-  thumbnail?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsThumbnailFilterInput>;
-  medium?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsMediumFilterInput>;
-  large?: Maybe<StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsSmallFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsThumbnailFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsMediumFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsLogoFormatsLargeFilterInput = {
-  ext?: Maybe<StringQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  width?: Maybe<IntQueryOperatorInput>;
-  height?: Maybe<IntQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsFilesFilterListInput = {
-  elemMatch?: Maybe<StrapiAgeGroupActivity_GroupsFilesFilterInput>;
-};
-
-export type StrapiAgeGroupActivity_GroupsFilesFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  name?: Maybe<StringQueryOperatorInput>;
-  hash?: Maybe<StringQueryOperatorInput>;
-  ext?: Maybe<StringQueryOperatorInput>;
-  mime?: Maybe<StringQueryOperatorInput>;
-  size?: Maybe<FloatQueryOperatorInput>;
-  url?: Maybe<StringQueryOperatorInput>;
-  provider?: Maybe<StringQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  localFile?: Maybe<FileFilterInput>;
-};
-
-export type StrapiAgeGroupLocalizationsFilterListInput = {
-  elemMatch?: Maybe<StrapiAgeGroupLocalizationsFilterInput>;
-};
-
-export type StrapiAgeGroupLocalizationsFilterInput = {
-  id?: Maybe<IntQueryOperatorInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
-  published_at?: Maybe<DateQueryOperatorInput>;
-};
-
-export type StrapiAgeGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<StrapiAgeGroupEdge>;
-  nodes: Array<StrapiAgeGroup>;
-  pageInfo: PageInfo;
-  distinct: Array<Scalars['String']>;
-  max?: Maybe<Scalars['Float']>;
-  min?: Maybe<Scalars['Float']>;
-  sum?: Maybe<Scalars['Float']>;
-  group: Array<StrapiAgeGroupGroupConnection>;
-};
-
-
-export type StrapiAgeGroupConnectionDistinctArgs = {
-  field: StrapiAgeGroupFieldsEnum;
-};
-
-
-export type StrapiAgeGroupConnectionMaxArgs = {
-  field: StrapiAgeGroupFieldsEnum;
-};
-
-
-export type StrapiAgeGroupConnectionMinArgs = {
-  field: StrapiAgeGroupFieldsEnum;
-};
-
-
-export type StrapiAgeGroupConnectionSumArgs = {
-  field: StrapiAgeGroupFieldsEnum;
-};
-
-
-export type StrapiAgeGroupConnectionGroupArgs = {
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  field: StrapiAgeGroupFieldsEnum;
-};
-
-export type StrapiAgeGroupEdge = {
-  next?: Maybe<StrapiAgeGroup>;
-  node: StrapiAgeGroup;
-  previous?: Maybe<StrapiAgeGroup>;
-};
-
-export type StrapiAgeGroupFieldsEnum =
-  | 'title'
-  | 'ingress'
-  | 'content'
-  | 'minimum_age'
-  | 'maximum_age'
-  | 'wp_guid'
-  | 'subactivitygroup_term___id'
-  | 'subactivitygroup_term___name'
-  | 'subactivitygroup_term___singular'
-  | 'subactivitygroup_term___plural'
-  | 'subactivitygroup_term___locale'
-  | 'subactivitygroup_term___created_at'
-  | 'subactivitygroup_term___updated_at'
-  | 'locale'
-  | 'published_at'
-  | 'created_at'
-  | 'updated_at'
-  | 'links'
-  | 'links___id'
-  | 'links___description'
-  | 'links___url'
-  | 'main_image___id'
-  | 'main_image___name'
-  | 'main_image___alternativeText'
-  | 'main_image___caption'
-  | 'main_image___width'
-  | 'main_image___height'
-  | 'main_image___formats___large___ext'
-  | 'main_image___formats___large___url'
-  | 'main_image___formats___large___hash'
-  | 'main_image___formats___large___mime'
-  | 'main_image___formats___large___name'
-  | 'main_image___formats___large___size'
-  | 'main_image___formats___large___width'
-  | 'main_image___formats___large___height'
-  | 'main_image___formats___small___ext'
-  | 'main_image___formats___small___url'
-  | 'main_image___formats___small___hash'
-  | 'main_image___formats___small___mime'
-  | 'main_image___formats___small___name'
-  | 'main_image___formats___small___size'
-  | 'main_image___formats___small___width'
-  | 'main_image___formats___small___height'
-  | 'main_image___formats___medium___ext'
-  | 'main_image___formats___medium___url'
-  | 'main_image___formats___medium___hash'
-  | 'main_image___formats___medium___mime'
-  | 'main_image___formats___medium___name'
-  | 'main_image___formats___medium___size'
-  | 'main_image___formats___medium___width'
-  | 'main_image___formats___medium___height'
-  | 'main_image___formats___thumbnail___ext'
-  | 'main_image___formats___thumbnail___url'
-  | 'main_image___formats___thumbnail___hash'
-  | 'main_image___formats___thumbnail___mime'
-  | 'main_image___formats___thumbnail___name'
-  | 'main_image___formats___thumbnail___size'
-  | 'main_image___formats___thumbnail___width'
-  | 'main_image___formats___thumbnail___height'
-  | 'main_image___hash'
-  | 'main_image___ext'
-  | 'main_image___mime'
-  | 'main_image___size'
-  | 'main_image___url'
-  | 'main_image___provider'
-  | 'main_image___created_at'
-  | 'main_image___updated_at'
-  | 'main_image___localFile___sourceInstanceName'
-  | 'main_image___localFile___absolutePath'
-  | 'main_image___localFile___relativePath'
-  | 'main_image___localFile___extension'
-  | 'main_image___localFile___size'
-  | 'main_image___localFile___prettySize'
-  | 'main_image___localFile___modifiedTime'
-  | 'main_image___localFile___accessTime'
-  | 'main_image___localFile___changeTime'
-  | 'main_image___localFile___birthTime'
-  | 'main_image___localFile___root'
-  | 'main_image___localFile___dir'
-  | 'main_image___localFile___base'
-  | 'main_image___localFile___ext'
-  | 'main_image___localFile___name'
-  | 'main_image___localFile___relativeDirectory'
-  | 'main_image___localFile___dev'
-  | 'main_image___localFile___mode'
-  | 'main_image___localFile___nlink'
-  | 'main_image___localFile___uid'
-  | 'main_image___localFile___gid'
-  | 'main_image___localFile___rdev'
-  | 'main_image___localFile___ino'
-  | 'main_image___localFile___atimeMs'
-  | 'main_image___localFile___mtimeMs'
-  | 'main_image___localFile___ctimeMs'
-  | 'main_image___localFile___atime'
-  | 'main_image___localFile___mtime'
-  | 'main_image___localFile___ctime'
-  | 'main_image___localFile___birthtime'
-  | 'main_image___localFile___birthtimeMs'
-  | 'main_image___localFile___blksize'
-  | 'main_image___localFile___blocks'
-  | 'main_image___localFile___url'
-  | 'main_image___localFile___publicURL'
-  | 'main_image___localFile___childrenImageSharp'
-  | 'main_image___localFile___childrenImageSharp___gatsbyImageData'
-  | 'main_image___localFile___childrenImageSharp___id'
-  | 'main_image___localFile___childrenImageSharp___children'
-  | 'main_image___localFile___childImageSharp___gatsbyImageData'
-  | 'main_image___localFile___childImageSharp___id'
-  | 'main_image___localFile___childImageSharp___children'
-  | 'main_image___localFile___id'
-  | 'main_image___localFile___parent___id'
-  | 'main_image___localFile___parent___children'
-  | 'main_image___localFile___children'
-  | 'main_image___localFile___children___id'
-  | 'main_image___localFile___children___children'
-  | 'main_image___localFile___internal___content'
-  | 'main_image___localFile___internal___contentDigest'
-  | 'main_image___localFile___internal___description'
-  | 'main_image___localFile___internal___fieldOwners'
-  | 'main_image___localFile___internal___ignoreType'
-  | 'main_image___localFile___internal___mediaType'
-  | 'main_image___localFile___internal___owner'
-  | 'main_image___localFile___internal___type'
-  | 'logo___id'
-  | 'logo___name'
-  | 'logo___width'
-  | 'logo___height'
-  | 'logo___formats___large___ext'
-  | 'logo___formats___large___url'
-  | 'logo___formats___large___hash'
-  | 'logo___formats___large___mime'
-  | 'logo___formats___large___name'
-  | 'logo___formats___large___size'
-  | 'logo___formats___large___width'
-  | 'logo___formats___large___height'
-  | 'logo___formats___small___ext'
-  | 'logo___formats___small___url'
-  | 'logo___formats___small___hash'
-  | 'logo___formats___small___mime'
-  | 'logo___formats___small___name'
-  | 'logo___formats___small___size'
-  | 'logo___formats___small___width'
-  | 'logo___formats___small___height'
-  | 'logo___formats___medium___ext'
-  | 'logo___formats___medium___url'
-  | 'logo___formats___medium___hash'
-  | 'logo___formats___medium___mime'
-  | 'logo___formats___medium___name'
-  | 'logo___formats___medium___size'
-  | 'logo___formats___medium___width'
-  | 'logo___formats___medium___height'
-  | 'logo___formats___thumbnail___ext'
-  | 'logo___formats___thumbnail___url'
-  | 'logo___formats___thumbnail___hash'
-  | 'logo___formats___thumbnail___mime'
-  | 'logo___formats___thumbnail___name'
-  | 'logo___formats___thumbnail___size'
-  | 'logo___formats___thumbnail___width'
-  | 'logo___formats___thumbnail___height'
-  | 'logo___hash'
-  | 'logo___ext'
-  | 'logo___mime'
-  | 'logo___size'
-  | 'logo___url'
-  | 'logo___provider'
-  | 'logo___created_at'
-  | 'logo___updated_at'
-  | 'logo___localFile___sourceInstanceName'
-  | 'logo___localFile___absolutePath'
-  | 'logo___localFile___relativePath'
-  | 'logo___localFile___extension'
-  | 'logo___localFile___size'
-  | 'logo___localFile___prettySize'
-  | 'logo___localFile___modifiedTime'
-  | 'logo___localFile___accessTime'
-  | 'logo___localFile___changeTime'
-  | 'logo___localFile___birthTime'
-  | 'logo___localFile___root'
-  | 'logo___localFile___dir'
-  | 'logo___localFile___base'
-  | 'logo___localFile___ext'
-  | 'logo___localFile___name'
-  | 'logo___localFile___relativeDirectory'
-  | 'logo___localFile___dev'
-  | 'logo___localFile___mode'
-  | 'logo___localFile___nlink'
-  | 'logo___localFile___uid'
-  | 'logo___localFile___gid'
-  | 'logo___localFile___rdev'
-  | 'logo___localFile___ino'
-  | 'logo___localFile___atimeMs'
-  | 'logo___localFile___mtimeMs'
-  | 'logo___localFile___ctimeMs'
-  | 'logo___localFile___atime'
-  | 'logo___localFile___mtime'
-  | 'logo___localFile___ctime'
-  | 'logo___localFile___birthtime'
-  | 'logo___localFile___birthtimeMs'
-  | 'logo___localFile___blksize'
-  | 'logo___localFile___blocks'
-  | 'logo___localFile___url'
-  | 'logo___localFile___publicURL'
-  | 'logo___localFile___childrenImageSharp'
-  | 'logo___localFile___childrenImageSharp___gatsbyImageData'
-  | 'logo___localFile___childrenImageSharp___id'
-  | 'logo___localFile___childrenImageSharp___children'
-  | 'logo___localFile___childImageSharp___gatsbyImageData'
-  | 'logo___localFile___childImageSharp___id'
-  | 'logo___localFile___childImageSharp___children'
-  | 'logo___localFile___id'
-  | 'logo___localFile___parent___id'
-  | 'logo___localFile___parent___children'
-  | 'logo___localFile___children'
-  | 'logo___localFile___children___id'
-  | 'logo___localFile___children___children'
-  | 'logo___localFile___internal___content'
-  | 'logo___localFile___internal___contentDigest'
-  | 'logo___localFile___internal___description'
-  | 'logo___localFile___internal___fieldOwners'
-  | 'logo___localFile___internal___ignoreType'
-  | 'logo___localFile___internal___mediaType'
-  | 'logo___localFile___internal___owner'
-  | 'logo___localFile___internal___type'
-  | 'activity_groups'
-  | 'activity_groups___id'
-  | 'activity_groups___title'
-  | 'activity_groups___ingress'
-  | 'activity_groups___content'
-  | 'activity_groups___wp_guid'
-  | 'activity_groups___mandatory'
-  | 'activity_groups___subactivity_term'
-  | 'activity_groups___subactivitygroup_term'
-  | 'activity_groups___activitygroup_term'
-  | 'activity_groups___locale'
-  | 'activity_groups___published_at'
-  | 'activity_groups___created_at'
-  | 'activity_groups___updated_at'
-  | 'activity_groups___age_group'
-  | 'activity_groups___activity_group_category'
-  | 'activity_groups___links'
-  | 'activity_groups___links___id'
-  | 'activity_groups___links___description'
-  | 'activity_groups___links___url'
-  | 'activity_groups___main_image___id'
-  | 'activity_groups___main_image___name'
-  | 'activity_groups___main_image___width'
-  | 'activity_groups___main_image___height'
-  | 'activity_groups___main_image___hash'
-  | 'activity_groups___main_image___ext'
-  | 'activity_groups___main_image___mime'
-  | 'activity_groups___main_image___size'
-  | 'activity_groups___main_image___url'
-  | 'activity_groups___main_image___provider'
-  | 'activity_groups___main_image___created_at'
-  | 'activity_groups___main_image___updated_at'
-  | 'activity_groups___main_image___localFile___sourceInstanceName'
-  | 'activity_groups___main_image___localFile___absolutePath'
-  | 'activity_groups___main_image___localFile___relativePath'
-  | 'activity_groups___main_image___localFile___extension'
-  | 'activity_groups___main_image___localFile___size'
-  | 'activity_groups___main_image___localFile___prettySize'
-  | 'activity_groups___main_image___localFile___modifiedTime'
-  | 'activity_groups___main_image___localFile___accessTime'
-  | 'activity_groups___main_image___localFile___changeTime'
-  | 'activity_groups___main_image___localFile___birthTime'
-  | 'activity_groups___main_image___localFile___root'
-  | 'activity_groups___main_image___localFile___dir'
-  | 'activity_groups___main_image___localFile___base'
-  | 'activity_groups___main_image___localFile___ext'
-  | 'activity_groups___main_image___localFile___name'
-  | 'activity_groups___main_image___localFile___relativeDirectory'
-  | 'activity_groups___main_image___localFile___dev'
-  | 'activity_groups___main_image___localFile___mode'
-  | 'activity_groups___main_image___localFile___nlink'
-  | 'activity_groups___main_image___localFile___uid'
-  | 'activity_groups___main_image___localFile___gid'
-  | 'activity_groups___main_image___localFile___rdev'
-  | 'activity_groups___main_image___localFile___ino'
-  | 'activity_groups___main_image___localFile___atimeMs'
-  | 'activity_groups___main_image___localFile___mtimeMs'
-  | 'activity_groups___main_image___localFile___ctimeMs'
-  | 'activity_groups___main_image___localFile___atime'
-  | 'activity_groups___main_image___localFile___mtime'
-  | 'activity_groups___main_image___localFile___ctime'
-  | 'activity_groups___main_image___localFile___birthtime'
-  | 'activity_groups___main_image___localFile___birthtimeMs'
-  | 'activity_groups___main_image___localFile___blksize'
-  | 'activity_groups___main_image___localFile___blocks'
-  | 'activity_groups___main_image___localFile___url'
-  | 'activity_groups___main_image___localFile___publicURL'
-  | 'activity_groups___main_image___localFile___childrenImageSharp'
-  | 'activity_groups___main_image___localFile___id'
-  | 'activity_groups___main_image___localFile___children'
-  | 'activity_groups___logo___id'
-  | 'activity_groups___logo___name'
-  | 'activity_groups___logo___width'
-  | 'activity_groups___logo___height'
-  | 'activity_groups___logo___hash'
-  | 'activity_groups___logo___ext'
-  | 'activity_groups___logo___mime'
-  | 'activity_groups___logo___size'
-  | 'activity_groups___logo___url'
-  | 'activity_groups___logo___provider'
-  | 'activity_groups___logo___created_at'
-  | 'activity_groups___logo___updated_at'
-  | 'activity_groups___logo___localFile___sourceInstanceName'
-  | 'activity_groups___logo___localFile___absolutePath'
-  | 'activity_groups___logo___localFile___relativePath'
-  | 'activity_groups___logo___localFile___extension'
-  | 'activity_groups___logo___localFile___size'
-  | 'activity_groups___logo___localFile___prettySize'
-  | 'activity_groups___logo___localFile___modifiedTime'
-  | 'activity_groups___logo___localFile___accessTime'
-  | 'activity_groups___logo___localFile___changeTime'
-  | 'activity_groups___logo___localFile___birthTime'
-  | 'activity_groups___logo___localFile___root'
-  | 'activity_groups___logo___localFile___dir'
-  | 'activity_groups___logo___localFile___base'
-  | 'activity_groups___logo___localFile___ext'
-  | 'activity_groups___logo___localFile___name'
-  | 'activity_groups___logo___localFile___relativeDirectory'
-  | 'activity_groups___logo___localFile___dev'
-  | 'activity_groups___logo___localFile___mode'
-  | 'activity_groups___logo___localFile___nlink'
-  | 'activity_groups___logo___localFile___uid'
-  | 'activity_groups___logo___localFile___gid'
-  | 'activity_groups___logo___localFile___rdev'
-  | 'activity_groups___logo___localFile___ino'
-  | 'activity_groups___logo___localFile___atimeMs'
-  | 'activity_groups___logo___localFile___mtimeMs'
-  | 'activity_groups___logo___localFile___ctimeMs'
-  | 'activity_groups___logo___localFile___atime'
-  | 'activity_groups___logo___localFile___mtime'
-  | 'activity_groups___logo___localFile___ctime'
-  | 'activity_groups___logo___localFile___birthtime'
-  | 'activity_groups___logo___localFile___birthtimeMs'
-  | 'activity_groups___logo___localFile___blksize'
-  | 'activity_groups___logo___localFile___blocks'
-  | 'activity_groups___logo___localFile___url'
-  | 'activity_groups___logo___localFile___publicURL'
-  | 'activity_groups___logo___localFile___childrenImageSharp'
-  | 'activity_groups___logo___localFile___id'
-  | 'activity_groups___logo___localFile___children'
-  | 'activity_groups___files'
-  | 'activity_groups___files___id'
-  | 'activity_groups___files___name'
-  | 'activity_groups___files___hash'
-  | 'activity_groups___files___ext'
-  | 'activity_groups___files___mime'
-  | 'activity_groups___files___size'
-  | 'activity_groups___files___url'
-  | 'activity_groups___files___provider'
-  | 'activity_groups___files___created_at'
-  | 'activity_groups___files___updated_at'
-  | 'activity_groups___files___localFile___sourceInstanceName'
-  | 'activity_groups___files___localFile___absolutePath'
-  | 'activity_groups___files___localFile___relativePath'
-  | 'activity_groups___files___localFile___extension'
-  | 'activity_groups___files___localFile___size'
-  | 'activity_groups___files___localFile___prettySize'
-  | 'activity_groups___files___localFile___modifiedTime'
-  | 'activity_groups___files___localFile___accessTime'
-  | 'activity_groups___files___localFile___changeTime'
-  | 'activity_groups___files___localFile___birthTime'
-  | 'activity_groups___files___localFile___root'
-  | 'activity_groups___files___localFile___dir'
-  | 'activity_groups___files___localFile___base'
-  | 'activity_groups___files___localFile___ext'
-  | 'activity_groups___files___localFile___name'
-  | 'activity_groups___files___localFile___relativeDirectory'
-  | 'activity_groups___files___localFile___dev'
-  | 'activity_groups___files___localFile___mode'
-  | 'activity_groups___files___localFile___nlink'
-  | 'activity_groups___files___localFile___uid'
-  | 'activity_groups___files___localFile___gid'
-  | 'activity_groups___files___localFile___rdev'
-  | 'activity_groups___files___localFile___ino'
-  | 'activity_groups___files___localFile___atimeMs'
-  | 'activity_groups___files___localFile___mtimeMs'
-  | 'activity_groups___files___localFile___ctimeMs'
-  | 'activity_groups___files___localFile___atime'
-  | 'activity_groups___files___localFile___mtime'
-  | 'activity_groups___files___localFile___ctime'
-  | 'activity_groups___files___localFile___birthtime'
-  | 'activity_groups___files___localFile___birthtimeMs'
-  | 'activity_groups___files___localFile___blksize'
-  | 'activity_groups___files___localFile___blocks'
-  | 'activity_groups___files___localFile___url'
-  | 'activity_groups___files___localFile___publicURL'
-  | 'activity_groups___files___localFile___childrenImageSharp'
-  | 'activity_groups___files___localFile___id'
-  | 'activity_groups___files___localFile___children'
-  | 'localizations'
-  | 'localizations___id'
-  | 'localizations___locale'
-  | 'localizations___published_at'
-  | 'strapiId'
-  | 'id'
-  | 'parent___id'
-  | 'parent___parent___id'
-  | 'parent___parent___parent___id'
-  | 'parent___parent___parent___children'
-  | 'parent___parent___children'
-  | 'parent___parent___children___id'
-  | 'parent___parent___children___children'
-  | 'parent___parent___internal___content'
-  | 'parent___parent___internal___contentDigest'
-  | 'parent___parent___internal___description'
-  | 'parent___parent___internal___fieldOwners'
-  | 'parent___parent___internal___ignoreType'
-  | 'parent___parent___internal___mediaType'
-  | 'parent___parent___internal___owner'
-  | 'parent___parent___internal___type'
-  | 'parent___children'
-  | 'parent___children___id'
-  | 'parent___children___parent___id'
-  | 'parent___children___parent___children'
-  | 'parent___children___children'
-  | 'parent___children___children___id'
-  | 'parent___children___children___children'
-  | 'parent___children___internal___content'
-  | 'parent___children___internal___contentDigest'
-  | 'parent___children___internal___description'
-  | 'parent___children___internal___fieldOwners'
-  | 'parent___children___internal___ignoreType'
-  | 'parent___children___internal___mediaType'
-  | 'parent___children___internal___owner'
-  | 'parent___children___internal___type'
-  | 'parent___internal___content'
-  | 'parent___internal___contentDigest'
-  | 'parent___internal___description'
-  | 'parent___internal___fieldOwners'
-  | 'parent___internal___ignoreType'
-  | 'parent___internal___mediaType'
-  | 'parent___internal___owner'
-  | 'parent___internal___type'
-  | 'children'
-  | 'children___id'
-  | 'children___parent___id'
-  | 'children___parent___parent___id'
-  | 'children___parent___parent___children'
-  | 'children___parent___children'
-  | 'children___parent___children___id'
-  | 'children___parent___children___children'
-  | 'children___parent___internal___content'
-  | 'children___parent___internal___contentDigest'
-  | 'children___parent___internal___description'
-  | 'children___parent___internal___fieldOwners'
-  | 'children___parent___internal___ignoreType'
-  | 'children___parent___internal___mediaType'
-  | 'children___parent___internal___owner'
-  | 'children___parent___internal___type'
-  | 'children___children'
-  | 'children___children___id'
-  | 'children___children___parent___id'
-  | 'children___children___parent___children'
-  | 'children___children___children'
-  | 'children___children___children___id'
-  | 'children___children___children___children'
-  | 'children___children___internal___content'
-  | 'children___children___internal___contentDigest'
-  | 'children___children___internal___description'
-  | 'children___children___internal___fieldOwners'
-  | 'children___children___internal___ignoreType'
-  | 'children___children___internal___mediaType'
-  | 'children___children___internal___owner'
-  | 'children___children___internal___type'
-  | 'children___internal___content'
-  | 'children___internal___contentDigest'
-  | 'children___internal___description'
-  | 'children___internal___fieldOwners'
-  | 'children___internal___ignoreType'
-  | 'children___internal___mediaType'
-  | 'children___internal___owner'
-  | 'children___internal___type'
-  | 'internal___content'
-  | 'internal___contentDigest'
-  | 'internal___description'
-  | 'internal___fieldOwners'
-  | 'internal___ignoreType'
-  | 'internal___mediaType'
-  | 'internal___owner'
-  | 'internal___type';
-
-export type StrapiAgeGroupGroupConnection = {
-  totalCount: Scalars['Int'];
-  edges: Array<StrapiAgeGroupEdge>;
-  nodes: Array<StrapiAgeGroup>;
-  pageInfo: PageInfo;
-  field: Scalars['String'];
-  fieldValue?: Maybe<Scalars['String']>;
-};
-
-export type StrapiAgeGroupFilterInput = {
-  title?: Maybe<StringQueryOperatorInput>;
-  ingress?: Maybe<StringQueryOperatorInput>;
-  content?: Maybe<StringQueryOperatorInput>;
-  minimum_age?: Maybe<IntQueryOperatorInput>;
-  maximum_age?: Maybe<IntQueryOperatorInput>;
-  wp_guid?: Maybe<StringQueryOperatorInput>;
-  subactivitygroup_term?: Maybe<StrapiAgeGroupSubactivitygroup_TermFilterInput>;
-  locale?: Maybe<StringQueryOperatorInput>;
-  published_at?: Maybe<DateQueryOperatorInput>;
-  created_at?: Maybe<DateQueryOperatorInput>;
-  updated_at?: Maybe<DateQueryOperatorInput>;
-  links?: Maybe<StrapiAgeGroupLinksFilterListInput>;
-  main_image?: Maybe<StrapiAgeGroupMain_ImageFilterInput>;
-  logo?: Maybe<StrapiAgeGroupLogoFilterInput>;
-  activity_groups?: Maybe<StrapiAgeGroupActivity_GroupsFilterListInput>;
-  localizations?: Maybe<StrapiAgeGroupLocalizationsFilterListInput>;
-  strapiId?: Maybe<IntQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-};
-
-export type StrapiAgeGroupSortInput = {
-  fields?: Maybe<Array<Maybe<StrapiAgeGroupFieldsEnum>>>;
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
@@ -10044,6 +11232,10 @@ export type StrapiActivityLocalizationsFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   published_at?: Maybe<DateQueryOperatorInput>;
+};
+
+export type StrapiActivityFieldsFilterInput = {
+  path?: Maybe<StringQueryOperatorInput>;
 };
 
 export type StrapiActivityConnection = {
@@ -10811,6 +12003,7 @@ export type StrapiActivityFieldsEnum =
   | 'localizations___locale'
   | 'localizations___published_at'
   | 'strapiId'
+  | 'fields___path'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -10925,6 +12118,7 @@ export type StrapiActivityFilterInput = {
   locations?: Maybe<StrapiActivityLocationsFilterListInput>;
   localizations?: Maybe<StrapiActivityLocalizationsFilterListInput>;
   strapiId?: Maybe<IntQueryOperatorInput>;
+  fields?: Maybe<StrapiActivityFieldsFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -11306,4 +12500,24 @@ export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
           & { subitems?: Maybe<Array<Maybe<Pick<Program_NavigationItemsSubitemsSubitems, 'id' | 'path' | 'title' | 'type'>>>> }
         )>>> }
       )>>> }
+    )> } };
+
+export type QueryQueryVariables = Exact<{
+  id?: Maybe<Scalars['Int']>;
+  ageGroupId?: Maybe<Scalars['Int']>;
+}>;
+
+
+export type QueryQuery = { ageGroup?: Maybe<(
+    Pick<StrapiAgeGroup, 'strapiId' | 'title'>
+    & { main_image?: Maybe<(
+      Pick<StrapiAgeGroupMain_Image, 'url'>
+      & { localFile?: Maybe<Pick<File, 'url'>> }
+    )> }
+  )>, otherGroups: { nodes: Array<(
+      Pick<StrapiActivityGroup, 'title' | 'strapiId'>
+      & { fields?: Maybe<Pick<StrapiActivityGroupFields, 'path'>>, logo?: Maybe<{ localFile?: Maybe<{ childImageSharp?: Maybe<{ fixed?: Maybe<Pick<ImageSharpFixed, 'src'>> }> }> }>, activity_group_category?: Maybe<Pick<StrapiActivityGroupActivity_Group_Category, 'name' | 'id'>> }
+    )> }, suggestions: { nodes: Array<Pick<StrapiSuggestion, 'author' | 'content' | 'published_at' | 'title' | 'strapiId' | 'locale' | 'like_count' | 'id'>> }, activities: { nodes: Array<(
+      Pick<StrapiActivity, 'title'>
+      & { fields?: Maybe<Pick<StrapiActivityFields, 'path'>> }
     )> } };

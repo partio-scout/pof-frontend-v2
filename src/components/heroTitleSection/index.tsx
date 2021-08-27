@@ -11,7 +11,7 @@ type HeroTitleSectionProps = {
 const HeroTitleSection = ({ imageName, mainTitle, subTitle, smallMainTitle }: HeroTitleSectionProps) => (
   <>
     <div className="w-44 h-44 rounded-3xl bg-white opaque-border-yellow mt-4 align-top inline-flex align-center justify-center">
-      <img className="w-4.5rem" src={sp}></img>
+      <img className="" src={imageName}></img>
     </div>
     <div className="inline-block ml-4 align-top mt-2 mb-5">
       <h1 className={`text-white tracking-wider ${smallMainTitle && 'text-2rem mt-6 mb-3'}`}>

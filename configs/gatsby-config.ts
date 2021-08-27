@@ -38,6 +38,7 @@ module.exports = {
             endpoint: 'content-pages',
             api: { qs: { _limit: fetchLimit, _locale: 'all' } },
           },
+          { name: 'suggestion', api: { qs: { _limit: fetchLimit, _locale: 'all' } } },
         ],
         singleTypes: [
           { name: 'front-page', api: { qs: { _locale: 'fi' } } },
@@ -63,7 +64,7 @@ module.exports = {
       options: {
         path: `schema.gql`,
         exclude: {
-          types: ['SitePage']
+          types: ['SitePage'],
         },
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },
