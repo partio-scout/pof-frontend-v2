@@ -187,7 +187,7 @@ async function fetchAndCreateContentPage(
   id: number,
   pagePath: string,
 ) {
-  const pageDataResponse = await graphql<{ strapiContentpage: StrapiContentPage }>(getContentPage, {
+  const pageDataResponse = await graphql<{ strapiContentPage: StrapiContentPage }>(getContentPage, {
     id,
   });
 
@@ -195,7 +195,7 @@ async function fetchAndCreateContentPage(
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
-      data: pageDataResponse.data?.strapiContentpage,
+      data: pageDataResponse.data?.strapiContentPage,
     },
   });
 }

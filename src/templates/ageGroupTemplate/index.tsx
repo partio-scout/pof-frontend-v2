@@ -10,6 +10,9 @@ import CombinedLink from '../../components/combinedLink';
 import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
+import renderBlock from '../../utils/renderBlock';
+import { ContentBlock } from '../../components/blocks';
+import BlockArea from '../../components/blockArea';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
@@ -55,7 +58,7 @@ interface QueryType {
 const currentLocale = 'fi';
 
 const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
-  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term } =
+  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term, lower_content_area, upper_content_area } =
     pageContext.data;
 
   const activityGroups = data.activityGroups.nodes;
@@ -94,8 +97,10 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
             </div>
           )}
         </div>
-        <h2 className="uppercase text-center mb-6">{subactivitygroup_term?.plural}</h2>
+        <BlockArea blocks={upper_content_area} />
+        <h2 className="uppercase text-center my-6">{subactivitygroup_term?.plural}</h2>
         <ActivityGroupList groups={activityGroups} />
+        <BlockArea blocks={lower_content_area} />
       </div>
     </Layout>
   );

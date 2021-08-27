@@ -10,6 +10,7 @@ import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
+import BlockArea from '../../components/blockArea';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -87,7 +88,7 @@ interface QueryType {
 const currentLocale = 'fi';
 
 const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
-  const { title, ingress, main_image, age_group, logo, links, activity_group_category, activitygroup_term } =
+  const { title, ingress, main_image, age_group, logo, links, activity_group_category, activitygroup_term,content_area } =
     pageContext.data;
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
@@ -130,6 +131,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         <Suggestions suggestions={suggestions.nodes} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
+        <BlockArea blocks={content_area} />
       </div>
     </Layout>
   );
