@@ -14,7 +14,7 @@ function Activities({ activities }: ActivitiesProps) {
         <Link
           to={activity.fields?.path || ''}
           className="block break-inside bg-gray-light rounded-2xl p-8 mb-3"
-          key={activity?.id}
+          key={activity?.strapiId}
         >
           {activity?.title}
         </Link>

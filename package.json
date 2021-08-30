@@ -31,7 +31,7 @@
     "gatsby-plugin-ts-config": "^1.1.5",
     "gatsby-plugin-typescript": "^3.5.0",
     "gatsby-source-filesystem": "^3.4.0",
-    "gatsby-source-strapi": "^1.0.1",
+    "gatsby-source-strapi": "^1.0.2",
     "gatsby-transformer-sharp": "^3.4.0",
     "qs": "^6.10.1",
     "react": "^17.0.1",

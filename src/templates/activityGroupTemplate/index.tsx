@@ -1,13 +1,15 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
 import { StrapiActivity, StrapiActivityGroup, StrapiAgeGroup, StrapiSuggestion } from '../../../graphql-types';
-import CombinedLink from '../../components/combinedLink';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
+import { prependApiUrl } from '../../utils/helpers';
+import PillLink from '../../components/pillLink';
+import BlockArea from '../../components/blockArea';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -16,9 +18,6 @@ export const query = graphql`
       title
       main_image {
         url
-        localFile {
-          url
-        }
       }
     }
     otherGroups: allStrapiActivityGroup(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } }) {
@@ -27,11 +26,15 @@ export const query = graphql`
           path
         }
         logo {
-          localFile {
-            childImageSharp {
-              fixed(height: 150) {
-                src
-              }
+          url
+          formats {
+            thumbnail {
+              width
+              url
+              size
+              name
+              mime
+              height
             }
           }
         }
@@ -84,8 +87,17 @@ interface QueryType {
 const currentLocale = 'fi';
 
 const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
-  const { title, ingress, main_image, age_group, logo, links, activity_group_category, activitygroup_term } =
-    pageContext.data;
+  const {
+    title,
+    ingress,
+    main_image,
+    age_group,
+    logo,
+    links,
+    activity_group_category,
+    activitygroup_term,
+    content_area,
+  } = pageContext.data;
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
   const subTitle = age_group?.title
@@ -97,11 +109,18 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
       <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
-        <img src={main_image?.url || ageGroup?.main_image?.localFile?.url || ''} className="w-full max-h-6/8 "></img>
+        <img
+          src={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
+          className="w-full max-h-6/8 "
+        ></img>
       </div>
       <div className="px-8 md:px-0">
         <div className="relative -mt-40 pt-2">
-          <HeroTitleSection mainTitle={title || ''} subTitle={subTitle} imageName={logo?.localFile?.publicURL || ''} />
+          <HeroTitleSection
+            mainTitle={title || ''}
+            subTitle={subTitle}
+            imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
+          />
         </div>
         <div className="flex flex-col md:flex-row py-5">
           <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress}</div>
@@ -109,12 +128,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
             <div className="flex flex-row md:flex-col">
               {links?.map((link) => (
                 <div className="mb-1 mr-2 md:mr-0">
-                  <CombinedLink
-                    to={link?.url || ''}
-                    className="block bg-gray-light rounded-2xl p-3 md:p-5 font-tondu text-2xl uppercase tracking-wider"
-                  >
-                    {link?.description}
-                  </CombinedLink>
+                  <PillLink to={link?.url || ''}>{link?.description}</PillLink>
                 </div>
               ))}
             </div>
@@ -125,6 +139,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         <Suggestions suggestions={suggestions.nodes} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
+        <BlockArea blocks={content_area} />
       </div>
     </Layout>
   );
