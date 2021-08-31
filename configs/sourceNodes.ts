@@ -31,7 +31,7 @@ const mapNavigationItems = (
   rootPath?: string,
 ): ContentNavigationItem[] => {
   return (
-    items?.filter(navigationItemFilter).map((item) => {
+    items?.filter(subNavigationItemFilter).map((item) => {
       const path = `${rootPath || ''}/${parseActivityRouteName(item?.title!)}`;
 
       return {
@@ -45,8 +45,11 @@ const mapNavigationItems = (
   );
 };
 
-const navigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigation, 'id' | 'title'>>) =>
+const firstLevelNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigation, 'id' | 'title'>>) =>
   navigationItem?.id && navigationItem.title;
+
+const subNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>) =>
+  navigationItem?.id && navigationItem.title && navigationItem.page?.id;
 
 /**
  * Reads navigation data from StrapiFrontPage nodes and write them as Navigation nodes.
@@ -62,7 +65,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
     const frontPage = node as unknown as StrapiFrontPage;
 
     const navigationData: ContentNavigationItemFirstLevel[] =
-      frontPage.navigation?.filter(navigationItemFilter).map((navigationItem) => ({
+      frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem) => ({
         title: navigationItem?.title!,
         subitems: mapNavigationItems(
           navigationItem?.subnavigation,

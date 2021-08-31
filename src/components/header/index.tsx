@@ -5,6 +5,7 @@ import MobileNav from './mobileNav';
 export interface HeaderItem extends HeaderItemFirstLevel {
   url: string;
   ingress?: string;
+  id: number;
   type: string;
 }
 

@@ -100,6 +100,7 @@ const useNavigation = (currentLocale: string) => {
       ?.items?.sort((a, b) => ((a?.minimum_age || 0) < (b?.minimum_age || 0) ? -1 : 1))
       .map((node) => ({
         name: node?.title!.replace(/\s\(.*\)/, '') as string,
+        id: node?.id!,
         url: node?.path || '',
         ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
         type: node?.type!,
