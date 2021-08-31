@@ -72,5 +72,6 @@ module.exports = {
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },
     },
+    `gatsby-plugin-use-query-params`,
   ],
 };
