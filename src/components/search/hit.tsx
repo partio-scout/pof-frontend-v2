@@ -39,13 +39,15 @@ const getContentTypeName = (type: ContentType) => {
 const findHitUrl = (hit: any, type: ContentType, navigation: HeaderItem[]) => {
   switch (type) {
     case ContentType.suggestion: {
+      // If contentType is `suggestion`, find its parent activity's path, 
+      // and set the suggestion id as query parameter
       const correctHeaderItem = findHeaderItemByTypeAndId(
         getContentTypeName(ContentType.activity),
         hit.activity.id,
         navigation,
       );
       const linkUrl = correctHeaderItem ? encodeURI(correctHeaderItem.url!) : '';
-      return linkUrl + '?suggestion=' + hit.id;
+      return linkUrl + '?tip=' + hit.id;
     }
     default: {
       const correctHeaderItem = findHeaderItemByTypeAndId(getContentTypeName(type), hit.id, navigation);

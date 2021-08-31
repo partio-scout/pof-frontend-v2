@@ -24,7 +24,7 @@ const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityP
         path={path}
         locale={currentLocale}
       />
-    <div className="relative overflow-hidden h-86 mb-8">
+    <div className="relative overflow-hidden h-80 mb-8">
       <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
       <img src={mockHero} className="w-full max-h-6/8 "></img>
     </div>
