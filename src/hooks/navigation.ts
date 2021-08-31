@@ -1,24 +1,31 @@
 import { graphql, useStaticQuery, Node } from 'gatsby';
-import { Content_Navigation, Maybe, Program_Navigation, Program_NavigationItems } from '../../graphql-types';
-import { HeaderItem } from '../components/header';
+import {
+  Content_Navigation,
+  Content_NavigationItemsSubitems,
+  Maybe,
+  Program_Navigation,
+  Program_NavigationItems,
+} from '../../graphql-types';
+import { HeaderItem, HeaderItemFirstLevel } from '../components/header';
 
-// Since the Navigation nodes contain only content pages' navigation data,
-// we need to get the program data's navigation from the created Gatsby SitePages
 const navigationQuery = graphql`
   query Navigations {
     allContentNavigation {
       nodes {
         id
         items {
-          id
-          path
           title
-          type
           subitems {
-            id
             path
             title
             type
+            id
+            subitems {
+              path
+              title
+              type
+              id
+            }
           }
         }
       }
@@ -57,24 +64,32 @@ const useNavigation = (currentLocale: string) => {
     allProgramNavigation: { nodes: Program_Navigation[] };
   }>(navigationQuery);
 
-  const itemFilter = (item: Maybe<Program_NavigationItems>) => item?.title && item.path;
+  const itemFilter = (requirePath: boolean) => (item: Maybe<Program_NavigationItems>): boolean => {
+    if (requirePath && !item?.path) return false; 
 
-  const contentPageNavigation: HeaderItem[] =
+    return Boolean(item?.title);
+  }
+
+  const mapSubItems = (subItems?: Maybe<Maybe<Content_NavigationItemsSubitems>[]>): HeaderItem[] => {
+    return (
+      subItems?.filter(itemFilter(true)).map((subitem) => ({
+        name: subitem?.title!,
+        url: subitem?.path!,
+        type: subitem?.type!,
+        id: subitem?.id!,
+        subMenu: mapSubItems(subitem?.subitems),
+      })) || []
+    );
+  };
+
+  const contentPageNavigation: HeaderItemFirstLevel[] =
     allContentNavigation?.nodes
       .find((node) => node.id === 'strapi-navigation-' + currentLocale)
-      ?.items?.filter(itemFilter)
+      ?.items?.filter(itemFilter(false))
       .map((item) => ({
         name: item?.title!,
-        url: item?.path!,
-        type: item?.type!,
-        id: item?.id!,
-        subMenu:
-          item?.subitems?.filter(itemFilter).map((subitem) => ({
-            name: subitem?.title!,
-            url: subitem?.path!,
-            type: subitem?.type!,
-            id: subitem?.id!,
-          })) || [],
+        id: item?.title!,
+        subMenu: mapSubItems(item?.subitems),
       })) || [];
 
   // Program data navigation items are filtered by their locale here and not in the graphql query because
@@ -85,34 +100,16 @@ const useNavigation = (currentLocale: string) => {
       ?.items?.sort((a, b) => ((a?.minimum_age || 0) < (b?.minimum_age || 0) ? -1 : 1))
       .map((node) => ({
         name: node?.title!.replace(/\s\(.*\)/, '') as string,
-        url: node?.path || undefined,
+        url: node?.path || '',
         ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
         type: node?.type!,
-        id: node?.id!,
-        subMenu:
-          node?.subitems?.filter(itemFilter).map((subitem) => ({
-            name: subitem?.title!,
-            url: subitem?.path!,
-            type: subitem?.type!,
-            id: subitem?.id!,
-            subMenu: subitem?.subitems
-              ?.filter(itemFilter)
-              .map((subsubitem) => ({
-                name: subsubitem?.title!,
-                url: subsubitem?.path!,
-                type: subsubitem?.type!,
-                id: subsubitem?.id!,
-              })),
-          })) || [],
+        subMenu: mapSubItems(node?.subitems),
       })) || [];
 
-  const programNavigation: HeaderItem[] = [
+  const programNavigation: HeaderItemFirstLevel[] = [
     {
-      name: 'Partio-ohjelma',
-      url: '/',
+      name: 'Partio-ohjelma', // TODO locale
       subMenu: programItems,
-      type: 'Root',
-      id: 0,
     },
   ];
 

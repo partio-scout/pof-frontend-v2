@@ -10,11 +10,11 @@ export const parseAgeGroupRouteName = (name: string) => {
   return parseActivityRouteName(parsedName);
 };
 
-const replaceDashesAndLowerCase = (str: string) =>
+const replaceDashesAndLowerCase = (str?: string) =>
   str
-    .toLowerCase()
+    ?.toLowerCase()
     .replace(':', '')
     .replace(/\s/g, '-')
     .replace(/[–—]/g, '-') // En Dash & Em Dash
     .replace(/^-+|-+$/, '')
-    .replace(/-{2,}/, '-');
+    .replace(/-{2,}/, '-') || '';
