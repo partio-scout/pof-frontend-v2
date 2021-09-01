@@ -13,6 +13,7 @@ import PillLink from '../../components/pillLink';
 import renderBlock from '../../utils/renderBlock';
 import { ContentBlock } from '../../components/blocks';
 import BlockArea from '../../components/blockArea';
+import RichText from '../../components/RichText';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
@@ -85,7 +86,7 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
         <div className="flex flex-col md:flex-row py-5">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
             <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress}</div>
-            <div className="" dangerouslySetInnerHTML={{ __html: content || '' }} />
+            <RichText html={content} />
           </div>
           {(links?.length || 0) > 0 && (
             <div className="flex flex-row md:max-w-sm md:flex-col">

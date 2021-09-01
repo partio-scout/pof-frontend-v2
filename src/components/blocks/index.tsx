@@ -2,6 +2,7 @@ import React from 'react';
 import ActivityCard from '../activityCard';
 import { StrapiActivity } from '../../../graphql-types';
 import { prependApiUrl } from '../../utils/helpers';
+import RichText from '../RichText';
 
 export interface GeneralBlockType extends BlockType {
   title?: string;
@@ -63,7 +64,7 @@ export interface BlockProps<BLOCK_TYPE> {
 export const GeneralBlock = ({ block }: BlockProps<GeneralBlockType>) => (
   <div className="flex-none inline-block w-full">
     {block.title && <h2>{block.title.toUpperCase()}</h2>}
-    {block.text && <div className="text-blue" dangerouslySetInnerHTML={{ __html: block.text }} />}
+    {block.text && <RichText className="text-blue" html={block.text} />}
     {block.image && <img className="w-full" src={prependApiUrl(block.image?.url)} />}
   </div>
 );
@@ -86,7 +87,7 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
   >
     <div className="md:max-w-1/2 mx-auto bg-white bg-opacity-50 rounded-xl">
       {block.title && <h2>{block.title.toUpperCase()}</h2>}
-      {block.text && <div className="text-blue" dangerouslySetInnerHTML={{ __html: block.text }} />}
+      {block.text && <RichText className="text-blue" html={block.text} />}
       {block.image && <img className="w-full" src={prependApiUrl(block.image?.url)} />}
     </div>
   </div>

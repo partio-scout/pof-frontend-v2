@@ -5,6 +5,7 @@ import { StrapiAgeGroup } from '../../../graphql-types';
 import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import useNavigation from '../../hooks/navigation';
+import RichText from '../RichText';
 
 export interface AgeGroupBlockType extends BlockType {
   title?: string;
@@ -44,7 +45,7 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
     <div className="">
       <div className="flex flex-wrap mb-14">
         <h2 className="w-full lg:w-2/5">{block.title}</h2>
-        <div className="w-full lg:w-3/5" dangerouslySetInnerHTML={{ __html: block.ingress || '' }}></div>
+        <RichText className="w-full lg:w-3/5" html={block.ingress} />
       </div>
       <div className="flex flex-wrap -mx-2 justify-center">
         {currentLocaleAgeGroups.map((group) => (

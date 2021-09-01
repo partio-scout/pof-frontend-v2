@@ -44,16 +44,6 @@ h4 {
   font-size: 1.5rem;
 }
 
-ul {
-  list-style: unset;
-  padding: 0 0 0 1rem;
-  margin: 0;
-}
-
-a {
-  text-decoration: underline;
-}
-
 .opaque-border-yellow {
   border-color: #F5EA2E;
   border-width: 20px;
