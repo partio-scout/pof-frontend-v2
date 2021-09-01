@@ -59,7 +59,7 @@ interface QueryType {
 const currentLocale = 'fi';
 
 const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
-  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term, lower_content_area, upper_content_area } =
+  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term, lower_content_area, upper_content_area, color } =
     pageContext.data;
 
   const activityGroups = data.activityGroups.nodes;
@@ -80,6 +80,7 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
             mainTitle={title || ''}
             subTitle={subTitle}
             imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
+            color={color}
             smallMainTitle
           />
         </div>

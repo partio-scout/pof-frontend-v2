@@ -6,6 +6,7 @@ import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import useNavigation from '../../hooks/navigation';
 import RichText from '../RichText';
+import { hexToRgba } from '../../utils/color';
 
 export interface AgeGroupBlockType extends BlockType {
   title?: string;
@@ -24,6 +25,7 @@ const query = graphql`
             }
           }
         }
+        color
         locale
         title
       }
@@ -49,9 +51,15 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
       </div>
       <div className="flex flex-wrap -mx-2 justify-center">
         {currentLocaleAgeGroups.map((group) => (
-          <div className="m-2 text-center uppercase font-bold transform transition-transform duration-100 hover:scale-110 w-44" key={group.id}>
+          <div
+            className="m-2 text-center uppercase font-bold transform transition-transform duration-100 hover:-translate-y-0.5 w-44"
+            key={group.id}
+          >
             <Link to={findHeaderItemByTypeAndId('AgeGroup', group.strapiId || 0, navigation)?.url || ''}>
-              <div className="flex justify-center items-center h-44 w-44 rounded-2xl bg-gray-light mb-3">
+              <div
+                className="no-hover-focus:bg-gray-light flex justify-center items-center h-44 w-44 rounded-2xl mb-3"
+                style={{ backgroundColor: hexToRgba(group.color || '', 0.2) }}
+              >
                 <img src={prependApiUrl(group.logo?.formats?.thumbnail?.url)} alt={group.title || ''} />
               </div>
               {group.title}

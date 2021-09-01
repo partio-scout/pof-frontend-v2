@@ -34,7 +34,7 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
                 <div className="flex flex-col w-40 bg-gray-light absolute py-1 font-sourceSansPro cursor-pointer z-20 rounded-lg">
                   {headerItem.subMenu.map((subItem: HeaderItem, index: number) => (
                     <Link
-                      className="text-blue navitem-border border-l-8 rounded mx-1 hover:bg-gray focus:bg-gray py-0.5 px-1"
+                      className="text-blue no-hover-focus:border-transparent border-l-8 rounded mx-1 hover:bg-gray focus:bg-gray py-0.5 px-1"
                       to={subItem.url!}
                       key={subItem.name + index}
                       style={{ borderColor: subItem.color }}
