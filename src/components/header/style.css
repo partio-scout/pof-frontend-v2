@@ -1,0 +1,4 @@
+.navitem-border:not(:hover):not(:focus) {
+  border-color: transparent !important;
+}
+

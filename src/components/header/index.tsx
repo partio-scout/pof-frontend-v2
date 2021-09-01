@@ -7,6 +7,7 @@ export interface HeaderItem extends HeaderItemFirstLevel {
   ingress?: string;
   id: number;
   type: string;
+  color?: string;
 }
 
 export interface HeaderItemFirstLevel {

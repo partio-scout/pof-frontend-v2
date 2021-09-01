@@ -40,6 +40,7 @@ const navigationQuery = graphql`
           path
           title
           type
+          color
           subitems {
             id
             path
@@ -104,6 +105,7 @@ const useNavigation = (currentLocale: string) => {
         url: node?.path || '',
         ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
         type: node?.type!,
+        color: node?.color!,
         subMenu: mapSubItems(node?.subitems),
       })) || [];
 

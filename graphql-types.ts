@@ -944,6 +944,7 @@ export type StrapiAgeGroup = Node & {
   published_at?: Maybe<Scalars['Date']>;
   created_at?: Maybe<Scalars['Date']>;
   updated_at?: Maybe<Scalars['Date']>;
+  color?: Maybe<Scalars['String']>;
   links?: Maybe<Array<Maybe<StrapiAgeGroupLinks>>>;
   main_image?: Maybe<StrapiAgeGroupMain_Image>;
   logo?: Maybe<StrapiAgeGroupLogo>;
@@ -1719,6 +1720,7 @@ export type StrapiActivityGroupAge_Group = {
   published_at?: Maybe<Scalars['Date']>;
   created_at?: Maybe<Scalars['Date']>;
   updated_at?: Maybe<Scalars['Date']>;
+  color?: Maybe<Scalars['String']>;
   links?: Maybe<Array<Maybe<StrapiActivityGroupAge_GroupLinks>>>;
   upper_content_area?: Maybe<Array<Maybe<StrapiActivityGroupAge_GroupUpper_Content_Area>>>;
   lower_content_area?: Maybe<Array<Maybe<StrapiActivityGroupAge_GroupLower_Content_Area>>>;
@@ -2751,6 +2753,7 @@ export type Program_NavigationItems = {
   type?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   path?: Maybe<Scalars['String']>;
+  color?: Maybe<Scalars['String']>;
   subitems?: Maybe<Array<Maybe<Program_NavigationItemsSubitems>>>;
   minimum_age?: Maybe<Scalars['Int']>;
   maximum_age?: Maybe<Scalars['Int']>;
@@ -3519,6 +3522,7 @@ export type StrapiActivityAge_Group = {
   published_at?: Maybe<Scalars['Date']>;
   created_at?: Maybe<Scalars['Date']>;
   updated_at?: Maybe<Scalars['Date']>;
+  color?: Maybe<Scalars['String']>;
   links?: Maybe<Array<Maybe<StrapiActivityAge_GroupLinks>>>;
   upper_content_area?: Maybe<Array<Maybe<StrapiActivityAge_GroupUpper_Content_Area>>>;
   lower_content_area?: Maybe<Array<Maybe<StrapiActivityAge_GroupLower_Content_Area>>>;
@@ -7546,6 +7550,7 @@ export type StrapiAgeGroupFieldsEnum =
   | 'published_at'
   | 'created_at'
   | 'updated_at'
+  | 'color'
   | 'links'
   | 'links___id'
   | 'links___description'
@@ -8050,6 +8055,7 @@ export type StrapiAgeGroupFilterInput = {
   published_at?: Maybe<DateQueryOperatorInput>;
   created_at?: Maybe<DateQueryOperatorInput>;
   updated_at?: Maybe<DateQueryOperatorInput>;
+  color?: Maybe<StringQueryOperatorInput>;
   links?: Maybe<StrapiAgeGroupLinksFilterListInput>;
   main_image?: Maybe<StrapiAgeGroupMain_ImageFilterInput>;
   logo?: Maybe<StrapiAgeGroupLogoFilterInput>;
@@ -8111,6 +8117,7 @@ export type StrapiActivityGroupAge_GroupFilterInput = {
   published_at?: Maybe<DateQueryOperatorInput>;
   created_at?: Maybe<DateQueryOperatorInput>;
   updated_at?: Maybe<DateQueryOperatorInput>;
+  color?: Maybe<StringQueryOperatorInput>;
   links?: Maybe<StrapiActivityGroupAge_GroupLinksFilterListInput>;
   upper_content_area?: Maybe<StrapiActivityGroupAge_GroupUpper_Content_AreaFilterListInput>;
   lower_content_area?: Maybe<StrapiActivityGroupAge_GroupLower_Content_AreaFilterListInput>;
@@ -8733,6 +8740,7 @@ export type StrapiActivityGroupFieldsEnum =
   | 'age_group___published_at'
   | 'age_group___created_at'
   | 'age_group___updated_at'
+  | 'age_group___color'
   | 'age_group___links'
   | 'age_group___links___id'
   | 'age_group___links___description'
@@ -10148,6 +10156,7 @@ export type Program_NavigationItemsFilterInput = {
   type?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<IntQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
+  color?: Maybe<StringQueryOperatorInput>;
   subitems?: Maybe<Program_NavigationItemsSubitemsFilterListInput>;
   minimum_age?: Maybe<IntQueryOperatorInput>;
   maximum_age?: Maybe<IntQueryOperatorInput>;
@@ -10227,6 +10236,7 @@ export type Program_NavigationFieldsEnum =
   | 'items___type'
   | 'items___id'
   | 'items___path'
+  | 'items___color'
   | 'items___subitems'
   | 'items___subitems___title'
   | 'items___subitems___type'
@@ -11397,6 +11407,7 @@ export type StrapiActivityAge_GroupFilterInput = {
   published_at?: Maybe<DateQueryOperatorInput>;
   created_at?: Maybe<DateQueryOperatorInput>;
   updated_at?: Maybe<DateQueryOperatorInput>;
+  color?: Maybe<StringQueryOperatorInput>;
   links?: Maybe<StrapiActivityAge_GroupLinksFilterListInput>;
   upper_content_area?: Maybe<StrapiActivityAge_GroupUpper_Content_AreaFilterListInput>;
   lower_content_area?: Maybe<StrapiActivityAge_GroupLower_Content_AreaFilterListInput>;
@@ -12184,6 +12195,7 @@ export type StrapiActivityFieldsEnum =
   | 'age_group___published_at'
   | 'age_group___created_at'
   | 'age_group___updated_at'
+  | 'age_group___color'
   | 'age_group___links'
   | 'age_group___links___id'
   | 'age_group___links___description'
@@ -13221,7 +13233,7 @@ export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
     )> }, allProgramNavigation: { nodes: Array<(
       Pick<Program_Navigation, 'id'>
       & { items?: Maybe<Array<Maybe<(
-        Pick<Program_NavigationItems, 'id' | 'maximum_age' | 'minimum_age' | 'path' | 'title' | 'type'>
+        Pick<Program_NavigationItems, 'id' | 'maximum_age' | 'minimum_age' | 'path' | 'title' | 'type' | 'color'>
         & { subitems?: Maybe<Array<Maybe<(
           Pick<Program_NavigationItemsSubitems, 'id' | 'path' | 'title' | 'type'>
           & { subitems?: Maybe<Array<Maybe<Pick<Program_NavigationItemsSubitemsSubitems, 'id' | 'path' | 'title' | 'type'>>>> }

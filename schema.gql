@@ -413,6 +413,7 @@ type StrapiAgeGroup implements Node @dontInfer {
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  color: String
   links: [StrapiAgeGroupLinks]
   main_image: StrapiAgeGroupMain_image
   logo: StrapiAgeGroupLogo
@@ -854,6 +855,7 @@ type StrapiActivityGroupAge_group {
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  color: String
   links: [StrapiActivityGroupAge_groupLinks]
   upper_content_area: [StrapiActivityGroupAge_groupUpper_content_area]
   lower_content_area: [StrapiActivityGroupAge_groupLower_content_area]
@@ -2100,6 +2102,7 @@ type StrapiActivityAge_group {
   published_at: Date @dateformat
   created_at: Date @dateformat
   updated_at: Date @dateformat
+  color: String
   links: [StrapiActivityAge_groupLinks]
   upper_content_area: [StrapiActivityAge_groupUpper_content_area]
   lower_content_area: [StrapiActivityAge_groupLower_content_area]
