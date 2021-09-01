@@ -1498,6 +1498,7 @@ type Content_NavigationItemsSubitemsSubitems {
 }
 
 type StrapiFrontPage implements Node @dontInfer {
+  content: JSON
   title: String
   ingress: String
   meta_description: String
