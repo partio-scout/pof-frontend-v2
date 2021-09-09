@@ -63,7 +63,7 @@ module.exports = {
       options: {
         path: `schema.gql`,
         exclude: {
-          types: ['SitePage']
+          types: ['SitePage'],
         },
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },

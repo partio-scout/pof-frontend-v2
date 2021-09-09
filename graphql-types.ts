@@ -322,6 +322,7 @@ export type SitePageContextData = {
   published_at?: Maybe<Scalars['Date']>;
   id?: Maybe<Scalars['String']>;
   strapiId?: Maybe<Scalars['Int']>;
+  content?: Maybe<Scalars['String']>;
   ingress?: Maybe<Scalars['String']>;
   links?: Maybe<Array<Maybe<SitePageContextDataLinks>>>;
   logo?: Maybe<SitePageContextDataLogo>;
@@ -345,7 +346,6 @@ export type SitePageContextData = {
   preparation_duration?: Maybe<SitePageContextDataPreparation_Duration>;
   skill_areas?: Maybe<Array<Maybe<SitePageContextDataSkill_Areas>>>;
   suggestions?: Maybe<Array<Maybe<SitePageContextDataSuggestions>>>;
-  main_text?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextDataLocalizations = {
@@ -5216,6 +5216,7 @@ export type SitePageContextDataFilterInput = {
   published_at?: Maybe<DateQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
   strapiId?: Maybe<IntQueryOperatorInput>;
+  content?: Maybe<StringQueryOperatorInput>;
   ingress?: Maybe<StringQueryOperatorInput>;
   links?: Maybe<SitePageContextDataLinksFilterListInput>;
   logo?: Maybe<SitePageContextDataLogoFilterInput>;
@@ -5239,7 +5240,6 @@ export type SitePageContextDataFilterInput = {
   preparation_duration?: Maybe<SitePageContextDataPreparation_DurationFilterInput>;
   skill_areas?: Maybe<SitePageContextDataSkill_AreasFilterListInput>;
   suggestions?: Maybe<SitePageContextDataSuggestionsFilterListInput>;
-  main_text?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextDataLocalizationsFilterListInput = {
@@ -5793,6 +5793,7 @@ export type SitePageFieldsEnum =
   | 'context___data___published_at'
   | 'context___data___id'
   | 'context___data___strapiId'
+  | 'context___data___content'
   | 'context___data___ingress'
   | 'context___data___links'
   | 'context___data___links___description'
@@ -5881,7 +5882,6 @@ export type SitePageFieldsEnum =
   | 'context___data___suggestions___published_at'
   | 'context___data___suggestions___links'
   | 'context___data___suggestions___files'
-  | 'context___data___main_text'
   | 'context___type'
   | 'pluginCreator___id'
   | 'pluginCreator___parent___id'
