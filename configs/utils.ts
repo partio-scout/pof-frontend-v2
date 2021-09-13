@@ -17,4 +17,5 @@ const replaceDashesAndLowerCase = (str: string) =>
     .replace(/\s/g, '-')
     .replace(/[–—]/g, '-') // En Dash & Em Dash
     .replace(/^-+|-+$/, '')
-    .replace(/-{2,}/, '-');
+    .replace(/-{2,}/, '-')
+    .replace(/\?/g, '');
