@@ -18,6 +18,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set up Node.js version
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: yarn install && build
+        env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
+          API_URL: ${{ secrets.PROD_API_URL }}
+          GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
+          GATSBY_ALGOLIA_API_KEY: ${{ secrets.GATSBY_ALGOLIA_API_KEY }}
+          GATSBY_ALGOLIA_ENVIRONMENT: ${{ secrets.GATSBY_ALGOLIA_ENVIRONMENT }}
+        run: |
+          yarn install
+          yarn build
+          
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
