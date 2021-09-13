@@ -23,6 +23,7 @@ jobs:
 
       - name: npm install, build, and test
         env:
+          NODE_OPTIONS: '--max_old_space_size=4096'
           API_URL: ${{ secrets.PROD_API_URL }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.GATSBY_ALGOLIA_API_KEY }}
