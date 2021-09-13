@@ -29,9 +29,8 @@ jobs:
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.GATSBY_ALGOLIA_API_KEY }}
           GATSBY_ALGOLIA_ENVIRONMENT: ${{ secrets.GATSBY_ALGOLIA_ENVIRONMENT }}
         run: |
-          npm install
-          npm run build --if-present
-          npm run test --if-present
+          yarn install
+          yarn run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
