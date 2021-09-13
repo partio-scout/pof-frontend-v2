@@ -21,7 +21,7 @@ jobs:
         with:
           node-version: '14.x'
 
-      - name: npm install, build, and test
+      - name: yarn install
         env:
           NODE_OPTIONS: '--max_old_space_size=4096'
           API_URL: ${{ secrets.PROD_API_URL }}
@@ -30,7 +30,6 @@ jobs:
           GATSBY_ALGOLIA_ENVIRONMENT: ${{ secrets.GATSBY_ALGOLIA_ENVIRONMENT }}
         run: |
           yarn install
-          yarn run build
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
