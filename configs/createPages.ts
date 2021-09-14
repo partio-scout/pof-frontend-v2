@@ -143,9 +143,6 @@ async function handleContentPages(graphql: CreatePagesArgs['graphql'], createPag
 
   for (const localization of frontPages) {
     for (const navigationItem of localization?.navigation || []) {
-      // If the page's id is null, the page is not published so let's skip it
-      if (!navigationItem?.page?.id) continue;
-
       if (navigationItem) await createNavigationLevel(graphql, createPage, navigationItem);
     }
   }
@@ -164,8 +161,6 @@ async function createNavigationLevel(
   }
 
   const pagePath = '/' + parseActivityRouteName(data.title);
-
-  await fetchAndCreateContentPage(graphql, createPage, data.id, pagePath);
 
   for (const subitem of data.subnavigation || []) {
     // If the page's id is null, the page is not published so let's skip it

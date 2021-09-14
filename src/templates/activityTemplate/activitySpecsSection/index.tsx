@@ -9,6 +9,7 @@ import sun from '../../../images/Sun.svg';
 import parent from '../../../images/Parent.svg';
 import { StrapiActivity } from '../../../../graphql-types';
 import { v4 as uuidv4 } from 'uuid';
+import RichText from '../../../components/RichText';
 
 interface ActivitySpecsProps {
   data: StrapiActivity;
@@ -96,7 +97,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => (
         <div className={itemClasses}>
           <div>
             <h4 className="text-blue text-xl">JOHTAJAN TEHTÄVÄ</h4>
-            <div className="text-blue" dangerouslySetInnerHTML={{ __html: data.leader_tasks! }} />
+            <RichText className="text-blue" html={data.leader_tasks } />
           </div>
         </div>
       </div>

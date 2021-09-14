@@ -1,3 +1,5 @@
+const plugin = require('tailwindcss/plugin');
+
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: false, // or 'media' or 'class'
@@ -73,7 +75,33 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      borderColor: ['no-hover-focus'],
+      backgroundColor: ['no-hover-focus']
+    },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addVariant }) {
+      addVariant('important', ({ container }) => {
+        container.walkRules(rule => {
+          rule.selector = `.\\!${rule.selector.slice(1)}`
+          rule.walkDecls(decl => {
+            decl.important = true
+          })
+        })
+      })
+    }),
+    plugin(function({ addVariant, e }) {
+      addVariant('no-hover-focus', ({ modifySelectors, separator, container }) => {
+        container.walkRules(rule => {
+          rule.walkDecls(decl => {
+            decl.important = true
+          })
+        })
+        modifySelectors(({ className }) => {
+          return `.${e(`no-hover-focus${separator}${className}`)}:not(:hover):not(:focus)`;
+        })
+      })
+    })
+  ],
 };

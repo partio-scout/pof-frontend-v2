@@ -2,22 +2,27 @@ import React, { useState } from 'react';
 import DefaultNav from './defaultNav';
 import MobileNav from './mobileNav';
 
-export interface HeaderItem {
-  name: string;
-  subMenu?: Array<HeaderItem>;
-  url?: string;
+export interface HeaderItem extends HeaderItemFirstLevel {
+  url: string;
   ingress?: string;
-  type: string;
   id: number;
+  type: string;
+  color?: string;
+}
+
+export interface HeaderItemFirstLevel {
+  name: string;
+  url?: string;
+  subMenu?: Array<HeaderItem>;
 }
 
 interface HeaderProps {
-  headerItems: Array<HeaderItem>;
+  headerItems: Array<HeaderItemFirstLevel>;
   showBreadCrumbs: boolean;
 }
 
 export interface NavProps {
-  headerItems: Array<HeaderItem>;
+  headerItems: Array<HeaderItemFirstLevel>;
   currentDropDownOpen: number | null;
   toggleDropDown: (index: number) => void;
   showBreadCrumbs: boolean;
