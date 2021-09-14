@@ -1,6 +1,7 @@
 import React from 'react';
 import BulletImage from './bulletImage';
 import { StrapiActivity } from '../../../graphql-types';
+import RichText from '../../components/RichText';
 
 interface AcitivityContentSectionProps {
   data: StrapiActivity;
@@ -26,7 +27,7 @@ const ActivityContentSection = ({ data }: AcitivityContentSectionProps) => (
         </div>
         <div className="ml-4">
           <h4 className="text-blue tracking-wider">{'Kuvaus'}</h4>
-          <div dangerouslySetInnerHTML={{ __html: data.content! }}></div>
+          <RichText html={data.content} />
         </div>
       </div>
     </div>

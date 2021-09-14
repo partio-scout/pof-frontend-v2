@@ -24,6 +24,7 @@ interface ContentNavigationItem extends ContentNavigationItemFirstLevel {
 interface ProgramNavItem extends ContentNavigationItem {
   minimum_age?: number;
   maximum_age?: number;
+  color?: string;
 }
 
 const mapNavigationItems = (
@@ -124,6 +125,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
         type: 'AgeGroup',
         id: ageGroup.strapiId!,
         path: ageGroupPath,
+        color: ageGroup.color!,
         subitems: [],
         minimum_age: ageGroup.minimum_age || undefined,
         maximum_age: ageGroup.maximum_age || undefined,

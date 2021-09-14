@@ -19,6 +19,7 @@ export const query = graphql`
       main_image {
         url
       }
+      color
     }
     otherGroups: allStrapiActivityGroup(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } }) {
       nodes {
@@ -120,6 +121,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
             mainTitle={title || ''}
             subTitle={subTitle}
             imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
+            color={ageGroup?.color}
           />
         </div>
         <div className="flex flex-col md:flex-row py-5">

@@ -32,6 +32,7 @@ query MyQuery {
       title
       upper_content_area
       lower_content_area
+      color
     }
   }
 }
