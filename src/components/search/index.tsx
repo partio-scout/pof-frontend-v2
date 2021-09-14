@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, WindowLocation } from '@reach/router';
+import React, { useEffect, useState } from 'react';
+import { useQueryParam, encodeJson, decodeJson } from 'use-query-params';
 import clsx from 'clsx';
 import qs from 'qs';
 import { InstantSearch, Index, Configure } from 'react-instantsearch-dom';
-import { SearchState } from 'react-instantsearch-core';
 import { client } from '../../utils/algolia';
 import Hits from '../../components/search/hits';
 import { useSearchContext } from '../../contexts/searchContext';
@@ -11,36 +10,31 @@ import Filters from './filters';
 
 const environment = process.env.GATSBY_ALGOLIA_ENVIRONMENT;
 
-const createURL = (state: SearchState) => {
-  const url = `?${qs.stringify(state, { arrayFormat: 'brackets' })}`;
-  return url;
-};
-
-const searchStateToUrl = ({ pathname }: WindowLocation, searchState: SearchState) =>
-  searchState ? `${pathname}${createURL(searchState)}` : '';
-
-const urlToSearchState = ({ search }: { search: string }) => {
-  const state = qs.parse(decodeURI(search.slice(1))) as SearchState;
-
-  // if (state.query === undefined) {
-  //   state.query = '';
-  // }
-  return state;
-};
-
 const DEBOUNCE_TIME = 400;
+
+const NullJsonParam = {
+  encode: (obj: any | null | undefined) => {
+    if (!obj) return undefined;
+    return encodeJson(obj);
+  },
+  decode: (str: string | (string | null)[] | null | undefined) => {
+    if (!str) return undefined;
+    return decodeJson(str);
+  },
+};
 
 const Search = (): React.ReactElement | null => {
   const { state, dispatch } = useSearchContext();
-  const location = useLocation();
   const [debouncedSetState, setDebouncedSetState] = useState<any | null>(null);
+
+  const [searchStateQS, setSearchStateQS] = useQueryParam('search', NullJsonParam);
 
   const onSearchStateChange = (updatedSearchState: any) => {
     clearTimeout(debouncedSetState);
 
     setDebouncedSetState(
       setTimeout(() => {
-        history.pushState(updatedSearchState, '', searchStateToUrl(location, updatedSearchState));
+        setSearchStateQS(updatedSearchState, 'replaceIn');
       }, DEBOUNCE_TIME),
     );
 
@@ -54,34 +48,14 @@ const Search = (): React.ReactElement | null => {
   };
 
   useEffect(() => {
-    if (location.search.includes('configure')) {
-      dispatch({ type: 'set-search-state', payload: urlToSearchState(location) });
-      dispatch({ type: 'set-search-active', payload: true });
-    } else {
-      dispatch({ type: 'set-search-active', payload: false });
-    }
-  }, [location]);
-
-  useEffect(() => {
-    // If search deactivates
-    if (!state.searchActive) {
-      // and url has query parameters
-      if (window.location.search) {
-        // remove the query parameters from the url
-        history.pushState(null, '', location.pathname);
-      }
-      // If search activates
-    } else if (!window.location.search) {
-      // add the current search state to the url
-      history.pushState(state.searchState, '', searchStateToUrl(location, state.searchState));
-    }
+    setSearchStateQS(state.searchActive ? state.searchState : null, 'replaceIn');
   }, [state.searchActive]);
 
   useEffect(() => {
-    if (location.search) {
-      dispatch({ type: 'set-search-state', payload: urlToSearchState(location) });
+    if (searchStateQS) {
+      dispatch({ type: 'set-search-state', payload: searchStateQS });
       dispatch({ type: 'set-search-active', payload: true });
-    } 
+    }
     document.addEventListener('keydown', handleEsc);
     return () => {
       document.removeEventListener('keydown', handleEsc);
@@ -99,7 +73,6 @@ const Search = (): React.ReactElement | null => {
         indexName={`${environment}_activity`}
         searchState={state.searchState}
         onSearchStateChange={onSearchStateChange}
-        createURL={createURL}
       >
         {/* TODO: Switch locale */}
         <Configure filters="locale:fi" query={state.searchState?.configure?.query} />

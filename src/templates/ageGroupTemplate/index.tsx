@@ -1,17 +1,12 @@
 import React from 'react';
 import HeroTitleSection from '../../components/heroTitleSection';
-import { PaddedContainer } from '../../components/ui.general';
-import mockHero from '../../images/mockHero.png';
 import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
-import { Maybe, StrapiActivityGroup, StrapiAgeGroup, StrapiAgeGroupActivity_Groups } from '../../../graphql-types';
+import { StrapiActivityGroup, StrapiAgeGroup } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
-import CombinedLink from '../../components/combinedLink';
 import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
-import renderBlock from '../../utils/renderBlock';
-import { ContentBlock } from '../../components/blocks';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
 
