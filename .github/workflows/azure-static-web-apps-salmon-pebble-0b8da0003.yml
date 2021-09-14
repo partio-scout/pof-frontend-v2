@@ -49,6 +49,8 @@ jobs:
           output_location: "public" # Built app content directory - optional
           app_build_command: "yarn build --log-pages"
           ###### End of Repository/Build Configurations ######
+      - name: Fix permissions
+        run: chmod 0755 .cache/redux
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
