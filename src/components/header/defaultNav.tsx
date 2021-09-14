@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import {Link} from 'gatsby';
-import { NavProps, HeaderItem } from '.';
+import { NavProps, HeaderItem, HeaderItemFirstLevel } from '.';
 import Search from '../search/headerSearchBox';
 import logo from '../../images/logo.svg';
 import upArrow from '../../images/upArrow.svg';
@@ -19,7 +19,7 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
       <img src={logo} className="mx-4 my-1 w-26" />
       <div className="flex flex-1 space-x-4 cursor-default h-full justify-end">
         {!state.searchActive &&
-          headerItems.map((headerItem: HeaderItem, index: number) => (
+          headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div
               key={headerItem.name + index.toString()}
               className="py-4"

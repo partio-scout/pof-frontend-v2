@@ -25,7 +25,7 @@ const MainContent = ({ data }: MainContentProps) => (
 );
 
 const ContentPageTemplate = ({ pageContext }: ContentPageTemplateProps) => (
-  <Layout omitPadding>
+  <Layout omitPadding showBreadCrumbs>
     <MainContent data={pageContext.data} />
     <BlockArea blocks={pageContext.data.content} />
   </Layout>

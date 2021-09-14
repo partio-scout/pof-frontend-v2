@@ -1479,13 +1479,18 @@ type Content_Navigation implements Node @dontInfer {
 
 type Content_NavigationItems {
   title: String
-  type: String
-  id: Int
-  path: String
   subitems: [Content_NavigationItemsSubitems]
 }
 
 type Content_NavigationItemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Content_NavigationItemsSubitemsSubitems]
+}
+
+type Content_NavigationItemsSubitemsSubitems {
   title: String
   type: String
   id: Int
@@ -1508,27 +1513,15 @@ type StrapiFrontPage implements Node @dontInfer {
 type StrapiFrontPageNavigation {
   id: Int
   title: String
-  page: StrapiFrontPageNavigationPage
+  page: Int
   subnavigation: [StrapiFrontPageNavigationSubnavigation]
-}
-
-type StrapiFrontPageNavigationPage {
-  id: Int
-  title: String
-  ingress: String
-  main_text: String
-  meta_description: String
-  meta_title: String
-  locale: String
-  published_at: Date @dateformat
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
 }
 
 type StrapiFrontPageNavigationSubnavigation {
   id: Int
   title: String
   page: StrapiFrontPageNavigationSubnavigationPage
+  subnavigation: [StrapiFrontPageNavigationSubnavigationSubnavigation]
 }
 
 type StrapiFrontPageNavigationSubnavigationPage {
@@ -1613,6 +1606,21 @@ type StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsThumbnail {
   height: Int
 }
 
+type StrapiFrontPageNavigationSubnavigationSubnavigation {
+  id: Int
+  title: String
+  page: StrapiFrontPageNavigationSubnavigationSubnavigationPage
+}
+
+type StrapiFrontPageNavigationSubnavigationSubnavigationPage {
+  id: Int
+  title: String
+  main_text: String
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
 type StrapiFrontPageLocalizations {
   id: Int
   locale: String
