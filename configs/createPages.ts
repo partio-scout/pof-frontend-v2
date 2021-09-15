@@ -7,6 +7,7 @@ import {
   StrapiFrontPage,
   StrapiFrontPageNavigation,
   StrapiContentPage,
+  StrapiFrontPageNavigationSubnavigation,
 } from '../graphql-types';
 import { getActivity } from '../src/queries/activity';
 import { getActivityGroup } from '../src/queries/activityGroup';
@@ -162,7 +163,23 @@ async function createNavigationLevel(
 
   const pagePath = '/' + parseActivityRouteName(data.title);
 
-  for (const subitem of data.subnavigation || []) {
+  if (data.subnavigation?.length) {
+    await createNavigationItems(
+      graphql,
+      createPage,
+      data.subnavigation as StrapiFrontPageNavigationSubnavigation[],
+      pagePath,
+    );
+  }
+}
+
+async function createNavigationItems(
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+  items: StrapiFrontPageNavigationSubnavigation[],
+  rootPath: string,
+) {
+  for (const subitem of items || []) {
     // If the page's id is null, the page is not published so let's skip it
     if (!subitem?.page?.id) continue;
     if (!subitem.title) {
@@ -170,9 +187,18 @@ async function createNavigationLevel(
       continue;
     }
 
-    const subPagePath = pagePath + '/' + parseActivityRouteName(subitem?.title);
+    const subPagePath = rootPath + '/' + parseActivityRouteName(subitem?.title);
 
     await fetchAndCreateContentPage(graphql, createPage, subitem.page.id, subPagePath);
+
+    if (subitem.subnavigation?.length) {
+      await createNavigationItems(
+        graphql,
+        createPage,
+        subitem.subnavigation as StrapiFrontPageNavigationSubnavigation[],
+        subPagePath,
+      );
+    }
   }
 }
 
