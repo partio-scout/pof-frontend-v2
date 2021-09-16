@@ -3,7 +3,7 @@ import { Link } from 'gatsby';
 import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
 import { hexToRgba } from '../../utils/color';
-import ExclamationIcon from '../../images/exclamation-round.inline.svg';
+import ExclamationIcon from '../../images/exclamation-round-filled.inline.svg';
 import PlusIcon from '../../images/plus-round.inline.svg';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';

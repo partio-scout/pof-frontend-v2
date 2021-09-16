@@ -10,6 +10,9 @@ import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
+import useNavigation from '../../hooks/navigation';
+import { findHitUrl } from '../../utils/search';
+import { ContentType } from '../../types/content';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -61,6 +64,10 @@ export const query = graphql`
         locale
         like_count
         id
+        activity {
+          title
+          id
+        }
       }
     }
     activities: allStrapiActivity(filter: { activity_group: { id: { eq: $id } } }) {
@@ -128,11 +135,20 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
     activitygroup_term,
     content_area,
   } = pageContext.data;
+
+  // TODO correct locale
+  const navigation = useNavigation('fi');
+
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
   const subTitle = age_group?.title
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
     : '';
+
+  const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
+    ...suggestion,
+    url: findHitUrl(suggestion, ContentType.suggestion, navigation),
+  }));
 
   return (
     <Layout showBreadCrumbs>
@@ -167,7 +183,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         </div>
         <Activities activities={activities.nodes} />
         <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
-        <Suggestions suggestions={suggestions.nodes} />
+        <Suggestions suggestions={suggestionsWithUrls} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
