@@ -50,10 +50,6 @@ ul {
   margin: 0;
 }
 
-a {
-  text-decoration: underline;
-}
-
 .opaque-border-yellow {
   border-color: #F5EA2E;
   border-width: 20px;

@@ -69,6 +69,35 @@ export const query = graphql`
           path
         }
         title
+        activity_group {
+          title
+          logo {
+            formats {
+              thumbnail {
+                url
+              }
+            }
+          }
+        }
+        age_group {
+          color
+          title
+        }
+        suggestions {
+          title
+        }
+        duration {
+          name
+          slug
+        }
+        locations {
+          slug
+          name
+          icon {
+            url
+          }
+        }
+        mandatory
       }
     }
   }

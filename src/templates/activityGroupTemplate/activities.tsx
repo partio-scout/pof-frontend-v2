@@ -1,6 +1,6 @@
-import { Link } from 'gatsby';
 import React from 'react';
 import { StrapiActivity } from '../../../graphql-types';
+import ActivityCard from '../../components/activityCard';
 
 interface ActivitiesProps {
   activities: StrapiActivity[];
@@ -8,16 +8,9 @@ interface ActivitiesProps {
 
 function Activities({ activities }: ActivitiesProps) {
   return (
-    <div className="masonry before:box-inherit after:box-inherit mb-5">
+    <div className="grid grid-cols-4 gap-1 mb-5">
       {activities?.map((activity) => (
-        // TODO real activity cards
-        <Link
-          to={activity.fields?.path || ''}
-          className="block break-inside bg-gray-light rounded-2xl p-8 mb-3"
-          key={activity?.strapiId}
-        >
-          {activity?.title}
-        </Link>
+        <ActivityCard activity={activity} />
       ))}
     </div>
   );
