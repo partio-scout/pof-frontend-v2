@@ -14,12 +14,13 @@ interface LayoutProps {
   children: React.ReactNode;
   showBreadCrumbs?: boolean;
   omitPadding?: boolean;
+  pageHeader?: React.ReactElement;
 }
 
 // TODO get locale dynamically
 const currentLocale = 'fi';
 
-const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false, pageHeader }: LayoutProps) => {
   const { pathname } = useLocation();
   const navigation = useNavigation(currentLocale);
   const metadata = useMetadata(currentLocale);
@@ -46,6 +47,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false 
         <Search />
         <div>
           {showBreadCrumbs && <BreadCrumbs trail={path} />}
+          {pageHeader && pageHeader}
           <div
             className={clsx('container mx-auto max-w-7xl', {
               'px-2 sm:px-10 md:px-24 2xl:px-0': !omitPadding,
