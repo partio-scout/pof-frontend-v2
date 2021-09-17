@@ -18,7 +18,7 @@ interface MainContentProps {
 }
 
 const MainContent = ({ data }: MainContentProps) => (
-  <div className="flex flex-wrap">
+  <div className="flex flex-wrap mt-14">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
       <RichText html={data.main_text} />
@@ -27,14 +27,14 @@ const MainContent = ({ data }: MainContentProps) => (
   </div>
 );
 
-
-
 const ContentPageTemplate = ({ pageContext, path }: PageProps<any, ContentPageTemplateProps>) => {
   const { strapiId } = pageContext.data;
 
   return (
-    <Layout showBreadCrumbs>
-      <ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale} />
+    <Layout
+      showBreadCrumbs
+      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale} />}
+    >
       <MainContent data={pageContext.data} />
       <BlockArea blocks={pageContext.data.content} />
     </Layout>
