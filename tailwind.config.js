@@ -22,6 +22,7 @@ module.exports = {
       colors: {
         blue: {
           DEFAULT: '#253764',
+          border: '#A9DDF3',
         },
         lightBlue: {
           DEFAULT: '#93D4F0',
