@@ -11,8 +11,9 @@ import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import useNavigation from '../../hooks/navigation';
-import { findHitUrl } from '../../utils/search';
+import { findHitUrl, HitModel } from '../../utils/search';
 import { ContentType } from '../../types/content';
+import { SuggestionWithUrl } from '../../components/suggestionCard';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -147,7 +148,8 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
 
   const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
     ...suggestion,
-    url: findHitUrl(suggestion, ContentType.suggestion, navigation),
+    url: findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
+    logo: logo?.formats?.thumbnail?.url,
   }));
 
   return (
@@ -183,7 +185,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         </div>
         <Activities activities={activities.nodes} />
         <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
-        <Suggestions suggestions={suggestionsWithUrls} />
+        <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />

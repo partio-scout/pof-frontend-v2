@@ -39,7 +39,7 @@ export const findUrlForContent = (id: number, type: ContentType, navigation: Par
   return correctHeaderItem ? encodeURI(correctHeaderItem.url!) : '';
 };
 
-interface HitModel {
+export interface HitModel {
   id?: string;
   strapiId?: number;
   activity?: {
