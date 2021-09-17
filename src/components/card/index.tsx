@@ -20,7 +20,7 @@ function InnerCard({ children, borderColor }: Pick<CardProps, 'children' | 'bord
 
 function Card({ children, link, borderColor }: CardProps) {
   return (
-    <div className="h-full min-h-20rem transform transition-transform hover:-translate-y-0.5 focus-within:-translate-y-0.5 duration-75">
+    <div className="h-full min-h-0 sm:min-h-20rem transform transition-transform hover:-translate-y-0.5 focus-within:-translate-y-0.5 duration-75">
       {link ? (
         <Link to={link} className="h-full w-full">
           <InnerCard borderColor={borderColor}>{children}</InnerCard>

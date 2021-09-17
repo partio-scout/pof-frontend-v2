@@ -7,7 +7,7 @@ import Pill from './pill';
 import Card from '../card';
 import ClampLines from 'react-clamp-lines';
 
-export type SuggestionWithUrl = StrapiSuggestion & { url?: string, logo?: string };
+export type SuggestionWithUrl = StrapiSuggestion & { url?: string; logo?: string };
 
 interface SuggestionCardProps {
   suggestion: SuggestionWithUrl;
@@ -27,7 +27,7 @@ const SuggestionCard = ({ suggestion, showActivityAndAgeGroup }: SuggestionCardP
         {author && <div className="text-xs font-semibold">{author}</div>}
         <div className="text-xxs">{new Date(published_at).toLocaleDateString()}</div>
       </div>
-      {(duration || locations?.length) && (
+      {(duration || (locations?.length || 0) > 0) && (
         <div className="flex mb-2 flex-wrap">
           {duration && (
             <Pill className="!mr-1">

@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
 import ActivityCard from '../../components/activityCard';
 
@@ -8,9 +9,9 @@ interface ActivitiesProps {
 
 function Activities({ activities }: ActivitiesProps) {
   return (
-    <div className="grid grid-cols-4 gap-1 mb-5">
+    <div className="grid gap-1 mb-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
       {activities?.map((activity) => (
-        <ActivityCard activity={activity} />
+        <ActivityCard activity={activity} key={activity.strapiId} />
       ))}
     </div>
   );

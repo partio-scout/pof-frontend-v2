@@ -69,6 +69,14 @@ export const query = graphql`
           title
           id
         }
+        locations {
+          slug
+          name
+        }
+        duration {
+          name
+          slug
+        }
       }
     }
     activities: allStrapiActivity(filter: { activity_group: { id: { eq: $id } } }) {
@@ -163,12 +171,13 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         ></img>
       </div>
       <div className="px-8 md:px-0">
-        <div className="relative -mt-40 pt-2">
+        <div className="relative -mt-40 pt-2 flex">
           <HeroTitleSection
             mainTitle={title || ''}
             subTitle={subTitle}
             imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
             color={ageGroup?.color}
+            smallMainTitle
           />
         </div>
         <div className="flex flex-col md:flex-row py-5">

@@ -13558,7 +13558,7 @@ export type QueryQuery = { ageGroup?: Maybe<(
       )>, activity_group_category?: Maybe<Pick<StrapiActivityGroupActivity_Group_Category, 'name' | 'id'>> }
     )> }, suggestions: { nodes: Array<(
       Pick<StrapiSuggestion, 'author' | 'content' | 'published_at' | 'title' | 'strapiId' | 'locale' | 'like_count' | 'id'>
-      & { activity?: Maybe<Pick<StrapiSuggestionActivity, 'title' | 'id'>> }
+      & { activity?: Maybe<Pick<StrapiSuggestionActivity, 'title' | 'id'>>, locations?: Maybe<Array<Maybe<Pick<StrapiSuggestionLocations, 'slug' | 'name'>>>>, duration?: Maybe<Pick<StrapiSuggestionDuration, 'name' | 'slug'>> }
     )> }, activities: { nodes: Array<(
       Pick<StrapiActivity, 'title' | 'mandatory'>
       & { fields?: Maybe<Pick<StrapiActivityFields, 'path'>>, activity_group?: Maybe<(
