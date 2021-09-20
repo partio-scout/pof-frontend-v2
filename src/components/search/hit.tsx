@@ -5,6 +5,7 @@ import { findHitUrl } from '../../utils/search';
 import SuggestionCard from '../suggestionCard';
 import ActivityCard from '../activityCard';
 import { useLogoContext } from '../../contexts/logoContext';
+import BasicCard from '../basicCard';
 
 const getHitComponent = (type: ContentType, data: any, url: string) => {
   switch (type) {
@@ -12,6 +13,10 @@ const getHitComponent = (type: ContentType, data: any, url: string) => {
       return <SuggestionCard suggestion={data} link={url} />;
     case ContentType.activity:
       return <ActivityCard activity={data} link={url} />;
+    case ContentType['content-page']:
+      return <BasicCard title={data.title} text={data.main_text} link={url} image={data.main_image?.formats?.medium?.url} />
+    case ContentType['activity-group']:
+      return <BasicCard title={data.title} text={data.ingress} link={url} />
   }
 }
 
