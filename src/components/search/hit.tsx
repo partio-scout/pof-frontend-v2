@@ -1,7 +1,7 @@
 import React from 'react';
 import { ContentType } from '../../types/content';
 import { HeaderItem } from '../header';
-import { findHitUrl, parseType } from '../../utils/search';
+import { findHitUrl } from '../../utils/search';
 import SuggestionCard from '../suggestionCard';
 import ActivityCard from '../activityCard';
 import { useLogoContext } from '../../contexts/logoContext';
@@ -30,7 +30,7 @@ const Hit = ({
 
   const hitWithLogo = {
     ...hit,
-    logo: activityLogos[hit.id],
+    logo: activityLogos[type === ContentType.suggestion ? hit.activity?.id : hit.id],
   }
 
   return getHitComponent(type, hitWithLogo, linkUrl) || null;
