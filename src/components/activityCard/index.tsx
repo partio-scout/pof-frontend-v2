@@ -13,14 +13,15 @@ import Card from '../card';
 
 interface ActivityCardProps {
   activity: StrapiActivity;
+  link?: string;
   showActivityAndAgeGroup?: boolean;
 }
 
-const ActivityCard = ({ activity, showActivityAndAgeGroup }: ActivityCardProps) => {
+const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
   const { age_group, activity_group, mandatory, suggestions, duration, locations, fields } = activity;
 
   return (
-    <Card link={fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
+    <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
           <img src={prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!)} className="h-8 w-8"></img>

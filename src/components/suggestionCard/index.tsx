@@ -7,22 +7,22 @@ import Pill from './pill';
 import Card from '../card';
 import ClampLines from 'react-clamp-lines';
 
-export type SuggestionWithUrl = StrapiSuggestion & { url?: string; logo?: string };
+export type SuggestionWithUrl = StrapiSuggestion & { url?: string, logo?: string };
 
 interface SuggestionCardProps {
   suggestion: SuggestionWithUrl;
-  showActivityAndAgeGroup?: boolean;
+  link?: string;
 }
 
-const SuggestionCard = ({ suggestion, showActivityAndAgeGroup }: SuggestionCardProps) => {
-  const { author, activity, id, content, like_count, comments, title, published_at, duration, locations, url, logo } =
+const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
+  const { author, activity, id, content, like_count, comments, title, published_at, duration, locations, logo } =
     suggestion;
 
   const likesExist = (like_count || 0) > 0;
   const commentsExist = (comments?.length || 0) > 0;
 
   return (
-    <Card link={url}>
+    <Card link={link}>
       <div className="mb-1">
         {author && <div className="text-xs font-semibold">{author}</div>}
         <div className="text-xxs">{new Date(published_at).toLocaleDateString()}</div>
@@ -74,7 +74,7 @@ const SuggestionCard = ({ suggestion, showActivityAndAgeGroup }: SuggestionCardP
       )}
       {activity && (
         <div className="flex mb-2">
-          <img src={prependApiUrl(logo)} className="h-8 w-8 mr-1"></img>
+          {logo && <img src={prependApiUrl(logo)} className="h-8 w-8 mr-1"></img>}
           <div>
             <div className="text-xs font-semibold">{activity?.title}</div>
           </div>

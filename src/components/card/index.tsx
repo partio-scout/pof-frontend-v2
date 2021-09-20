@@ -10,7 +10,7 @@ interface CardProps {
 function InnerCard({ children, borderColor }: Pick<CardProps, 'children' | 'borderColor'>) {
   return (
     <div
-      className="flex flex-col bg-gray-light border-4 rounded-xl p-2 h-full"
+      className="flex flex-col bg-gray-light border-4 border-gray-light rounded-xl p-2 h-full"
       style={{ borderColor }}
     >
       {children}

@@ -4420,6 +4420,14 @@ export type StrapiActivityFields = {
   path?: Maybe<Scalars['String']>;
 };
 
+export type Activity_Logo = Node & {
+  logo?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
 export type SiteBuildMetadata = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -4468,6 +4476,7 @@ export type SitePluginPluginOptions = {
   entryLimit?: Maybe<Scalars['Int']>;
   query?: Maybe<Scalars['String']>;
   exclude?: Maybe<SitePluginPluginOptionsExclude>;
+  update?: Maybe<Scalars['String']>;
   trackingIds?: Maybe<Array<Maybe<Scalars['String']>>>;
   pluginConfig?: Maybe<SitePluginPluginOptionsPluginConfig>;
   configDir?: Maybe<Scalars['String']>;
@@ -4568,6 +4577,8 @@ export type Query = {
   allStrapiSuggestion: StrapiSuggestionConnection;
   strapiActivity?: Maybe<StrapiActivity>;
   allStrapiActivity: StrapiActivityConnection;
+  activityLogo?: Maybe<Activity_Logo>;
+  allActivityLogo: Activity_LogoConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -5006,6 +5017,23 @@ export type QueryStrapiActivityArgs = {
 export type QueryAllStrapiActivityArgs = {
   filter?: Maybe<StrapiActivityFilterInput>;
   sort?: Maybe<StrapiActivitySortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryActivityLogoArgs = {
+  logo?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllActivityLogoArgs = {
+  filter?: Maybe<Activity_LogoFilterInput>;
+  sort?: Maybe<Activity_LogoSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -6605,6 +6633,7 @@ export type SitePluginPluginOptionsFilterInput = {
   entryLimit?: Maybe<IntQueryOperatorInput>;
   query?: Maybe<StringQueryOperatorInput>;
   exclude?: Maybe<SitePluginPluginOptionsExcludeFilterInput>;
+  update?: Maybe<StringQueryOperatorInput>;
   trackingIds?: Maybe<StringQueryOperatorInput>;
   pluginConfig?: Maybe<SitePluginPluginOptionsPluginConfigFilterInput>;
   configDir?: Maybe<StringQueryOperatorInput>;
@@ -7018,6 +7047,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___entryLimit'
   | 'pluginCreator___pluginOptions___query'
   | 'pluginCreator___pluginOptions___exclude___types'
+  | 'pluginCreator___pluginOptions___update'
   | 'pluginCreator___pluginOptions___trackingIds'
   | 'pluginCreator___pluginOptions___pluginConfig___head'
   | 'pluginCreator___pluginOptions___pluginConfig___respectDNT'
@@ -13150,6 +13180,162 @@ export type StrapiActivitySortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type Activity_LogoConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Activity_LogoEdge>;
+  nodes: Array<Activity_Logo>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<Activity_LogoGroupConnection>;
+};
+
+
+export type Activity_LogoConnectionDistinctArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionMaxArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionMinArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionSumArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: Activity_LogoFieldsEnum;
+};
+
+export type Activity_LogoEdge = {
+  next?: Maybe<Activity_Logo>;
+  node: Activity_Logo;
+  previous?: Maybe<Activity_Logo>;
+};
+
+export type Activity_LogoFieldsEnum =
+  | 'logo'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type Activity_LogoGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Activity_LogoEdge>;
+  nodes: Array<Activity_Logo>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type Activity_LogoFilterInput = {
+  logo?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type Activity_LogoSortInput = {
+  fields?: Maybe<Array<Maybe<Activity_LogoFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type SiteBuildMetadataConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SiteBuildMetadataEdge>;
@@ -13458,6 +13644,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___entryLimit'
   | 'pluginOptions___query'
   | 'pluginOptions___exclude___types'
+  | 'pluginOptions___update'
   | 'pluginOptions___trackingIds'
   | 'pluginOptions___pluginConfig___head'
   | 'pluginOptions___pluginConfig___respectDNT'
@@ -13511,7 +13698,12 @@ export type Unnamed_1_Query = { allStrapiAgeGroup: { nodes: Array<(
 export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_2_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
+export type Unnamed_2_Query = { allActivityLogo: { nodes: Array<Pick<Activity_Logo, 'logo' | 'id'>> } };
+
+export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_3_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
 
 export type NavigationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -13536,10 +13728,10 @@ export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
       )>>> }
     )> } };
 
-export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
+export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_3_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'content' | 'locale'>> } };
+export type Unnamed_4_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'content' | 'locale'>> } };
 
 export type QueryQueryVariables = Exact<{
   id?: Maybe<Scalars['Int']>;

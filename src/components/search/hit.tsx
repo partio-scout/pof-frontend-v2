@@ -1,8 +1,19 @@
 import React from 'react';
 import { ContentType } from '../../types/content';
 import { HeaderItem } from '../header';
-import CombinedLink from '../combinedLink';
 import { findHitUrl, parseType } from '../../utils/search';
+import SuggestionCard from '../suggestionCard';
+import ActivityCard from '../activityCard';
+import { useLogoContext } from '../../contexts/logoContext';
+
+const getHitComponent = (type: ContentType, data: any, url: string) => {
+  switch (type) {
+    case ContentType.suggestion:
+      return <SuggestionCard suggestion={data} link={url} />;
+    case ContentType.activity:
+      return <ActivityCard activity={data} link={url} />;
+  }
+}
 
 const Hit = ({
   hit,
@@ -12,19 +23,17 @@ const Hit = ({
   hit: any;
   type: ContentType;
   navigation: HeaderItem[];
-}): React.ReactElement => {
+}): React.ReactElement | null => {
+  const { activityLogos } = useLogoContext();
+
   const linkUrl = findHitUrl(hit, type, navigation);
 
-  // TODO Proper UI for these results
+  const hitWithLogo = {
+    ...hit,
+    logo: activityLogos[hit.id],
+  }
 
-  return (
-    <div className="p-3 bg-gray border-2 rounded-lg h-full w-full">
-      <div className="text-2xl uppercase font-extrabold">{parseType(type)}</div>
-      {hit?.title} <br />
-      Ikäryhmä: {hit?.age_group?.title} <br />
-      <CombinedLink to={linkUrl}>Linkki</CombinedLink>
-    </div>
-  );
+  return getHitComponent(type, hitWithLogo, linkUrl) || null;
 };
 
 export default Hit;
