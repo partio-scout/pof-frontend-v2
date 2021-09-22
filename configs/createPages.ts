@@ -6,7 +6,7 @@ import {
   StrapiActivity,
   StrapiFrontPage,
   StrapiFrontPageNavigation,
-  StrapiContentpage,
+  StrapiContentPage,
 } from '../graphql-types';
 import { getActivity } from '../src/queries/activity';
 import { getActivityGroup } from '../src/queries/activityGroup';
@@ -49,7 +49,8 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
       component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
       context: {
         data: ageGroup,
-        type: 'ageGroup'
+        type: 'ageGroup',
+        id: ageGroup.strapiId,
       },
     });
     pageCreationlResults.ageGroups.push(ageGroup.title!);
@@ -78,7 +79,9 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
         component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
         context: {
           data: activityGroupData,
-          type: 'activityGroup'
+          type: 'activityGroup',
+          id: activityGroupData.strapiId,
+          ageGroupId: activityGroupData.age_group?.id,
         },
       });
       pageCreationlResults.activityGroups.push(activityGroupData?.title!);
@@ -107,7 +110,9 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
           component: path.resolve(`src/templates/activityTemplate/index.tsx`),
           context: {
             data: activityData,
-            type: 'activity'
+            type: 'activity',
+            id: activityData.strapiId,
+            activityGroupId: activityData.activity_group?.id,
           },
         });
         pageCreationlResults.activities.push(activityData?.title!);
@@ -138,9 +143,6 @@ async function handleContentPages(graphql: CreatePagesArgs['graphql'], createPag
 
   for (const localization of frontPages) {
     for (const navigationItem of localization?.navigation || []) {
-      // If the page's id is null, the page is not published so let's skip it
-      if (!navigationItem?.page?.id) continue;
-
       if (navigationItem) await createNavigationLevel(graphql, createPage, navigationItem);
     }
   }
@@ -159,8 +161,6 @@ async function createNavigationLevel(
   }
 
   const pagePath = '/' + parseActivityRouteName(data.title);
-
-  await fetchAndCreateContentPage(graphql, createPage, data.id, pagePath);
 
   for (const subitem of data.subnavigation || []) {
     // If the page's id is null, the page is not published so let's skip it
@@ -182,7 +182,7 @@ async function fetchAndCreateContentPage(
   id: number,
   pagePath: string,
 ) {
-  const pageDataResponse = await graphql<{ strapiContentpage: StrapiContentpage }>(getContentPage, {
+  const pageDataResponse = await graphql<{ strapiContentPage: StrapiContentPage }>(getContentPage, {
     id,
   });
 
@@ -190,7 +190,7 @@ async function fetchAndCreateContentPage(
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
-      data: pageDataResponse.data?.strapiContentpage,
+      data: pageDataResponse.data?.strapiContentPage,
     },
   });
 }

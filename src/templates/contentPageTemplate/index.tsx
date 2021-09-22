@@ -1,17 +1,18 @@
 import React from 'react';
 import Layout from '../../layouts/default';
-import renderBlock from '../../utils/renderBlock';
-import { StrapiContentpage } from '../../../graphql-types';
-import { ContentBlock } from '../../components/blocks';
+import { StrapiContentPage } from '../../../graphql-types';
+import BlockArea from '../../components/blockArea';
+import { prependApiUrl } from '../../utils/helpers';
+import RichText from '../../components/RichText';
 
 interface ContentPageTemplateProps {
   pageContext: {
-    data: StrapiContentpage;
+    data: StrapiContentPage;
   };
 }
 
 interface MainContentProps {
-  data: StrapiContentpage;
+  data: StrapiContentPage;
 }
 
 const MainContent = ({ data }: MainContentProps) => (
@@ -19,18 +20,16 @@ const MainContent = ({ data }: MainContentProps) => (
     <div className="w-full md:w-1/2">
       {console.log(data)}
       <h1 className="mb-2">{data.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: data.main_text! }}></div>
+      <RichText html={data.main_text} />
     </div>
-    {data.main_image && <img className="w-full md:w-1/2" src={data.main_image.url!}></img>}
+    {data.main_image && <img className="w-full md:w-1/2" src={prependApiUrl(data.main_image?.url)}></img>}
   </div>
 );
 
 const ContentPageTemplate = ({ pageContext }: ContentPageTemplateProps) => (
-  <Layout omitPadding>
+  <Layout omitPadding showBreadCrumbs>
     <MainContent data={pageContext.data} />
-    <div className="flex flex-wrap justify-between mt-8">
-      {pageContext.data.content.map((block: ContentBlock) => renderBlock(block))}
-    </div>
+    <BlockArea blocks={pageContext.data.content} />
   </Layout>
 );
 

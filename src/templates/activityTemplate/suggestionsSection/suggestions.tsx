@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import NewReplyForm from './newReplyForm';
 import { CommonSuggestionFormProps, Error } from './index';
+import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
 import { parseDate } from '../../../utils/helpers';
 import { StrapiActivity } from '../../../../graphql-types';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
@@ -8,6 +9,7 @@ import LinkIcon from '../../../images/link.inline.svg';
 import { sendSuggestionLike, sendSuggestionUnlike } from '../../../services/activity';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
+import clsx from 'clsx';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -37,9 +39,22 @@ const Comment = ({ comment }) => (
 );
 
 const Suggestions = ({ suggestions, resetFormState, ...rest }: SuggestionsProps) => {
+  // Query param `tip` is used to scroll to a distinct suggestion when coming from search
+  const [focusedSuggestion] = useQueryParam('tip', NumberParam);
   const [expandedIndex, setExpandedIndex] = useState({});
   const [votes, setVotes] = useState({});
   const [updatedSuggestions, setUpdatedSuggestions] = useState(null);
+
+  useLayoutEffect(() => {
+    if (focusedSuggestion) {
+      const element = document.getElementById(focusedSuggestion.toString());
+      if (element)
+        element.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+    }
+  }, []);
 
   useEffect(() => {
     setUpdatedSuggestions(suggestions);
@@ -144,8 +159,12 @@ const Suggestions = ({ suggestions, resetFormState, ...rest }: SuggestionsProps)
     <>
       {updatedSuggestions &&
         updatedSuggestions.map((suggestion, index: number) => (
-          <div key={suggestion?.id}>
-            <div className="bg-gray-light rounded-t-xl p-4 mt-3">
+          <div key={suggestion?.id} id={suggestion?.id?.toString()}>
+            <div
+              className={clsx('bg-gray-light rounded-t-xl p-4 mt-3', {
+                'border-hardBlue border-2 border-b-0': focusedSuggestion === suggestion?.id,
+              })}
+            >
               <img></img>
               <h4 className="text-blue">{suggestion!.title}</h4>
               <span>{parseDate(suggestion!.published_at)}</span>
@@ -154,7 +173,11 @@ const Suggestions = ({ suggestions, resetFormState, ...rest }: SuggestionsProps)
               </span>
               <p>{suggestion!.content}</p>
             </div>
-            <div className="bg-gray p-1 overflow-auto rounded-br-xl">
+            <div
+              className={clsx('bg-gray p-1 overflow-auto rounded-br-xl', {
+                'border-hardBlue border-2 border-t-0': focusedSuggestion === suggestion?.id,
+              })}
+            >
               <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
                 <LinkIcon className="fill-current inline-block mr-1" />
                 <span className="font-semibold">Linkki</span>

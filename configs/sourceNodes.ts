@@ -1,4 +1,4 @@
-import { SourceNodesArgs } from 'gatsby';
+import { Node, SourceNodesArgs } from 'gatsby';
 import {
   StrapiAgeGroup,
   StrapiActivityGroup,
@@ -6,20 +6,51 @@ import {
   Maybe,
   StrapiFrontPage,
   StrapiFrontPageNavigation,
+  StrapiFrontPageNavigationSubnavigation,
+  StrapiFrontPageNavigationSubnavigationSubnavigation,
 } from '../graphql-types';
 import { parseActivityRouteName, parseAgeGroupRouteName } from './utils';
 
-interface ContentNavigationItem {
+interface ContentNavigationItemFirstLevel {
   title: string;
+  subitems?: ContentNavigationItem[];
+}
+interface ContentNavigationItem extends ContentNavigationItemFirstLevel {
   path: string;
   subitems?: ProgramNavItem[];
   type: string;
   id: number;
 }
-interface ProgramNavItem extends ContentNavigationItem { 
+interface ProgramNavItem extends ContentNavigationItem {
   minimum_age?: number;
   maximum_age?: number;
+  color?: string;
 }
+
+const mapNavigationItems = (
+  items?: Maybe<Maybe<StrapiFrontPageNavigationSubnavigation>[]>,
+  rootPath?: string,
+): ContentNavigationItem[] => {
+  return (
+    items?.filter(subNavigationItemFilter).map((item) => {
+      const path = `${rootPath || ''}/${parseActivityRouteName(item?.title!)}`;
+
+      return {
+        title: item?.title!,
+        type: 'ContentPage',
+        id: item?.page?.id!,
+        path,
+        subitems: mapNavigationItems(item?.subnavigation, path),
+      };
+    }) || []
+  );
+};
+
+const firstLevelNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigation, 'id' | 'title'>>) =>
+  navigationItem?.id && navigationItem.title;
+
+const subNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>) =>
+  navigationItem?.id && navigationItem.title && navigationItem.page?.id;
 
 /**
  * Reads navigation data from StrapiFrontPage nodes and write them as Navigation nodes.
@@ -34,25 +65,13 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
 
     const frontPage = node as unknown as StrapiFrontPage;
 
-    const navigationItemFilter = (navigationItem: Maybe<StrapiFrontPageNavigation>) =>
-      navigationItem?.id && navigationItem.title && navigationItem.page?.id;
-
-    const navigationData: ContentNavigationItem[] =
-      frontPage.navigation?.filter(navigationItemFilter).map((navigationItem) => ({
+    const navigationData: ContentNavigationItemFirstLevel[] =
+      frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem) => ({
         title: navigationItem?.title!,
-        type: 'ContentPage',
-        id: navigationItem?.page?.id!,
-        path: '/' + parseActivityRouteName(navigationItem?.page?.title!),
-        subitems: navigationItem?.subnavigation?.filter(navigationItemFilter).map((subitem) => ({
-          title: subitem?.title!,
-          type: 'ContentPage',
-          id: subitem?.page?.id!,
-          path:
-            '/' +
-            parseActivityRouteName(navigationItem?.page?.title!) +
-            '/' +
-            parseActivityRouteName(subitem?.page?.title!),
-        })),
+        subitems: mapNavigationItems(
+          navigationItem?.subnavigation,
+          `/${parseActivityRouteName(navigationItem?.title!)}`,
+        ),
       })) || [];
 
     createNode(
@@ -76,7 +95,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
 
 function createProgramNavigationNodes(args: SourceNodesArgs) {
   const { getNodesByType, actions, createContentDigest } = args;
-  const { createNode } = actions;
+  const { createNode, createNodeField } = actions;
 
   const getNodesByLocale = <TYPE extends { locale?: Maybe<string> }>(type: string) =>
     getNodesByType(type).reduce((prev, curr) => {
@@ -99,16 +118,24 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
     const items: ProgramNavItem[] = [];
 
     for (const ageGroup of ageGroups) {
-      console.log('agegroup', ageGroup.title, 'ages', ageGroup.minimum_age, ageGroup.maximum_age);
+      const ageGroupPath = '/' + parseAgeGroupRouteName(ageGroup.title!);
+
       const ageGroupNav: ProgramNavItem = {
         title: ageGroup.title!,
         type: 'AgeGroup',
         id: ageGroup.strapiId!,
-        path: '/' + parseAgeGroupRouteName(ageGroup.title!),
+        path: ageGroupPath,
+        color: ageGroup.color!,
         subitems: [],
         minimum_age: ageGroup.minimum_age || undefined,
         maximum_age: ageGroup.maximum_age || undefined,
       };
+
+      createNodeField({
+        node: ageGroup as unknown as Node,
+        name: 'path',
+        value: ageGroupPath,
+      });
 
       for (const activityGroup of ageGroup.activity_groups || []) {
         if (!activityGroup?.id) continue;
@@ -117,13 +144,21 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
         if (!properActivityGroup) continue;
 
+        const activityGroupPath = ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!);
+
         const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
           type: 'ActivityGroup',
           id: properActivityGroup.strapiId!,
-          path: ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!),
+          path: activityGroupPath,
           subitems: [],
         };
+
+        createNodeField({
+          node: properActivityGroup as unknown as Node,
+          name: 'path',
+          value: activityGroupPath,
+        });
 
         for (const activity of properActivityGroup.activities || []) {
           if (!activity?.id) continue;
@@ -132,12 +167,20 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
           if (!properActivity) continue;
 
+          const activityPath = activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!);
+
           const activityNav: ProgramNavItem = {
             title: properActivity.title!,
             type: 'Activity',
             id: properActivity.strapiId!,
-            path: activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!),
+            path: activityPath,
           };
+
+          createNodeField({
+            node: properActivity as unknown as Node,
+            name: 'path',
+            value: activityPath,
+          });
 
           activityGroupNav.subitems?.push(activityNav);
         }

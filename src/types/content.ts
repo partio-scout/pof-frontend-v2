@@ -13,7 +13,9 @@ export interface SearchableContentType {
 }
 
 export const contentTypes: SearchableContentType[] = [
-  { name: 'Aktiviteetti', type: ContentType.activity },
-  { name: 'Toteutusvinkki', type: ContentType.suggestion },
-  // { name: 'Muut', type: ContentType.others },
+  { name: 'Aktiviteetit', type: ContentType.activity },
+  { name: 'Toteutusvinkit', type: ContentType.suggestion },
+  { name: 'Sisältösivut', type: ContentType["content-page"] },
+  // { name: 'Aktiviteettipaketit', type: ContentType["activity-group"] },
+  // { name: 'Ikäryhmät', type: ContentType["age-group"] },
 ];

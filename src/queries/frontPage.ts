@@ -12,16 +12,20 @@ export const getAllFrontPages = `
       navigation {
         id
         title
-        page {
-          id
-          title
-        }
         subnavigation {
           id
           title
           page {
             id
             title
+          }
+          subnavigation {
+            id
+            title
+            page {
+              id
+              title
+            }
           }
         }
       }

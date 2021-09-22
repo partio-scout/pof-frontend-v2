@@ -1,0 +1,14 @@
+@tailwind utilities;
+
+.richtext a {
+  @apply underline;
+}
+
+.richtext ul {
+  @apply pl-3 m-0;
+  list-style: unset;
+}
+
+.richtext p {
+  @apply pb-2;
+}

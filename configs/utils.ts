@@ -6,13 +6,16 @@ export const parseActivityRouteName = (name: string) =>
   );
 
 export const parseAgeGroupRouteName = (name: string) => {
-  const parsedName = name.split(' ')[0];
+  const parsedName = name.trim().split(' ')[0];
   return parseActivityRouteName(parsedName);
 };
 
-const replaceDashesAndLowerCase = (str: string) =>
+const replaceDashesAndLowerCase = (str?: string) =>
   str
-    .toLowerCase()
+    ?.toLowerCase()
+    .replace(':', '')
     .replace(/\s/g, '-')
+    .replace(/[–—:]/g, '-') // En Dash & Em Dash
     .replace(/^-+|-+$/, '')
-    .replace(/-{2,}/, '-');
+    .replace(/-{2,}/, '-')
+    .replace(/[\.\?]/g, '');

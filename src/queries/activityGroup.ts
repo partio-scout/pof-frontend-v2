@@ -1,4 +1,4 @@
-import { commonFragment } from "./common";
+import { commonFragment, mediaFragment } from './common';
 
 export const getActivityGroup = `
 query getActivityGroup($id: Int!) {
@@ -7,25 +7,20 @@ query getActivityGroup($id: Int!) {
     ingress
     content
     mandatory
+    sort_order
     logo {
-      name
-      url
-      size
-      mime
-      id
+      ${mediaFragment}
     }
     main_image {
-      name
-      url
-      size
-      mime
-      id
+      ${mediaFragment}
     }
     activities {
       id
+      title
     }
     activity_group_category {
       name
+      sort_order
     }
     activitygroup_term {
       name
@@ -41,6 +36,14 @@ query getActivityGroup($id: Int!) {
       name
       plural
       singular
+    }
+    age_group {
+      id
+      title
+    }
+    links {
+      description
+      url
     }
   }
 }

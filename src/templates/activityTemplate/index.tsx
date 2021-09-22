@@ -25,7 +25,7 @@ const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityP
         path={path}
         locale={currentLocale}
       />
-      <div className="relative overflow-hidden h-86 mb-8">
+      <div className="relative overflow-hidden h-80 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
         <img src={mockHero} className="w-full max-h-6/8 "></img>
       </div>
@@ -38,11 +38,11 @@ const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityP
             smallMainTitle
           />
         </div>
-        <h2 className="text-blue mt-2">{pageContext.data.title}</h2>
-        <ActivityContentSection data={pageContext.data} />
-        <ActivitySpecsSection data={pageContext.data} />
-        <SuggestionsSection data={pageContext.data} activityId={pageContext.data.strapiId!} />
       </PaddedContainer>
+      <h2 className="text-blue mt-2">{pageContext.data.title}</h2>
+      <ActivityContentSection data={pageContext.data} />
+      <ActivitySpecsSection data={pageContext.data} />
+      <SuggestionsSection data={pageContext.data} activityId={pageContext.data.strapiId!} />
     </Layout>
   );
 };
