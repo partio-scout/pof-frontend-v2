@@ -3,8 +3,8 @@ import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
 import { StrapiActivity } from '../../../../graphql-types';
-import { sendNewSuggestion, sendNewReply } from '../../../services/activity';
-import suggestions from './suggestions';
+import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
+import toast from 'react-hot-toast';
 
 interface SuggestionsSectionProps {
   activityId: number;
@@ -67,14 +67,10 @@ const mockComments = [
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
-  const [suggestionPostSent, setSuggestionPostSent] = useState(false);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
-  const [newSuggestionError, setNewSuggestionError] = useState<Error | null>(null);
-  const [newReplyError, setNewReplyError] = useState<Error | null>(null);
   const [newReply, setNewReply] = useState(initialReply);
   const [suggestions, setSuggestions] = useState(null);
   const [replyTermsChecked, setReplyTermsChecked] = useState(false);
-  const [suggestionReplySent, setSuggestionReplySent] = useState(false);
   const [modalData, setModalData] = useState({
     modalText: '',
     sendButtonText: '',
@@ -84,19 +80,27 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [callBack, setCallback] = useState<() => void | null>(null);
 
   useEffect(() => {
-    console.log(data);
-    const suggestionsWithComments = data.suggestions.map((s, i) =>
-      i < 1
-        ? (s = {
-            ...s,
-            comments: mockComments,
-          })
-        : (s = {
-            ...s,
-            comments: [mockComments[0]],
-          }),
-    );
-    setSuggestions(suggestionsWithComments);
+    fetchSuggestions(activityId)
+      .then((res) => {
+        console.log(res);
+        let fetchRequests = res.data.suggestions.map((s) =>
+          fetchComments(s.id)
+            .then((commentsRes) => {
+              return { ...s, comments: commentsRes.data.comments || [] };
+            })
+            .catch((err) => {
+              return { ...s, comments: [] };
+            }),
+        );
+        console.log(fetchRequests);
+        Promise.all(fetchRequests).then((results) => {
+          console.log('Promise results: ', results);
+          setSuggestions(results);
+        });
+      })
+      .catch((err) => {
+        toast.error('Toteutusvinkkien haku epäonnistui');
+      });
   }, data);
 
   const suggestionValid = (obj: InitialSuggestion) =>
@@ -111,16 +115,10 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       sendButtonText: 'Lähetä toteutusvinkki',
       backButtonText: 'Takaisin',
     });
-    setSuggestionPostSent(false);
-    setNewSuggestionError(null);
     if (!suggestionTermsChecked) {
-      setNewSuggestionError({
-        text: 'Hyväksy ehdot ennen lähettämistä',
-      });
+      toast.error('Hyväksy ehdot ennen lähetystä');
     } else if (!suggestionValid(newSuggestion)) {
-      setNewSuggestionError({
-        text: 'Tarkista että kentät eivät ole tyhjiä',
-      });
+      toast.success('Tarkista että kentät eivät ole tyhjiä');
     } else {
       setModalOpen(true);
     }
@@ -130,16 +128,11 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     sendNewSuggestion(newSuggestion, activityId)
       .then((res) => {
         setModalOpen(false);
-        setSuggestionPostSent(true);
-        setNewSuggestionError(null);
+        toast.success('Toteutusvinkki lähetetty onnistuneesti');
       })
       .catch((err) => {
         setModalOpen(false);
-        setSuggestionPostSent(false);
-        setNewSuggestionError({
-          text: 'Vastauksen lähettäminen epäonnistui.',
-          err,
-        });
+        toast.error('Toteutusvinkin lähettäminen epäonnistui');
       });
   };
 
@@ -154,16 +147,10 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       sendButtonText: 'Lähetä kommentti',
       backButtonText: 'Takaisin',
     });
-    setSuggestionReplySent(false);
-    setNewReplyError(null);
     if (!replyTermsChecked) {
-      setNewReplyError({
-        text: 'Hyväksy ehdot ennen lähettämistä',
-      });
+      toast.error('Hyväksy ehdot ennen lähetystä');
     } else if (!replyValid(newReply)) {
-      setNewReplyError({
-        text: 'Tarkista että kentät eivät ole tyhjiä',
-      });
+      toast.error('Tarkista että kentät eivät ole tyhjiä');
     } else {
       setModalOpen(true);
     }
@@ -174,16 +161,11 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         setModalOpen(false);
-        setSuggestionReplySent(true);
-        setNewReplyError(null);
+        toast.success('Kommentti lähetetty onnistuneesti');
       })
       .catch((err) => {
         setModalOpen(false);
-        setSuggestionReplySent(false);
-        setNewReplyError({
-          text: 'Kommentin lähettäminen epäonnistui.',
-          err,
-        });
+        toast.error('Kommentin lähettäminen epäonnistui');
       });
   };
 
@@ -220,8 +202,6 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     });
 
   const resetFormState = () => {
-    setSuggestionReplySent(false);
-    setNewReplyError(null);
     setReplyTermsChecked(false);
     setNewReply(initialReply);
   };
@@ -237,8 +217,6 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
           onFieldChange={onReplyFieldChange}
           onTermsChange={onReplyTermsChange}
           termsChecked={replyTermsChecked}
-          error={newReplyError}
-          suggestionReplySent={suggestionReplySent}
         />
       )}
       <NewSuggestionForm
@@ -250,8 +228,6 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
         removeSelectedFile={() => setSelectedFile(null)}
         onLinkChange={onLinkChange}
         termsChecked={suggestionTermsChecked}
-        error={newSuggestionError}
-        suggestionPostSent={suggestionPostSent}
       />
       <ConfirmationModal modalOpen={modalOpen} setModalOpen={setModalOpen} callBack={callBack} modalData={modalData} />
     </div>

@@ -48,12 +48,13 @@ const NewReplyForm = ({
         <div className="flex flex-col w-3/4 relative">
           <input
             name="title"
-            placeholder="Toteutusvinkin otsikko"
+            placeholder="Kommentin otsikko"
             onChange={onFieldChange}
             className={`${inputStyle} mb-2`}
           />
           <textarea
             className="w-full rounded-xl p-2 text-blue focus:outline-none flex-grow"
+            placeholder="Kommentti"
             name="text"
             onChange={onFieldChange}
           ></textarea>

@@ -8,6 +8,7 @@ import { SearchContextProvider } from '../contexts/searchContext';
 import useNavigation from '../hooks/navigation';
 import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -27,6 +28,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false 
 
   return (
     <SearchContextProvider>
+      <Toaster position="bottom-right" />
       <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
         <meta name="description" content={metadata.meta_description} />
         <meta property="og:locale" content="fi_FI" />

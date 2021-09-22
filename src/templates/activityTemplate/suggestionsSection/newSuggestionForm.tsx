@@ -13,8 +13,6 @@ interface NewSuggestionFormProps extends CommonSuggestionFormProps {
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onLinkChange: (event: ChangeEvent<HTMLInputElement>) => void;
   removeSelectedFile: () => void;
-  suggestionPostSent: boolean;
-  error: Error | null;
 }
 
 const NewSuggestionForm = ({
@@ -26,8 +24,6 @@ const NewSuggestionForm = ({
   removeSelectedFile,
   onTermsChange,
   termsChecked,
-  suggestionPostSent,
-  error,
 }: NewSuggestionFormProps) => (
   <div className="my-12">
     <h2 className="text-blue">KIRJOITA TOTEUTUSVINKKI</h2>
@@ -37,6 +33,18 @@ const NewSuggestionForm = ({
           <input name="title" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
           {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
           <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
+          <select className="block p-2 rounded-xl w-full focus:outline-none focus:border-blue focus:ring custom-select">
+            <option className="hidden" value="" selected>
+              Valitse
+            </option>
+            <option>tunti</option>
+          </select>
+          <select className="block p-2 rounded-xl w-full focus:outline-none focus:border-blue focus:ring custom-select">
+            <option className="hidden" value="" selected>
+              Valitse
+            </option>
+            <option>kololla</option>
+          </select>
           <span className="block text-blue">Lisää liitetiedosto</span>
           <label
             className="block bg-hardBlue text-white w-full p-1 rounded-xl font-tondu tracking-wider text-center cursor-pointer"
@@ -95,18 +103,6 @@ const NewSuggestionForm = ({
             LÄHETÄ
           </button>
         </div>
-      </div>
-      <div className="w-full pr-4">
-        {suggestionPostSent && !error && (
-          <div className="p-2 rounded-xl border-2 border-green-500 font-sourceSansPro w-1/2 bg-green-100 z-20 float-right">
-            <span>{'Toteutusvinkin lähetys onnistui'}</span>
-          </div>
-        )}
-        {error && (
-          <div className="p-2 rounded-xl border-2 border-red-500 font-sourceSansPro w-1/2 bg-red-100 z-20 float-right">
-            <span className="text-red-500 font-">{error.text}</span>
-          </div>
-        )}
       </div>
     </div>
   </div>
