@@ -8,7 +8,6 @@ import forest from '../../../images/Forest.svg';
 import sun from '../../../images/Sun.svg';
 import parent from '../../../images/Parent.svg';
 import { StrapiActivity } from '../../../../graphql-types';
-import { v4 as uuidv4 } from 'uuid';
 import RichText from '../../../components/RichText';
 
 interface ActivitySpecsProps {
@@ -63,7 +62,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => (
           <div>
             <h4 className="text-blue block w-full text-xl">PAIKKA</h4>
             {data.locations?.map((location, index: number) => (
-              <div className="flex mt-2" key={uuidv4()}>
+              <div className="flex mt-2" key={location?.id}>
                 <div className="rounded-xl bg-ageYellow w-14 h-14 flex align-center justify-center bg-opacity-20">
                   <img
                     className="w-8"
