@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useQueryParam, encodeJson, decodeJson } from 'use-query-params';
 import clsx from 'clsx';
-import qs from 'qs';
 import { InstantSearch, Index, Configure } from 'react-instantsearch-dom';
 import { client } from '../../utils/algolia';
 import Hits from '../../components/search/hits';
@@ -64,7 +63,7 @@ const Search = (): React.ReactElement | null => {
 
   return (
     <div
-      className={clsx('absolute w-full h-full z-10', {
+      className={clsx('absolute w-full h-full z-50', {
         hidden: !state.searchActive,
       })}
     >

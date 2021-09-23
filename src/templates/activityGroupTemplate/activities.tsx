@@ -1,6 +1,7 @@
-import { Link } from 'gatsby';
 import React from 'react';
+import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
+import ActivityCard from '../../components/activityCard';
 
 interface ActivitiesProps {
   activities: StrapiActivity[];
@@ -14,9 +15,7 @@ const Heading = ({ children }: { children: React.ReactNode }) => (
   <h2 className="text-2xl uppercase mb-3">{children}</h2>
 );
 
-const Paragraph = ({children}: { children: React.ReactNode }) => (
-  <p className="mb-5 tracking-wide">{children}</p>
-)
+const Paragraph = ({ children }: { children: React.ReactNode }) => <p className="mb-5 tracking-wide">{children}</p>;
 
 function Activities({
   activities,
@@ -37,14 +36,7 @@ function Activities({
           {mandatoryDescription && <Paragraph>{mandatoryDescription}</Paragraph>}
           <div className="masonry before:box-inherit after:box-inherit mb-5">
             {mandatoryActivities?.map((activity) => (
-              // TODO real activity cards
-              <Link
-                to={activity.fields?.path || ''}
-                className="block break-inside bg-gray-light rounded-2xl p-8 mb-3"
-                key={activity?.strapiId}
-              >
-                {activity?.title}
-              </Link>
+              <ActivityCard activity={activity} key={activity.strapiId} />
             ))}
           </div>
         </>
@@ -55,14 +47,7 @@ function Activities({
           {optionalDescription && <Paragraph>{optionalDescription}</Paragraph>}
           <div className="masonry before:box-inherit after:box-inherit mb-5">
             {optionalActivities?.map((activity) => (
-              // TODO real activity cards
-              <Link
-                to={activity.fields?.path || ''}
-                className="block break-inside bg-gray-light rounded-2xl p-8 mb-3"
-                key={activity?.strapiId}
-              >
-                {activity?.title}
-              </Link>
+              <ActivityCard activity={activity} key={activity.strapiId} />
             ))}
           </div>
         </>

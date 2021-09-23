@@ -78,6 +78,7 @@ type Site implements Node @dontInfer {
   siteMetadata: SiteSiteMetadata
   port: Int
   host: String
+  flags: SiteFlags
   polyfill: Boolean
   pathPrefix: String
 }
@@ -86,6 +87,10 @@ type SiteSiteMetadata {
   title: String
   description: String
   siteUrl: String
+}
+
+type SiteFlags {
+  PRESERVE_WEBPACK_CACHE: Boolean
 }
 
 type SiteFunction implements Node @dontInfer {
@@ -2638,4 +2643,8 @@ type StrapiActivityLocalizations {
 
 type StrapiActivityFields {
   path: String
+}
+
+type Activity_Logo implements Node @dontInfer {
+  logo: String
 }

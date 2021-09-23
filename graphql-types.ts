@@ -257,6 +257,7 @@ export type Site = Node & {
   siteMetadata?: Maybe<SiteSiteMetadata>;
   port?: Maybe<Scalars['Int']>;
   host?: Maybe<Scalars['String']>;
+  flags?: Maybe<SiteFlags>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -1130,6 +1131,10 @@ export type StrapiFrontPageUpdated_AtArgs = {
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
+};
+
+export type SiteFlags = {
+  PRESERVE_WEBPACK_CACHE?: Maybe<Scalars['Boolean']>;
 };
 
 export type StrapiAgeGroupSubactivitygroup_Term = {
@@ -4432,6 +4437,14 @@ export type StrapiActivityFields = {
   path?: Maybe<Scalars['String']>;
 };
 
+export type Activity_Logo = Node & {
+  logo?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
 export type SiteBuildMetadata = Node & {
   id: Scalars['ID'];
   parent?: Maybe<Node>;
@@ -4581,6 +4594,8 @@ export type Query = {
   allStrapiSuggestion: StrapiSuggestionConnection;
   strapiActivity?: Maybe<StrapiActivity>;
   allStrapiActivity: StrapiActivityConnection;
+  activityLogo?: Maybe<Activity_Logo>;
+  allActivityLogo: Activity_LogoConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -4695,6 +4710,7 @@ export type QuerySiteArgs = {
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
   port?: Maybe<IntQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
+  flags?: Maybe<SiteFlagsFilterInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -5022,6 +5038,23 @@ export type QueryStrapiActivityArgs = {
 export type QueryAllStrapiActivityArgs = {
   filter?: Maybe<StrapiActivityFilterInput>;
   sort?: Maybe<StrapiActivitySortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryActivityLogoArgs = {
+  logo?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllActivityLogoArgs = {
+  filter?: Maybe<Activity_LogoFilterInput>;
+  sort?: Maybe<Activity_LogoSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -5814,6 +5847,10 @@ export type SiteSiteMetadataFilterInput = {
   siteUrl?: Maybe<StringQueryOperatorInput>;
 };
 
+export type SiteFlagsFilterInput = {
+  PRESERVE_WEBPACK_CACHE?: Maybe<BooleanQueryOperatorInput>;
+};
+
 export type SiteConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SiteEdge>;
@@ -5866,6 +5903,7 @@ export type SiteFieldsEnum =
   | 'siteMetadata___siteUrl'
   | 'port'
   | 'host'
+  | 'flags___PRESERVE_WEBPACK_CACHE'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -5969,6 +6007,7 @@ export type SiteFilterInput = {
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
   port?: Maybe<IntQueryOperatorInput>;
   host?: Maybe<StringQueryOperatorInput>;
+  flags?: Maybe<SiteFlagsFilterInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -13196,6 +13235,162 @@ export type StrapiActivitySortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type Activity_LogoConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Activity_LogoEdge>;
+  nodes: Array<Activity_Logo>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<Activity_LogoGroupConnection>;
+};
+
+
+export type Activity_LogoConnectionDistinctArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionMaxArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionMinArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionSumArgs = {
+  field: Activity_LogoFieldsEnum;
+};
+
+
+export type Activity_LogoConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: Activity_LogoFieldsEnum;
+};
+
+export type Activity_LogoEdge = {
+  next?: Maybe<Activity_Logo>;
+  node: Activity_Logo;
+  previous?: Maybe<Activity_Logo>;
+};
+
+export type Activity_LogoFieldsEnum =
+  | 'logo'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type Activity_LogoGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<Activity_LogoEdge>;
+  nodes: Array<Activity_Logo>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type Activity_LogoFilterInput = {
+  logo?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type Activity_LogoSortInput = {
+  fields?: Maybe<Array<Maybe<Activity_LogoFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type SiteBuildMetadataConnection = {
   totalCount: Scalars['Int'];
   edges: Array<SiteBuildMetadataEdge>;
@@ -13558,7 +13753,12 @@ export type Unnamed_1_Query = { allStrapiAgeGroup: { nodes: Array<(
 export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_2_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
+export type Unnamed_2_Query = { allActivityLogo: { nodes: Array<Pick<Activity_Logo, 'logo' | 'id'>> } };
+
+export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_3_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
 
 export type NavigationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -13583,10 +13783,10 @@ export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
       )>>> }
     )> } };
 
-export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
+export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_3_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'content' | 'locale'>> } };
+export type Unnamed_4_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'content' | 'locale'>> } };
 
 export type QueryQueryVariables = Exact<{
   id?: Maybe<Scalars['Int']>;
@@ -13603,9 +13803,18 @@ export type QueryQuery = { ageGroup?: Maybe<(
         Pick<StrapiActivityGroupLogo, 'url'>
         & { formats?: Maybe<{ thumbnail?: Maybe<Pick<StrapiActivityGroupLogoFormatsThumbnail, 'width' | 'url' | 'size' | 'name' | 'mime' | 'height'>> }> }
       )>, activity_group_category?: Maybe<Pick<StrapiActivityGroupActivity_Group_Category, 'name' | 'id'>> }
-    )> }, suggestions: { nodes: Array<Pick<StrapiSuggestion, 'author' | 'content' | 'published_at' | 'title' | 'strapiId' | 'locale' | 'like_count' | 'id'>> }, activities: { nodes: Array<(
-      Pick<StrapiActivity, 'title'>
-      & { fields?: Maybe<Pick<StrapiActivityFields, 'path'>> }
+    )> }, suggestions: { nodes: Array<(
+      Pick<StrapiSuggestion, 'author' | 'content' | 'published_at' | 'title' | 'strapiId' | 'locale' | 'like_count' | 'id'>
+      & { activity?: Maybe<Pick<StrapiSuggestionActivity, 'title' | 'id'>>, locations?: Maybe<Array<Maybe<Pick<StrapiSuggestionLocations, 'slug' | 'name'>>>>, duration?: Maybe<Pick<StrapiSuggestionDuration, 'name' | 'slug'>> }
+    )> }, activities: { nodes: Array<(
+      Pick<StrapiActivity, 'title' | 'mandatory'>
+      & { fields?: Maybe<Pick<StrapiActivityFields, 'path'>>, activity_group?: Maybe<(
+        Pick<StrapiActivityActivity_Group, 'title'>
+        & { logo?: Maybe<{ formats?: Maybe<{ thumbnail?: Maybe<Pick<StrapiActivityActivity_GroupLogoFormatsThumbnail, 'url'>> }> }> }
+      )>, age_group?: Maybe<Pick<StrapiActivityAge_Group, 'color' | 'title'>>, suggestions?: Maybe<Array<Maybe<Pick<StrapiActivitySuggestions, 'title'>>>>, duration?: Maybe<Pick<StrapiActivityDuration, 'name' | 'slug'>>, locations?: Maybe<Array<Maybe<(
+        Pick<StrapiActivityLocations, 'slug' | 'name'>
+        & { icon?: Maybe<Pick<StrapiActivityLocationsIcon, 'url'>> }
+      )>>> }
     )> } };
 
 export type ActivityGroupQueryQueryVariables = Exact<{
