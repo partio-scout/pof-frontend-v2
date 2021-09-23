@@ -64,7 +64,7 @@ const Search = (): React.ReactElement | null => {
 
   return (
     <div
-      className={clsx('absolute w-full h-full z-10', {
+      className={clsx('absolute w-full h-full z-50', {
         hidden: !state.searchActive,
       })}
     >

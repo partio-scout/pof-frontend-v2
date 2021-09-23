@@ -11,7 +11,7 @@ export const checkHeaderItemForPath = (path: string, headerItem: HeaderItem): He
   return null;
 };
 
-export const findBreadcrumbPath = (path: string, navigation: HeaderItem[]): BreadCrumb[] => {
+export const findBreadcrumbPath = (path: string, navigation: HeaderItem[]): HeaderItem[] => {
   let foundPath: HeaderItem[] = [];
   const realPath = decodeURIComponent(path).replace(/\/$/, '');
 
@@ -23,8 +23,5 @@ export const findBreadcrumbPath = (path: string, navigation: HeaderItem[]): Brea
     }
   }
 
-  return foundPath.map((item) => ({
-    name: item.name!,
-    url: item.url!,
-  }));
+  return foundPath;
 };

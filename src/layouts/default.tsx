@@ -1,29 +1,31 @@
 import React from 'react';
 import { useLocation } from '@reach/router';
 import Helmet from 'react-helmet';
-import Header from '../components/header';
+import Header, { HeaderItem } from '../components/header';
 import BreadCrumbs from '../components/header/breadCrumbs';
 import Search from '../components/search';
 import { SearchContextProvider } from '../contexts/searchContext';
 import useNavigation from '../hooks/navigation';
 import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
+import clsx from 'clsx';
 
 interface LayoutProps {
   children: React.ReactNode;
   showBreadCrumbs?: boolean;
   omitPadding?: boolean;
+  pageHeader?: React.ReactElement;
 }
 
 // TODO get locale dynamically
 const currentLocale = 'fi';
 
-const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false, pageHeader }: LayoutProps) => {
   const { pathname } = useLocation();
   const navigation = useNavigation(currentLocale);
   const metadata = useMetadata(currentLocale);
 
-  const path = findBreadcrumbPath(pathname, navigation);
+  const path = findBreadcrumbPath(pathname, navigation as HeaderItem[]);
 
   return (
     <SearchContextProvider>
@@ -45,7 +47,14 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false 
         <Search />
         <div>
           {showBreadCrumbs && <BreadCrumbs trail={path} />}
-          <div className={`container ${!omitPadding && 'md:px-24 2xl:px-0'} mx-auto max-w-7xl`}>{children}</div>
+          {pageHeader && pageHeader}
+          <div
+            className={clsx('container mx-auto max-w-7xl', {
+              'px-2 sm:px-10 md:px-24 2xl:px-0': !omitPadding,
+            })}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </SearchContextProvider>
