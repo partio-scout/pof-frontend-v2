@@ -1,14 +1,16 @@
 import React from 'react';
+import { PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
 import { StrapiContentPage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
 import { prependApiUrl } from '../../utils/helpers';
 import RichText from '../../components/RichText';
+import ContentPageNav from './contentPageNav';
+
+const currentLocale = 'fi';
 
 interface ContentPageTemplateProps {
-  pageContext: {
-    data: StrapiContentPage;
-  };
+  data: StrapiContentPage;
 }
 
 interface MainContentProps {
@@ -16,7 +18,7 @@ interface MainContentProps {
 }
 
 const MainContent = ({ data }: MainContentProps) => (
-  <div className="flex flex-wrap px-20">
+  <div className="flex flex-wrap mt-14">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
       <RichText html={data.main_text} />
@@ -25,11 +27,18 @@ const MainContent = ({ data }: MainContentProps) => (
   </div>
 );
 
-const ContentPageTemplate = ({ pageContext }: ContentPageTemplateProps) => (
-  <Layout omitPadding showBreadCrumbs>
-    <MainContent data={pageContext.data} />
-    <BlockArea blocks={pageContext.data.content} />
-  </Layout>
-);
+const ContentPageTemplate = ({ pageContext, path }: PageProps<any, ContentPageTemplateProps>) => {
+  const { strapiId } = pageContext.data;
+
+  return (
+    <Layout
+      showBreadCrumbs
+      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale} />}
+    >
+      <MainContent data={pageContext.data} />
+      <BlockArea blocks={pageContext.data.content} />
+    </Layout>
+  );
+};
 
 export default ContentPageTemplate;

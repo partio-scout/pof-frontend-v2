@@ -1,19 +1,18 @@
 import 'dotenv';
+import { GatsbyConfig } from 'gatsby';
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
-const fetchLimit = -1;
-
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
-  // flags: {
-  //   FAST_DEV: true,
-  // },
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+  },
   plugins: [
     'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
@@ -26,7 +25,6 @@ module.exports = {
         name: 'images',
         path: './src/images/',
       },
-      __key: 'images',
     },
     {
       resolve: 'gatsby-source-strapi',
@@ -102,3 +100,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = config;
