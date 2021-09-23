@@ -13,6 +13,16 @@ interface NewSuggestionFormProps extends CommonSuggestionFormProps {
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
   onLinkChange: (event: ChangeEvent<HTMLInputElement>) => void;
   removeSelectedFile: () => void;
+  onDurationChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  onLocationChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  durations: Array<{
+    id: string;
+    name: string;
+  }>;
+  locations: Array<{
+    id: string;
+    name: string;
+  }>;
 }
 
 const NewSuggestionForm = ({
@@ -23,28 +33,41 @@ const NewSuggestionForm = ({
   onLinkChange,
   removeSelectedFile,
   onTermsChange,
+  onDurationChange,
+  onLocationChange,
   termsChecked,
+  durations,
+  locations,
 }: NewSuggestionFormProps) => (
   <div className="my-12">
     <h2 className="text-blue">KIRJOITA TOTEUTUSVINKKI</h2>
     <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
       <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2">
         <div className="w-1/4 space-y-2">
-          <input name="title" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
+          <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
           {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
           <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
-          <select className="block p-2 rounded-xl w-full focus:outline-none focus:border-blue focus:ring custom-select">
+          {/*    <select
+            name="duration"
+            className="block p-2 rounded-xl w-full focus:outline-none focus:border-blue focus:ring custom-select"
+            onChange={(e) => onDurationChange(e)}
+          >
             <option className="hidden" value="" selected>
               Valitse
             </option>
-            <option>tunti</option>
+            {durations && durations.map((d) => <option value={d.name}>{d.name}</option>)}
           </select>
-          <select className="block p-2 rounded-xl w-full focus:outline-none focus:border-blue focus:ring custom-select">
+          <select
+            name="locations"
+            multiple
+            className="block p-2 rounded-xl w-full focus:outline-none focus:border-blue focus:ring custom-select"
+            onChange={(e) => onLocationChange(e)}
+          >
             <option className="hidden" value="" selected>
               Valitse
             </option>
-            <option>kololla</option>
-          </select>
+            {locations && locations.map((l) => <option value={l.name}>{l.name}</option>)}
+          </select> */}
           <span className="block text-blue">Lisää liitetiedosto</span>
           <label
             className="block bg-hardBlue text-white w-full p-1 rounded-xl font-tondu tracking-wider text-center cursor-pointer"

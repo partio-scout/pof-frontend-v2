@@ -23,13 +23,12 @@ const NewReplyForm = ({
   error,
 }: NewReplyFormProps) => (
   <div className="my-12">
-    {console.log('newSuggestionForm: ', suggestionId)}
     <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
       <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2 mt-3">
         <div className="w-1/4 space-y-2">
           <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
           {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
-          <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
+          <input onChange={onFieldChange} placeholder="Lippukunta" className={`${inputStyle}`}></input>
           <div className="flex">
             <input
               type="checkbox"
@@ -67,7 +66,6 @@ const NewReplyForm = ({
         </div>
       </div>
       <div className="w-full pr-4">
-        {console.log(suggestionReplySent, error)}
         {suggestionReplySent === true && !error && (
           <div className="p-2 rounded-xl border-2 border-green-500 font-sourceSansPro w-1/2 bg-green-100 z-20 float-right">
             <span>{'Kommentin lähetys onnistui'}</span>

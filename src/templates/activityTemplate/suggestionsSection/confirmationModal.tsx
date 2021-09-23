@@ -4,9 +4,8 @@ interface ConfirmationModalProps {
   modalOpen: boolean;
   callBack: () => void;
   setModalOpen: (value: boolean) => void;
-  modalText: string;
   modalData: {
-    text: string;
+    text?: string;
     sendButtonText: string;
     backButtonText: string;
   };
@@ -15,7 +14,6 @@ interface ConfirmationModalProps {
 const ConfirmationModal = ({ modalOpen, callBack, setModalOpen, modalData }: ConfirmationModalProps) =>
   modalOpen ? (
     <div className="z-50 fixed left-0 top-0 w-full h-full bg-white bg-opacity-40">
-      {console.log(callBack)}
       <div className="bg-gray-light rounded-xl p-4 mx-auto my-auto w-80 h-80">
         <span className="text-blue tracking wide font-sourceSansPro">{modalData.text}</span>
         <button

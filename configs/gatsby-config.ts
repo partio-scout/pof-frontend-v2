@@ -36,6 +36,8 @@ module.exports = {
         collectionTypes: [
           { name: 'activity', api: { qs: { _locale: 'all' } } },
           { name: 'age-group', api: { qs: { _locale: 'all' } } },
+          { name: 'duration', api: { qs: { _locale: 'all' } } },
+          { name: 'location', api: { qs: { _locale: 'all' } } },
           { name: 'activity-group', api: { qs: { _locale: 'all' } } },
           {
             name: 'content-page',

@@ -18,7 +18,6 @@ interface MainContentProps {
 const MainContent = ({ data }: MainContentProps) => (
   <div className="flex flex-wrap px-20">
     <div className="w-full md:w-1/2">
-      {console.log(data)}
       <h1 className="mb-2">{data.title}</h1>
       <RichText html={data.main_text} />
     </div>

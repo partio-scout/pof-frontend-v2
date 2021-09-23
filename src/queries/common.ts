@@ -1,3 +1,5 @@
+import { graphql } from 'gatsby';
+
 export const mediaFragment = `
   width
   url

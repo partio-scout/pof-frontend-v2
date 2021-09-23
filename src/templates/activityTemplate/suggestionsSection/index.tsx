@@ -2,9 +2,10 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { StrapiActivity } from '../../../../graphql-types';
+import { StrapiActivity, StrapiSuggestion } from '../../../../graphql-types';
 import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
+import { graphql, useStaticQuery } from 'gatsby';
 
 interface SuggestionsSectionProps {
   activityId: number;
@@ -12,7 +13,7 @@ interface SuggestionsSectionProps {
 }
 
 export interface CommonSuggestionFormProps {
-  onSubmit: (suggestionId: number | null) => void;
+  onSubmit: (suggestionId: number) => void;
   onFieldChange: (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
   onTermsChange: () => void;
   termsChecked: boolean;
@@ -23,13 +24,15 @@ export interface Error {
   err?: any;
 }
 
-interface InitialSuggestion {
+export interface InitialSuggestion {
   title: string;
   content: string;
   links: Array<{ url: string; description: string }>;
+  /*   locations: Array<string>;
+  duration: string; */
 }
 
-interface InitialReply {
+export interface InitialReply {
   title: string;
   text: string;
   author: string;
@@ -39,6 +42,8 @@ const initialSuggestion: InitialSuggestion = {
   title: '',
   content: '',
   links: [],
+  /*   locations: [],
+  duration: '', */
 };
 
 const initialReply: InitialReply = {
@@ -47,29 +52,29 @@ const initialReply: InitialReply = {
   text: '',
 };
 
-const mockComments = [
+const query = graphql`
   {
-    title: 'Toteutusvinkin vastaus',
-    text: 'Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien.',
-    name: 'Tyyppi',
-    scoutGroup: 'Lippukunta',
-  },
-  {
-    title: 'Toteutusvinkin vastaus 2',
-    text: 'Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien.',
-  },
-  {
-    title: 'Toteutusvinkin vastaus 3',
-    text: 'Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta, placerat sapien.',
-  },
-];
+    allStrapiDuration {
+      nodes {
+        name
+        id
+      }
+    }
+    allStrapiLocation {
+      nodes {
+        name
+        id
+      }
+    }
+  }
+`;
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
   const [newReply, setNewReply] = useState(initialReply);
-  const [suggestions, setSuggestions] = useState(null);
+  const [suggestions, setSuggestions] = useState<Array<any> | null>(null);
   const [replyTermsChecked, setReplyTermsChecked] = useState(false);
   const [modalData, setModalData] = useState({
     modalText: '',
@@ -77,13 +82,13 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     backButtonText: '',
   });
   const [modalOpen, setModalOpen] = useState(false);
-  const [callBack, setCallback] = useState<() => void | null>(null);
+  const [callBack, setCallback] = useState<() => void | null>(() => {});
+  const queryResult = useStaticQuery<{ allStrapiDuration: { nodes: any }; allStrapiLocation: { nodes: any } }>(query);
 
   useEffect(() => {
     fetchSuggestions(activityId)
       .then((res) => {
-        console.log(res);
-        let fetchRequests = res.data.suggestions.map((s) =>
+        let fetchRequests = res.data.suggestions.map((s: { id: number }) =>
           fetchComments(s.id)
             .then((commentsRes) => {
               return { ...s, comments: commentsRes.data.comments || [] };
@@ -92,16 +97,14 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
               return { ...s, comments: [] };
             }),
         );
-        console.log(fetchRequests);
         Promise.all(fetchRequests).then((results) => {
-          console.log('Promise results: ', results);
           setSuggestions(results);
         });
       })
       .catch((err) => {
         toast.error('Toteutusvinkkien haku epäonnistui');
       });
-  }, data);
+  }, [data]);
 
   const suggestionValid = (obj: InitialSuggestion) =>
     obj.title && obj.content && obj.title !== '' && obj.content !== '';
@@ -136,7 +139,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       });
   };
 
-  const validateReply = (suggestionId) => {
+  const validateReply = (suggestionId: number) => {
     setCallback(
       () =>
         (id = suggestionId) =>
@@ -157,7 +160,6 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewReply = (suggestionId: number) => {
-    console.log('nr', newReply, suggestionId);
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         setModalOpen(false);
@@ -206,12 +208,31 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     setNewReply(initialReply);
   };
 
+  const onDurationChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    /*    setNewSuggestion({
+      ...newSuggestion,
+      duration: e.target.value,
+    }); */
+  };
+
+  const onLocationChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    /*   const locations = newSuggestion.locations || [];
+    console.log(e.target.value, e.target.name);
+    const locationIndex = locations.findIndex((l) => l === e.target.value);
+    if (locationIndex === -1) {
+      setNewSuggestion({
+        ...newReply,
+        locations: [...locations, e.target.value],
+      });
+    }
+    console.log(newSuggestion); */
+  };
   return (
     <div className="mt-8">
       <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
       {suggestions && (
         <Suggestions
-          suggestions={suggestions}
+          suggestions={suggestions!}
           onSubmit={validateReply}
           resetFormState={resetFormState}
           onFieldChange={onReplyFieldChange}
@@ -221,6 +242,8 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       )}
       <NewSuggestionForm
         onSubmit={validateSuggestion}
+        durations={queryResult.allStrapiDuration.nodes}
+        locations={queryResult.allStrapiLocation.nodes}
         selectedFile={selectedFile}
         onFileChange={onFileChange}
         onFieldChange={onSuggestionFieldChange}
@@ -228,6 +251,8 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
         removeSelectedFile={() => setSelectedFile(null)}
         onLinkChange={onLinkChange}
         termsChecked={suggestionTermsChecked}
+        onDurationChange={onDurationChange}
+        onLocationChange={onLocationChange}
       />
       <ConfirmationModal modalOpen={modalOpen} setModalOpen={setModalOpen} callBack={callBack} modalData={modalData} />
     </div>
