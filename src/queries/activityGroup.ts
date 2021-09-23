@@ -45,6 +45,10 @@ query getActivityGroup($id: Int!) {
       description
       url
     }
+    mandatory_activities_description
+    optional_activities_description
+    mandatory_activities_title
+    optional_activities_title
   }
 }
 `;

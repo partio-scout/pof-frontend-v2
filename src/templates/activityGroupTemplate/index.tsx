@@ -143,6 +143,10 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
     activity_group_category,
     activitygroup_term,
     content_area,
+    mandatory_activities_title,
+    mandatory_activities_description,
+    optional_activities_title,
+    optional_activities_description,
   } = pageContext.data;
 
   // TODO correct locale
@@ -192,7 +196,13 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
             </div>
           )}
         </div>
-        <Activities activities={activities.nodes} />
+        <Activities
+          activities={activities.nodes}
+          mandatoryTitle={mandatory_activities_title}
+          mandatoryDescription={mandatory_activities_description}
+          optionalTitle={optional_activities_title}
+          optionalDescription={optional_activities_description}
+        />
         <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
         <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>

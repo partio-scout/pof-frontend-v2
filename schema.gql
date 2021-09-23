@@ -1,4 +1,4 @@
-### Type definitions saved at 2021-09-20T06:05:50.952Z ###
+### Type definitions saved at 2021-09-21T05:56:07.684Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -599,6 +599,10 @@ type StrapiAgeGroupActivity_groups {
   age_group: Int
   activity_group_category: Int
   sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
   links: [StrapiAgeGroupActivity_groupsLinks]
   content_area: [StrapiAgeGroupActivity_groupsContent_area]
   main_image: StrapiAgeGroupActivity_groupsMain_image
@@ -792,6 +796,10 @@ type StrapiActivityGroup implements Node @dontInfer {
   age_group: StrapiActivityGroupAge_group
   activity_group_category: StrapiActivityGroupActivity_group_category
   sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
   links: [StrapiActivityGroupLinks]
   main_image: StrapiActivityGroupMain_image
   logo: StrapiActivityGroupLogo
@@ -1949,6 +1957,10 @@ type StrapiActivityActivity_group {
   age_group: Int
   activity_group_category: Int
   sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
   links: [StrapiActivityActivity_groupLinks]
   content_area: [StrapiActivityActivity_groupContent_area]
   main_image: StrapiActivityActivity_groupMain_image
@@ -2516,6 +2528,7 @@ type StrapiActivitySuggestions {
   updated_at: Date @dateformat
   from_web: Boolean
   like_count: Int
+  duration: Int
   links: [StrapiActivitySuggestionsLinks]
   files: [StrapiActivitySuggestionsFiles]
 }
