@@ -1,12 +1,11 @@
 import 'dotenv';
+import { GatsbyConfig } from 'gatsby';
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
-const fetchLimit = -1;
-
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
@@ -26,7 +25,6 @@ module.exports = {
         name: 'images',
         path: './src/images/',
       },
-      __key: 'images',
     },
     {
       resolve: 'gatsby-source-strapi',
@@ -100,3 +98,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = config;
