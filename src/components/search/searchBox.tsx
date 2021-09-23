@@ -12,7 +12,8 @@ const SearchBox = connectSearchBox(({ currentRefinement, refine, isSearchStalled
         className="w-full h-full p-1 border-4 border-blue-700 rounded-2xl"
       />
       {currentRefinement && (
-        <button onClick={() => refine('')} className="absolute top-1/2 transform -translate-y-1/2 right-2" type="reset">
+        // TODO translate
+        <button name="Tyhjennä" onClick={() => refine('')} className="absolute top-1/2 transform -translate-y-1/2 right-2" type="reset">
           Tyhjennä
         </button>
       )}

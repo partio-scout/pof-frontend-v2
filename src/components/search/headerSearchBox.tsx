@@ -22,21 +22,24 @@ const Search = () => {
               autoFocus
               onChange={(e) => dispatch({ type: 'set-search-term', payload: e.target.value })}
             />
-            <SearchLogo className="fill-current text-blue absolute right-5" />
+            {/* TODO translate */}
+            <SearchLogo className="fill-current text-blue absolute right-5" alt="Hae" />
           </div>
           <button
             className="bg-blue flex h-full w-20 justify-center items-center cursor-pointer focus:gray"
             onClick={() => dispatch({ type: 'set-search-active', payload: false })}
           >
-            <DeleteIcon className="fill-current text-white" />
+            <DeleteIcon className="fill-current text-white" alt="Tyhjennä haku" />
           </button>
         </>
       ) : (
         <button
           className="flex justify-center items-center w-20 h-full cursor-pointer focus:bg-gray"
           onClick={() => dispatch({ type: 'set-search-active', payload: !state.searchActive })}
+          name="Hae"
         >
-          <SearchLogo className="fill-current text-blue" />
+          {/* TODO translate */}
+          <SearchLogo className="fill-current text-blue" alt="Hae" />
         </button>
       )}
     </div>

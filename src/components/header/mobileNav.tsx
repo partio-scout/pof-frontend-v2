@@ -25,12 +25,15 @@ const MobileNav = ({
   return (
     <>
       <div className="flex flex-nowrap align-stretch border-b border-lightBlue md:hidden max-w-full">
+        {/* TODO translate */}
         <img
           src={hamburgerMenuOpen ? navClose : nav}
           className="w-6 inline-block border-lightBlue border-r p-2"
           onClick={toggleHamburger}
+          alt="Avaa navigaatio"
         />
-        {!state.searchActive && <img src={logo} className="mx-4 w-24" />}
+        {/* TODO translate */}
+        {!state.searchActive && <img src={logo} className="mx-4 w-24" alt="Partio-ohjelma"/>}
         <div className="flex flex-row space-x-4 cursor-default ml-auto">
           <Search />
         </div>
