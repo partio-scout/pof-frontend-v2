@@ -21,9 +21,28 @@ interface PageCreationResults {
   ageGroups: string[];
   activityGroups: string[];
   activities: string[];
+  contentPages: string[];
   skippedAgeGroups: string[];
   skippedActivityGroups: string[];
   skippedActivities: string[];
+  skippedContentPages: string[];
+}
+
+function printPageCreationResults(results: PageCreationResults) {
+  console.log('Created pages:');
+  console.table([
+    ['AgeGroups', results.ageGroups.length],
+    ['ActivityGroups', results.activityGroups.length],
+    ['Activities', results.activities.length],
+    ['ContentPages', results.contentPages.length],
+  ]);
+  console.log('\nSkipped pages:');
+  console.table([
+    ['AgeGroups', results.skippedAgeGroups],
+    ['ActivityGroups', results.skippedActivityGroups],
+    ['Activities', results.skippedActivities],
+    ['ContentPages', results.skippedContentPages],
+  ]);
 }
 
 function createPageCreationResults(): PageCreationResults {
@@ -31,9 +50,11 @@ function createPageCreationResults(): PageCreationResults {
     ageGroups: [],
     activityGroups: [],
     activities: [],
+    contentPages: [],
     skippedAgeGroups: [],
     skippedActivityGroups: [],
     skippedActivities: [],
+    skippedContentPages: [],
   };
 }
 
@@ -42,9 +63,11 @@ function mergePageCreationResults(...results: PageCreationResults[]): PageCreati
     ageGroups: results.map((r) => r.ageGroups).flat(),
     activityGroups: results.map((r) => r.activityGroups).flat(),
     activities: results.map((r) => r.activities).flat(),
+    contentPages: results.map((r) => r.contentPages).flat(),
     skippedAgeGroups: results.map((r) => r.skippedAgeGroups).flat(),
     skippedActivityGroups: results.map((r) => r.skippedActivityGroups).flat(),
     skippedActivities: results.map((r) => r.skippedActivities).flat(),
+    skippedContentPages: results.map((r) => r.skippedContentPages).flat(),
   };
 }
 
@@ -168,77 +191,82 @@ async function handleAgeGroup(
   return mergePageCreationResults(results, ...activityGroupResults);
 }
 
-async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage: Actions['createPage']) {
+async function handleProgramData(
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+): Promise<PageCreationResults> {
   // Fetch AgeGroups
   const { data } = await graphql<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(getAllAgeGroups);
 
-  const promises = (data?.allStrapiAgeGroup.nodes || []).map((ageGroup) => handleAgeGroup(ageGroup, graphql, createPage));
+  const promises = (data?.allStrapiAgeGroup.nodes || []).map((ageGroup) =>
+    handleAgeGroup(ageGroup, graphql, createPage),
+  );
 
   const results = await Promise.all(promises);
 
   const pageCreationlResults = mergePageCreationResults(...results);
 
-  console.log('Created program pages:');
-  console.table([
-    ['AgeGroups', pageCreationlResults.ageGroups.length],
-    ['ActivityGroups', pageCreationlResults.activityGroups.length],
-    ['Activities', pageCreationlResults.activities.length],
-  ]);
-  console.log('\nSkipped program pages:');
-  console.table([
-    ['AgeGroups', pageCreationlResults.skippedAgeGroups],
-    ['ActivityGroups', pageCreationlResults.skippedActivityGroups],
-    ['Activities', pageCreationlResults.skippedActivities],
-  ]);
+  return pageCreationlResults;
 }
 
-async function handleContentPages(graphql: CreatePagesArgs['graphql'], createPage: Actions['createPage']) {
+async function handleContentPages(
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+): Promise<PageCreationResults> {
+  const results = createPageCreationResults();
+
   // First fetch all FrontPages (all language versions)
   const frontPageResponse = await graphql<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(getAllFrontPages);
 
   const frontPages = frontPageResponse.data?.allStrapiFrontPage.nodes || [];
 
-  if (!frontPages.length) return;
+  if (!frontPages.length) return results;
 
   const localizationPromises = (frontPages || []).map(async (localization) => {
     const navigationPromises = (localization.navigation || [])
-      .filter((n) => n)
-      .map(async (navigationItem) => {
-        await createNavigationLevel(graphql, createPage, navigationItem!);
-      });
-    await Promise.all(navigationPromises);
+      .map(async (navigationItem) => await createNavigationLevel(graphql, createPage, navigationItem!));
+    const results = await Promise.all(navigationPromises);
+    return mergePageCreationResults(...results);
   });
-  await Promise.all(localizationPromises);
+  const subResults = await Promise.all(localizationPromises);
+  return mergePageCreationResults(results, ...subResults);
 }
 
 async function createNavigationLevel(
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
   data: StrapiFrontPageNavigation,
-): Promise<void> {
+): Promise<PageCreationResults> {
+  const results = createPageCreationResults();
+
   // If the page's id is null, the page is not published so let's skip it
-  if (!data.id) return;
+  if (!data.id) return results;
   if (!data.title) {
     console.warn('No title', data);
-    return;
+    return results;
   }
 
   const pagePath = '/' + parseRouteName(data.title);
 
   const promises = (data.subnavigation || [])
     .filter((subitem) => {
-      if (!subitem?.page?.id) return false;
+      if (!subitem?.page?.id) {
+        console.warn('No id', subitem);
+        return false;
+      }
       if (!subitem.title) {
         console.warn('No title', subitem);
         return false;
       }
+      return true;
     })
     .map(async (subitem) => {
       const subPagePath = pagePath + '/' + parseRouteName(subitem!.title!);
-      await fetchAndCreateContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
+      return await fetchAndCreateContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
     });
 
-  await Promise.all(promises);
+  const subResults = await Promise.all(promises);
+  return mergePageCreationResults(results, ...subResults);
 }
 
 async function fetchAndCreateContentPage(
@@ -246,7 +274,7 @@ async function fetchAndCreateContentPage(
   createPage: Actions['createPage'],
   id: number,
   pagePath: string,
-) {
+): Promise<PageCreationResults> {
   const pageDataResponse = await graphql<{ strapiContentPage: StrapiContentPage }>(getContentPage, {
     id,
   });
@@ -258,12 +286,18 @@ async function fetchAndCreateContentPage(
       data: pageDataResponse.data?.strapiContentPage,
     },
   });
+  const results = createPageCreationResults();
+  results.contentPages.push(pageDataResponse.data?.strapiContentPage.title!);
+  return results;
 }
 
 const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions;
 
-  await Promise.all([await handleProgramData(graphql, createPage), await handleContentPages(graphql, createPage)]);
+  const results = await Promise.all([await handleProgramData(graphql, createPage), await handleContentPages(graphql, createPage)]);
+
+  const finalResults = mergePageCreationResults(...results);
+  printPageCreationResults(finalResults);
 };
 
 export default createPages;
