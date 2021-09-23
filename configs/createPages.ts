@@ -7,13 +7,15 @@ import {
   StrapiFrontPage,
   StrapiFrontPageNavigation,
   StrapiContentPage,
+  StrapiActivityGroupActivities,
+  StrapiAgeGroupActivity_Groups,
 } from '../graphql-types';
 import { getActivity } from '../src/queries/activity';
 import { getActivityGroup } from '../src/queries/activityGroup';
 import { getAllAgeGroups } from '../src/queries/ageGroup';
 import { getContentPage } from '../src/queries/contentPage';
 import { getAllFrontPages } from '../src/queries/frontPage';
-import { parseAgeGroupRouteName, parseActivityRouteName } from './utils';
+import { parseAgeGroupRouteName, parseRouteName } from './utils';
 
 interface PageCreationResults {
   ageGroups: string[];
@@ -24,8 +26,8 @@ interface PageCreationResults {
   skippedActivities: string[];
 }
 
-async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage: Actions['createPage']) {
-  const pageCreationlResults: PageCreationResults = {
+function createPageCreationResults(): PageCreationResults {
+  return {
     ageGroups: [],
     activityGroups: [],
     activities: [],
@@ -33,92 +35,149 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
     skippedActivityGroups: [],
     skippedActivities: [],
   };
+}
 
+function mergePageCreationResults(...results: PageCreationResults[]): PageCreationResults {
+  return {
+    ageGroups: results.map((r) => r.ageGroups).flat(),
+    activityGroups: results.map((r) => r.activityGroups).flat(),
+    activities: results.map((r) => r.activities).flat(),
+    skippedAgeGroups: results.map((r) => r.skippedAgeGroups).flat(),
+    skippedActivityGroups: results.map((r) => r.skippedActivityGroups).flat(),
+    skippedActivities: results.map((r) => r.skippedActivities).flat(),
+  };
+}
+
+async function handleActivity(
+  activity: StrapiActivityGroupActivities,
+  activityGroupPath: string,
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+): Promise<PageCreationResults> {
+  const results = createPageCreationResults();
+
+  if (!activity?.id) {
+    return results;
+  }
+
+  const { data } = await graphql<{ strapiActivity: StrapiActivity }>(getActivity, {
+    id: activity?.id,
+  });
+
+  const activityData = data?.strapiActivity;
+
+  if (!activityData?.title) {
+    results.skippedActivities.push(activityData?.id!);
+    return results;
+  }
+
+  const activityPath = `${activityGroupPath}/${parseRouteName(activityData?.title!)}`;
+
+  createPage({
+    path: activityPath,
+    component: path.resolve(`src/templates/activityTemplate/index.tsx`),
+    context: {
+      data: activityData,
+      type: 'activity',
+      id: activityData.strapiId,
+      activityGroupId: activityData.activity_group?.id,
+    },
+  });
+  results.activities.push(activityData?.title!);
+
+  return results;
+}
+
+async function handleActivityGroup(
+  activityGroup: StrapiAgeGroupActivity_Groups,
+  ageGroupPath: string,
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+): Promise<PageCreationResults> {
+  const results = createPageCreationResults();
+
+  if (!activityGroup?.id) {
+    return results;
+  }
+
+  const { data } = await graphql<{ strapiActivityGroup: StrapiActivityGroup }>(getActivityGroup, {
+    id: activityGroup?.id,
+  });
+
+  const activityGroupData = data?.strapiActivityGroup;
+
+  if (!activityGroupData?.title) {
+    results.skippedActivityGroups.push(activityGroupData?.id!);
+    return results;
+  }
+
+  const activityGroupPath = `${ageGroupPath}/${parseRouteName(activityGroupData?.title!)}`;
+
+  createPage({
+    path: activityGroupPath,
+    component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
+    context: {
+      data: activityGroupData,
+      type: 'activityGroup',
+      id: activityGroupData.strapiId,
+      ageGroupId: activityGroupData.age_group?.id,
+    },
+  });
+  results.activityGroups.push(activityGroupData?.title!);
+
+  // Fetch Activities
+  const promises = (activityGroupData?.activities || []).map(async (activity) =>
+    handleActivity(activity!, activityGroupPath, graphql, createPage),
+  );
+
+  const activityResults = await Promise.all(promises);
+
+  return mergePageCreationResults(results, ...activityResults);
+}
+
+async function handleAgeGroup(
+  ageGroup: StrapiAgeGroup,
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+): Promise<PageCreationResults> {
+  const results = createPageCreationResults();
+
+  if (!ageGroup?.title) {
+    results.skippedAgeGroups.push(ageGroup?.id!);
+    return results;
+  }
+
+  const ageGroupPath = `/${parseAgeGroupRouteName(ageGroup.title!)}`;
+  createPage({
+    path: ageGroupPath,
+    component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
+    context: {
+      data: ageGroup,
+      type: 'ageGroup',
+      id: ageGroup.strapiId,
+    },
+  });
+  results.ageGroups.push(ageGroup.title!);
+
+  const promises = (ageGroup.activity_groups || []).map(async (activityGroup) =>
+    handleActivityGroup(activityGroup!, ageGroupPath, graphql, createPage),
+  );
+
+  const activityGroupResults = await Promise.all(promises);
+
+  return mergePageCreationResults(results, ...activityGroupResults);
+}
+
+async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage: Actions['createPage']) {
   // Fetch AgeGroups
   const { data } = await graphql<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(getAllAgeGroups);
 
-  for (const ageGroup of data?.allStrapiAgeGroup.nodes || []) {
-    if (!ageGroup?.title) {
-      pageCreationlResults.skippedAgeGroups.push(ageGroup?.id!);
-      continue;
-    }
+  const promises = (data?.allStrapiAgeGroup.nodes || []).map((ageGroup) => handleAgeGroup(ageGroup, graphql, createPage));
 
-    const ageGroupPath = `/${parseAgeGroupRouteName(ageGroup.title!)}`;
-    createPage({
-      path: ageGroupPath,
-      component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
-      context: {
-        data: ageGroup,
-        type: 'ageGroup',
-        id: ageGroup.strapiId,
-      },
-    });
-    pageCreationlResults.ageGroups.push(ageGroup.title!);
+  const results = await Promise.all(promises);
 
-    // Fetch ActivityGroups
-    for (const activityGroup of ageGroup.activity_groups || []) {
-      if (!activityGroup?.id) {
-        continue;
-      }
+  const pageCreationlResults = mergePageCreationResults(...results);
 
-      const { data } = await graphql<{ strapiActivityGroup: StrapiActivityGroup }>(getActivityGroup, {
-        id: activityGroup?.id,
-      });
-
-      const activityGroupData = data?.strapiActivityGroup;
-
-      if (!activityGroupData?.title) {
-        pageCreationlResults.skippedActivityGroups.push(activityGroupData?.id!);
-        continue;
-      }
-
-      const activityGroupPath = `${ageGroupPath}/${parseActivityRouteName(activityGroupData?.title!)}`;
-
-      createPage({
-        path: activityGroupPath,
-        component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
-        context: {
-          data: activityGroupData,
-          type: 'activityGroup',
-          id: activityGroupData.strapiId,
-          ageGroupId: activityGroupData.age_group?.id,
-        },
-      });
-      pageCreationlResults.activityGroups.push(activityGroupData?.title!);
-
-      // Fetch Activities
-      for (const activity of activityGroupData?.activities || []) {
-        if (!activity?.id) {
-          continue;
-        }
-
-        const { data } = await graphql<{ strapiActivity: StrapiActivity }>(getActivity, {
-          id: activity?.id,
-        });
-
-        const activityData = data?.strapiActivity;
-
-        if (!activityData?.title) {
-          pageCreationlResults.skippedActivities.push(activityData?.id!);
-          continue;
-        }
-
-        const activityPath = `${activityGroupPath}/${parseActivityRouteName(activityData?.title!)}`;
-
-        createPage({
-          path: activityPath,
-          component: path.resolve(`src/templates/activityTemplate/index.tsx`),
-          context: {
-            data: activityData,
-            type: 'activity',
-            id: activityData.strapiId,
-            activityGroupId: activityData.activity_group?.id,
-          },
-        });
-        pageCreationlResults.activities.push(activityData?.title!);
-      }
-    }
-  }
   console.log('Created program pages:');
   console.table([
     ['AgeGroups', pageCreationlResults.ageGroups.length],
@@ -141,11 +200,15 @@ async function handleContentPages(graphql: CreatePagesArgs['graphql'], createPag
 
   if (!frontPages.length) return;
 
-  for (const localization of frontPages) {
-    for (const navigationItem of localization?.navigation || []) {
-      if (navigationItem) await createNavigationLevel(graphql, createPage, navigationItem);
-    }
-  }
+  const localizationPromises = (frontPages || []).map(async (localization) => {
+    const navigationPromises = (localization.navigation || [])
+      .filter((n) => n)
+      .map(async (navigationItem) => {
+        await createNavigationLevel(graphql, createPage, navigationItem!);
+      });
+    await Promise.all(navigationPromises);
+  });
+  await Promise.all(localizationPromises);
 }
 
 async function createNavigationLevel(
@@ -160,20 +223,22 @@ async function createNavigationLevel(
     return;
   }
 
-  const pagePath = '/' + parseActivityRouteName(data.title);
+  const pagePath = '/' + parseRouteName(data.title);
 
-  for (const subitem of data.subnavigation || []) {
-    // If the page's id is null, the page is not published so let's skip it
-    if (!subitem?.page?.id) continue;
-    if (!subitem.title) {
-      console.warn('No title', subitem);
-      continue;
-    }
+  const promises = (data.subnavigation || [])
+    .filter((subitem) => {
+      if (!subitem?.page?.id) return false;
+      if (!subitem.title) {
+        console.warn('No title', subitem);
+        return false;
+      }
+    })
+    .map(async (subitem) => {
+      const subPagePath = pagePath + '/' + parseRouteName(subitem!.title!);
+      await fetchAndCreateContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
+    });
 
-    const subPagePath = pagePath + '/' + parseActivityRouteName(subitem?.title);
-
-    await fetchAndCreateContentPage(graphql, createPage, subitem.page.id, subPagePath);
-  }
+  await Promise.all(promises);
 }
 
 async function fetchAndCreateContentPage(
@@ -198,9 +263,7 @@ async function fetchAndCreateContentPage(
 const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions;
 
-  await handleProgramData(graphql, createPage);
-
-  await handleContentPages(graphql, createPage);
+  await Promise.all([await handleProgramData(graphql, createPage), await handleContentPages(graphql, createPage)]);
 };
 
 export default createPages;
