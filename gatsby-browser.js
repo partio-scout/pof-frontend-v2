@@ -1,7 +1,6 @@
-import { ShouldUpdateScrollArgs } from 'gatsby';
-import '../src/styles/global.css';
+import './src/styles/global.css';
 
-export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPosition }: ShouldUpdateScrollArgs) => {
+export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPosition }) => {
   // If query parameter "tip" exists, we don't want to scroll anywhere 
   // because activity-page does its own scrolling 
   if (!location.search.includes('tip=')) {
