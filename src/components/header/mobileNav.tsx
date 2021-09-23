@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavProps, HeaderItem } from '.';
+import { NavProps, HeaderItem, HeaderItemFirstLevel } from '.';
 import Search from '../search/headerSearchBox';
 import nav from '../../images/nav.svg';
 import navClose from '../../images/nav-close.svg';
@@ -36,12 +36,12 @@ const MobileNav = ({
         </div>
       </div>
       {hamburgerMenuOpen && (
-        <div className="absolute w-full h-full bg-white z-20">
-          {headerItems.map((headerItem: HeaderItem, index: number) => (
+        <div className="absolute w-full h-full bg-white z-30">
+          {headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div
               key={headerItem.name + index.toString()}
               className="mt-4"
-              onClick={index === 0 ? () => toggleDropDown(index) : undefined}
+              onClick={() => toggleDropDown(index)}
             >
               <span className="text-blue font-tondu tracking-wider text-xl ml-4">{headerItem.name.toUpperCase()}</span>
               <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} />

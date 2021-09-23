@@ -181,6 +181,15 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
             value: activityPath,
           });
 
+          createNode({
+            id: 'activity-logo-' + properActivity.strapiId!,
+            internal: {
+              type: 'Activity_Logo',
+              contentDigest: createContentDigest(properActivity.activity_group?.logo?.formats?.thumbnail?.url || '')
+            },
+            logo: properActivity.activity_group?.logo?.formats?.thumbnail?.url,
+          })
+
           activityGroupNav.subitems?.push(activityNav);
         }
 

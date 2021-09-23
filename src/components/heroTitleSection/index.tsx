@@ -17,7 +17,7 @@ const HeroTitleSection = ({ imageName, mainTitle, subTitle, smallMainTitle, colo
         <img className="" src={imageName}></img>
       </div>
     </div>
-    <div className="inline-block ml-4 align-top mt-2 mb-5">
+    <div className="ml-4 align-top mt-2 mb-5">
       <h1 className={`text-white tracking-wider ${smallMainTitle && 'text-2rem mt-6 mb-3'}`}>
         {mainTitle?.toUpperCase()}
       </h1>

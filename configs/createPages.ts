@@ -9,6 +9,7 @@ import {
   StrapiContentPage,
   StrapiActivityGroupActivities,
   StrapiAgeGroupActivity_Groups,
+  StrapiFrontPageNavigationSubnavigation,
 } from '../graphql-types';
 import { getActivity } from '../src/queries/activity';
 import { getActivityGroup } from '../src/queries/activityGroup';
@@ -223,8 +224,9 @@ async function handleContentPages(
   if (!frontPages.length) return results;
 
   const localizationPromises = (frontPages || []).map(async (localization) => {
-    const navigationPromises = (localization.navigation || [])
-      .map(async (navigationItem) => await createNavigationLevel(graphql, createPage, navigationItem!));
+    const navigationPromises = (localization.navigation || []).map(
+      async (navigationItem) => await createNavigationLevel(graphql, createPage, navigationItem!),
+    );
     const results = await Promise.all(navigationPromises);
     return mergePageCreationResults(...results);
   });
@@ -248,25 +250,52 @@ async function createNavigationLevel(
 
   const pagePath = '/' + parseRouteName(data.title);
 
-  const promises = (data.subnavigation || [])
-    .filter((subitem) => {
-      if (!subitem?.page?.id) {
-        console.warn('No id', subitem);
-        return false;
-      }
-      if (!subitem.title) {
-        console.warn('No title', subitem);
-        return false;
-      }
-      return true;
-    })
-    .map(async (subitem) => {
-      const subPagePath = pagePath + '/' + parseRouteName(subitem!.title!);
-      return await fetchAndCreateContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
-    });
+  if (!data.subnavigation?.length) {
+    return results;
+  }
+  const pageResults = await createNavigationItems(
+    graphql,
+    createPage,
+    data.subnavigation as StrapiFrontPageNavigationSubnavigation[],
+    pagePath,
+  );
 
-  const subResults = await Promise.all(promises);
-  return mergePageCreationResults(results, ...subResults);
+  return mergePageCreationResults(results, pageResults);
+}
+
+async function createNavigationItems(
+  graphql: CreatePagesArgs['graphql'],
+  createPage: Actions['createPage'],
+  items: StrapiFrontPageNavigationSubnavigation[],
+  rootPath: string,
+): Promise<PageCreationResults> {
+  const promises = (items || []).map(async (subitem) => {
+    // If the page's id is null, the page is not published so let's skip it
+    if (!subitem?.page?.id) return createPageCreationResults();
+    if (!subitem.title) {
+      console.warn('No title', subitem);
+      return createPageCreationResults();
+    }
+
+    const subPagePath = rootPath + '/' + parseRouteName(subitem?.title!);
+
+    const pageResult = await fetchAndCreateContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
+
+    if (!subitem.subnavigation?.length) {
+      return pageResult;
+    }
+
+    const result = await createNavigationItems(
+      graphql,
+      createPage,
+      subitem.subnavigation as StrapiFrontPageNavigationSubnavigation[],
+      subPagePath,
+    );
+    return mergePageCreationResults(pageResult, result);
+  });
+
+  const results = await Promise.all(promises);
+  return mergePageCreationResults(...results);
 }
 
 async function fetchAndCreateContentPage(
@@ -294,7 +323,10 @@ async function fetchAndCreateContentPage(
 const createPages = async ({ graphql, actions }: CreatePagesArgs) => {
   const { createPage } = actions;
 
-  const results = await Promise.all([await handleProgramData(graphql, createPage), await handleContentPages(graphql, createPage)]);
+  const results = await Promise.all([
+    await handleProgramData(graphql, createPage),
+    await handleContentPages(graphql, createPage),
+  ]);
 
   const finalResults = mergePageCreationResults(...results);
   printPageCreationResults(finalResults);

@@ -15,6 +15,7 @@
     "lint": "eslint --ignore-path .gitignore . --ext ts --ext tsx --ext js --ext jsx"
   },
   "dependencies": {
+    "@tailwindcss/line-clamp": "^0.2.1",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "algoliasearch": "^4.10.3",
@@ -38,6 +39,7 @@
     "limax": "^3.0.0",
     "qs": "^6.10.1",
     "react": "^17.0.1",
+    "react-clamp-lines": "^3.0.2",
     "react-click-away-listener": "^2.0.3",
     "react-dom": "^17.0.1",
     "react-helmet": "^6.1.0",
