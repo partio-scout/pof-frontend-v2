@@ -110,7 +110,7 @@ const Suggestions = ({ suggestions, resetFormState, ...rest }: SuggestionsProps)
   };
 
   const getUserId = () => {
-    const idFromLocalStorage = JSON.parse(localStorage.getItem('userId') || '');
+    const idFromLocalStorage = JSON.parse(localStorage.getItem('userId') || '\"\"');
     if (idFromLocalStorage && idFromLocalStorage != '') {
       return idFromLocalStorage;
     } else {

@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { StrapiActivity, StrapiSuggestion } from '../../../../graphql-types';
+import { StrapiActivity, StrapiDuration, StrapiLocation, StrapiSuggestion } from '../../../../graphql-types';
 import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -28,8 +28,8 @@ export interface InitialSuggestion {
   title: string;
   content: string;
   links: Array<{ url: string; description: string }>;
-  /*   locations: Array<string>;
-  duration: string; */
+  locations?: Array<number>;
+  duration?: number;
 }
 
 export interface InitialReply {
@@ -42,8 +42,8 @@ const initialSuggestion: InitialSuggestion = {
   title: '',
   content: '',
   links: [],
-  /*   locations: [],
-  duration: '', */
+  locations: undefined,
+  duration: undefined
 };
 
 const initialReply: InitialReply = {
@@ -58,16 +58,23 @@ const query = graphql`
       nodes {
         name
         id
+        strapiId
+        locale
       }
     }
     allStrapiLocation {
       nodes {
         name
         id
+        strapiId
+        locale
       }
     }
   }
 `;
+
+// TODO fix
+const currentLocale = 'fi';
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
@@ -83,7 +90,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [callBack, setCallback] = useState<() => void | null>(() => {});
-  const queryResult = useStaticQuery<{ allStrapiDuration: { nodes: any }; allStrapiLocation: { nodes: any } }>(query);
+  const queryResult = useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(query);
 
   useEffect(() => {
     fetchSuggestions(activityId)
@@ -102,6 +109,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
         });
       })
       .catch((err) => {
+        console.error(err);
         toast.error('Toteutusvinkkien haku epäonnistui');
       });
   }, [data]);
@@ -208,25 +216,20 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     setNewReply(initialReply);
   };
 
-  const onDurationChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    /*    setNewSuggestion({
+  const onDurationChange = (duration: StrapiDuration) => {
+    setNewSuggestion({
       ...newSuggestion,
-      duration: e.target.value,
-    }); */
+      duration: duration.strapiId!,
+    });
   };
 
-  const onLocationChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    /*   const locations = newSuggestion.locations || [];
-    console.log(e.target.value, e.target.name);
-    const locationIndex = locations.findIndex((l) => l === e.target.value);
-    if (locationIndex === -1) {
-      setNewSuggestion({
-        ...newReply,
-        locations: [...locations, e.target.value],
-      });
-    }
-    console.log(newSuggestion); */
+  const onLocationChange = (locations: StrapiLocation[]) => {
+    setNewSuggestion({
+      ...newSuggestion,
+      locations: locations.map((l) => l.strapiId!),
+    });
   };
+
   return (
     <div className="mt-8">
       <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
@@ -242,8 +245,8 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       )}
       <NewSuggestionForm
         onSubmit={validateSuggestion}
-        durations={queryResult.allStrapiDuration.nodes}
-        locations={queryResult.allStrapiLocation.nodes}
+        durations={queryResult.allStrapiDuration.nodes.filter((d) => d.locale === currentLocale)}
+        locations={queryResult.allStrapiLocation.nodes.filter((l) => l.locale === currentLocale)}
         selectedFile={selectedFile}
         onFileChange={onFileChange}
         onFieldChange={onSuggestionFieldChange}
