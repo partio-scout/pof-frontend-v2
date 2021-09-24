@@ -8,7 +8,6 @@ i18n
   .use(Backend)
   .init({
     lng: 'fi',
-    fallbackLng: 'fi',
     interpolation: {
       escapeValue: false,
     },

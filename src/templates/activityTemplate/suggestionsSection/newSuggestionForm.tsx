@@ -49,7 +49,7 @@ const NewSuggestionForm = ({
             {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
             <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
             <DropdownSelect
-              title={t('estimated-duration')} // TODO translate
+              title={t('estimated-duration')}
               items={durations}
               getItemTitle={(duration) => duration.name!}
               getItemId={(duration) => duration.id}
@@ -67,7 +67,7 @@ const NewSuggestionForm = ({
               whiteBackground
             />
             <DropdownSelect
-              title="Aktiviteettipaikka" // TODO translate
+              title={t('Aktiviteettipaikka')}
               items={locations}
               getItemTitle={(location) => location.name!}
               getItemId={(location) => location.id}

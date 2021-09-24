@@ -166,8 +166,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
     optional_activities_description,
   } = pageContext.data;
 
-  // TODO correct locale
-  const navigation = useNavigation('fi');
+  const navigation = useNavigation(currentLocale());
 
   const { ageGroup, suggestions, otherGroups, activities } = data;
   const { t } = useTranslation();

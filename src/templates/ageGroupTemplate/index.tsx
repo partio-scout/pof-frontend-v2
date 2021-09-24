@@ -10,6 +10,7 @@ import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
 import { currentLocale } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
@@ -79,11 +80,10 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
     color,
   } = pageContext.data;
   changeLanguage(pageContext.data.locale as string);
-
+  const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
 
-  // TODO translate
-  const subTitle = `${minimum_age}-${maximum_age} vuotiaat`;
+  const subTitle = `${minimum_age}-${maximum_age} ${t('aged')}`;
 
   return (
     <Layout showBreadCrumbs={true}>
