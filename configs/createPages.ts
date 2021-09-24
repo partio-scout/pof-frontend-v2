@@ -50,6 +50,7 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
       context: {
         data: ageGroup,
         type: 'ageGroup',
+        localizations: ageGroup.localizations?.map((x) => x?.id),
         id: ageGroup.strapiId,
       },
     });
@@ -80,6 +81,7 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
         context: {
           data: activityGroupData,
           type: 'activityGroup',
+          localizations: activityGroupData.localizations?.map((x) => x?.id),
           id: activityGroupData.strapiId,
           ageGroupId: activityGroupData.age_group?.id,
         },
@@ -111,6 +113,7 @@ async function handleProgramData(graphql: CreatePagesArgs['graphql'], createPage
           context: {
             data: activityData,
             type: 'activity',
+            localizations: activityData.localizations?.map((x) => x?.id),
             id: activityData.strapiId,
             activityGroupId: activityData.activity_group?.id,
           },
@@ -142,11 +145,23 @@ async function handleContentPages(graphql: CreatePagesArgs['graphql'], createPag
   if (!frontPages.length) return;
 
   for (const localization of frontPages) {
+    const locale = localization.locale;
+    console.log(locale)
+    createPage({
+      path: locale === 'fi' ? '/' : `/${locale}/`,
+      component: path.resolve(`src/templates/frontPageTemplate/index.tsx`),
+      context: {
+        content: localization.content,
+        locale,
+      }
+
+    })
     for (const navigationItem of localization?.navigation || []) {
       if (navigationItem) await createNavigationLevel(graphql, createPage, navigationItem);
     }
   }
 }
+
 
 async function createNavigationLevel(
   graphql: CreatePagesArgs['graphql'],
@@ -185,11 +200,13 @@ async function fetchAndCreateContentPage(
   const pageDataResponse = await graphql<{ strapiContentPage: StrapiContentPage }>(getContentPage, {
     id,
   });
-
+  console.log(pagePath)
   createPage({
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
+      type: 'contentPage',
+      localizations: pageDataResponse.data?.strapiContentPage.localizations?.map((x) => x?.id),
       data: pageDataResponse.data?.strapiContentPage,
     },
   });

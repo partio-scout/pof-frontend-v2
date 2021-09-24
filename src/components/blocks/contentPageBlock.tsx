@@ -6,6 +6,7 @@ import useNavigation from '../../hooks/navigation';
 import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { useTranslation } from 'react-i18next';
+import { currentLocale } from '../../utils/helpers';
 
 type ContentPageFromBlock = StrapiContentPage & {
   id: number;
@@ -15,11 +16,9 @@ interface ContentPageCardProps {
   page: ContentPageFromBlock;
 }
 
-const currentLocale = 'fi';
-
 const ContentPageCard = ({ page }: ContentPageCardProps) => {
-  const navigation = useNavigation(currentLocale);
   const { t } = useTranslation();
+  const navigation = useNavigation(currentLocale());
 
   const { title, ingress, main_image, published_at, id } = page;
 

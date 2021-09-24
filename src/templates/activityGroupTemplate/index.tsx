@@ -1,19 +1,36 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
-import { StrapiActivity, StrapiActivityGroup, StrapiAgeGroup, StrapiSuggestion } from '../../../graphql-types';
+import {
+  StrapiActivity,
+  StrapiActivityGroup,
+  StrapiAgeGroup,
+  StrapiSuggestion,
+  SitePage,
+} from '../../../graphql-types';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { changeLanguage, prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
+import { currentLocale } from '../../utils/helpers';
 
 export const query = graphql`
-  query Query($id: Int, $ageGroupId: Int) {
+  query Query($id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { data: { strapiId: { in: $localizations } }, type: { eq: $type } } }) {
+      nodes {
+        path
+        context {
+          data {
+            locale
+          }
+        }
+      }
+    }
     ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
       strapiId
       title
@@ -84,9 +101,8 @@ interface QueryType {
   otherGroups: { nodes: StrapiActivityGroup[] };
   suggestions: { nodes: StrapiSuggestion[] };
   activities: { nodes: StrapiActivity[] };
+  localeData: { nodes: SitePage[] };
 }
-
-const currentLocale = 'fi';
 
 const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
   const {
@@ -101,6 +117,8 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
     content_area,
   } = pageContext.data;
   const { ageGroup, suggestions, otherGroups, activities } = data;
+  const { t } = useTranslation();
+  changeLanguage(pageContext.data.locale as string);
 
   const subTitle = age_group?.title
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
@@ -108,7 +126,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
 
   return (
     <Layout showBreadCrumbs>
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
+      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
         <img

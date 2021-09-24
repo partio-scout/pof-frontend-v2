@@ -2,20 +2,31 @@ import React from 'react';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
-import { StrapiActivityGroup, StrapiAgeGroup } from '../../../graphql-types';
+import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { changeLanguage, prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
+import { currentLocale } from '../../utils/helpers';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
 }
 
 export const query = graphql`
-  query ActivityGroupQuery($id: Int) {
+  query ActivityGroupQuery($id: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { data: { strapiId: { in: $localizations } }, type: { eq: $type } } }) {
+      nodes {
+        path
+        context {
+          data {
+            locale
+          }
+        }
+      }
+    }
     activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
       nodes {
         fields {
@@ -49,13 +60,25 @@ export const query = graphql`
 
 interface QueryType {
   activityGroups: { nodes: StrapiActivityGroup[] };
+  localeData: { nodes: SitePage[] };
 }
 
-const currentLocale = 'fi';
-
 const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
-  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term, lower_content_area, upper_content_area, color } =
-    pageContext.data;
+  const {
+    title,
+    ingress,
+    content,
+    main_image,
+    maximum_age,
+    minimum_age,
+    logo,
+    links,
+    subactivitygroup_term,
+    lower_content_area,
+    upper_content_area,
+    color,
+  } = pageContext.data;
+  changeLanguage(pageContext.data.locale as string);
 
   const activityGroups = data.activityGroups.nodes;
 
@@ -64,7 +87,7 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
 
   return (
     <Layout showBreadCrumbs={true}>
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
+      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
         <img src={prependApiUrl(main_image?.url) || ''} className="w-full max-h-6/8 "></img>

@@ -8,6 +8,7 @@ import { SearchContextProvider } from '../contexts/searchContext';
 import useNavigation from '../hooks/navigation';
 import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
+import { currentLocale } from '../utils/helpers';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -15,16 +16,12 @@ interface LayoutProps {
   omitPadding?: boolean;
 }
 
-// TODO get locale dynamically
-const currentLocale = 'fi';
-
 const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false }: LayoutProps) => {
   const { pathname } = useLocation();
-  const navigation = useNavigation(currentLocale);
-  const metadata = useMetadata(currentLocale);
+  const navigation = useNavigation(currentLocale());
+  const metadata = useMetadata(currentLocale());
 
   const path = findBreadcrumbPath(pathname, navigation);
-
   return (
     <SearchContextProvider>
       <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
