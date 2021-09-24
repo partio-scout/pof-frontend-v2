@@ -43,7 +43,7 @@ const initialSuggestion: InitialSuggestion = {
   content: '',
   links: [],
   locations: undefined,
-  duration: undefined
+  duration: undefined,
 };
 
 const initialReply: InitialReply = {
@@ -90,7 +90,10 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [callBack, setCallback] = useState<() => void | null>(() => {});
-  const queryResult = useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(query);
+  const queryResult =
+    useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
+      query,
+    );
 
   useEffect(() => {
     fetchSuggestions(activityId)
@@ -148,11 +151,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const validateReply = (suggestionId: number) => {
-    setCallback(
-      () =>
-        (id = suggestionId) =>
-          postNewReply(suggestionId),
-    );
+    setCallback(() => () => postNewReply(suggestionId));
     setModalData({
       modalText: 'Haluatko lähettää uuden kommentin?',
       sendButtonText: 'Lähetä kommentti',
