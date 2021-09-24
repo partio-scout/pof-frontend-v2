@@ -22,9 +22,10 @@ const ListItem = ({ title, subTitle }: { title: string; subTitle?: string }) => 
 
 interface DropdownSelectProps {
   hideAllToggle?: boolean;
+  whiteBackground?: boolean;
 }
 
-const DropdownSelect = <T,>({hideAllToggle, ...props}: DropdownSelectProps & SelectProps<T>) => {
+const DropdownSelect = <T,>({hideAllToggle, whiteBackground, ...props}: DropdownSelectProps & SelectProps<T>) => {
   const { items, title, toggle, toggleAll } = useCoreSelect<T>(props);
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -58,7 +59,11 @@ const DropdownSelect = <T,>({hideAllToggle, ...props}: DropdownSelectProps & Sel
         <button
           className={clsx(
             'rounded-2xl h-12 flex px-3 items-center justify-between cursor-pointer w-full',
-            dropdownOpen ? 'bg-gray' : 'bg-gray-light',
+            {
+              'bg-white': whiteBackground && !dropdownOpen,
+              'bg-gray-light': (whiteBackground && dropdownOpen) || (!whiteBackground && !dropdownOpen),
+              'bg-gray': !whiteBackground && dropdownOpen,
+            }
           )}
           onClick={() => {
             setDropdownOpen(!dropdownOpen);
@@ -97,7 +102,8 @@ const DropdownSelect = <T,>({hideAllToggle, ...props}: DropdownSelectProps & Sel
                       className={itemClasses(itemChecked)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        toggle(item.id);
+                        const id = props.getItemId ? props.getItemId(item.itemData) : item.id
+                        toggle(id);
                       }}
                     >
                       <div className="flex-shrink-0 mr-3 mt-0.5">

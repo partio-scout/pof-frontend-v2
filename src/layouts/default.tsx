@@ -9,6 +9,7 @@ import { LogoContextProvider } from '../contexts/logoContext';
 import useNavigation from '../hooks/navigation';
 import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
+import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
 
 interface LayoutProps {
@@ -31,6 +32,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
   return (
     <SearchContextProvider>
       <LogoContextProvider>
+        <Toaster position="bottom-right" />
         <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
