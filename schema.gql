@@ -1,4 +1,4 @@
-### Type definitions saved at 2021-09-21T05:56:07.684Z ###
+### Type definitions saved at 2021-09-23T14:11:27.415Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -94,11 +94,116 @@ type SiteFlags {
 }
 
 type SiteFunction implements Node @dontInfer {
-  apiRoute: String!
-  originalFilePath: String!
+  functionRoute: String!
+  pluginName: String!
+  originalAbsoluteFilePath: String!
+  originalRelativeFilePath: String!
   relativeCompiledFilePath: String!
   absoluteCompiledFilePath: String!
   matchPath: String
+}
+
+type SitePlugin implements Node @dontInfer {
+  resolve: String
+  name: String
+  version: String
+  nodeAPIs: [String]
+  browserAPIs: [String]
+  ssrAPIs: [String]
+  pluginFilepath: String
+  pluginOptions: SitePluginPluginOptions
+  packageJson: SitePluginPackageJson
+}
+
+type SitePluginPluginOptions {
+  base64Width: Int
+  stripMetadata: Boolean
+  defaultQuality: Int
+  failOnError: Boolean
+  name: String
+  path: String
+  apiURL: String
+  queryLimit: Int
+  collectionTypes: [SitePluginPluginOptionsCollectionTypes]
+  singleTypes: [SitePluginPluginOptionsSingleTypes]
+  output: String
+  createLinkInHead: Boolean
+  entryLimit: Int
+  query: String
+  exclude: SitePluginPluginOptionsExclude
+  update: String
+  trackingIds: [String]
+  pluginConfig: SitePluginPluginOptionsPluginConfig
+  pathCheck: Boolean
+  allExtensions: Boolean
+  isTSX: Boolean
+  jsxPragma: String
+}
+
+type SitePluginPluginOptionsCollectionTypes {
+  name: String
+  api: SitePluginPluginOptionsCollectionTypesApi
+}
+
+type SitePluginPluginOptionsCollectionTypesApi {
+  qs: SitePluginPluginOptionsCollectionTypesApiQs
+}
+
+type SitePluginPluginOptionsCollectionTypesApiQs {
+  _locale: String
+}
+
+type SitePluginPluginOptionsSingleTypes {
+  name: String
+  api: SitePluginPluginOptionsSingleTypesApi
+}
+
+type SitePluginPluginOptionsSingleTypesApi {
+  qs: SitePluginPluginOptionsSingleTypesApiQs
+}
+
+type SitePluginPluginOptionsSingleTypesApiQs {
+  _locale: String
+}
+
+type SitePluginPluginOptionsExclude {
+  types: [String]
+}
+
+type SitePluginPluginOptionsPluginConfig {
+  head: Boolean
+  respectDNT: Boolean
+}
+
+type SitePluginPackageJson {
+  name: String
+  description: String
+  version: String
+  main: String
+  license: String
+  dependencies: [SitePluginPackageJsonDependencies]
+  devDependencies: [SitePluginPackageJsonDevDependencies]
+  peerDependencies: [SitePluginPackageJsonPeerDependencies]
+  keywords: [String]
+}
+
+type SitePluginPackageJsonDependencies {
+  name: String
+  version: String
+}
+
+type SitePluginPackageJsonDevDependencies {
+  name: String
+  version: String
+}
+
+type SitePluginPackageJsonPeerDependencies {
+  name: String
+  version: String
+}
+
+type SiteBuildMetadata implements Node @dontInfer {
+  buildTime: Date @dateformat
 }
 
 enum ImageFormat {
@@ -419,7 +524,6 @@ type StrapiAgeGroup implements Node @dontInfer {
   created_at: Date @dateformat
   updated_at: Date @dateformat
   color: String
-  links: [StrapiAgeGroupLinks]
   main_image: StrapiAgeGroupMain_image
   logo: StrapiAgeGroupLogo
   activity_groups: [StrapiAgeGroupActivity_groups]
@@ -436,12 +540,6 @@ type StrapiAgeGroupSubactivitygroup_term {
   locale: String
   created_at: Date @dateformat
   updated_at: Date @dateformat
-}
-
-type StrapiAgeGroupLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiAgeGroupMain_image {
@@ -603,16 +701,9 @@ type StrapiAgeGroupActivity_groups {
   mandatory_activities_description: String
   optional_activities_title: String
   optional_activities_description: String
-  links: [StrapiAgeGroupActivity_groupsLinks]
   content_area: [StrapiAgeGroupActivity_groupsContent_area]
   main_image: StrapiAgeGroupActivity_groupsMain_image
   logo: StrapiAgeGroupActivity_groupsLogo
-}
-
-type StrapiAgeGroupActivity_groupsLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiAgeGroupActivity_groupsContent_area {
@@ -800,7 +891,6 @@ type StrapiActivityGroup implements Node @dontInfer {
   mandatory_activities_description: String
   optional_activities_title: String
   optional_activities_description: String
-  links: [StrapiActivityGroupLinks]
   main_image: StrapiActivityGroupMain_image
   logo: StrapiActivityGroupLogo
   files: [StrapiActivityGroupFiles]
@@ -854,17 +944,10 @@ type StrapiActivityGroupAge_group {
   created_at: Date @dateformat
   updated_at: Date @dateformat
   color: String
-  links: [StrapiActivityGroupAge_groupLinks]
   upper_content_area: [StrapiActivityGroupAge_groupUpper_content_area]
   lower_content_area: [StrapiActivityGroupAge_groupLower_content_area]
   main_image: StrapiActivityGroupAge_groupMain_image
   logo: StrapiActivityGroupAge_groupLogo
-}
-
-type StrapiActivityGroupAge_groupLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiActivityGroupAge_groupUpper_content_area {
@@ -1045,12 +1128,6 @@ type StrapiActivityGroupActivity_group_category {
   updated_at: Date @dateformat
   wp_guid: String
   sort_order: Int
-}
-
-type StrapiActivityGroupLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiActivityGroupMain_image {
@@ -1453,6 +1530,7 @@ type StrapiFrontPage implements Node @dontInfer {
   created_at: Date @dateformat
   updated_at: Date @dateformat
   navigation: [StrapiFrontPageNavigation]
+  footer_sections: [StrapiFrontPageFooter_sections]
   localizations: [StrapiFrontPageLocalizations]
   strapiId: Int
 }
@@ -1569,64 +1647,39 @@ type StrapiFrontPageNavigationSubnavigationSubnavigationPage {
   updated_at: Date @dateformat
 }
 
+type StrapiFrontPageFooter_sections {
+  id: Int
+  title: String
+  link_groups: [StrapiFrontPageFooter_sectionsLink_groups] @proxy(from: "link-groups", fromNode: false)
+}
+
+type StrapiFrontPageFooter_sectionsLink_groups {
+  id: Int
+  links: [StrapiFrontPageFooter_sectionsLink_groupsLinks]
+  some_links: StrapiFrontPageFooter_sectionsLink_groupsSome_links
+}
+
+type StrapiFrontPageFooter_sectionsLink_groupsLinks {
+  id: Int
+  description: String
+  url: String
+  phone_number: String
+  email: String
+  title: String
+}
+
+type StrapiFrontPageFooter_sectionsLink_groupsSome_links {
+  id: Int
+  facebook_url: String
+  twitter_url: String
+  instagram_url: String
+  youtube_url: String
+}
+
 type StrapiFrontPageLocalizations {
   id: Int
   locale: String
   published_at: Date @dateformat
-}
-
-type Program_Navigation implements Node @dontInfer {
-  items: [Program_NavigationItems]
-}
-
-type Program_NavigationItems {
-  title: String
-  type: String
-  id: Int
-  path: String
-  color: String
-  subitems: [Program_NavigationItemsSubitems]
-  minimum_age: Int
-  maximum_age: Int
-}
-
-type Program_NavigationItemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
-  subitems: [Program_NavigationItemsSubitemsSubitems]
-}
-
-type Program_NavigationItemsSubitemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
-}
-
-type Content_Navigation implements Node @dontInfer {
-  items: [Content_NavigationItems]
-}
-
-type Content_NavigationItems {
-  title: String
-  subitems: [Content_NavigationItemsSubitems]
-}
-
-type Content_NavigationItemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
-  subitems: [Content_NavigationItemsSubitemsSubitems]
-}
-
-type Content_NavigationItemsSubitemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
 }
 
 type StrapiSuggestion implements Node @dontInfer {
@@ -1642,7 +1695,6 @@ type StrapiSuggestion implements Node @dontInfer {
   from_web: Boolean
   like_count: Int
   duration: StrapiSuggestionDuration
-  links: [StrapiSuggestionLinks]
   files: [StrapiSuggestionFiles]
   comments: [StrapiSuggestionComments]
   locations: [StrapiSuggestionLocations]
@@ -1777,12 +1829,6 @@ type StrapiSuggestionDuration {
   locale: String
   created_at: Date @dateformat
   updated_at: Date @dateformat
-}
-
-type StrapiSuggestionLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiSuggestionFiles {
@@ -1961,17 +2007,10 @@ type StrapiActivityActivity_group {
   mandatory_activities_description: String
   optional_activities_title: String
   optional_activities_description: String
-  links: [StrapiActivityActivity_groupLinks]
   content_area: [StrapiActivityActivity_groupContent_area]
   main_image: StrapiActivityActivity_groupMain_image
   logo: StrapiActivityActivity_groupLogo
   files: [StrapiActivityActivity_groupFiles]
-}
-
-type StrapiActivityActivity_groupLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiActivityActivity_groupContent_area {
@@ -2156,17 +2195,10 @@ type StrapiActivityAge_group {
   created_at: Date @dateformat
   updated_at: Date @dateformat
   color: String
-  links: [StrapiActivityAge_groupLinks]
   upper_content_area: [StrapiActivityAge_groupUpper_content_area]
   lower_content_area: [StrapiActivityAge_groupLower_content_area]
   main_image: StrapiActivityAge_groupMain_image
   logo: StrapiActivityAge_groupLogo
-}
-
-type StrapiActivityAge_groupLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiActivityAge_groupUpper_content_area {
@@ -2529,14 +2561,7 @@ type StrapiActivitySuggestions {
   from_web: Boolean
   like_count: Int
   duration: Int
-  links: [StrapiActivitySuggestionsLinks]
   files: [StrapiActivitySuggestionsFiles]
-}
-
-type StrapiActivitySuggestionsLinks {
-  id: Int
-  description: String
-  url: String
 }
 
 type StrapiActivitySuggestionsFiles {
@@ -2642,6 +2667,60 @@ type StrapiActivityLocalizations {
 }
 
 type StrapiActivityFields {
+  path: String
+}
+
+type Program_Navigation implements Node @dontInfer {
+  items: [Program_NavigationItems]
+}
+
+type Program_NavigationItems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  color: String
+  subitems: [Program_NavigationItemsSubitems]
+  minimum_age: Int
+  maximum_age: Int
+}
+
+type Program_NavigationItemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Program_NavigationItemsSubitemsSubitems]
+}
+
+type Program_NavigationItemsSubitemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+
+type Content_Navigation implements Node @dontInfer {
+  items: [Content_NavigationItems]
+}
+
+type Content_NavigationItems {
+  title: String
+  subitems: [Content_NavigationItemsSubitems]
+}
+
+type Content_NavigationItemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Content_NavigationItemsSubitemsSubitems]
+}
+
+type Content_NavigationItemsSubitemsSubitems {
+  title: String
+  type: String
+  id: Int
   path: String
 }
 
