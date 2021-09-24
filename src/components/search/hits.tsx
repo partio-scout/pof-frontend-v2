@@ -12,7 +12,7 @@ const Hits = connectHits<HitsProvided<unknown> & { type: ContentType }, unknown>
   return (
     <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
       {hits.map((hit) => (
-        <div className="h-80" key={hit.objectID}>
+        <div className="" key={hit.objectID}>
           <Hit hit={hit} type={type} navigation={navigation} />
         </div>
       ))}

@@ -2,9 +2,11 @@ import React from 'react';
 import Layout from '../../layouts/default';
 import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
-import { changeLanguage, prependApiUrl } from '../../utils/helpers';
+import { changeLanguage, prependApiUrl, currentLocale } from '../../utils/helpers';
 import RichText from '../../components/RichText';
 import { graphql, PageProps } from 'gatsby';
+import ContentPageNav from './contentPageNav';
+import { Locale } from '../../types/locale';
 
 interface ContentPageTemplateProps {
   data: StrapiContentPage;
@@ -12,7 +14,6 @@ interface ContentPageTemplateProps {
 interface LocalePathData {
   localeData: { nodes: SitePage[] };
 }
-
 interface MainContentProps {
   data: StrapiContentPage;
 }
@@ -33,7 +34,7 @@ export const query = graphql`
 `;
 
 const MainContent = ({ data }: MainContentProps) => (
-  <div className="flex flex-wrap px-20">
+  <div className="flex flex-wrap mt-14">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
       <RichText html={data.main_text} />
@@ -42,10 +43,14 @@ const MainContent = ({ data }: MainContentProps) => (
   </div>
 );
 
-const ContentPageTemplate = ({ pageContext, data }: PageProps<LocalePathData, ContentPageTemplateProps>) => {
+const ContentPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathData, ContentPageTemplateProps>) => {
   changeLanguage(pageContext.data.locale as Locale);
+  const { strapiId } = pageContext.data;
   return (
-    <Layout omitPadding showBreadCrumbs>
+    <Layout
+      showBreadCrumbs
+      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
+    >
       <MainContent data={pageContext.data} />
       <BlockArea blocks={pageContext.data.content} />
     </Layout>

@@ -58,11 +58,11 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathD
             smallMainTitle
           />
         </div>
-        <h2 className="text-blue mt-2">{pageContext.data.title}</h2>
-        <ActivityContentSection data={pageContext.data} />
-        <ActivitySpecsSection data={pageContext.data} />
-        <SuggestionsSection data={pageContext.data} activityId={pageContext.data.strapiId!} />
       </PaddedContainer>
+      <h2 className="text-blue mt-2">{pageContext.data.title}</h2>
+      <ActivityContentSection data={pageContext.data} />
+      <ActivitySpecsSection data={pageContext.data} />
+      <SuggestionsSection data={pageContext.data} activityId={pageContext.data.strapiId!} />
     </Layout>
   );
 };

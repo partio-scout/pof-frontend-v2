@@ -18,6 +18,10 @@ import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
 import { currentLocale } from '../../utils/helpers';
+import useNavigation from '../../hooks/navigation';
+import { findHitUrl, HitModel } from '../../utils/search';
+import { ContentType } from '../../types/content';
+import { SuggestionWithUrl } from '../../components/suggestionCard';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
@@ -79,6 +83,18 @@ export const query = graphql`
         locale
         like_count
         id
+        activity {
+          title
+          id
+        }
+        locations {
+          slug
+          name
+        }
+        duration {
+          name
+          slug
+        }
       }
     }
     activities: allStrapiActivity(filter: { activity_group: { id: { eq: $id } } }) {
@@ -87,6 +103,35 @@ export const query = graphql`
           path
         }
         title
+        activity_group {
+          title
+          logo {
+            formats {
+              thumbnail {
+                url
+              }
+            }
+          }
+        }
+        age_group {
+          color
+          title
+        }
+        suggestions {
+          title
+        }
+        duration {
+          name
+          slug
+        }
+        locations {
+          slug
+          name
+          icon {
+            url
+          }
+        }
+        mandatory
       }
     }
   }
@@ -115,7 +160,15 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
     activity_group_category,
     activitygroup_term,
     content_area,
+    mandatory_activities_title,
+    mandatory_activities_description,
+    optional_activities_title,
+    optional_activities_description,
   } = pageContext.data;
+
+  // TODO correct locale
+  const navigation = useNavigation('fi');
+
   const { ageGroup, suggestions, otherGroups, activities } = data;
   const { t } = useTranslation();
   changeLanguage(pageContext.data.locale as string);
@@ -123,6 +176,12 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
   const subTitle = age_group?.title
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
     : '';
+
+  const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
+    ...suggestion,
+    url: findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
+    logo: logo?.formats?.thumbnail?.url,
+  }));
 
   return (
     <Layout showBreadCrumbs>
@@ -135,12 +194,13 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
         ></img>
       </div>
       <div className="px-8 md:px-0">
-        <div className="relative -mt-40 pt-2">
+        <div className="relative -mt-40 pt-2 flex">
           <HeroTitleSection
             mainTitle={title || ''}
             subTitle={subTitle}
             imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
             color={ageGroup?.color}
+            smallMainTitle
           />
         </div>
         <div className="flex flex-col md:flex-row py-5">
@@ -155,10 +215,16 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
             </div>
           )}
         </div>
-        <Activities activities={activities.nodes} />
+        <Activities
+          activities={activities.nodes}
+          mandatoryTitle={mandatory_activities_title}
+          mandatoryDescription={mandatory_activities_description}
+          optionalTitle={optional_activities_title}
+          optionalDescription={optional_activities_description}
+        />
         <h2 className="uppercase">{t('newest-implementation-suggestions')}</h2>
-        <Suggestions suggestions={suggestions.nodes} />
-        <h2 className="uppercase text-center">{`${t('others')} ${activitygroup_term?.plural}`}</h2>
+        <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
+        <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>

@@ -7,9 +7,8 @@ import {
   StrapiFrontPage,
   StrapiFrontPageNavigation,
   StrapiFrontPageNavigationSubnavigation,
-  StrapiFrontPageNavigationSubnavigationSubnavigation,
 } from '../graphql-types';
-import { parseActivityRouteName, parseAgeGroupRouteName } from './utils';
+import { parseRouteName, parseAgeGroupRouteName } from './utils';
 
 interface ContentNavigationItemFirstLevel {
   title: string;
@@ -33,7 +32,7 @@ const mapNavigationItems = (
 ): ContentNavigationItem[] => {
   return (
     items?.filter(subNavigationItemFilter).map((item) => {
-      const path = `${rootPath || ''}/${parseActivityRouteName(item?.title!)}`;
+      const path = `${rootPath || ''}/${parseRouteName(item?.title!)}`;
 
       return {
         title: item?.title!,
@@ -70,7 +69,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
         title: navigationItem?.title!,
         subitems: mapNavigationItems(
           navigationItem?.subnavigation,
-          `/${parseActivityRouteName(navigationItem?.title!)}`,
+          `/${parseRouteName(navigationItem?.title!)}`,
         ),
       })) || [];
 
@@ -144,7 +143,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
         if (!properActivityGroup) continue;
 
-        const activityGroupPath = ageGroupNav.path + '/' + parseActivityRouteName(properActivityGroup.title!);
+        const activityGroupPath = ageGroupNav.path + '/' + parseRouteName(properActivityGroup.title!);
 
         const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
@@ -167,7 +166,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
           if (!properActivity) continue;
 
-          const activityPath = activityGroupNav.path + '/' + parseActivityRouteName(properActivity.title!);
+          const activityPath = activityGroupNav.path + '/' + parseRouteName(properActivity.title!);
 
           const activityNav: ProgramNavItem = {
             title: properActivity.title!,
@@ -181,6 +180,15 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
             name: 'path',
             value: activityPath,
           });
+
+          createNode({
+            id: 'activity-logo-' + properActivity.strapiId!,
+            internal: {
+              type: 'Activity_Logo',
+              contentDigest: createContentDigest(properActivity.activity_group?.logo?.formats?.thumbnail?.url || '')
+            },
+            logo: properActivity.activity_group?.logo?.formats?.thumbnail?.url,
+          })
 
           activityGroupNav.subitems?.push(activityNav);
         }

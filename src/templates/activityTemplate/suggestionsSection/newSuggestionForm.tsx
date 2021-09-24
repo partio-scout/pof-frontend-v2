@@ -1,24 +1,24 @@
-import React, { ChangeEvent } from 'react';
-import { Error } from './index';
+import React, { ChangeEvent, useState } from 'react';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
 import UploadIcon from '../../../images/upload.inline.svg';
 import DeleteIcon from '../../../images/delete.inline.svg';
 import { useTranslation } from 'react-i18next';
+import { CommonSuggestionFormProps } from './index';
+import DropdownSelect from '../../../components/dropdownSelect';
+import { StrapiDuration, StrapiLocation } from '../../../../graphql-types';
 
 const inputStyle = 'w-full block rounded-xl text-blue p-2 focus:outline-none';
 
-interface NewSuggestionFormProps {
-  onSubmit: () => void;
+interface NewSuggestionFormProps extends CommonSuggestionFormProps {
   selectedFile: File | null;
   onFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
-  onFieldChange: (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
   onLinkChange: (event: ChangeEvent<HTMLInputElement>) => void;
   removeSelectedFile: () => void;
-  onTermsChange: () => void;
-  termsChecked: boolean;
-  suggestionPostSent: boolean;
-  error: Error | null;
+  onDurationChange: (duration: NewSuggestionFormProps['durations'][0]) => void;
+  onLocationChange: (locations: NewSuggestionFormProps['locations']) => void;
+  durations: StrapiDuration[];
+  locations: StrapiLocation[];
 }
 
 const NewSuggestionForm = ({
@@ -29,20 +29,65 @@ const NewSuggestionForm = ({
   onLinkChange,
   removeSelectedFile,
   onTermsChange,
+  onDurationChange,
+  onLocationChange,
   termsChecked,
-  suggestionPostSent,
-  error,
+  durations,
+  locations,
 }: NewSuggestionFormProps) => {
+  const [selectedDuration, setSelectedDuration] = useState<NewSuggestionFormProps['durations'][0]>();
+  const [selectedLocations, setSelectedLocations] = useState<NewSuggestionFormProps['locations']>([]);
   const { t } = useTranslation();
+
   return (
     <div className="my-12">
       <h2 className="text-blue">{t('write-implementation-suggestion').toUpperCase()}</h2>
       <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
-        <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2 mt-3">
+        <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2">
           <div className="w-1/4 space-y-2">
-            <input name="title" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
+            <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
             {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
             <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
+            <DropdownSelect
+              title={t('estimated-duration')} // TODO translate
+              items={durations}
+              getItemTitle={(duration) => duration.name!}
+              getItemId={(duration) => duration.id}
+              hideAllToggle
+              getItemSelected={(duration) => selectedDuration?.strapiId === duration.strapiId}
+              preselectedItems={[]}
+              onToggle={(duration) => {
+                if (selectedDuration === duration) {
+                  setSelectedDuration(undefined);
+                } else {
+                  setSelectedDuration(duration);
+                }
+                onDurationChange(duration);
+              }}
+              whiteBackground
+            />
+            <DropdownSelect
+              title="Aktiviteettipaikka" // TODO translate
+              items={locations}
+              getItemTitle={(location) => location.name!}
+              getItemId={(location) => location.id}
+              hideAllToggle
+              getItemSelected={(location) => selectedLocations.includes(location)}
+              preselectedItems={[]}
+              onToggle={(location) => {
+                let newSelectedItems: NewSuggestionFormProps['locations'];
+                const index = selectedLocations.findIndex((l) => l.id === location.id);
+                if (index >= 0) {
+                  newSelectedItems = [...selectedLocations];
+                  newSelectedItems.splice(index, 1);
+                } else {
+                  newSelectedItems = [...selectedLocations, location];
+                }
+                setSelectedLocations(newSelectedItems);
+                onLocationChange(newSelectedItems);
+              }}
+              whiteBackground
+            />
             <span className="block text-blue">{t('add-attachment')}</span>
             <label
               className="block bg-hardBlue text-white w-full p-1 rounded-xl font-tondu tracking-wider text-center cursor-pointer"
@@ -77,15 +122,20 @@ const NewSuggestionForm = ({
                 onChange={onTermsChange}
               />
               <span className="inline-block ml-2">
-                {/* TODO: Remove */}
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu
                 velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est.
               </span>
             </div>
           </div>
-          <div className="w-3/4 relative">
+          <div className="flex flex-col w-3/4 relative">
+            <input
+              name="title"
+              placeholder="Toteutusvinkin otsikko"
+              onChange={onFieldChange}
+              className={`${inputStyle} mb-2`}
+            />
             <textarea
-              className="w-full h-full rounded-xl p-2 text-blue focus:outline-none"
+              className="w-full rounded-xl p-2 text-blue focus:outline-none flex-grow"
               name="content"
               onChange={onFieldChange}
             ></textarea>
@@ -96,18 +146,6 @@ const NewSuggestionForm = ({
               {t('send').toUpperCase()}
             </button>
           </div>
-        </div>
-        <div className="w-full pr-4">
-          {suggestionPostSent && !error && (
-            <div className="p-2 rounded-xl border-2 border-green-500 font-sourceSansPro w-1/2 bg-green-100 z-20 float-right">
-              <span>{'Toteutusvinkin lähetys onnistui'}</span>
-            </div>
-          )}
-          {error && (
-            <div className="p-2 rounded-xl border-2 border-red-500 font-sourceSansPro w-1/2 bg-red-100 z-20 float-right">
-              <span className="text-red-500 font-">{error.text}</span>
-            </div>
-          )}
         </div>
       </div>
     </div>

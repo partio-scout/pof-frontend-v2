@@ -8,7 +8,6 @@ import forest from '../../../images/Forest.svg';
 import sun from '../../../images/Sun.svg';
 import parent from '../../../images/Parent.svg';
 import { StrapiActivity } from '../../../../graphql-types';
-import { v4 as uuidv4 } from 'uuid';
 import RichText from '../../../components/RichText';
 import { useTranslation } from 'react-i18next';
 
@@ -62,28 +61,26 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             </div>
           </div>
         </div>
-        <div className="ml-4 space-y-4 w-1/3">
-          <div className={itemClasses}>
-            <div>
-              <h4 className="text-blue block w-full text-xl">{t('paikka').toUpperCase()}</h4>
-              {data.locations?.map((location, index: number) => (
-                <div className="flex mt-2" key={uuidv4()}>
-                  <div className="rounded-xl bg-ageYellow w-14 h-14 flex align-center justify-center bg-opacity-20">
-                    <img
-                      className="w-8"
-                      src={
-                        (location?.slug !== null && location?.slug !== undefined && locationIcons[location.slug]) ||
-                        undefined
-                      }
-                    />
-                  </div>
-                  <div>
-                    <span className="ml-4 text-blue font-bold font-tondu font-xl tracking-wider">{location?.name}</span>
-                  </div>
+      </div>
+      <div className="ml-4 space-y-4 w-1/3">
+        <div className={itemClasses}>
+          <div>
+            <h4 className="text-blue block w-full text-xl">{t('paikka').toUpperCase()}</h4>
+            {data.locations?.map((location, index: number) => (
+              <div className="flex mt-2" key={location?.id}>
+                <div className="rounded-xl bg-ageYellow w-14 h-14 flex align-center justify-center bg-opacity-20">
+                  <img
+                    className="w-8"
+                    src={
+                      (location?.slug !== null && location?.slug !== undefined && locationIcons[location.slug]) ||
+                      undefined
+                    }
+                  />
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
+          ;
         </div>
 
         <div className="ml-4 space-y-4 w-1/3">

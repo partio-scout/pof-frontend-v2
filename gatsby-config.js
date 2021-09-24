@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const { generateConfig } = require('gatsby-plugin-ts-config');
+const { useGatsbyConfig } = require('gatsby-plugin-ts-config');
 
-module.exports = generateConfig({
-  configDir: './configs'
-});
+module.exports = useGatsbyConfig('./configs/gatsby-config');
