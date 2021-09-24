@@ -83,7 +83,7 @@ export const LinkBlock = ({ block }: BlockProps<LinkBlockType>) => (
 export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
   <div
     className="inline-block text-center justify-center p-2 bg-cover"
-    style={{ backgroundImage: `url(${block.background.url})` }}
+    style={{ backgroundImage: `url(${block.background?.url})` }}
   >
     <div className="md:max-w-1/2 mx-auto bg-white bg-opacity-50 rounded-xl">
       {block.title && <h2>{block.title.toUpperCase()}</h2>}
