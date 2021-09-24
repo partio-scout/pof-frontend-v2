@@ -72,7 +72,7 @@ interface FooterSomeLinkProps {
 function FooterSomeLink({ url, name, icon }: FooterSomeLinkProps) {
   const Icon = icon;
   return (
-    <a className="text-white flex hover:text-hardBlue mb-1" href={url} target="_blank">
+    <a className="text-white font-bold flex hover:text-hardBlue mb-2" href={url} target="_blank">
       <Icon className="fill-current mr-1" />
       {name}
     </a>
@@ -80,18 +80,19 @@ function FooterSomeLink({ url, name, icon }: FooterSomeLinkProps) {
 }
 
 function FooterLink({ description, email, phone_number, url, title }: StrapiFrontPageFooter_SectionsLink_GroupsLinks) {
+  let linkClasses = "hover:text-hardBlue font-bold";
   let link;
-  if (url) link = <CombinedLink to={url}>{title}</CombinedLink>;
-  else if (email) link = <a href={'mailto:' + email}>{title || email}</a>;
-  else if (phone_number) link = <a href={'tel:' + phone_number}>{title || phone_number}</a>;
+  if (url) link = <CombinedLink to={url} className={linkClasses}>{title}</CombinedLink>;
+  else if (email) link = <a href={'mailto:' + email} className={linkClasses}>{title || email}</a>;
+  else if (phone_number) link = <a href={'tel:' + phone_number} className={linkClasses}>{title || phone_number}</a>;
   else {
     console.warn('FooterLink with nothing to show!');
     return null;
   }
 
-  return <div>
+  return <div className="mb-2">
     {link}
-    <p className="text-semiDark tracking-wide">{description}</p>
+    <p className="text-gray-semiDark tracking-wide">{description}</p>
   </div>
 }
 

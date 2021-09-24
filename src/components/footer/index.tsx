@@ -44,7 +44,7 @@ function Footer() {
 
   return (
     <div className="bg-blue">
-      <div className="flex container mx-auto max-w-7xl p-16">
+      <div className="flex flex-col lg:flex-row justify-around align-middle container mx-auto max-w-7xl p-16">
         {footerSections?.map((section) => (
           <FooterSection data={section!} key={section?.id} />
         ))}
