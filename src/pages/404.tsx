@@ -2,14 +2,15 @@ import * as React from 'react';
 import { Link } from 'gatsby';
 import Layout from '../layouts/default';
 import { useSearchContext } from '../contexts/searchContext';
+import { useTranslation } from 'react-i18next';
 
 const NotFoundComponent = () => {
+  const { t } = useTranslation();
   const { dispatch } = useSearchContext();
 
   return (
     <div>
-      {/* TODO translate these */}
-      <h1>Etsimääsi sivua ei löytynyt</h1>
+      <h1>{t('page-not-found')}</h1>
       <div>
         <a
           href=""
@@ -18,11 +19,11 @@ const NotFoundComponent = () => {
             dispatch({ type: 'set-search-active', payload: true });
           }}
         >
-          Avaa haku
+          {t('open-search')}
         </a>
       </div>
       <div>
-        <Link to="/">Palaa etusivulle</Link>
+        <Link to="/">{t('return-home')}</Link>
       </div>
     </div>
   );

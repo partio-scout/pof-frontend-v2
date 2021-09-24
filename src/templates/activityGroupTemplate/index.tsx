@@ -10,6 +10,7 @@ import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
+import { useTranslation } from 'react-i18next';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int) {
@@ -137,9 +138,9 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
           )}
         </div>
         <Activities activities={activities.nodes} />
-        <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
+        <h2 className="uppercase">{t('newest-implementation-suggestions')}</h2>
         <Suggestions suggestions={suggestions.nodes} />
-        <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
+        <h2 className="uppercase text-center">{`${t('others')} ${activitygroup_term?.plural}`}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>
