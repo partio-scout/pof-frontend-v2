@@ -1,4 +1,4 @@
-import { mediaFragment, fileFragment, commonFragment } from "./common";
+import { mediaFragment, fileFragment, commonFragment } from './common';
 
 export const getActivity = `
 query getActivity($id: Int!) {
