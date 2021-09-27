@@ -8,7 +8,7 @@ import PlusIcon from '../../images/plus-round.inline.svg';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl } from '../../utils/helpers';
-import Pill from './pill';
+import Pill from '../pill';
 import Card from '../card';
 
 interface ActivityCardProps {

@@ -82,7 +82,11 @@ query getActivity($id: Int!) {
       files {
         ${fileFragment}
       }
-    } 
+    }
+    age_group {
+      color
+      title
+    }
   }
 }
 `;
