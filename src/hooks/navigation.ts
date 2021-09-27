@@ -65,11 +65,13 @@ const useNavigation = (currentLocale: string) => {
     allProgramNavigation: { nodes: Program_Navigation[] };
   }>(navigationQuery);
 
-  const itemFilter = (requirePath: boolean) => (item: Maybe<Program_NavigationItems>): boolean => {
-    if (requirePath && !item?.path) return false; 
+  const itemFilter =
+    (requirePath: boolean) =>
+    (item: Maybe<Program_NavigationItems>): boolean => {
+      if (requirePath && !item?.path) return false;
 
-    return Boolean(item?.title);
-  }
+      return Boolean(item?.title);
+    };
 
   const mapSubItems = (subItems?: Maybe<Maybe<Content_NavigationItemsSubitems>[]>): HeaderItem[] => {
     return (
@@ -91,7 +93,8 @@ const useNavigation = (currentLocale: string) => {
         name: item?.title!,
         id: item?.title!,
         subMenu: mapSubItems(item?.subitems),
-      })) || [];
+      }))
+      .filter((item) => item.subMenu.length > 0) || [];
 
   // Program data navigation items are filtered by their locale here and not in the graphql query because
   // Gatsby's useStaticQuery doesn't allow the use of variables.
