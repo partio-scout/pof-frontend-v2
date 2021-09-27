@@ -329,6 +329,7 @@ export type SitePageContextData = {
   id?: Maybe<Scalars['String']>;
   strapiId?: Maybe<Scalars['Int']>;
   ingress?: Maybe<Scalars['String']>;
+  links?: Maybe<Array<Maybe<SitePageContextDataLinks>>>;
   logo?: Maybe<SitePageContextDataLogo>;
   maximum_age?: Maybe<Scalars['Int']>;
   minimum_age?: Maybe<Scalars['Int']>;
@@ -366,6 +367,12 @@ export type SitePageContextData = {
 export type SitePageContextDataLocalizations = {
   locale?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
+};
+
+export type SitePageContextDataLinks = {
+  description?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextDataLogo = {
@@ -664,7 +671,14 @@ export type SitePageContextDataSuggestions = {
   locale?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   published_at?: Maybe<Scalars['Date']>;
+  links?: Maybe<Array<Maybe<SitePageContextDataSuggestionsLinks>>>;
   files?: Maybe<Array<Maybe<SitePageContextDataSuggestionsFiles>>>;
+};
+
+export type SitePageContextDataSuggestionsLinks = {
+  url?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
 };
 
 export type SitePageContextDataSuggestionsFiles = {
@@ -4635,6 +4649,7 @@ export type StrapiLocationActivities = {
   activity_group?: Maybe<Scalars['Int']>;
   age_group?: Maybe<Scalars['Int']>;
   preparation_duration?: Maybe<Scalars['Int']>;
+  links?: Maybe<Array<Maybe<StrapiLocationActivitiesLinks>>>;
   logo?: Maybe<StrapiLocationActivitiesLogo>;
   files?: Maybe<Array<Maybe<StrapiLocationActivitiesFiles>>>;
   images?: Maybe<Array<Maybe<StrapiLocationActivitiesImages>>>;
@@ -4662,6 +4677,12 @@ export type StrapiLocationActivitiesUpdated_AtArgs = {
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiLocationActivitiesLinks = {
+  id?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 export type StrapiLocationActivitiesLogo = {
@@ -4880,6 +4901,7 @@ export type StrapiDurationActivities = {
   activity_group?: Maybe<Scalars['Int']>;
   age_group?: Maybe<Scalars['Int']>;
   preparation_duration?: Maybe<Scalars['Int']>;
+  links?: Maybe<Array<Maybe<StrapiDurationActivitiesLinks>>>;
   logo?: Maybe<StrapiDurationActivitiesLogo>;
   files?: Maybe<Array<Maybe<StrapiDurationActivitiesFiles>>>;
   images?: Maybe<Array<Maybe<StrapiDurationActivitiesImages>>>;
@@ -4907,6 +4929,12 @@ export type StrapiDurationActivitiesUpdated_AtArgs = {
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiDurationActivitiesLinks = {
+  id?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 export type StrapiDurationActivitiesLogo = {
@@ -5088,6 +5116,7 @@ export type StrapiDurationPreparation_Activities = {
   activity_group?: Maybe<Scalars['Int']>;
   age_group?: Maybe<Scalars['Int']>;
   preparation_duration?: Maybe<Scalars['Int']>;
+  links?: Maybe<Array<Maybe<StrapiDurationPreparation_ActivitiesLinks>>>;
   logo?: Maybe<StrapiDurationPreparation_ActivitiesLogo>;
   files?: Maybe<Array<Maybe<StrapiDurationPreparation_ActivitiesFiles>>>;
   images?: Maybe<Array<Maybe<StrapiDurationPreparation_ActivitiesImages>>>;
@@ -5115,6 +5144,12 @@ export type StrapiDurationPreparation_ActivitiesUpdated_AtArgs = {
   fromNow?: Maybe<Scalars['Boolean']>;
   difference?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
+};
+
+export type StrapiDurationPreparation_ActivitiesLinks = {
+  id?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
 };
 
 export type StrapiDurationPreparation_ActivitiesLogo = {
@@ -7114,6 +7149,7 @@ export type SitePageContextDataFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
   strapiId?: Maybe<IntQueryOperatorInput>;
   ingress?: Maybe<StringQueryOperatorInput>;
+  links?: Maybe<SitePageContextDataLinksFilterListInput>;
   logo?: Maybe<SitePageContextDataLogoFilterInput>;
   maximum_age?: Maybe<IntQueryOperatorInput>;
   minimum_age?: Maybe<IntQueryOperatorInput>;
@@ -7155,6 +7191,16 @@ export type SitePageContextDataLocalizationsFilterListInput = {
 export type SitePageContextDataLocalizationsFilterInput = {
   locale?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<IntQueryOperatorInput>;
+};
+
+export type SitePageContextDataLinksFilterListInput = {
+  elemMatch?: Maybe<SitePageContextDataLinksFilterInput>;
+};
+
+export type SitePageContextDataLinksFilterInput = {
+  description?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextDataLogoFilterInput = {
@@ -7501,7 +7547,18 @@ export type SitePageContextDataSuggestionsFilterInput = {
   locale?: Maybe<StringQueryOperatorInput>;
   title?: Maybe<StringQueryOperatorInput>;
   published_at?: Maybe<DateQueryOperatorInput>;
+  links?: Maybe<SitePageContextDataSuggestionsLinksFilterListInput>;
   files?: Maybe<SitePageContextDataSuggestionsFilesFilterListInput>;
+};
+
+export type SitePageContextDataSuggestionsLinksFilterListInput = {
+  elemMatch?: Maybe<SitePageContextDataSuggestionsLinksFilterInput>;
+};
+
+export type SitePageContextDataSuggestionsLinksFilterInput = {
+  url?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
 };
 
 export type SitePageContextDataSuggestionsFilesFilterListInput = {
@@ -7787,6 +7844,10 @@ export type SitePageFieldsEnum =
   | 'context___data___id'
   | 'context___data___strapiId'
   | 'context___data___ingress'
+  | 'context___data___links'
+  | 'context___data___links___description'
+  | 'context___data___links___id'
+  | 'context___data___links___url'
   | 'context___data___logo___width'
   | 'context___data___logo___url'
   | 'context___data___logo___size'
@@ -7896,6 +7957,7 @@ export type SitePageFieldsEnum =
   | 'context___data___suggestions___locale'
   | 'context___data___suggestions___title'
   | 'context___data___suggestions___published_at'
+  | 'context___data___suggestions___links'
   | 'context___data___suggestions___files'
   | 'context___data___main_text'
   | 'context___type'
@@ -15042,9 +15104,20 @@ export type StrapiLocationActivitiesFilterInput = {
   activity_group?: Maybe<IntQueryOperatorInput>;
   age_group?: Maybe<IntQueryOperatorInput>;
   preparation_duration?: Maybe<IntQueryOperatorInput>;
+  links?: Maybe<StrapiLocationActivitiesLinksFilterListInput>;
   logo?: Maybe<StrapiLocationActivitiesLogoFilterInput>;
   files?: Maybe<StrapiLocationActivitiesFilesFilterListInput>;
   images?: Maybe<StrapiLocationActivitiesImagesFilterListInput>;
+};
+
+export type StrapiLocationActivitiesLinksFilterListInput = {
+  elemMatch?: Maybe<StrapiLocationActivitiesLinksFilterInput>;
+};
+
+export type StrapiLocationActivitiesLinksFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
 };
 
 export type StrapiLocationActivitiesLogoFilterInput = {
@@ -15402,6 +15475,10 @@ export type StrapiLocationFieldsEnum =
   | 'activities___activity_group'
   | 'activities___age_group'
   | 'activities___preparation_duration'
+  | 'activities___links'
+  | 'activities___links___id'
+  | 'activities___links___description'
+  | 'activities___links___url'
   | 'activities___logo___id'
   | 'activities___logo___name'
   | 'activities___logo___width'
@@ -15640,9 +15717,20 @@ export type StrapiDurationActivitiesFilterInput = {
   activity_group?: Maybe<IntQueryOperatorInput>;
   age_group?: Maybe<IntQueryOperatorInput>;
   preparation_duration?: Maybe<IntQueryOperatorInput>;
+  links?: Maybe<StrapiDurationActivitiesLinksFilterListInput>;
   logo?: Maybe<StrapiDurationActivitiesLogoFilterInput>;
   files?: Maybe<StrapiDurationActivitiesFilesFilterListInput>;
   images?: Maybe<StrapiDurationActivitiesImagesFilterListInput>;
+};
+
+export type StrapiDurationActivitiesLinksFilterListInput = {
+  elemMatch?: Maybe<StrapiDurationActivitiesLinksFilterInput>;
+};
+
+export type StrapiDurationActivitiesLinksFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
 };
 
 export type StrapiDurationActivitiesLogoFilterInput = {
@@ -15788,9 +15876,20 @@ export type StrapiDurationPreparation_ActivitiesFilterInput = {
   activity_group?: Maybe<IntQueryOperatorInput>;
   age_group?: Maybe<IntQueryOperatorInput>;
   preparation_duration?: Maybe<IntQueryOperatorInput>;
+  links?: Maybe<StrapiDurationPreparation_ActivitiesLinksFilterListInput>;
   logo?: Maybe<StrapiDurationPreparation_ActivitiesLogoFilterInput>;
   files?: Maybe<StrapiDurationPreparation_ActivitiesFilesFilterListInput>;
   images?: Maybe<StrapiDurationPreparation_ActivitiesImagesFilterListInput>;
+};
+
+export type StrapiDurationPreparation_ActivitiesLinksFilterListInput = {
+  elemMatch?: Maybe<StrapiDurationPreparation_ActivitiesLinksFilterInput>;
+};
+
+export type StrapiDurationPreparation_ActivitiesLinksFilterInput = {
+  id?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
 };
 
 export type StrapiDurationPreparation_ActivitiesLogoFilterInput = {
@@ -16078,6 +16177,10 @@ export type StrapiDurationFieldsEnum =
   | 'activities___activity_group'
   | 'activities___age_group'
   | 'activities___preparation_duration'
+  | 'activities___links'
+  | 'activities___links___id'
+  | 'activities___links___description'
+  | 'activities___links___url'
   | 'activities___logo___id'
   | 'activities___logo___name'
   | 'activities___logo___width'
@@ -16245,6 +16348,10 @@ export type StrapiDurationFieldsEnum =
   | 'preparation_activities___activity_group'
   | 'preparation_activities___age_group'
   | 'preparation_activities___preparation_duration'
+  | 'preparation_activities___links'
+  | 'preparation_activities___links___id'
+  | 'preparation_activities___links___description'
+  | 'preparation_activities___links___url'
   | 'preparation_activities___logo___id'
   | 'preparation_activities___logo___name'
   | 'preparation_activities___logo___width'
