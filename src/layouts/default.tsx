@@ -11,6 +11,7 @@ import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
 import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
+import Footer from '../components/footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -73,6 +74,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
               {children}
             </div>
           </div>
+          <Footer />
         </div>
       </LogoContextProvider>
     </SearchContextProvider>
