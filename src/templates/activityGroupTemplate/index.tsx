@@ -165,25 +165,21 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
   }));
 
   return (
-    <Layout showBreadCrumbs>
+    <Layout
+      showBreadCrumbs
+      pageHeader={
+        <HeroTitleSection
+          mainImageUrl={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
+          mainTitle={title || ''}
+          subTitle={subTitle}
+          logoUrl={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
+          color={ageGroup?.color}
+          smallMainTitle
+        />
+      }
+    >
       <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
-      <div className="relative overflow-hidden h-86 mb-8">
-        <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
-        <img
-          src={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
-          className="w-full max-h-6/8 "
-        ></img>
-      </div>
       <div className="px-8 md:px-0">
-        <div className="relative -mt-40 pt-2 flex">
-          <HeroTitleSection
-            mainTitle={title || ''}
-            subTitle={subTitle}
-            imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
-            color={ageGroup?.color}
-            smallMainTitle
-          />
-        </div>
         <div className="flex flex-col md:flex-row py-5">
           <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress}</div>
           {(links?.length || 0) > 0 && (

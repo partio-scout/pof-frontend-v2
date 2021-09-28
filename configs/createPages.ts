@@ -84,11 +84,11 @@ async function handleActivity(
     return results;
   }
 
-  const { data } = await graphql<{ strapiActivity: StrapiActivity }>(getActivity, {
+  const { data } = await graphql<{ activity: StrapiActivity, activityGroup: StrapiActivityGroup }>(getActivity, {
     id: activity?.id,
   });
 
-  const activityData = data?.strapiActivity;
+  const activityData = data?.activity;
 
   if (!activityData?.title) {
     results.skippedActivities.push(activityData?.id!);
@@ -101,7 +101,7 @@ async function handleActivity(
     path: activityPath,
     component: path.resolve(`src/templates/activityTemplate/index.tsx`),
     context: {
-      data: activityData,
+      data: data,
       type: 'activity',
       id: activityData.strapiId,
       activityGroupId: activityData.activity_group?.id,

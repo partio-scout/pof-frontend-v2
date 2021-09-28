@@ -2,7 +2,7 @@ import { mediaFragment, fileFragment, commonFragment } from './common';
 
 export const getActivity = `
 query getActivity($id: Int!) {
-  strapiActivity(strapiId: {eq: $id}) {
+  activity: strapiActivity(strapiId: {eq: $id}) {
     ${commonFragment}
     content
     duration {
@@ -10,9 +10,6 @@ query getActivity($id: Int!) {
       name
       slug
       id
-    }
-    activity_group {
-      title
     }
     educational_objectives {
       id
@@ -92,6 +89,20 @@ query getActivity($id: Int!) {
     age_group {
       color
       title
+    }
+  }
+  activityGroup: strapiActivityGroup(activities: {elemMatch: {id: {eq: $id}}}) {
+    title
+    logo {
+      url
+      formats {
+        thumbnail {
+          url
+        }
+      }
+    }
+    activity_group_category {
+      name
     }
   }
 }

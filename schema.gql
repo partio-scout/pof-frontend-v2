@@ -1,4 +1,4 @@
-### Type definitions saved at 2021-09-27T11:22:51.803Z ###
+### Type definitions saved at 2021-09-28T10:17:05.112Z ###
 
 type File implements Node @dontInfer {
   sourceInstanceName: String!
@@ -101,8 +101,6 @@ type SiteFunction implements Node @dontInfer {
   relativeCompiledFilePath: String!
   absoluteCompiledFilePath: String!
   matchPath: String
-  apiRoute: String!
-  originalFilePath: String!
 }
 
 type SitePlugin implements Node @dontInfer {
@@ -132,14 +130,14 @@ type SitePluginPluginOptions {
   createLinkInHead: Boolean
   entryLimit: Int
   query: String
+  exclude: SitePluginPluginOptionsExclude
+  update: String
   trackingIds: [String]
   pluginConfig: SitePluginPluginOptionsPluginConfig
   pathCheck: Boolean
   allExtensions: Boolean
   isTSX: Boolean
   jsxPragma: String
-  exclude: SitePluginPluginOptionsExclude
-  update: String
 }
 
 type SitePluginPluginOptionsCollectionTypes {
@@ -168,13 +166,13 @@ type SitePluginPluginOptionsSingleTypesApiQs {
   _locale: String
 }
 
+type SitePluginPluginOptionsExclude {
+  types: [String]
+}
+
 type SitePluginPluginOptionsPluginConfig {
   head: Boolean
   respectDNT: Boolean
-}
-
-type SitePluginPluginOptionsExclude {
-  types: [String]
 }
 
 type SitePluginPackageJson {
@@ -206,309 +204,6 @@ type SitePluginPackageJsonPeerDependencies {
 
 type SiteBuildMetadata implements Node @dontInfer {
   buildTime: Date @dateformat
-}
-
-enum ImageFormat {
-  NO_CHANGE
-  AUTO
-  JPG
-  PNG
-  WEBP
-  AVIF
-}
-
-enum ImageFit {
-  COVER
-  CONTAIN
-  FILL
-  INSIDE
-  OUTSIDE
-}
-
-enum ImageLayout {
-  FIXED
-  FULL_WIDTH
-  CONSTRAINED
-}
-
-enum ImageCropFocus {
-  CENTER
-  NORTH
-  NORTHEAST
-  EAST
-  SOUTHEAST
-  SOUTH
-  SOUTHWEST
-  WEST
-  NORTHWEST
-  ENTROPY
-  ATTENTION
-}
-
-input DuotoneGradient {
-  highlight: String!
-  shadow: String!
-  opacity: Int
-}
-
-enum PotraceTurnPolicy {
-  TURNPOLICY_BLACK
-  TURNPOLICY_WHITE
-  TURNPOLICY_LEFT
-  TURNPOLICY_RIGHT
-  TURNPOLICY_MINORITY
-  TURNPOLICY_MAJORITY
-}
-
-input Potrace {
-  turnPolicy: PotraceTurnPolicy
-  turdSize: Float
-  alphaMax: Float
-  optCurve: Boolean
-  optTolerance: Float
-  threshold: Int
-  blackOnWhite: Boolean
-  color: String
-  background: String
-}
-
-type ImageSharpFixed {
-  base64: String
-  tracedSVG: String
-  aspectRatio: Float
-  width: Float!
-  height: Float!
-  src: String!
-  srcSet: String!
-  srcWebp: String
-  srcSetWebp: String
-  originalName: String
-}
-
-type ImageSharpFluid {
-  base64: String
-  tracedSVG: String
-  aspectRatio: Float!
-  src: String!
-  srcSet: String!
-  srcWebp: String
-  srcSetWebp: String
-  sizes: String!
-  originalImg: String
-  originalName: String
-  presentationWidth: Int!
-  presentationHeight: Int!
-}
-
-enum ImagePlaceholder {
-  DOMINANT_COLOR
-  TRACED_SVG
-  BLURRED
-  NONE
-}
-
-input BlurredOptions {
-  """Width of the generated low-res preview. Default is 20px"""
-  width: Int
-
-  """
-  Force the output format for the low-res preview. Default is to use the same
-  format as the input. You should rarely need to change this
-  """
-  toFormat: ImageFormat
-}
-
-input JPGOptions {
-  quality: Int
-  progressive: Boolean = true
-}
-
-input PNGOptions {
-  quality: Int
-  compressionSpeed: Int = 4
-}
-
-input WebPOptions {
-  quality: Int
-}
-
-input AVIFOptions {
-  quality: Int
-  lossless: Boolean
-  speed: Int
-}
-
-input TransformOptions {
-  grayscale: Boolean = false
-  duotone: DuotoneGradient
-  rotate: Int = 0
-  trim: Float = 0
-  cropFocus: ImageCropFocus = ATTENTION
-  fit: ImageFit = COVER
-}
-
-type ImageSharpOriginal {
-  width: Float
-  height: Float
-  src: String
-}
-
-type ImageSharpResize {
-  src: String
-  tracedSVG: String
-  width: Int
-  height: Int
-  aspectRatio: Float
-  originalName: String
-}
-
-type ImageSharp implements Node @childOf(mimeTypes: [], types: ["File"]) @dontInfer {
-  fixed(width: Int, height: Int, base64Width: Int, jpegProgressive: Boolean = true, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, traceSVG: Potrace, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, toFormat: ImageFormat = AUTO, toFormatBase64: ImageFormat = AUTO, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpFixed
-  fluid(
-    maxWidth: Int
-    maxHeight: Int
-    base64Width: Int
-    grayscale: Boolean = false
-    jpegProgressive: Boolean = true
-    pngCompressionSpeed: Int = 4
-    duotone: DuotoneGradient
-    traceSVG: Potrace
-    quality: Int
-    jpegQuality: Int
-    pngQuality: Int
-    webpQuality: Int
-    toFormat: ImageFormat = AUTO
-    toFormatBase64: ImageFormat = AUTO
-    cropFocus: ImageCropFocus = ATTENTION
-    fit: ImageFit = COVER
-    background: String = "rgba(0,0,0,1)"
-    rotate: Int = 0
-    trim: Float = 0
-    sizes: String = ""
-
-    """
-    A list of image widths to be generated. Example: [ 200, 340, 520, 890 ]
-    """
-    srcSetBreakpoints: [Int] = []
-  ): ImageSharpFluid
-  gatsbyImageData(
-    """
-    The layout for the image.
-    FIXED: A static image sized, that does not resize according to the screen width
-    FULL_WIDTH: The image resizes to fit its container. Pass a "sizes" option if
-    it isn't going to be the full width of the screen.
-    CONSTRAINED: Resizes to fit its container, up to a maximum width, at which point it will remain fixed in size.
-    """
-    layout: ImageLayout = CONSTRAINED
-
-    """
-    The display width of the generated image for layout = FIXED, and the maximum
-    display width of the largest image for layout = CONSTRAINED.
-    Ignored if layout = FLUID.
-    """
-    width: Int
-
-    """
-    The display height of the generated image for layout = FIXED, and the
-    maximum display height of the largest image for layout = CONSTRAINED.
-    The image will be cropped if the aspect ratio does not match the source
-    image. If omitted, it is calculated from the supplied width,
-    matching the aspect ratio of the source image.
-    """
-    height: Int
-
-    """
-    If set along with width or height, this will set the value of the other
-    dimension to match the provided aspect ratio, cropping the image if needed.
-    If neither width or height is provided, height will be set based on the intrinsic width of the source image.
-    """
-    aspectRatio: Float
-
-    """
-    Format of generated placeholder image, displayed while the main image loads.
-    BLURRED: a blurred, low resolution image, encoded as a base64 data URI (default)
-    DOMINANT_COLOR: a solid color, calculated from the dominant color of the image.
-    TRACED_SVG: a low-resolution traced SVG of the image.
-    NONE: no placeholder. Set "background" to use a fixed background color.
-    """
-    placeholder: ImagePlaceholder
-
-    """
-    Options for the low-resolution placeholder image. Set placeholder to "BLURRED" to use this
-    """
-    blurredOptions: BlurredOptions
-
-    """
-    Options for traced placeholder SVGs. You also should set placeholder to "TRACED_SVG".
-    """
-    tracedSVGOptions: Potrace
-
-    """
-    The image formats to generate. Valid values are "AUTO" (meaning the same
-    format as the source image), "JPG", "PNG", "WEBP" and "AVIF".
-    The default value is [AUTO, WEBP], and you should rarely need to change
-    this. Take care if you specify JPG or PNG when you do
-    not know the formats of the source images, as this could lead to unwanted
-    results such as converting JPEGs to PNGs. Specifying
-    both PNG and JPG is not supported and will be ignored.
-    """
-    formats: [ImageFormat]
-
-    """
-    A list of image pixel densities to generate. It will never generate images
-    larger than the source, and will always include a 1x image.
-    Default is [ 1, 2 ] for FIXED images, meaning 1x and 2x and [0.25, 0.5, 1,
-    2] for CONSTRAINED. In this case, an image with a constrained layout
-    and width = 400 would generate images at 100, 200, 400 and 800px wide.
-    Ignored for FULL_WIDTH images, which use breakpoints instead
-    """
-    outputPixelDensities: [Float]
-
-    """
-    Specifies the image widths to generate. For FIXED and CONSTRAINED images it
-    is better to allow these to be determined automatically,
-    based on the image size. For FULL_WIDTH images this can be used to override
-    the default, which is [750, 1080, 1366, 1920].
-    It will never generate any images larger than the source.
-    """
-    breakpoints: [Int]
-
-    """
-    The "sizes" property, passed to the img tag. This describes the display size of the image.
-    This does not affect the generated images, but is used by the browser to decide which images to download.
-    You should usually leave this blank, and a suitable value will be calculated. The exception is if a FULL_WIDTH image
-    does not actually span the full width of the screen, in which case you should pass the correct size here.
-    """
-    sizes: String
-
-    """The default quality. This is overridden by any format-specific options"""
-    quality: Int
-
-    """Options to pass to sharp when generating JPG images."""
-    jpgOptions: JPGOptions
-
-    """Options to pass to sharp when generating PNG images."""
-    pngOptions: PNGOptions
-
-    """Options to pass to sharp when generating WebP images."""
-    webpOptions: WebPOptions
-
-    """Options to pass to sharp when generating AVIF images."""
-    avifOptions: AVIFOptions
-
-    """
-    Options to pass to sharp to control cropping and other image manipulations.
-    """
-    transformOptions: TransformOptions
-
-    """
-    Background color applied to the wrapper. Also passed to sharp to use as a
-    background when "letterboxing" an image to another aspect ratio.
-    """
-    backgroundColor: String
-  ): JSON!
-  original: ImageSharpOriginal
-  resize(width: Int, height: Int, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, jpegProgressive: Boolean = true, pngCompressionLevel: Int = 9, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, base64: Boolean = false, traceSVG: Potrace, toFormat: ImageFormat = AUTO, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpResize
 }
 
 type StrapiAgeGroup implements Node @dontInfer {
@@ -1233,6 +928,8 @@ type StrapiActivityGroupMain_imageFormatsMedium {
 type StrapiActivityGroupLogo {
   id: Int
   name: String
+  alternativeText: String
+  caption: String
   width: Int
   height: Int
   formats: StrapiActivityGroupLogoFormats
@@ -1329,9 +1026,16 @@ type StrapiActivityGroupActivities {
   activity_group: Int
   age_group: Int
   preparation_duration: Int
+  links: [StrapiActivityGroupActivitiesLinks]
   logo: StrapiActivityGroupActivitiesLogo
   files: [StrapiActivityGroupActivitiesFiles]
   images: [StrapiActivityGroupActivitiesImages]
+}
+
+type StrapiActivityGroupActivitiesLinks {
+  id: Int
+  description: String
+  url: String
 }
 
 type StrapiActivityGroupActivitiesLogo {
@@ -1560,6 +1264,7 @@ type StrapiFrontPage implements Node @dontInfer {
   created_at: Date @dateformat
   updated_at: Date @dateformat
   navigation: [StrapiFrontPageNavigation]
+  footer_sections: [StrapiFrontPageFooter_sections]
   localizations: [StrapiFrontPageLocalizations]
   strapiId: Int
 }
@@ -1676,64 +1381,342 @@ type StrapiFrontPageNavigationSubnavigationSubnavigationPage {
   updated_at: Date @dateformat
 }
 
+type StrapiFrontPageFooter_sections {
+  id: Int
+  title: String
+  link_groups: [StrapiFrontPageFooter_sectionsLink_groups] @proxy(from: "link-groups", fromNode: false)
+}
+
+type StrapiFrontPageFooter_sectionsLink_groups {
+  id: Int
+  links: [StrapiFrontPageFooter_sectionsLink_groupsLinks]
+  some_links: StrapiFrontPageFooter_sectionsLink_groupsSome_links
+}
+
+type StrapiFrontPageFooter_sectionsLink_groupsLinks {
+  id: Int
+  description: String
+  url: String
+  phone_number: String
+  email: String
+  title: String
+}
+
+type StrapiFrontPageFooter_sectionsLink_groupsSome_links {
+  id: Int
+  facebook_url: String
+  twitter_url: String
+  instagram_url: String
+  youtube_url: String
+}
+
 type StrapiFrontPageLocalizations {
   id: Int
   locale: String
   published_at: Date @dateformat
 }
 
-type Program_Navigation implements Node @dontInfer {
-  items: [Program_NavigationItems]
+enum ImageFormat {
+  NO_CHANGE
+  AUTO
+  JPG
+  PNG
+  WEBP
+  AVIF
 }
 
-type Program_NavigationItems {
-  title: String
-  type: String
-  id: Int
-  path: String
+enum ImageFit {
+  COVER
+  CONTAIN
+  FILL
+  INSIDE
+  OUTSIDE
+}
+
+enum ImageLayout {
+  FIXED
+  FULL_WIDTH
+  CONSTRAINED
+}
+
+enum ImageCropFocus {
+  CENTER
+  NORTH
+  NORTHEAST
+  EAST
+  SOUTHEAST
+  SOUTH
+  SOUTHWEST
+  WEST
+  NORTHWEST
+  ENTROPY
+  ATTENTION
+}
+
+input DuotoneGradient {
+  highlight: String!
+  shadow: String!
+  opacity: Int
+}
+
+enum PotraceTurnPolicy {
+  TURNPOLICY_BLACK
+  TURNPOLICY_WHITE
+  TURNPOLICY_LEFT
+  TURNPOLICY_RIGHT
+  TURNPOLICY_MINORITY
+  TURNPOLICY_MAJORITY
+}
+
+input Potrace {
+  turnPolicy: PotraceTurnPolicy
+  turdSize: Float
+  alphaMax: Float
+  optCurve: Boolean
+  optTolerance: Float
+  threshold: Int
+  blackOnWhite: Boolean
   color: String
-  subitems: [Program_NavigationItemsSubitems]
-  minimum_age: Int
-  maximum_age: Int
+  background: String
 }
 
-type Program_NavigationItemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
-  subitems: [Program_NavigationItemsSubitemsSubitems]
+type ImageSharpFixed {
+  base64: String
+  tracedSVG: String
+  aspectRatio: Float
+  width: Float!
+  height: Float!
+  src: String!
+  srcSet: String!
+  srcWebp: String
+  srcSetWebp: String
+  originalName: String
 }
 
-type Program_NavigationItemsSubitemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
+type ImageSharpFluid {
+  base64: String
+  tracedSVG: String
+  aspectRatio: Float!
+  src: String!
+  srcSet: String!
+  srcWebp: String
+  srcSetWebp: String
+  sizes: String!
+  originalImg: String
+  originalName: String
+  presentationWidth: Int!
+  presentationHeight: Int!
 }
 
-type Content_Navigation implements Node @dontInfer {
-  items: [Content_NavigationItems]
+enum ImagePlaceholder {
+  DOMINANT_COLOR
+  TRACED_SVG
+  BLURRED
+  NONE
 }
 
-type Content_NavigationItems {
-  title: String
-  subitems: [Content_NavigationItemsSubitems]
+input BlurredOptions {
+  """Width of the generated low-res preview. Default is 20px"""
+  width: Int
+
+  """
+  Force the output format for the low-res preview. Default is to use the same
+  format as the input. You should rarely need to change this
+  """
+  toFormat: ImageFormat
 }
 
-type Content_NavigationItemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
-  subitems: [Content_NavigationItemsSubitemsSubitems]
+input JPGOptions {
+  quality: Int
+  progressive: Boolean
 }
 
-type Content_NavigationItemsSubitemsSubitems {
-  title: String
-  type: String
-  id: Int
-  path: String
+input PNGOptions {
+  quality: Int
+  compressionSpeed: Int
+}
+
+input WebPOptions {
+  quality: Int
+}
+
+input AVIFOptions {
+  quality: Int
+  lossless: Boolean
+  speed: Int
+}
+
+input TransformOptions {
+  grayscale: Boolean
+  duotone: DuotoneGradient
+  rotate: Int
+  trim: Float
+  cropFocus: ImageCropFocus
+  fit: ImageFit
+}
+
+type ImageSharpOriginal {
+  width: Float
+  height: Float
+  src: String
+}
+
+type ImageSharpResize {
+  src: String
+  tracedSVG: String
+  width: Int
+  height: Int
+  aspectRatio: Float
+  originalName: String
+}
+
+type ImageSharp implements Node @childOf(mimeTypes: [], types: ["File"]) @dontInfer {
+  fixed(width: Int, height: Int, base64Width: Int, jpegProgressive: Boolean = true, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, traceSVG: Potrace, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, toFormat: ImageFormat = AUTO, toFormatBase64: ImageFormat = AUTO, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpFixed
+  fluid(
+    maxWidth: Int
+    maxHeight: Int
+    base64Width: Int
+    grayscale: Boolean = false
+    jpegProgressive: Boolean = true
+    pngCompressionSpeed: Int = 4
+    duotone: DuotoneGradient
+    traceSVG: Potrace
+    quality: Int
+    jpegQuality: Int
+    pngQuality: Int
+    webpQuality: Int
+    toFormat: ImageFormat = AUTO
+    toFormatBase64: ImageFormat = AUTO
+    cropFocus: ImageCropFocus = ATTENTION
+    fit: ImageFit = COVER
+    background: String = "rgba(0,0,0,1)"
+    rotate: Int = 0
+    trim: Float = 0
+    sizes: String = ""
+
+    """
+    A list of image widths to be generated. Example: [ 200, 340, 520, 890 ]
+    """
+    srcSetBreakpoints: [Int] = []
+  ): ImageSharpFluid
+  gatsbyImageData(
+    """
+    The layout for the image.
+    FIXED: A static image sized, that does not resize according to the screen width
+    FULL_WIDTH: The image resizes to fit its container. Pass a "sizes" option if
+    it isn't going to be the full width of the screen.
+    CONSTRAINED: Resizes to fit its container, up to a maximum width, at which point it will remain fixed in size.
+    """
+    layout: ImageLayout = CONSTRAINED
+
+    """
+    The display width of the generated image for layout = FIXED, and the maximum
+    display width of the largest image for layout = CONSTRAINED.
+    Ignored if layout = FLUID.
+    """
+    width: Int
+
+    """
+    The display height of the generated image for layout = FIXED, and the
+    maximum display height of the largest image for layout = CONSTRAINED.
+    The image will be cropped if the aspect ratio does not match the source
+    image. If omitted, it is calculated from the supplied width,
+    matching the aspect ratio of the source image.
+    """
+    height: Int
+
+    """
+    If set along with width or height, this will set the value of the other
+    dimension to match the provided aspect ratio, cropping the image if needed.
+    If neither width or height is provided, height will be set based on the intrinsic width of the source image.
+    """
+    aspectRatio: Float
+
+    """
+    Format of generated placeholder image, displayed while the main image loads.
+    BLURRED: a blurred, low resolution image, encoded as a base64 data URI (default)
+    DOMINANT_COLOR: a solid color, calculated from the dominant color of the image.
+    TRACED_SVG: a low-resolution traced SVG of the image.
+    NONE: no placeholder. Set "background" to use a fixed background color.
+    """
+    placeholder: ImagePlaceholder
+
+    """
+    Options for the low-resolution placeholder image. Set placeholder to "BLURRED" to use this
+    """
+    blurredOptions: BlurredOptions
+
+    """
+    Options for traced placeholder SVGs. You also should set placeholder to "TRACED_SVG".
+    """
+    tracedSVGOptions: Potrace
+
+    """
+    The image formats to generate. Valid values are "AUTO" (meaning the same
+    format as the source image), "JPG", "PNG", "WEBP" and "AVIF".
+    The default value is [AUTO, WEBP], and you should rarely need to change
+    this. Take care if you specify JPG or PNG when you do
+    not know the formats of the source images, as this could lead to unwanted
+    results such as converting JPEGs to PNGs. Specifying
+    both PNG and JPG is not supported and will be ignored.
+    """
+    formats: [ImageFormat]
+
+    """
+    A list of image pixel densities to generate. It will never generate images
+    larger than the source, and will always include a 1x image.
+    Default is [ 1, 2 ] for FIXED images, meaning 1x and 2x and [0.25, 0.5, 1,
+    2] for CONSTRAINED. In this case, an image with a constrained layout
+    and width = 400 would generate images at 100, 200, 400 and 800px wide.
+    Ignored for FULL_WIDTH images, which use breakpoints instead
+    """
+    outputPixelDensities: [Float]
+
+    """
+    Specifies the image widths to generate. For FIXED and CONSTRAINED images it
+    is better to allow these to be determined automatically,
+    based on the image size. For FULL_WIDTH images this can be used to override
+    the default, which is [750, 1080, 1366, 1920].
+    It will never generate any images larger than the source.
+    """
+    breakpoints: [Int]
+
+    """
+    The "sizes" property, passed to the img tag. This describes the display size of the image.
+    This does not affect the generated images, but is used by the browser to decide which images to download.
+    You should usually leave this blank, and a suitable value will be calculated. The exception is if a FULL_WIDTH image
+    does not actually span the full width of the screen, in which case you should pass the correct size here.
+    """
+    sizes: String
+
+    """The default quality. This is overridden by any format-specific options"""
+    quality: Int
+
+    """Options to pass to sharp when generating JPG images."""
+    jpgOptions: JPGOptions
+
+    """Options to pass to sharp when generating PNG images."""
+    pngOptions: PNGOptions
+
+    """Options to pass to sharp when generating WebP images."""
+    webpOptions: WebPOptions
+
+    """Options to pass to sharp when generating AVIF images."""
+    avifOptions: AVIFOptions
+
+    """
+    Options to pass to sharp to control cropping and other image manipulations.
+    """
+    transformOptions: TransformOptions
+
+    """
+    Background color applied to the wrapper. Also passed to sharp to use as a
+    background when "letterboxing" an image to another aspect ratio.
+    """
+    backgroundColor: String
+  ): JSON!
+  original: ImageSharpOriginal
+  resize(width: Int, height: Int, quality: Int, jpegQuality: Int, pngQuality: Int, webpQuality: Int, jpegProgressive: Boolean = true, pngCompressionLevel: Int = 9, pngCompressionSpeed: Int = 4, grayscale: Boolean = false, duotone: DuotoneGradient, base64: Boolean = false, traceSVG: Potrace, toFormat: ImageFormat = AUTO, cropFocus: ImageCropFocus = ATTENTION, fit: ImageFit = COVER, background: String = "rgba(0,0,0,1)", rotate: Int = 0, trim: Float = 0): ImageSharpResize
 }
 
 type StrapiSuggestion implements Node @dontInfer {
@@ -1748,6 +1731,7 @@ type StrapiSuggestion implements Node @dontInfer {
   updated_at: Date @dateformat
   from_web: Boolean
   like_count: Int
+  pinned: Boolean
   duration: StrapiSuggestionDuration
   links: [StrapiSuggestionLinks]
   files: [StrapiSuggestionFiles]
@@ -1773,8 +1757,15 @@ type StrapiSuggestionActivity {
   activity_group: Int
   age_group: Int
   preparation_duration: Int
+  links: [StrapiSuggestionActivityLinks]
   logo: StrapiSuggestionActivityLogo
   images: [StrapiSuggestionActivityImages]
+}
+
+type StrapiSuggestionActivityLinks {
+  id: Int
+  description: String
+  url: String
 }
 
 type StrapiSuggestionActivityLogo {
@@ -1996,764 +1987,6 @@ type StrapiSuggestionLocationsIcon {
   created_at: Date @dateformat
   updated_at: Date @dateformat
   localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivity implements Node @dontInfer {
-  title: String
-  content: String
-  mandatory: Boolean
-  ingress: String
-  wp_guid: String
-  leader_tasks: String
-  activity_term: StrapiActivityActivity_term
-  duration: StrapiActivityDuration
-  locale: String
-  published_at: Date @dateformat
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  activity_group: StrapiActivityActivity_group
-  age_group: StrapiActivityAge_group
-  preparation_duration: StrapiActivityPreparation_duration
-  logo: StrapiActivityLogo
-  files: [StrapiActivityFiles]
-  images: [StrapiActivityImages]
-  group_sizes: [StrapiActivityGroup_sizes]
-  skill_areas: [StrapiActivitySkill_areas]
-  educational_objectives: [StrapiActivityEducational_objectives]
-  leader_skills: [StrapiActivityLeader_skills]
-  suggestions: [StrapiActivitySuggestions]
-  locations: [StrapiActivityLocations]
-  localizations: [StrapiActivityLocalizations]
-  strapiId: Int
-  fields: StrapiActivityFields
-}
-
-type StrapiActivityActivity_term {
-  id: Int
-  name: String
-  singular: String
-  plural: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityDuration {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityActivity_group {
-  id: Int
-  title: String
-  ingress: String
-  content: String
-  wp_guid: String
-  mandatory: Boolean
-  subactivity_term: Int
-  subactivitygroup_term: Int
-  activitygroup_term: Int
-  locale: String
-  published_at: Date @dateformat
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  age_group: Int
-  activity_group_category: Int
-  sort_order: Int
-  mandatory_activities_title: String
-  mandatory_activities_description: String
-  optional_activities_title: String
-  optional_activities_description: String
-  links: [StrapiActivityActivity_groupLinks]
-  content_area: [StrapiActivityActivity_groupContent_area]
-  main_image: StrapiActivityActivity_groupMain_image
-  logo: StrapiActivityActivity_groupLogo
-  files: [StrapiActivityActivity_groupFiles]
-}
-
-type StrapiActivityActivity_groupLinks {
-  id: Int
-  description: String
-  url: String
-}
-
-type StrapiActivityActivity_groupContent_area {
-  id: Int
-  title: String
-  text: String
-  block_width: StrapiActivityActivity_groupContent_areaBlock_width
-  number_of_columns: Int
-  strapi_component: String
-}
-
-type StrapiActivityActivity_groupContent_areaBlock_width {
-  id: Int
-  name: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityActivity_groupMain_image {
-  id: Int
-  name: String
-  alternativeText: String
-  caption: String
-  width: Int
-  height: Int
-  formats: StrapiActivityActivity_groupMain_imageFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityActivity_groupMain_imageFormats {
-  thumbnail: StrapiActivityActivity_groupMain_imageFormatsThumbnail
-  large: StrapiActivityActivity_groupMain_imageFormatsLarge
-  small: StrapiActivityActivity_groupMain_imageFormatsSmall
-  medium: StrapiActivityActivity_groupMain_imageFormatsMedium
-}
-
-type StrapiActivityActivity_groupMain_imageFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupMain_imageFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupMain_imageFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupMain_imageFormatsMedium {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupLogo {
-  id: Int
-  name: String
-  width: Int
-  height: Int
-  formats: StrapiActivityActivity_groupLogoFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityActivity_groupLogoFormats {
-  thumbnail: StrapiActivityActivity_groupLogoFormatsThumbnail
-  small: StrapiActivityActivity_groupLogoFormatsSmall
-  medium: StrapiActivityActivity_groupLogoFormatsMedium
-  large: StrapiActivityActivity_groupLogoFormatsLarge
-}
-
-type StrapiActivityActivity_groupLogoFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupLogoFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupLogoFormatsMedium {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupLogoFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityActivity_groupFiles {
-  id: Int
-  name: String
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityAge_group {
-  id: Int
-  title: String
-  ingress: String
-  content: String
-  minimum_age: Int
-  maximum_age: Int
-  wp_guid: String
-  subactivitygroup_term: Int
-  locale: String
-  published_at: Date @dateformat
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  color: String
-  links: [StrapiActivityAge_groupLinks]
-  upper_content_area: [StrapiActivityAge_groupUpper_content_area]
-  lower_content_area: [StrapiActivityAge_groupLower_content_area]
-  main_image: StrapiActivityAge_groupMain_image
-  logo: StrapiActivityAge_groupLogo
-}
-
-type StrapiActivityAge_groupLinks {
-  id: Int
-  description: String
-  url: String
-}
-
-type StrapiActivityAge_groupUpper_content_area {
-  id: Int
-  title: String
-  text: String
-  block_width: StrapiActivityAge_groupUpper_content_areaBlock_width
-  number_of_columns: Int
-  strapi_component: String
-}
-
-type StrapiActivityAge_groupUpper_content_areaBlock_width {
-  id: Int
-  name: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityAge_groupLower_content_area {
-  id: Int
-  title: String
-  text: String
-  block_width: StrapiActivityAge_groupLower_content_areaBlock_width
-  number_of_columns: Int
-  strapi_component: String
-}
-
-type StrapiActivityAge_groupLower_content_areaBlock_width {
-  id: Int
-  name: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityAge_groupMain_image {
-  id: Int
-  name: String
-  alternativeText: String
-  caption: String
-  width: Int
-  height: Int
-  formats: StrapiActivityAge_groupMain_imageFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityAge_groupMain_imageFormats {
-  large: StrapiActivityAge_groupMain_imageFormatsLarge
-  small: StrapiActivityAge_groupMain_imageFormatsSmall
-  medium: StrapiActivityAge_groupMain_imageFormatsMedium
-  thumbnail: StrapiActivityAge_groupMain_imageFormatsThumbnail
-}
-
-type StrapiActivityAge_groupMain_imageFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupMain_imageFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupMain_imageFormatsMedium {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupMain_imageFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupLogo {
-  id: Int
-  name: String
-  width: Int
-  height: Int
-  formats: StrapiActivityAge_groupLogoFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityAge_groupLogoFormats {
-  large: StrapiActivityAge_groupLogoFormatsLarge
-  small: StrapiActivityAge_groupLogoFormatsSmall
-  medium: StrapiActivityAge_groupLogoFormatsMedium
-  thumbnail: StrapiActivityAge_groupLogoFormatsThumbnail
-}
-
-type StrapiActivityAge_groupLogoFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupLogoFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupLogoFormatsMedium {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityAge_groupLogoFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityPreparation_duration {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityLogo {
-  id: Int
-  name: String
-  width: Int
-  height: Int
-  formats: StrapiActivityLogoFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Int
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityLogoFormats {
-  thumbnail: StrapiActivityLogoFormatsThumbnail
-}
-
-type StrapiActivityLogoFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityFiles {
-  id: Int
-  name: String
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityImages {
-  id: Int
-  name: String
-  width: Int
-  height: Int
-  formats: StrapiActivityImagesFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityImagesFormats {
-  large: StrapiActivityImagesFormatsLarge
-  small: StrapiActivityImagesFormatsSmall
-  medium: StrapiActivityImagesFormatsMedium
-  thumbnail: StrapiActivityImagesFormatsThumbnail
-}
-
-type StrapiActivityImagesFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityImagesFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityImagesFormatsMedium {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityImagesFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityGroup_sizes {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  icon: StrapiActivityGroup_sizesIcon
-}
-
-type StrapiActivityGroup_sizesIcon {
-  id: Int
-  name: String
-  width: Int
-  height: Int
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivitySkill_areas {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityEducational_objectives {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivityLeader_skills {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-}
-
-type StrapiActivitySuggestions {
-  id: Int
-  title: String
-  content: String
-  activity: Int
-  wp_guid: String
-  author: String
-  locale: String
-  published_at: Date @dateformat
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  from_web: Boolean
-  like_count: Int
-  duration: Int
-  links: [StrapiActivitySuggestionsLinks]
-  files: [StrapiActivitySuggestionsFiles]
-}
-
-type StrapiActivitySuggestionsLinks {
-  id: Int
-  description: String
-  url: String
-}
-
-type StrapiActivitySuggestionsFiles {
-  id: Int
-  name: String
-  width: Int
-  height: Int
-  formats: StrapiActivitySuggestionsFilesFormats
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivitySuggestionsFilesFormats {
-  large: StrapiActivitySuggestionsFilesFormatsLarge
-  small: StrapiActivitySuggestionsFilesFormatsSmall
-  medium: StrapiActivitySuggestionsFilesFormatsMedium
-  thumbnail: StrapiActivitySuggestionsFilesFormatsThumbnail
-}
-
-type StrapiActivitySuggestionsFilesFormatsLarge {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivitySuggestionsFilesFormatsSmall {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivitySuggestionsFilesFormatsMedium {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivitySuggestionsFilesFormatsThumbnail {
-  ext: String
-  url: String
-  hash: String
-  mime: String
-  name: String
-  size: Float
-  width: Int
-  height: Int
-}
-
-type StrapiActivityLocations {
-  id: Int
-  name: String
-  slug: String
-  locale: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  icon: StrapiActivityLocationsIcon
-}
-
-type StrapiActivityLocationsIcon {
-  id: Int
-  name: String
-  alternativeText: String
-  caption: String
-  width: Int
-  height: Int
-  hash: String
-  ext: String
-  mime: String
-  size: Float
-  url: String
-  provider: String
-  created_at: Date @dateformat
-  updated_at: Date @dateformat
-  localFile: File @link(by: "id", from: "localFile___NODE")
-}
-
-type StrapiActivityLocalizations {
-  id: Int
-  locale: String
-  published_at: Date @dateformat
-}
-
-type StrapiActivityFields {
-  path: String
-}
-
-type Activity_Logo implements Node @dontInfer {
-  logo: String
 }
 
 type StrapiLocation implements Node @dontInfer {
@@ -3235,4 +2468,824 @@ type StrapiDurationPreparation_activitiesImagesFormatsThumbnail {
 type StrapiDurationLocalizations {
   id: Int
   locale: String
+}
+
+type StrapiActivity implements Node @dontInfer {
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: StrapiActivityActivity_term
+  duration: StrapiActivityDuration
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  activity_group: StrapiActivityActivity_group
+  age_group: StrapiActivityAge_group
+  preparation_duration: StrapiActivityPreparation_duration
+  links: [StrapiActivityLinks]
+  logo: StrapiActivityLogo
+  files: [StrapiActivityFiles]
+  images: [StrapiActivityImages]
+  group_sizes: [StrapiActivityGroup_sizes]
+  skill_areas: [StrapiActivitySkill_areas]
+  educational_objectives: [StrapiActivityEducational_objectives]
+  leader_skills: [StrapiActivityLeader_skills]
+  suggestions: [StrapiActivitySuggestions]
+  locations: [StrapiActivityLocations]
+  localizations: [StrapiActivityLocalizations]
+  strapiId: Int
+  fields: StrapiActivityFields
+}
+
+type StrapiActivityActivity_term {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityDuration {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityActivity_group {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: Int
+  subactivitygroup_term: Int
+  activitygroup_term: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  age_group: Int
+  activity_group_category: Int
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiActivityActivity_groupLinks]
+  content_area: [StrapiActivityActivity_groupContent_area]
+  main_image: StrapiActivityActivity_groupMain_image
+  logo: StrapiActivityActivity_groupLogo
+  files: [StrapiActivityActivity_groupFiles]
+}
+
+type StrapiActivityActivity_groupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityActivity_groupContent_area {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityActivity_groupContent_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityActivity_groupContent_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityActivity_groupMain_image {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityActivity_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityActivity_groupMain_imageFormats {
+  thumbnail: StrapiActivityActivity_groupMain_imageFormatsThumbnail
+  large: StrapiActivityActivity_groupMain_imageFormatsLarge
+  small: StrapiActivityActivity_groupMain_imageFormatsSmall
+  medium: StrapiActivityActivity_groupMain_imageFormatsMedium
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogo {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityActivity_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityActivity_groupLogoFormats {
+  thumbnail: StrapiActivityActivity_groupLogoFormatsThumbnail
+  small: StrapiActivityActivity_groupLogoFormatsSmall
+  medium: StrapiActivityActivity_groupLogoFormatsMedium
+  large: StrapiActivityActivity_groupLogoFormatsLarge
+}
+
+type StrapiActivityActivity_groupLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogoFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogoFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogoFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupFiles {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityAge_group {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  color: String
+  links: [StrapiActivityAge_groupLinks]
+  upper_content_area: [StrapiActivityAge_groupUpper_content_area]
+  lower_content_area: [StrapiActivityAge_groupLower_content_area]
+  main_image: StrapiActivityAge_groupMain_image
+  logo: StrapiActivityAge_groupLogo
+}
+
+type StrapiActivityAge_groupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityAge_groupUpper_content_area {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityAge_groupUpper_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityAge_groupUpper_content_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityAge_groupLower_content_area {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityAge_groupLower_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityAge_groupLower_content_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityAge_groupMain_image {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityAge_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityAge_groupMain_imageFormats {
+  large: StrapiActivityAge_groupMain_imageFormatsLarge
+  small: StrapiActivityAge_groupMain_imageFormatsSmall
+  medium: StrapiActivityAge_groupMain_imageFormatsMedium
+  thumbnail: StrapiActivityAge_groupMain_imageFormatsThumbnail
+}
+
+type StrapiActivityAge_groupMain_imageFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupMain_imageFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogo {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityAge_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityAge_groupLogoFormats {
+  large: StrapiActivityAge_groupLogoFormatsLarge
+  small: StrapiActivityAge_groupLogoFormatsSmall
+  medium: StrapiActivityAge_groupLogoFormatsMedium
+  thumbnail: StrapiActivityAge_groupLogoFormatsThumbnail
+}
+
+type StrapiActivityAge_groupLogoFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogoFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogoFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityPreparation_duration {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityLogo {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Int
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityLogoFormats {
+  thumbnail: StrapiActivityLogoFormatsThumbnail
+}
+
+type StrapiActivityLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityFiles {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityImages {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityImagesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityImagesFormats {
+  large: StrapiActivityImagesFormatsLarge
+  small: StrapiActivityImagesFormatsSmall
+  medium: StrapiActivityImagesFormatsMedium
+  thumbnail: StrapiActivityImagesFormatsThumbnail
+}
+
+type StrapiActivityImagesFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityImagesFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityImagesFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityImagesFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroup_sizes {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  icon: StrapiActivityGroup_sizesIcon
+}
+
+type StrapiActivityGroup_sizesIcon {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivitySkill_areas {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityEducational_objectives {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityLeader_skills {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivitySuggestions {
+  id: Int
+  title: String
+  content: String
+  activity: Int
+  wp_guid: String
+  author: String
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  from_web: Boolean
+  like_count: Int
+  pinned: Boolean
+  duration: Int
+  links: [StrapiActivitySuggestionsLinks]
+  files: [StrapiActivitySuggestionsFiles]
+}
+
+type StrapiActivitySuggestionsLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivitySuggestionsFiles {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivitySuggestionsFilesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivitySuggestionsFilesFormats {
+  large: StrapiActivitySuggestionsFilesFormatsLarge
+  small: StrapiActivitySuggestionsFilesFormatsSmall
+  medium: StrapiActivitySuggestionsFilesFormatsMedium
+  thumbnail: StrapiActivitySuggestionsFilesFormatsThumbnail
+}
+
+type StrapiActivitySuggestionsFilesFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivitySuggestionsFilesFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivitySuggestionsFilesFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivitySuggestionsFilesFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityLocations {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  icon: StrapiActivityLocationsIcon
+}
+
+type StrapiActivityLocationsIcon {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityLocalizations {
+  id: Int
+  locale: String
+  published_at: Date @dateformat
+}
+
+type StrapiActivityFields {
+  path: String
+}
+
+type Program_Navigation implements Node @dontInfer {
+  items: [Program_NavigationItems]
+}
+
+type Program_NavigationItems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  color: String
+  subitems: [Program_NavigationItemsSubitems]
+  minimum_age: Int
+  maximum_age: Int
+}
+
+type Program_NavigationItemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Program_NavigationItemsSubitemsSubitems]
+}
+
+type Program_NavigationItemsSubitemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+
+type Content_Navigation implements Node @dontInfer {
+  items: [Content_NavigationItems]
+}
+
+type Content_NavigationItems {
+  title: String
+  subitems: [Content_NavigationItemsSubitems]
+}
+
+type Content_NavigationItemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Content_NavigationItemsSubitemsSubitems]
+}
+
+type Content_NavigationItemsSubitemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+
+type Activity_Logo implements Node @dontInfer {
+  logo: String
 }

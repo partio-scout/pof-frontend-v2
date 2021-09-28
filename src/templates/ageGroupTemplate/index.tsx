@@ -54,8 +54,20 @@ interface QueryType {
 const currentLocale = 'fi';
 
 const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
-  const { title, ingress, content, main_image, maximum_age, minimum_age, logo, links, subactivitygroup_term, lower_content_area, upper_content_area, color } =
-    pageContext.data;
+  const {
+    title,
+    ingress,
+    content,
+    main_image,
+    maximum_age,
+    minimum_age,
+    logo,
+    links,
+    subactivitygroup_term,
+    lower_content_area,
+    upper_content_area,
+    color,
+  } = pageContext.data;
 
   const activityGroups = data.activityGroups.nodes;
 
@@ -63,23 +75,22 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
   const subTitle = `${minimum_age}-${maximum_age} vuotiaat`;
 
   return (
-    <Layout showBreadCrumbs={true}>
+    <Layout
+      showBreadCrumbs={true}
+      pageHeader={
+        <HeroTitleSection
+          mainImageUrl={prependApiUrl(main_image?.url) || ''}
+          mainTitle={title || ''}
+          subTitle={subTitle}
+          logoUrl={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
+          color={color}
+          smallMainTitle
+        />
+      }
+    >
       <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
-      <div className="relative overflow-hidden h-86 mb-8">
-        <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
-        <img src={prependApiUrl(main_image?.url) || ''} className="w-full max-h-6/8 "></img>
-      </div>
       <div className="px-8 md:px-0">
-        <div className="relative -mt-40 pt-2">
-          <HeroTitleSection
-            mainTitle={title || ''}
-            subTitle={subTitle}
-            imageName={prependApiUrl(logo?.formats?.thumbnail?.url || logo?.url) || ''}
-            color={color}
-            smallMainTitle
-          />
-        </div>
-        <div className="flex flex-col md:flex-row py-5">
+        <div className="flex flex-col md:flex-row">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
             <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress}</div>
             <RichText html={content} />

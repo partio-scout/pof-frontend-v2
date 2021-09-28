@@ -11,6 +11,7 @@ import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
 import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
+import Container from '../components/container';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -52,13 +53,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
           <div>
             {showBreadCrumbs && <BreadCrumbs trail={path} />}
             {pageHeader && pageHeader}
-            <div
-              className={clsx('container mx-auto max-w-7xl', {
-                'px-2 sm:px-10 md:px-24 2xl:px-0': !omitPadding,
-              })}
-            >
-              {children}
-            </div>
+            <Container omitPadding={omitPadding}>{children}</Container>
           </div>
         </div>
       </LogoContextProvider>
