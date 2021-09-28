@@ -3,6 +3,7 @@ import PlusIcon from '../../../images/plus-round.inline.svg';
 import ExclamationIcon from '../../../images/exclamation-round.inline.svg';
 import ClockIcon from '../../../images/time.inline.svg';
 import StarIcon from '../../../images/star.inline.svg';
+import QuestionMarkIcon from '../../../images/question-mark-round.inline.svg';
 import home from '../../../images/Home.svg';
 import camping from '../../../images/Camping.svg';
 import forest from '../../../images/Forest.svg';
@@ -74,13 +75,17 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               <h4 className="text-blue block w-full text-xl">PAIKKA</h4>
               {data.locations?.map((location, index: number) => (
                 <div className="flex mt-2 items-center" key={location?.id}>
-                  <img
-                    src={prependApiUrl(location?.icon?.url || '')}
-                    alt={location?.slug!}
-                    title={location?.slug!}
-                    className="rounded-xl w-14 h-14 flex items-center justify-center bg-opacity-20 p-2"
-                    style={{ backgroundColor: iconBackground }}
-                  ></img>
+                  {location?.icon?.url ? (
+                    <img
+                      src={prependApiUrl(location?.icon?.url || '')}
+                      alt={location?.slug!}
+                      title={location?.slug!}
+                      className="rounded-xl w-14 h-14 flex items-center justify-center bg-opacity-20 p-2"
+                      style={{ backgroundColor: iconBackground }}
+                    ></img>
+                  ) : (
+                    <SquareIcon icon={QuestionMarkIcon} alt={location?.slug!} backgroundColor={iconBackground} />
+                  )}
                   <div>
                     <span className="ml-4 text-blue font-bold text-xl tracking-wider">{location?.name}</span>
                   </div>
