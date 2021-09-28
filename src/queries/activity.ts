@@ -11,6 +11,9 @@ query getActivity($id: Int!) {
       slug
       id
     }
+    activity_group {
+      title
+    }
     educational_objectives {
       id
       locale
@@ -38,10 +41,13 @@ query getActivity($id: Int!) {
     }
     leader_tasks
     locations {
-      slug
-      name
-      locale
       id
+      locale
+      icon {
+        url
+      }
+      name
+      slug
     }
     logo {
       width
