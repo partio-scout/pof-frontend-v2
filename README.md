@@ -6,13 +6,16 @@ TODO
 
 ## Environment variables
 
+For development, add the following variables into file: `.env.development`.
+
 Required environment variables:
 
 - `API_URL`: The address of the Strapi API
 - `GATSBY_ALGOLIA_APP_ID`: Id of the Algolia application
 - `GATSBY_ALGOLIA_API_KEY`: API-KEY for the Algolia application
 - `GATSBY_ALGOLIA_ENVIRONMENT`: the environment used in Algolia
-- `GA_TRACKING_ID`: Google Analytics tracking-id
+- `GA_TRACKING_ID`: Google Analytics tracking-id (not needed in development)
+- `GATSBY_COOKIEBOT_ID`: Cookiebot Id (not needed in development)
 
 Optional environment variables:
 

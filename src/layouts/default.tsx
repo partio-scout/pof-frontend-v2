@@ -12,6 +12,7 @@ import { findBreadcrumbPath } from '../utils/breadcrumbs';
 import { currentLocale } from '../utils/helpers';
 import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
+import Footer from '../components/footer';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -32,6 +33,13 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
       <LogoContextProvider>
         <Toaster position="bottom-right" />
         <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
+          <script
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid={process.env.GATSBY_COOKIEBOT_ID}
+            data-blockingmode="auto"
+            type="text/javascript"
+          ></script>
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
           <meta property="og:locale:alternate" content="sv_SE" />
@@ -45,6 +53,12 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
           <meta name="twitter:title" content={metadata.title} />
         </Helmet>
         <div className="relative">
+          <script
+            id="CookieDeclaration"
+            src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
+            type="text/javascript"
+            async
+          ></script>
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
           <Search />
           <div>
@@ -58,6 +72,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
               {children}
             </div>
           </div>
+          <Footer />
         </div>
       </LogoContextProvider>
     </SearchContextProvider>

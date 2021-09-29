@@ -84,7 +84,7 @@ async function handleActivity(
     return results;
   }
 
-  const { data } = await graphql<{ strapiActivity: StrapiActivity }>(getActivity, {
+  const { data } = await graphqlWithErrors<{ strapiActivity: StrapiActivity }>(graphql, getActivity, {
     id: activity?.id,
   });
 
@@ -113,6 +113,16 @@ async function handleActivity(
   return results;
 }
 
+async function graphqlWithErrors<T>(graphql: CreatePagesArgs['graphql'], query: string, variables?: any) {
+  const { data, errors } = await graphql<T>(query, variables);
+
+  if (errors) {
+    errors.forEach((err: any) => console.error(err));
+  }
+
+  return { data };
+}
+
 async function handleActivityGroup(
   activityGroup: StrapiAgeGroupActivity_Groups,
   ageGroupPath: string,
@@ -125,7 +135,7 @@ async function handleActivityGroup(
     return results;
   }
 
-  const { data } = await graphql<{ strapiActivityGroup: StrapiActivityGroup }>(getActivityGroup, {
+  const { data } = await graphqlWithErrors<{ strapiActivityGroup: StrapiActivityGroup }>(graphql, getActivityGroup, {
     id: activityGroup?.id,
   });
 
@@ -200,7 +210,7 @@ async function handleProgramData(
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
   // Fetch AgeGroups
-  const { data } = await graphql<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(getAllAgeGroups);
+  const { data } = await graphqlWithErrors<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(graphql, getAllAgeGroups);
 
   const promises = (data?.allStrapiAgeGroup.nodes || []).map((ageGroup) =>
     handleAgeGroup(ageGroup, graphql, createPage),
@@ -220,7 +230,7 @@ async function handleContentPages(
   const results = createPageCreationResults();
 
   // First fetch all FrontPages (all language versions)
-  const frontPageResponse = await graphql<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(getAllFrontPages);
+  const frontPageResponse = await graphqlWithErrors<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(graphql, getAllFrontPages);
   frontPageResponse.data?.allStrapiFrontPage.nodes.forEach((frontPage) => {
     const locale = frontPage.locale;
     createPage({
@@ -228,11 +238,14 @@ async function handleContentPages(
       component: path.resolve(`src/templates/frontPageTemplate/index.tsx`),
       context: {
         content: frontPage.content,
+        title: frontPage.title,
+        ingress: frontPage.ingress,
         locale,
       }
 
     })
   })
+
   const frontPages = frontPageResponse.data?.allStrapiFrontPage.nodes || [];
 
 
@@ -320,7 +333,7 @@ async function fetchAndCreateContentPage(
   id: number,
   pagePath: string,
 ): Promise<PageCreationResults> {
-  const pageDataResponse = await graphql<{ strapiContentPage: StrapiContentPage }>(getContentPage, {
+  const pageDataResponse = await graphqlWithErrors<{ strapiContentPage: StrapiContentPage }>(graphql, getContentPage, {
     id,
   });
   console.log(pagePath)

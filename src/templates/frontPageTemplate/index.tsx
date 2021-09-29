@@ -9,6 +9,8 @@ import { changeLanguage } from '../../utils/helpers';
 interface FrontPageTemplateProps {
   content: any;
   locale: string;
+  ingress: string;
+  title: string;
 }
 
 const IndexPage = ({ pageContext }: PageProps<object, FrontPageTemplateProps>) => {
@@ -16,7 +18,7 @@ const IndexPage = ({ pageContext }: PageProps<object, FrontPageTemplateProps>) =
   return (
     <Layout>
       <PaddedContainer>
-        <Hero />
+        <Hero data={pageContext} />
         <BlockArea blocks={pageContext?.content} />
       </PaddedContainer>
     </Layout>

@@ -17,8 +17,10 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
         'border-b border-lightBlue': !showBreadCrumbs || state.searchActive,
       })}
     >
-      <img src={logo} className="mx-4 my-1 w-26" />
-      <div className="flex flex-1 space-x-4 cursor-default h-full justify-end">
+      <a href="/">
+        <img src={logo} className="mx-4 my-1 w-26" />
+      </a>
+      <div className="flex flex-1 space-x-4 cursor-default h-full justify-end z-50">
         {!state.searchActive &&
           headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div
