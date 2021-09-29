@@ -15,10 +15,10 @@ function FooterSection({ data }: FooterSectionProps) {
       {data.title && (
         <h2 className="text-white text-xl mb-4">
           {data.title.split('\n').map((span, i, arr) => (
-            <>
+            <span key={span}>
               {span}
               {i !== arr.length - 1 && <br />}
-            </>
+            </span>
           ))}
         </h2>
       )}

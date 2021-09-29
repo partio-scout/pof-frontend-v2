@@ -2,6 +2,7 @@ import React from 'react';
 import { HighLightBlock, BlockType, GeneralBlock, ActivityBlock, LinkBlock } from '../components/blocks';
 import AgeGroupBlock from '../components/blocks/ageGroupBlock';
 import ContentPageBlock from '../components/blocks/contentPageBlock';
+import VideoBlock from '../components/blocks/videoBlock';
 
 const renderBlock = (block: BlockType) => {
   switch (block.strapi_component) {
@@ -15,6 +16,8 @@ const renderBlock = (block: BlockType) => {
       return <ContentPageBlock block={block} />;
     case 'blocks.age-group-block':
       return <AgeGroupBlock block={block} />;
+    case 'blocks.video-block':
+      return <VideoBlock block={block} />;
     default:
       return <GeneralBlock block={block} />;
   }

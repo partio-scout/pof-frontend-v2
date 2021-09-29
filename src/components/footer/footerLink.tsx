@@ -23,14 +23,10 @@ function FooterLink({ description, email, phone_number, url, title }: StrapiFron
         {title || phone_number}
       </a>
     );
-  else {
-    console.warn('FooterLink with nothing to show!');
-    return null;
-  }
 
   return (
     <div className="mb-2">
-      {link}
+      {link && link}
       <p className="text-gray-semiDark tracking-wide">{description}</p>
     </div>
   );
