@@ -237,9 +237,6 @@ async function handleContentPages(
       path: locale === 'fi' ? '/' : `/${locale}/`,
       component: path.resolve(`src/templates/frontPageTemplate/index.tsx`),
       context: {
-        content: frontPage.content,
-        title: frontPage.title,
-        ingress: frontPage.ingress,
         locale,
       }
 
