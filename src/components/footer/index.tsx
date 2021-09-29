@@ -3,6 +3,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 import { StrapiFrontPage } from '../../../graphql-types';
 import FooterSection from './footerSection';
 import LogoIcon from '../../images/logo.inline.svg';
+import { currentLocale } from '../../utils/helpers';
 
 const footerQuery = graphql`
   {
@@ -36,12 +37,12 @@ const footerQuery = graphql`
   }
 `;
 
-const currentLocale = 'fi';
-
 function Footer() {
   const { allStrapiFrontPage } = useStaticQuery<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(footerQuery);
 
-  const footerSections = allStrapiFrontPage.nodes.find((x) => x.locale === currentLocale)?.footer_sections;
+  const locale = currentLocale();
+
+  const footerSections = allStrapiFrontPage.nodes.find((x) => x.locale === locale)?.footer_sections;
 
   return (
     <div className="bg-blue">
