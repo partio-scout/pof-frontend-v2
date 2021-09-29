@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ClickAwayListener from 'react-click-away-listener';
 import DefaultNav from './defaultNav';
 import MobileNav from './mobileNav';
 
@@ -38,23 +39,25 @@ const Header = ({ headerItems, showBreadCrumbs }: HeaderProps) => {
   const toggleHamburger = () => setHamburgerMenuOpen(!hamburgerMenuOpen);
 
   return (
-    <>
-      <DefaultNav
-        headerItems={headerItems}
-        currentDropDownOpen={currentDropDownOpen}
-        toggleDropDown={toggleDropDown}
-        showBreadCrumbs={showBreadCrumbs}
-      />
-      <MobileNav
-        headerItems={headerItems}
-        currentDropDownOpen={currentDropDownOpen}
-        toggleHamburger={toggleHamburger}
-        toggleDropDown={toggleDropDown}
-        hamburgerMenuOpen={hamburgerMenuOpen}
-        //TODO: Change away from hardcoded when mobilenav finished
-        showBreadCrumbs={false}
-      />
-    </>
+    <ClickAwayListener onClickAway={() => setCurrentDropDownOpen(null)}>
+      <div>
+        <DefaultNav
+          headerItems={headerItems}
+          currentDropDownOpen={currentDropDownOpen}
+          toggleDropDown={toggleDropDown}
+          showBreadCrumbs={showBreadCrumbs}
+        />
+        <MobileNav
+          headerItems={headerItems}
+          currentDropDownOpen={currentDropDownOpen}
+          toggleHamburger={toggleHamburger}
+          toggleDropDown={toggleDropDown}
+          hamburgerMenuOpen={hamburgerMenuOpen}
+          //TODO: Change away from hardcoded when mobilenav finished
+          showBreadCrumbs={false}
+        />
+      </div>
+    </ClickAwayListener>
   );
 };
 

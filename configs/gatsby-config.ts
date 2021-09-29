@@ -14,18 +14,8 @@ const config: GatsbyConfig = {
     PRESERVE_WEBPACK_CACHE: true,
   },
   plugins: [
-    'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     'gatsby-plugin-postcss',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/images/',
-      },
-    },
     {
       resolve: 'gatsby-source-strapi',
       options: {
@@ -66,8 +56,8 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-schema-snapshot`,
       options: {
         path: `schema.gql`,
-        exclude: {
-          types: ['SitePage'],
+        include: { // Create fixed schema for Strapi data only.  
+          plugins: ['gatsby-source-strapi']
         },
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },

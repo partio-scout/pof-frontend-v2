@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
 import ActivityCard from '../../components/activityCard';
+import PlusIcon from '../../images/plus-round.inline.svg';
+import ActivityCardList from '../../components/activityCardList';
 
 interface ActivitiesProps {
   activities: StrapiActivity[];
@@ -31,26 +33,18 @@ function Activities({
     <div>
       {/* TODO Translate */}
       {mandatoryActivities.length > 0 && (
-        <>
+        <div className="py-5">
           <Heading>{mandatoryTitle || 'Pakolliset aktiviteetit'}</Heading>
           {mandatoryDescription && <Paragraph>{mandatoryDescription}</Paragraph>}
-          <div className="masonry before:box-inherit after:box-inherit mb-5">
-            {mandatoryActivities?.map((activity) => (
-              <ActivityCard activity={activity} key={activity.strapiId} />
-            ))}
-          </div>
-        </>
+          <ActivityCardList activities={mandatoryActivities} showInitially={12} />
+        </div>
       )}
       {optionalActivities.length > 0 && (
-        <>
+        <div className="py-5">
           <Heading>{optionalTitle || 'Valinnaiset aktiviteetit'}</Heading>
           {optionalDescription && <Paragraph>{optionalDescription}</Paragraph>}
-          <div className="masonry before:box-inherit after:box-inherit mb-5">
-            {optionalActivities?.map((activity) => (
-              <ActivityCard activity={activity} key={activity.strapiId} />
-            ))}
-          </div>
-        </>
+          <ActivityCardList activities={optionalActivities} showInitially={12} />
+        </div>
       )}
     </div>
   );

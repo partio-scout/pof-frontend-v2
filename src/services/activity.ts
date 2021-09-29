@@ -6,7 +6,7 @@ const trimUrl = (url?: string): string => {
 }
 
 export const fetchSuggestions = (activityId: number) => {
-  return axios.get(`${trimUrl(process.env.API_URL)}/activities/${activityId}`);
+  return axios.get(`${trimUrl(process.env.API_URL)}/suggestions?activity.id=${activityId}`);
 };
 
 export const fetchComments = (suggestionId: number) => {

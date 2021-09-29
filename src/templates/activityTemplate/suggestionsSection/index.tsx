@@ -97,20 +97,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   useEffect(() => {
     fetchSuggestions(activityId)
-      .then((res) => {
-        let fetchRequests = res.data.suggestions.map((s: { id: number }) =>
-          fetchComments(s.id)
-            .then((commentsRes) => {
-              return { ...s, comments: commentsRes.data.comments || [] };
-            })
-            .catch((err) => {
-              return { ...s, comments: [] };
-            }),
-        );
-        Promise.all(fetchRequests).then((results) => {
-          setSuggestions(results);
-        });
-      })
+      .then((res) => setSuggestions(res.data))
       .catch((err) => {
         console.error(err);
         toast.error('Toteutusvinkkien haku epäonnistui');
@@ -124,6 +111,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const validateSuggestion = () => {
     setCallback(() => postNewSuggestion);
+    // TODO translate
     setModalData({
       modalText: 'Haluatko lähettää uuden toteutusvinkin?',
       sendButtonText: 'Lähetä toteutusvinkki',
@@ -139,6 +127,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
+    // TODO translate
     sendNewSuggestion(newSuggestion, activityId)
       .then((res) => {
         setModalOpen(false);
@@ -151,6 +140,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const validateReply = (suggestionId: number) => {
+    // TODO translate
     setCallback(() => () => postNewReply(suggestionId));
     setModalData({
       modalText: 'Haluatko lähettää uuden kommentin?',
@@ -167,6 +157,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewReply = (suggestionId: number) => {
+    // TODO translate
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         setModalOpen(false);
@@ -231,6 +222,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   return (
     <div className="mt-8">
+     {/* TODO translate */}
       <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
       {suggestions && (
         <Suggestions
@@ -240,6 +232,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
           onFieldChange={onReplyFieldChange}
           onTermsChange={onReplyTermsChange}
           termsChecked={replyTermsChecked}
+          ageGroupColor={data.age_group?.color}
         />
       )}
       <NewSuggestionForm
