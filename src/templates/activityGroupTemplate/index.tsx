@@ -13,7 +13,7 @@ import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { changeLanguage, prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
@@ -22,6 +22,7 @@ import useNavigation from '../../hooks/navigation';
 import { findHitUrl, HitModel } from '../../utils/search';
 import { ContentType } from '../../types/content';
 import { SuggestionWithUrl } from '../../components/suggestionCard';
+import { Locale } from '../../types/locale';
 
 export const query = graphql`
   query Query($id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
@@ -170,7 +171,6 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
 
   const { ageGroup, suggestions, otherGroups, activities } = data;
   const { t } = useTranslation();
-  changeLanguage(pageContext.data.locale as string);
 
   const subTitle = age_group?.title
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
@@ -183,7 +183,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
   }));
 
   return (
-    <Layout showBreadCrumbs>
+    <Layout showBreadCrumbs locale={pageContext.data.locale as Locale}>
       <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>

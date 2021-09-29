@@ -10,7 +10,7 @@ import { StrapiActivity, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
 import Metadata from '../../components/metadata';
 import { Locale } from '../../types/locale';
-import { changeLanguage, currentLocale } from '../../utils/helpers';
+import { currentLocale } from '../../utils/helpers';
 
 interface ActivityPageTemplateProps {
   data: StrapiActivity;
@@ -36,9 +36,8 @@ export const query = graphql`
 `;
 
 const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathData, ActivityPageTemplateProps>) => {
-  changeLanguage(pageContext.data.locale as Locale);
   return (
-    <Layout showBreadCrumbs>
+    <Layout showBreadCrumbs locale={pageContext.data.locale as Locale}>
       <Metadata
         title={pageContext.data.title || ''}
         description={pageContext.data.ingress || ''}

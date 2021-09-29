@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../layouts/default';
 import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
-import { changeLanguage, prependApiUrl, currentLocale } from '../../utils/helpers';
+import { prependApiUrl, currentLocale } from '../../utils/helpers';
 import RichText from '../../components/RichText';
 import { graphql, PageProps } from 'gatsby';
 import ContentPageNav from './contentPageNav';
@@ -44,11 +44,11 @@ const MainContent = ({ data }: MainContentProps) => (
 );
 
 const ContentPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathData, ContentPageTemplateProps>) => {
-  changeLanguage(pageContext.data.locale as Locale);
   const { strapiId } = pageContext.data;
   return (
     <Layout
       showBreadCrumbs
+      locale={pageContext.data.locale as Locale}
       pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
     >
       <MainContent data={pageContext.data} />

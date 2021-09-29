@@ -16623,3 +16623,10 @@ export type ContentPageQueryQuery = { localeData: { nodes: Array<(
       Pick<SitePage, 'path'>
       & { context?: Maybe<{ data?: Maybe<Pick<SitePageContextData, 'locale'>> }> }
     )> } };
+
+export type FrontPageQueryQueryVariables = Exact<{
+  locale: Scalars['String'];
+}>;
+
+
+export type FrontPageQueryQuery = { frontPage?: Maybe<Pick<StrapiFrontPage, 'content' | 'locale' | 'title' | 'ingress'>> };

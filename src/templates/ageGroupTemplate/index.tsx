@@ -5,12 +5,13 @@ import { graphql, PageProps } from 'gatsby';
 import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
-import { changeLanguage, prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
 import { currentLocale } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
+import { Locale } from '../../types/locale';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
@@ -79,14 +80,13 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
     upper_content_area,
     color,
   } = pageContext.data;
-  changeLanguage(pageContext.data.locale as string);
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
 
   const subTitle = `${minimum_age}-${maximum_age} ${t('aged')}`;
 
   return (
-    <Layout showBreadCrumbs={true}>
+    <Layout showBreadCrumbs={true} locale={pageContext.data.locale as Locale}>
       <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
