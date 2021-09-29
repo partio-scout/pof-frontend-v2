@@ -8,11 +8,15 @@ i18n
   .use(Backend)
   .init({
     lng: 'fi',
+    fallbackLng: 'fi',
     interpolation: {
       escapeValue: false,
     },
     backend: {
       loadPath: `${process.env.API_URL}/settings/translations/{{lng}}`
+    },
+    react: {
+      useSuspense: false,
     }
   })
 
