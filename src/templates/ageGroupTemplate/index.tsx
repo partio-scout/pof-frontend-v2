@@ -14,46 +14,14 @@ interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
 }
 
-export const query = graphql`
-  query ActivityGroupQuery($id: Int) {
-    activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
-      nodes {
-        fields {
-          path
-        }
-        logo {
-          url
-          formats {
-            thumbnail {
-              width
-              url
-              size
-              name
-              mime
-              height
-            }
-          }
-        }
-        activity_group_category {
-          name
-          id
-          sort_order
-        }
-        sort_order
-        title
-        strapiId
-      }
-    }
-  }
-`;
-
 interface QueryType {
+  ageGroup: StrapiAgeGroup;
   activityGroups: { nodes: StrapiActivityGroup[] };
 }
 
 const currentLocale = 'fi';
 
-const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
+const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
   const {
     title,
     ingress,
@@ -67,7 +35,7 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
     lower_content_area,
     upper_content_area,
     color,
-  } = pageContext.data;
+  } = data.ageGroup;
 
   const activityGroups = data.activityGroups.nodes;
 
@@ -115,3 +83,74 @@ const AgeGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, AgeG
 };
 
 export default AgeGroupTemplate;
+
+export const query = graphql`
+  query ActivityGroupQuery($id: Int) {
+    ageGroup: strapiAgeGroup(strapiId: { eq: $id }) {
+      locale
+      localizations {
+        locale
+        id
+      }
+      title
+      updated_at
+      created_at
+      published_at
+      id
+      strapiId
+      content
+      ingress
+      links {
+        description
+        id
+        url
+      }
+      logo {
+        ...ImageFragment
+      }
+      maximum_age
+      minimum_age
+      subactivitygroup_term {
+        locale
+        name
+        plural
+        singular
+      }
+      main_image {
+        ...ImageFragment
+      }
+      title
+      upper_content_area
+      lower_content_area
+      color
+    }
+    activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
+      nodes {
+        fields {
+          path
+        }
+        logo {
+          url
+          formats {
+            thumbnail {
+              width
+              url
+              size
+              name
+              mime
+              height
+            }
+          }
+        }
+        activity_group_category {
+          name
+          id
+          sort_order
+        }
+        sort_order
+        title
+        strapiId
+      }
+    }
+  }
+`;

@@ -5,7 +5,7 @@ import HeroTitleSection from '../../components/heroTitleSection';
 import { PaddedContainer } from '../../components/ui.general';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
-import { PageProps } from 'gatsby';
+import { PageProps, graphql } from 'gatsby';
 import { StrapiActivity, StrapiActivityGroup } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
 import Metadata from '../../components/metadata';
@@ -17,10 +17,13 @@ interface ActivityPageTemplateProps {
 
 const currentLocale = 'fi';
 
-const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityPageTemplateProps>) => {
-  const {
-    data: { activity, activityGroup },
-  } = pageContext;
+interface ActivityQueryType {
+  activity: StrapiActivity;
+  activityGroup: StrapiActivityGroup;
+}
+
+const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
+  const { activity, activityGroup } = data;
 
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
@@ -52,3 +55,129 @@ const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityP
 };
 
 export default ActivityPageTemplate;
+
+export const query = graphql`
+  query getActivity($id: Int!) {
+    activity: strapiActivity(strapiId: { eq: $id }) {
+      locale
+      localizations {
+        locale
+        id
+      }
+      title
+      updated_at
+      created_at
+      published_at
+      id
+      strapiId
+      content
+      duration {
+        locale
+        name
+        slug
+        id
+      }
+      educational_objectives {
+        id
+        locale
+        name
+        slug
+      }
+      files {
+        url
+        size
+        name
+        mime
+        id
+      }
+      group_sizes {
+        slug
+        name
+        locale
+        id
+      }
+      images {
+        ...ImageFragment
+      }
+      ingress
+      leader_skills {
+        id
+        locale
+        name
+        slug
+      }
+      leader_tasks
+      locations {
+        id
+        locale
+        icon {
+          url
+        }
+        name
+        slug
+      }
+      logo {
+        width
+        url
+        size
+        name
+        mime
+        id
+        height
+      }
+      mandatory
+      preparation_duration {
+        slug
+        name
+        locale
+        id
+      }
+      skill_areas {
+        slug
+        name
+        locale
+        id
+      }
+      suggestions {
+        author
+        content
+        from_web
+        id
+        like_count
+        locale
+        title
+        published_at
+        links {
+          url
+          id
+          description
+        }
+        files {
+          url
+          size
+          name
+          mime
+          id
+        }
+      }
+      age_group {
+        color
+        title
+      }
+    }
+    activityGroup: strapiActivityGroup(activities: { elemMatch: { id: { eq: $id } } }) {
+      title
+      logo {
+        url
+        formats {
+          thumbnail {
+            url
+          }
+        }
+      }
+      activity_group_category {
+        name
+      }
+    }
+  }
+`;
