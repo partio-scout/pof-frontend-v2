@@ -66,8 +66,6 @@ export type File = Node & {
   blksize?: Maybe<Scalars['Int']>;
   blocks?: Maybe<Scalars['Int']>;
   url?: Maybe<Scalars['String']>;
-  /** Copy file to static directory and return public url to it */
-  publicURL?: Maybe<Scalars['String']>;
   /** Returns all children nodes filtered by type ImageSharp */
   childrenImageSharp?: Maybe<Array<Maybe<ImageSharp>>>;
   /** Returns the first child node of type ImageSharp or null if there are no children of given type on this node */
@@ -4211,11 +4209,16 @@ export type StrapiActivityUpdated_AtArgs = {
 export type StrapiActivityActivity_Term = {
   id?: Maybe<Scalars['Int']>;
   name?: Maybe<Scalars['String']>;
-  singular?: Maybe<Scalars['String']>;
-  plural?: Maybe<Scalars['String']>;
+  slug?: Maybe<Scalars['String']>;
   locale?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['Date']>;
   updated_at?: Maybe<Scalars['Date']>;
+  icon?: Maybe<StrapiLocationIcon>;
+  activities?: Maybe<Array<Maybe<StrapiLocationActivities>>>;
+  localizations?: Maybe<Array<Maybe<StrapiLocationLocalizations>>>;
+  strapiId?: Maybe<Scalars['Int']>;
+  singular?: Maybe<Scalars['String']>;
+  plural?: Maybe<Scalars['String']>;
 };
 
 
@@ -5518,7 +5521,6 @@ export type QueryFileArgs = {
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
-  publicURL?: Maybe<StringQueryOperatorInput>;
   childrenImageSharp?: Maybe<ImageSharpFilterListInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -6264,7 +6266,6 @@ export type FileFieldsEnum =
   | 'blksize'
   | 'blocks'
   | 'url'
-  | 'publicURL'
   | 'childrenImageSharp'
   | 'childrenImageSharp___fixed___base64'
   | 'childrenImageSharp___fixed___tracedSVG'
@@ -6569,7 +6570,6 @@ export type FileFilterInput = {
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
   url?: Maybe<StringQueryOperatorInput>;
-  publicURL?: Maybe<StringQueryOperatorInput>;
   childrenImageSharp?: Maybe<ImageSharpFilterListInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -9198,7 +9198,6 @@ export type StrapiAgeGroupFieldsEnum =
   | 'main_image___localFile___blksize'
   | 'main_image___localFile___blocks'
   | 'main_image___localFile___url'
-  | 'main_image___localFile___publicURL'
   | 'main_image___localFile___childrenImageSharp'
   | 'main_image___localFile___childrenImageSharp___gatsbyImageData'
   | 'main_image___localFile___childrenImageSharp___id'
@@ -9298,7 +9297,6 @@ export type StrapiAgeGroupFieldsEnum =
   | 'logo___localFile___blksize'
   | 'logo___localFile___blocks'
   | 'logo___localFile___url'
-  | 'logo___localFile___publicURL'
   | 'logo___localFile___childrenImageSharp'
   | 'logo___localFile___childrenImageSharp___gatsbyImageData'
   | 'logo___localFile___childrenImageSharp___id'
@@ -9403,7 +9401,6 @@ export type StrapiAgeGroupFieldsEnum =
   | 'activity_groups___main_image___localFile___blksize'
   | 'activity_groups___main_image___localFile___blocks'
   | 'activity_groups___main_image___localFile___url'
-  | 'activity_groups___main_image___localFile___publicURL'
   | 'activity_groups___main_image___localFile___childrenImageSharp'
   | 'activity_groups___main_image___localFile___id'
   | 'activity_groups___main_image___localFile___children'
@@ -9453,7 +9450,6 @@ export type StrapiAgeGroupFieldsEnum =
   | 'activity_groups___logo___localFile___blksize'
   | 'activity_groups___logo___localFile___blocks'
   | 'activity_groups___logo___localFile___url'
-  | 'activity_groups___logo___localFile___publicURL'
   | 'activity_groups___logo___localFile___childrenImageSharp'
   | 'activity_groups___logo___localFile___id'
   | 'activity_groups___logo___localFile___children'
@@ -10376,7 +10372,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'age_group___main_image___localFile___blksize'
   | 'age_group___main_image___localFile___blocks'
   | 'age_group___main_image___localFile___url'
-  | 'age_group___main_image___localFile___publicURL'
   | 'age_group___main_image___localFile___childrenImageSharp'
   | 'age_group___main_image___localFile___id'
   | 'age_group___main_image___localFile___children'
@@ -10426,7 +10421,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'age_group___logo___localFile___blksize'
   | 'age_group___logo___localFile___blocks'
   | 'age_group___logo___localFile___url'
-  | 'age_group___logo___localFile___publicURL'
   | 'age_group___logo___localFile___childrenImageSharp'
   | 'age_group___logo___localFile___id'
   | 'age_group___logo___localFile___children'
@@ -10526,7 +10520,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'main_image___localFile___blksize'
   | 'main_image___localFile___blocks'
   | 'main_image___localFile___url'
-  | 'main_image___localFile___publicURL'
   | 'main_image___localFile___childrenImageSharp'
   | 'main_image___localFile___childrenImageSharp___gatsbyImageData'
   | 'main_image___localFile___childrenImageSharp___id'
@@ -10628,7 +10621,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'logo___localFile___blksize'
   | 'logo___localFile___blocks'
   | 'logo___localFile___url'
-  | 'logo___localFile___publicURL'
   | 'logo___localFile___childrenImageSharp'
   | 'logo___localFile___childrenImageSharp___gatsbyImageData'
   | 'logo___localFile___childrenImageSharp___id'
@@ -10695,7 +10687,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'files___localFile___blksize'
   | 'files___localFile___blocks'
   | 'files___localFile___url'
-  | 'files___localFile___publicURL'
   | 'files___localFile___childrenImageSharp'
   | 'files___localFile___childrenImageSharp___gatsbyImageData'
   | 'files___localFile___childrenImageSharp___id'
@@ -10784,7 +10775,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'activities___logo___localFile___blksize'
   | 'activities___logo___localFile___blocks'
   | 'activities___logo___localFile___url'
-  | 'activities___logo___localFile___publicURL'
   | 'activities___logo___localFile___childrenImageSharp'
   | 'activities___logo___localFile___id'
   | 'activities___logo___localFile___children'
@@ -10833,7 +10823,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'activities___files___localFile___blksize'
   | 'activities___files___localFile___blocks'
   | 'activities___files___localFile___url'
-  | 'activities___files___localFile___publicURL'
   | 'activities___files___localFile___childrenImageSharp'
   | 'activities___files___localFile___id'
   | 'activities___files___localFile___children'
@@ -10884,7 +10873,6 @@ export type StrapiActivityGroupFieldsEnum =
   | 'activities___images___localFile___blksize'
   | 'activities___images___localFile___blocks'
   | 'activities___images___localFile___url'
-  | 'activities___images___localFile___publicURL'
   | 'activities___images___localFile___childrenImageSharp'
   | 'activities___images___localFile___id'
   | 'activities___images___localFile___children'
@@ -11278,7 +11266,6 @@ export type StrapiContentPageFieldsEnum =
   | 'main_image___localFile___blksize'
   | 'main_image___localFile___blocks'
   | 'main_image___localFile___url'
-  | 'main_image___localFile___publicURL'
   | 'main_image___localFile___childrenImageSharp'
   | 'main_image___localFile___childrenImageSharp___gatsbyImageData'
   | 'main_image___localFile___childrenImageSharp___id'
@@ -12477,7 +12464,6 @@ export type StrapiSuggestionFieldsEnum =
   | 'activity___logo___localFile___blksize'
   | 'activity___logo___localFile___blocks'
   | 'activity___logo___localFile___url'
-  | 'activity___logo___localFile___publicURL'
   | 'activity___logo___localFile___childrenImageSharp'
   | 'activity___logo___localFile___id'
   | 'activity___logo___localFile___children'
@@ -12528,7 +12514,6 @@ export type StrapiSuggestionFieldsEnum =
   | 'activity___images___localFile___blksize'
   | 'activity___images___localFile___blocks'
   | 'activity___images___localFile___url'
-  | 'activity___images___localFile___publicURL'
   | 'activity___images___localFile___childrenImageSharp'
   | 'activity___images___localFile___id'
   | 'activity___images___localFile___children'
@@ -12630,7 +12615,6 @@ export type StrapiSuggestionFieldsEnum =
   | 'files___localFile___blksize'
   | 'files___localFile___blocks'
   | 'files___localFile___url'
-  | 'files___localFile___publicURL'
   | 'files___localFile___childrenImageSharp'
   | 'files___localFile___childrenImageSharp___gatsbyImageData'
   | 'files___localFile___childrenImageSharp___id'
@@ -12715,7 +12699,6 @@ export type StrapiSuggestionFieldsEnum =
   | 'locations___icon___localFile___blksize'
   | 'locations___icon___localFile___blocks'
   | 'locations___icon___localFile___url'
-  | 'locations___icon___localFile___publicURL'
   | 'locations___icon___localFile___childrenImageSharp'
   | 'locations___icon___localFile___id'
   | 'locations___icon___localFile___children'
@@ -13163,7 +13146,6 @@ export type StrapiLocationFieldsEnum =
   | 'icon___localFile___blksize'
   | 'icon___localFile___blocks'
   | 'icon___localFile___url'
-  | 'icon___localFile___publicURL'
   | 'icon___localFile___childrenImageSharp'
   | 'icon___localFile___childrenImageSharp___gatsbyImageData'
   | 'icon___localFile___childrenImageSharp___id'
@@ -13252,7 +13234,6 @@ export type StrapiLocationFieldsEnum =
   | 'activities___logo___localFile___blksize'
   | 'activities___logo___localFile___blocks'
   | 'activities___logo___localFile___url'
-  | 'activities___logo___localFile___publicURL'
   | 'activities___logo___localFile___childrenImageSharp'
   | 'activities___logo___localFile___id'
   | 'activities___logo___localFile___children'
@@ -13301,7 +13282,6 @@ export type StrapiLocationFieldsEnum =
   | 'activities___files___localFile___blksize'
   | 'activities___files___localFile___blocks'
   | 'activities___files___localFile___url'
-  | 'activities___files___localFile___publicURL'
   | 'activities___files___localFile___childrenImageSharp'
   | 'activities___files___localFile___id'
   | 'activities___files___localFile___children'
@@ -13352,7 +13332,6 @@ export type StrapiLocationFieldsEnum =
   | 'activities___images___localFile___blksize'
   | 'activities___images___localFile___blocks'
   | 'activities___images___localFile___url'
-  | 'activities___images___localFile___publicURL'
   | 'activities___images___localFile___childrenImageSharp'
   | 'activities___images___localFile___id'
   | 'activities___images___localFile___children'
@@ -13954,7 +13933,6 @@ export type StrapiDurationFieldsEnum =
   | 'activities___logo___localFile___blksize'
   | 'activities___logo___localFile___blocks'
   | 'activities___logo___localFile___url'
-  | 'activities___logo___localFile___publicURL'
   | 'activities___logo___localFile___childrenImageSharp'
   | 'activities___logo___localFile___id'
   | 'activities___logo___localFile___children'
@@ -14003,7 +13981,6 @@ export type StrapiDurationFieldsEnum =
   | 'activities___files___localFile___blksize'
   | 'activities___files___localFile___blocks'
   | 'activities___files___localFile___url'
-  | 'activities___files___localFile___publicURL'
   | 'activities___files___localFile___childrenImageSharp'
   | 'activities___files___localFile___id'
   | 'activities___files___localFile___children'
@@ -14054,7 +14031,6 @@ export type StrapiDurationFieldsEnum =
   | 'activities___images___localFile___blksize'
   | 'activities___images___localFile___blocks'
   | 'activities___images___localFile___url'
-  | 'activities___images___localFile___publicURL'
   | 'activities___images___localFile___childrenImageSharp'
   | 'activities___images___localFile___id'
   | 'activities___images___localFile___children'
@@ -14125,7 +14101,6 @@ export type StrapiDurationFieldsEnum =
   | 'preparation_activities___logo___localFile___blksize'
   | 'preparation_activities___logo___localFile___blocks'
   | 'preparation_activities___logo___localFile___url'
-  | 'preparation_activities___logo___localFile___publicURL'
   | 'preparation_activities___logo___localFile___childrenImageSharp'
   | 'preparation_activities___logo___localFile___id'
   | 'preparation_activities___logo___localFile___children'
@@ -14174,7 +14149,6 @@ export type StrapiDurationFieldsEnum =
   | 'preparation_activities___files___localFile___blksize'
   | 'preparation_activities___files___localFile___blocks'
   | 'preparation_activities___files___localFile___url'
-  | 'preparation_activities___files___localFile___publicURL'
   | 'preparation_activities___files___localFile___childrenImageSharp'
   | 'preparation_activities___files___localFile___id'
   | 'preparation_activities___files___localFile___children'
@@ -14225,7 +14199,6 @@ export type StrapiDurationFieldsEnum =
   | 'preparation_activities___images___localFile___blksize'
   | 'preparation_activities___images___localFile___blocks'
   | 'preparation_activities___images___localFile___url'
-  | 'preparation_activities___images___localFile___publicURL'
   | 'preparation_activities___images___localFile___childrenImageSharp'
   | 'preparation_activities___images___localFile___id'
   | 'preparation_activities___images___localFile___children'
@@ -14385,11 +14358,16 @@ export type StrapiDurationSortInput = {
 export type StrapiActivityActivity_TermFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
-  singular?: Maybe<StringQueryOperatorInput>;
-  plural?: Maybe<StringQueryOperatorInput>;
+  slug?: Maybe<StringQueryOperatorInput>;
   locale?: Maybe<StringQueryOperatorInput>;
   created_at?: Maybe<DateQueryOperatorInput>;
   updated_at?: Maybe<DateQueryOperatorInput>;
+  icon?: Maybe<StrapiLocationIconFilterInput>;
+  activities?: Maybe<StrapiLocationActivitiesFilterListInput>;
+  localizations?: Maybe<StrapiLocationLocalizationsFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  singular?: Maybe<StringQueryOperatorInput>;
+  plural?: Maybe<StringQueryOperatorInput>;
 };
 
 export type StrapiActivityDurationFilterInput = {
@@ -15239,11 +15217,124 @@ export type StrapiActivityFieldsEnum =
   | 'leader_tasks'
   | 'activity_term___id'
   | 'activity_term___name'
-  | 'activity_term___singular'
-  | 'activity_term___plural'
+  | 'activity_term___slug'
   | 'activity_term___locale'
   | 'activity_term___created_at'
   | 'activity_term___updated_at'
+  | 'activity_term___icon___id'
+  | 'activity_term___icon___name'
+  | 'activity_term___icon___alternativeText'
+  | 'activity_term___icon___caption'
+  | 'activity_term___icon___width'
+  | 'activity_term___icon___height'
+  | 'activity_term___icon___hash'
+  | 'activity_term___icon___ext'
+  | 'activity_term___icon___mime'
+  | 'activity_term___icon___size'
+  | 'activity_term___icon___url'
+  | 'activity_term___icon___provider'
+  | 'activity_term___icon___created_at'
+  | 'activity_term___icon___updated_at'
+  | 'activity_term___icon___localFile___sourceInstanceName'
+  | 'activity_term___icon___localFile___absolutePath'
+  | 'activity_term___icon___localFile___relativePath'
+  | 'activity_term___icon___localFile___extension'
+  | 'activity_term___icon___localFile___size'
+  | 'activity_term___icon___localFile___prettySize'
+  | 'activity_term___icon___localFile___modifiedTime'
+  | 'activity_term___icon___localFile___accessTime'
+  | 'activity_term___icon___localFile___changeTime'
+  | 'activity_term___icon___localFile___birthTime'
+  | 'activity_term___icon___localFile___root'
+  | 'activity_term___icon___localFile___dir'
+  | 'activity_term___icon___localFile___base'
+  | 'activity_term___icon___localFile___ext'
+  | 'activity_term___icon___localFile___name'
+  | 'activity_term___icon___localFile___relativeDirectory'
+  | 'activity_term___icon___localFile___dev'
+  | 'activity_term___icon___localFile___mode'
+  | 'activity_term___icon___localFile___nlink'
+  | 'activity_term___icon___localFile___uid'
+  | 'activity_term___icon___localFile___gid'
+  | 'activity_term___icon___localFile___rdev'
+  | 'activity_term___icon___localFile___ino'
+  | 'activity_term___icon___localFile___atimeMs'
+  | 'activity_term___icon___localFile___mtimeMs'
+  | 'activity_term___icon___localFile___ctimeMs'
+  | 'activity_term___icon___localFile___atime'
+  | 'activity_term___icon___localFile___mtime'
+  | 'activity_term___icon___localFile___ctime'
+  | 'activity_term___icon___localFile___birthtime'
+  | 'activity_term___icon___localFile___birthtimeMs'
+  | 'activity_term___icon___localFile___blksize'
+  | 'activity_term___icon___localFile___blocks'
+  | 'activity_term___icon___localFile___url'
+  | 'activity_term___icon___localFile___childrenImageSharp'
+  | 'activity_term___icon___localFile___id'
+  | 'activity_term___icon___localFile___children'
+  | 'activity_term___activities'
+  | 'activity_term___activities___id'
+  | 'activity_term___activities___title'
+  | 'activity_term___activities___content'
+  | 'activity_term___activities___mandatory'
+  | 'activity_term___activities___ingress'
+  | 'activity_term___activities___wp_guid'
+  | 'activity_term___activities___leader_tasks'
+  | 'activity_term___activities___activity_term'
+  | 'activity_term___activities___duration'
+  | 'activity_term___activities___locale'
+  | 'activity_term___activities___published_at'
+  | 'activity_term___activities___created_at'
+  | 'activity_term___activities___updated_at'
+  | 'activity_term___activities___activity_group'
+  | 'activity_term___activities___age_group'
+  | 'activity_term___activities___preparation_duration'
+  | 'activity_term___activities___links'
+  | 'activity_term___activities___links___id'
+  | 'activity_term___activities___links___description'
+  | 'activity_term___activities___links___url'
+  | 'activity_term___activities___logo___id'
+  | 'activity_term___activities___logo___name'
+  | 'activity_term___activities___logo___width'
+  | 'activity_term___activities___logo___height'
+  | 'activity_term___activities___logo___hash'
+  | 'activity_term___activities___logo___ext'
+  | 'activity_term___activities___logo___mime'
+  | 'activity_term___activities___logo___size'
+  | 'activity_term___activities___logo___url'
+  | 'activity_term___activities___logo___provider'
+  | 'activity_term___activities___logo___created_at'
+  | 'activity_term___activities___logo___updated_at'
+  | 'activity_term___activities___files'
+  | 'activity_term___activities___files___id'
+  | 'activity_term___activities___files___name'
+  | 'activity_term___activities___files___hash'
+  | 'activity_term___activities___files___ext'
+  | 'activity_term___activities___files___mime'
+  | 'activity_term___activities___files___size'
+  | 'activity_term___activities___files___url'
+  | 'activity_term___activities___files___provider'
+  | 'activity_term___activities___files___created_at'
+  | 'activity_term___activities___files___updated_at'
+  | 'activity_term___activities___images'
+  | 'activity_term___activities___images___id'
+  | 'activity_term___activities___images___name'
+  | 'activity_term___activities___images___width'
+  | 'activity_term___activities___images___height'
+  | 'activity_term___activities___images___hash'
+  | 'activity_term___activities___images___ext'
+  | 'activity_term___activities___images___mime'
+  | 'activity_term___activities___images___size'
+  | 'activity_term___activities___images___url'
+  | 'activity_term___activities___images___provider'
+  | 'activity_term___activities___images___created_at'
+  | 'activity_term___activities___images___updated_at'
+  | 'activity_term___localizations'
+  | 'activity_term___localizations___id'
+  | 'activity_term___localizations___locale'
+  | 'activity_term___strapiId'
+  | 'activity_term___singular'
+  | 'activity_term___plural'
   | 'duration___id'
   | 'duration___name'
   | 'duration___slug'
@@ -15336,7 +15427,6 @@ export type StrapiActivityFieldsEnum =
   | 'activity_group___main_image___localFile___blksize'
   | 'activity_group___main_image___localFile___blocks'
   | 'activity_group___main_image___localFile___url'
-  | 'activity_group___main_image___localFile___publicURL'
   | 'activity_group___main_image___localFile___childrenImageSharp'
   | 'activity_group___main_image___localFile___id'
   | 'activity_group___main_image___localFile___children'
@@ -15386,7 +15476,6 @@ export type StrapiActivityFieldsEnum =
   | 'activity_group___logo___localFile___blksize'
   | 'activity_group___logo___localFile___blocks'
   | 'activity_group___logo___localFile___url'
-  | 'activity_group___logo___localFile___publicURL'
   | 'activity_group___logo___localFile___childrenImageSharp'
   | 'activity_group___logo___localFile___id'
   | 'activity_group___logo___localFile___children'
@@ -15435,7 +15524,6 @@ export type StrapiActivityFieldsEnum =
   | 'activity_group___files___localFile___blksize'
   | 'activity_group___files___localFile___blocks'
   | 'activity_group___files___localFile___url'
-  | 'activity_group___files___localFile___publicURL'
   | 'activity_group___files___localFile___childrenImageSharp'
   | 'activity_group___files___localFile___id'
   | 'activity_group___files___localFile___children'
@@ -15524,7 +15612,6 @@ export type StrapiActivityFieldsEnum =
   | 'age_group___main_image___localFile___blksize'
   | 'age_group___main_image___localFile___blocks'
   | 'age_group___main_image___localFile___url'
-  | 'age_group___main_image___localFile___publicURL'
   | 'age_group___main_image___localFile___childrenImageSharp'
   | 'age_group___main_image___localFile___id'
   | 'age_group___main_image___localFile___children'
@@ -15574,7 +15661,6 @@ export type StrapiActivityFieldsEnum =
   | 'age_group___logo___localFile___blksize'
   | 'age_group___logo___localFile___blocks'
   | 'age_group___logo___localFile___url'
-  | 'age_group___logo___localFile___publicURL'
   | 'age_group___logo___localFile___childrenImageSharp'
   | 'age_group___logo___localFile___id'
   | 'age_group___logo___localFile___children'
@@ -15642,7 +15728,6 @@ export type StrapiActivityFieldsEnum =
   | 'logo___localFile___blksize'
   | 'logo___localFile___blocks'
   | 'logo___localFile___url'
-  | 'logo___localFile___publicURL'
   | 'logo___localFile___childrenImageSharp'
   | 'logo___localFile___childrenImageSharp___gatsbyImageData'
   | 'logo___localFile___childrenImageSharp___id'
@@ -15709,7 +15794,6 @@ export type StrapiActivityFieldsEnum =
   | 'files___localFile___blksize'
   | 'files___localFile___blocks'
   | 'files___localFile___url'
-  | 'files___localFile___publicURL'
   | 'files___localFile___childrenImageSharp'
   | 'files___localFile___childrenImageSharp___gatsbyImageData'
   | 'files___localFile___childrenImageSharp___id'
@@ -15810,7 +15894,6 @@ export type StrapiActivityFieldsEnum =
   | 'images___localFile___blksize'
   | 'images___localFile___blocks'
   | 'images___localFile___url'
-  | 'images___localFile___publicURL'
   | 'images___localFile___childrenImageSharp'
   | 'images___localFile___childrenImageSharp___gatsbyImageData'
   | 'images___localFile___childrenImageSharp___id'
@@ -15885,7 +15968,6 @@ export type StrapiActivityFieldsEnum =
   | 'group_sizes___icon___localFile___blksize'
   | 'group_sizes___icon___localFile___blocks'
   | 'group_sizes___icon___localFile___url'
-  | 'group_sizes___icon___localFile___publicURL'
   | 'group_sizes___icon___localFile___childrenImageSharp'
   | 'group_sizes___icon___localFile___id'
   | 'group_sizes___icon___localFile___children'
@@ -15976,7 +16058,6 @@ export type StrapiActivityFieldsEnum =
   | 'suggestions___files___localFile___blksize'
   | 'suggestions___files___localFile___blocks'
   | 'suggestions___files___localFile___url'
-  | 'suggestions___files___localFile___publicURL'
   | 'suggestions___files___localFile___childrenImageSharp'
   | 'suggestions___files___localFile___id'
   | 'suggestions___files___localFile___children'
@@ -16035,7 +16116,6 @@ export type StrapiActivityFieldsEnum =
   | 'locations___icon___localFile___blksize'
   | 'locations___icon___localFile___blocks'
   | 'locations___icon___localFile___url'
-  | 'locations___icon___localFile___publicURL'
   | 'locations___icon___localFile___childrenImageSharp'
   | 'locations___icon___localFile___id'
   | 'locations___icon___localFile___children'
@@ -16845,12 +16925,26 @@ export type Unnamed_1_Query = { allStrapiAgeGroup: { nodes: Array<(
 export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_2_Query = { allActivityLogo: { nodes: Array<Pick<Activity_Logo, 'logo' | 'id'>> } };
+export type Unnamed_2_Query = { allStrapiFrontPage: { nodes: Array<(
+      Pick<StrapiFrontPage, 'locale'>
+      & { footer_sections?: Maybe<Array<Maybe<(
+        Pick<StrapiFrontPageFooter_Sections, 'id' | 'title'>
+        & { link_groups?: Maybe<Array<Maybe<(
+          Pick<StrapiFrontPageFooter_SectionsLink_Groups, 'id'>
+          & { links?: Maybe<Array<Maybe<Pick<StrapiFrontPageFooter_SectionsLink_GroupsLinks, 'id' | 'url' | 'phone_number' | 'email' | 'description' | 'title'>>>>, some_links?: Maybe<Pick<StrapiFrontPageFooter_SectionsLink_GroupsSome_Links, 'id' | 'facebook_url' | 'instagram_url' | 'twitter_url' | 'youtube_url'>> }
+        )>>> }
+      )>>> }
+    )> } };
 
 export type Unnamed_3_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_3_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
+export type Unnamed_3_Query = { allActivityLogo: { nodes: Array<Pick<Activity_Logo, 'logo' | 'id'>> } };
+
+export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_4_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>> } };
 
 export type NavigationsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -16875,10 +16969,10 @@ export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
       )>>> }
     )> } };
 
-export type Unnamed_4_QueryVariables = Exact<{ [key: string]: never; }>;
+export type Unnamed_5_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_4_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'content' | 'locale'>> } };
+export type Unnamed_5_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFrontPage, 'content' | 'locale' | 'title' | 'ingress'>> } };
 
 export type QueryQueryVariables = Exact<{
   id?: Maybe<Scalars['Int']>;
@@ -16909,10 +17003,10 @@ export type QueryQuery = { ageGroup?: Maybe<(
       )>>> }
     )> } };
 
-export type Unnamed_5_QueryVariables = Exact<{ [key: string]: never; }>;
+export type Unnamed_6_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_5_Query = { allStrapiDuration: { nodes: Array<Pick<StrapiDuration, 'name' | 'id' | 'strapiId' | 'locale'>> }, allStrapiLocation: { nodes: Array<Pick<StrapiLocation, 'name' | 'id' | 'strapiId' | 'locale'>> } };
+export type Unnamed_6_Query = { allStrapiDuration: { nodes: Array<Pick<StrapiDuration, 'name' | 'id' | 'strapiId' | 'locale'>> }, allStrapiLocation: { nodes: Array<Pick<StrapiLocation, 'name' | 'id' | 'strapiId' | 'locale'>> } };
 
 export type ActivityGroupQueryQueryVariables = Exact<{
   id?: Maybe<Scalars['Int']>;

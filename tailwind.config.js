@@ -40,6 +40,7 @@ module.exports = {
         },
         gray: {
           dark: '#6A6A6A',
+          semiDark: '#D1D1D1',
           DEFAULT: '#EAEAEA',
           light: '#F7F7F7',
         },

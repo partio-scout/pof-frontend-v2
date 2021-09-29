@@ -12,6 +12,8 @@ export const query = graphql`
       nodes {
         content
         locale
+        title
+        ingress
       }
     }
   }
@@ -27,7 +29,7 @@ const IndexPage = ({ data }: PageProps<{ allStrapiFrontPage: { nodes: StrapiFron
   return (
     <Layout>
       <PaddedContainer>
-        <Hero />
+        <Hero data={correctFrontPage} />
         <BlockArea blocks={correctFrontPage?.content} />
       </PaddedContainer>
     </Layout>
