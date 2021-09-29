@@ -14,18 +14,8 @@ const config: GatsbyConfig = {
     PRESERVE_WEBPACK_CACHE: true,
   },
   plugins: [
-    // 'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
-    // 'gatsby-plugin-sharp',
-    // 'gatsby-transformer-sharp',
     'gatsby-plugin-postcss',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/images/',
-      },
-    },
     {
       resolve: 'gatsby-source-strapi',
       options: {
