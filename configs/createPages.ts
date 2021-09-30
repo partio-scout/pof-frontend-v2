@@ -89,7 +89,7 @@ async function handleActivity(
     component: path.resolve(`src/templates/activityTemplate/index.tsx`),
     context: {
       type: 'activity',
-      localizations: activity.localizations?.map((x) => x?.id),
+      localizations: activity.localizations?.map((x) => x?.id) || [],
       locale: activity.locale,
       id: activity.id,
     },
@@ -148,7 +148,7 @@ async function handleActivityGroup(
     component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
     context: {
       type: 'activityGroup',
-      localizations: activityGroupData!.localizations?.map((x) => x?.id),
+      localizations: activityGroupData!.localizations?.map((x) => x?.id) || [],
       locale: activityGroupData?.locale,
       id: activityGroup!.id,
       ageGroupId: activityGroup.age_group,
@@ -188,7 +188,7 @@ async function handleAgeGroup(
     component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
     context: {
       type: 'ageGroup',
-      localizations: ageGroup.localizations?.map((x) => x?.id),
+      localizations: ageGroup.localizations?.map((x) => x?.id) || [],
       locale: ageGroup.locale,
       id: ageGroup.strapiId,
     },
@@ -355,7 +355,7 @@ async function createContentPage(
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
       type: 'contentPage',
-      localizations: pageDataResponse.data?.strapiContentPage.localizations?.map((x) => x?.id),
+      localizations: pageDataResponse.data?.strapiContentPage.localizations?.map((x) => x?.id) || [],
       locale: pageDataResponse.data?.strapiContentPage.locale,
       id: pageDataResponse?.data?.strapiContentPage.strapiId,
     },
