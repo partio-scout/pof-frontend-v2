@@ -6,6 +6,7 @@ import { StrapiActivity, StrapiDuration, StrapiLocation, StrapiSuggestion } from
 import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
+import { currentLocale } from '../../../utils/helpers';
 
 interface SuggestionsSectionProps {
   activityId: number;
@@ -72,9 +73,6 @@ const query = graphql`
     }
   }
 `;
-
-// TODO fix
-const currentLocale = 'fi';
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
@@ -244,8 +242,8 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       )}
       <NewSuggestionForm
         onSubmit={validateSuggestion}
-        durations={queryResult.allStrapiDuration.nodes.filter((d) => d.locale === currentLocale)}
-        locations={queryResult.allStrapiLocation.nodes.filter((l) => l.locale === currentLocale)}
+        durations={queryResult.allStrapiDuration.nodes.filter((d) => d.locale === currentLocale())}
+        locations={queryResult.allStrapiLocation.nodes.filter((l) => l.locale === currentLocale())}
         selectedFile={selectedFile}
         onFileChange={onFileChange}
         onFieldChange={onSuggestionFieldChange}

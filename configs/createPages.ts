@@ -103,6 +103,7 @@ async function handleActivity(
     context: {
       data: activityData,
       type: 'activity',
+      localizations: activityData.localizations?.map((x) => x?.id),
       id: activityData.strapiId,
       activityGroupId: activityData.activity_group?.id,
     },
@@ -153,6 +154,7 @@ async function handleActivityGroup(
     context: {
       data: activityGroupData,
       type: 'activityGroup',
+      localizations: activityGroupData.localizations?.map((x) => x?.id),
       id: activityGroupData.strapiId,
       ageGroupId: activityGroupData.age_group?.id,
     },
@@ -188,6 +190,7 @@ async function handleAgeGroup(
     context: {
       data: ageGroup,
       type: 'ageGroup',
+      localizations: ageGroup.localizations?.map((x) => x?.id),
       id: ageGroup.strapiId,
     },
   });
@@ -228,8 +231,20 @@ async function handleContentPages(
 
   // First fetch all FrontPages (all language versions)
   const frontPageResponse = await graphqlWithErrors<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(graphql, getAllFrontPages);
+  frontPageResponse.data?.allStrapiFrontPage.nodes.forEach((frontPage) => {
+    const locale = frontPage.locale;
+    createPage({
+      path: locale === 'fi' ? '/' : `/${locale}/`,
+      component: path.resolve(`src/templates/frontPageTemplate/index.tsx`),
+      context: {
+        locale,
+      }
+
+    })
+  })
 
   const frontPages = frontPageResponse.data?.allStrapiFrontPage.nodes || [];
+
 
   if (!frontPages.length) return results;
 
@@ -243,6 +258,7 @@ async function handleContentPages(
   const subResults = await Promise.all(localizationPromises);
   return mergePageCreationResults(results, ...subResults);
 }
+
 
 async function createNavigationLevel(
   graphql: CreatePagesArgs['graphql'],
@@ -317,11 +333,13 @@ async function fetchAndCreateContentPage(
   const pageDataResponse = await graphqlWithErrors<{ strapiContentPage: StrapiContentPage }>(graphql, getContentPage, {
     id,
   });
-
+  console.log(pagePath)
   createPage({
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
+      type: 'contentPage',
+      localizations: pageDataResponse.data?.strapiContentPage.localizations?.map((x) => x?.id),
       data: pageDataResponse.data?.strapiContentPage,
     },
   });

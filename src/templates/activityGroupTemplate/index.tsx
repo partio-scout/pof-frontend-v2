@@ -1,6 +1,12 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
-import { StrapiActivity, StrapiActivityGroup, StrapiAgeGroup, StrapiSuggestion } from '../../../graphql-types';
+import {
+  StrapiActivity,
+  StrapiActivityGroup,
+  StrapiAgeGroup,
+  StrapiSuggestion,
+  SitePage,
+} from '../../../graphql-types';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';
@@ -10,13 +16,26 @@ import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
+import { useTranslation } from 'react-i18next';
+import { currentLocale } from '../../utils/helpers';
 import useNavigation from '../../hooks/navigation';
 import { findHitUrl, HitModel } from '../../utils/search';
 import { ContentType } from '../../types/content';
 import { SuggestionWithUrl } from '../../components/suggestionCard';
+import { Locale } from '../../types/locale';
 
 export const query = graphql`
-  query Query($id: Int, $ageGroupId: Int) {
+  query Query($id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { data: { strapiId: { in: $localizations } }, type: { eq: $type } } }) {
+      nodes {
+        path
+        context {
+          data {
+            locale
+          }
+        }
+      }
+    }
     ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
       strapiId
       title
@@ -128,9 +147,8 @@ interface QueryType {
   otherGroups: { nodes: StrapiActivityGroup[] };
   suggestions: { nodes: StrapiSuggestion[] };
   activities: { nodes: StrapiActivity[] };
+  localeData: { nodes: SitePage[] };
 }
-
-const currentLocale = 'fi';
 
 const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
   const {
@@ -149,10 +167,10 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
     optional_activities_description,
   } = pageContext.data;
 
-  // TODO correct locale
-  const navigation = useNavigation('fi');
+  const navigation = useNavigation(currentLocale());
 
   const { ageGroup, suggestions, otherGroups, activities } = data;
+  const { t } = useTranslation();
 
   const subTitle = age_group?.title
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
@@ -165,8 +183,8 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
   }));
 
   return (
-    <Layout showBreadCrumbs>
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
+    <Layout showBreadCrumbs locale={pageContext.data.locale as Locale}>
+      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="relative overflow-hidden h-86 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
         <img
@@ -203,7 +221,7 @@ const activityGroupTemplate = ({ pageContext, path, data }: PageProps<QueryType,
           optionalTitle={optional_activities_title}
           optionalDescription={optional_activities_description}
         />
-        <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
+        <h2 className="uppercase">{t('newest-implementation-suggestions')}</h2>
         <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />

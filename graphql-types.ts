@@ -16553,10 +16553,15 @@ export type Unnamed_5_Query = { allStrapiFrontPage: { nodes: Array<Pick<StrapiFr
 export type QueryQueryVariables = Exact<{
   id?: Maybe<Scalars['Int']>;
   ageGroupId?: Maybe<Scalars['Int']>;
+  localizations?: Maybe<Array<Maybe<Scalars['Int']>> | Maybe<Scalars['Int']>>;
+  type?: Maybe<Scalars['String']>;
 }>;
 
 
-export type QueryQuery = { ageGroup?: Maybe<(
+export type QueryQuery = { localeData: { nodes: Array<(
+      Pick<SitePage, 'path'>
+      & { context?: Maybe<{ data?: Maybe<Pick<SitePageContextData, 'locale'>> }> }
+    )> }, ageGroup?: Maybe<(
     Pick<StrapiAgeGroup, 'strapiId' | 'title' | 'color'>
     & { main_image?: Maybe<Pick<StrapiAgeGroupMain_Image, 'url'>> }
   )>, otherGroups: { nodes: Array<(
@@ -16579,20 +16584,54 @@ export type QueryQuery = { ageGroup?: Maybe<(
       )>>> }
     )> } };
 
-export type Unnamed_6_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_6_Query = { allStrapiDuration: { nodes: Array<Pick<StrapiDuration, 'name' | 'id' | 'strapiId' | 'locale'>> }, allStrapiLocation: { nodes: Array<Pick<StrapiLocation, 'name' | 'id' | 'strapiId' | 'locale'>> } };
-
-export type ActivityGroupQueryQueryVariables = Exact<{
-  id?: Maybe<Scalars['Int']>;
+export type MyQueryQueryVariables = Exact<{
+  localizations?: Maybe<Array<Maybe<Scalars['Int']>> | Maybe<Scalars['Int']>>;
+  type?: Maybe<Scalars['String']>;
 }>;
 
 
-export type ActivityGroupQueryQuery = { activityGroups: { nodes: Array<(
+export type MyQueryQuery = { localeData: { nodes: Array<(
+      Pick<SitePage, 'path'>
+      & { context?: Maybe<{ data?: Maybe<Pick<SitePageContextData, 'locale'>> }> }
+    )> } };
+
+export type Unnamed_5_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_5_Query = { allStrapiDuration: { nodes: Array<Pick<StrapiDuration, 'name' | 'id' | 'strapiId' | 'locale'>> }, allStrapiLocation: { nodes: Array<Pick<StrapiLocation, 'name' | 'id' | 'strapiId' | 'locale'>> } };
+
+export type ActivityGroupQueryQueryVariables = Exact<{
+  id?: Maybe<Scalars['Int']>;
+  localizations?: Maybe<Array<Maybe<Scalars['Int']>> | Maybe<Scalars['Int']>>;
+  type?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ActivityGroupQueryQuery = { localeData: { nodes: Array<(
+      Pick<SitePage, 'path'>
+      & { context?: Maybe<{ data?: Maybe<Pick<SitePageContextData, 'locale'>> }> }
+    )> }, activityGroups: { nodes: Array<(
       Pick<StrapiActivityGroup, 'sort_order' | 'title' | 'strapiId'>
       & { fields?: Maybe<Pick<StrapiActivityGroupFields, 'path'>>, logo?: Maybe<(
         Pick<StrapiActivityGroupLogo, 'url'>
         & { formats?: Maybe<{ thumbnail?: Maybe<Pick<StrapiActivityGroupLogoFormatsThumbnail, 'width' | 'url' | 'size' | 'name' | 'mime' | 'height'>> }> }
       )>, activity_group_category?: Maybe<Pick<StrapiActivityGroupActivity_Group_Category, 'name' | 'id' | 'sort_order'>> }
     )> } };
+
+export type ContentPageQueryQueryVariables = Exact<{
+  localizations?: Maybe<Array<Maybe<Scalars['Int']>> | Maybe<Scalars['Int']>>;
+  type?: Maybe<Scalars['String']>;
+}>;
+
+
+export type ContentPageQueryQuery = { localeData: { nodes: Array<(
+      Pick<SitePage, 'path'>
+      & { context?: Maybe<{ data?: Maybe<Pick<SitePageContextData, 'locale'>> }> }
+    )> } };
+
+export type FrontPageQueryQueryVariables = Exact<{
+  locale: Scalars['String'];
+}>;
+
+
+export type FrontPageQueryQuery = { frontPage?: Maybe<Pick<StrapiFrontPage, 'content' | 'locale' | 'title' | 'ingress'>> };

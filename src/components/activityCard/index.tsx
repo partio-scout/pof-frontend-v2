@@ -10,6 +10,7 @@ import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl } from '../../utils/helpers';
 import Pill from './pill';
 import Card from '../card';
+import { useTranslation } from 'react-i18next';
 
 interface ActivityCardProps {
   activity: StrapiActivity;
@@ -19,6 +20,7 @@ interface ActivityCardProps {
 
 const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
   const { age_group, activity_group, mandatory, suggestions, duration, locations, fields } = activity;
+  const { t } = useTranslation();
 
   return (
     <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
@@ -34,11 +36,11 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
       <div className="flex font-bold mb-2">
         {mandatory ? (
           <>
-            <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> Pakollinen Aktiviteetti
+            <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('mandatory-activity')}
           </>
         ) : (
           <>
-            <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> Valinnainen Aktiviteetti
+            <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('optional-activity')}
           </>
         )}
       </div>
@@ -68,8 +70,8 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
         <div className="flex mb-2">
           <Pill>
             <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-            {/* TODO translate */}
-            {suggestions?.length} {suggestions.length === 1 ? 'toteutusvinkki' : 'toteutusvinkkiä'}
+            {suggestions?.length}{' '}
+            {suggestions.length === 1 ? t('implementation-suggestion') : t('implementation-suggestions')}
           </Pill>
         </div>
       )}

@@ -1,21 +1,37 @@
 import React from 'react';
-import { PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
-import { StrapiContentPage } from '../../../graphql-types';
+import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, currentLocale } from '../../utils/helpers';
 import RichText from '../../components/RichText';
+import { graphql, PageProps } from 'gatsby';
 import ContentPageNav from './contentPageNav';
-
-const currentLocale = 'fi';
+import { Locale } from '../../types/locale';
 
 interface ContentPageTemplateProps {
   data: StrapiContentPage;
 }
-
+interface LocalePathData {
+  localeData: { nodes: SitePage[] };
+}
 interface MainContentProps {
   data: StrapiContentPage;
 }
+
+export const query = graphql`
+  query ContentPageQuery($localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { data: { strapiId: { in: $localizations } }, type: { eq: $type } } }) {
+      nodes {
+        path
+        context {
+          data {
+            locale
+          }
+        }
+      }
+    }
+  }
+`;
 
 const MainContent = ({ data }: MainContentProps) => (
   <div className="flex flex-wrap mt-14">
@@ -27,13 +43,13 @@ const MainContent = ({ data }: MainContentProps) => (
   </div>
 );
 
-const ContentPageTemplate = ({ pageContext, path }: PageProps<any, ContentPageTemplateProps>) => {
+const ContentPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathData, ContentPageTemplateProps>) => {
   const { strapiId } = pageContext.data;
-
   return (
     <Layout
       showBreadCrumbs
-      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale} />}
+      locale={pageContext.data.locale as Locale}
+      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
     >
       <MainContent data={pageContext.data} />
       <BlockArea blocks={pageContext.data.content} />

@@ -1,29 +1,48 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Layout from '../../layouts/default';
 import mockHero from '../../images/mockHero.png';
 import HeroTitleSection from '../../components/heroTitleSection';
 import { PaddedContainer } from '../../components/ui.general';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
-import { PageProps } from 'gatsby';
-import { StrapiActivity } from '../../../graphql-types';
+import { PageProps, graphql } from 'gatsby';
+import { StrapiActivity, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
 import Metadata from '../../components/metadata';
+import { Locale } from '../../types/locale';
+import { currentLocale } from '../../utils/helpers';
 
 interface ActivityPageTemplateProps {
   data: StrapiActivity;
 }
 
-const currentLocale = 'fi';
+interface LocalePathData {
+  localeData: { nodes: SitePage[] };
+}
 
-const ActivityPageTemplate = ({ pageContext, path }: PageProps<object, ActivityPageTemplateProps>) => {
+export const query = graphql`
+  query MyQuery($localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { data: { strapiId: { in: $localizations } }, type: { eq: $type } } }) {
+      nodes {
+        path
+        context {
+          data {
+            locale
+          }
+        }
+      }
+    }
+  }
+`;
+
+const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathData, ActivityPageTemplateProps>) => {
   return (
-    <Layout showBreadCrumbs>
+    <Layout showBreadCrumbs locale={pageContext.data.locale as Locale}>
       <Metadata
         title={pageContext.data.title || ''}
         description={pageContext.data.ingress || ''}
         path={path}
-        locale={currentLocale}
+        locale={currentLocale()}
       />
       <div className="relative overflow-hidden h-80 mb-8">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>

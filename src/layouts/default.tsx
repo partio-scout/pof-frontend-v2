@@ -9,24 +9,25 @@ import { LogoContextProvider } from '../contexts/logoContext';
 import useNavigation from '../hooks/navigation';
 import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
+import { changeLanguage, currentLocale } from '../utils/helpers';
 import { Toaster } from 'react-hot-toast';
 import clsx from 'clsx';
 import Footer from '../components/footer';
+import { Locale } from '../types/locale';
 
 interface LayoutProps {
   children: React.ReactNode;
   showBreadCrumbs?: boolean;
   omitPadding?: boolean;
   pageHeader?: React.ReactElement;
+  locale: Locale;
 }
 
-// TODO get locale dynamically
-const currentLocale = 'fi';
-
-const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false, pageHeader }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false, pageHeader, locale }: LayoutProps) => {
   const { pathname } = useLocation();
-  const navigation = useNavigation(currentLocale);
-  const metadata = useMetadata(currentLocale);
+  const navigation = useNavigation(currentLocale());
+  const metadata = useMetadata(currentLocale());
+  changeLanguage(locale);
 
   const path = findBreadcrumbPath(pathname, navigation as HeaderItem[]);
 
