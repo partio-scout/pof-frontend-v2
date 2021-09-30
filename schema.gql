@@ -1,4 +1,920 @@
-### Type definitions saved at 2021-09-30T10:25:19.907Z ###
+### Type definitions saved at 2021-09-30T11:04:19.073Z ###
+
+type File implements Node @dontInfer {
+  sourceInstanceName: String!
+  absolutePath: String!
+  relativePath: String!
+  extension: String!
+  size: Int!
+  prettySize: String!
+  modifiedTime: Date! @dateformat
+  accessTime: Date! @dateformat
+  changeTime: Date! @dateformat
+  birthTime: Date! @dateformat
+  root: String!
+  dir: String!
+  base: String!
+  ext: String!
+  name: String!
+  relativeDirectory: String!
+  dev: Int!
+  mode: Int!
+  nlink: Int!
+  uid: Int!
+  gid: Int!
+  rdev: Int!
+  ino: Float!
+  atimeMs: Float!
+  mtimeMs: Float!
+  ctimeMs: Float!
+  atime: Date! @dateformat
+  mtime: Date! @dateformat
+  ctime: Date! @dateformat
+  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
+  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+  blksize: Int
+  blocks: Int
+  url: String
+}
+
+type Directory implements Node @dontInfer {
+  sourceInstanceName: String!
+  absolutePath: String!
+  relativePath: String!
+  extension: String!
+  size: Int!
+  prettySize: String!
+  modifiedTime: Date! @dateformat
+  accessTime: Date! @dateformat
+  changeTime: Date! @dateformat
+  birthTime: Date! @dateformat
+  root: String!
+  dir: String!
+  base: String!
+  ext: String!
+  name: String!
+  relativeDirectory: String!
+  dev: Int!
+  mode: Int!
+  nlink: Int!
+  uid: Int!
+  gid: Int!
+  rdev: Int!
+  ino: Float!
+  atimeMs: Float!
+  mtimeMs: Float!
+  ctimeMs: Float!
+  atime: Date! @dateformat
+  mtime: Date! @dateformat
+  ctime: Date! @dateformat
+  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
+  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
+}
+
+type Site implements Node @derivedTypes @dontInfer {
+  buildTime: Date @dateformat
+  siteMetadata: SiteSiteMetadata
+  port: Int
+  host: String
+  flags: SiteFlags
+  polyfill: Boolean
+  pathPrefix: String
+}
+
+type SiteSiteMetadata {
+  title: String
+  description: String
+  siteUrl: String
+}
+
+type SiteFlags {
+  PRESERVE_WEBPACK_CACHE: Boolean
+}
+
+type SiteFunction implements Node @dontInfer {
+  functionRoute: String!
+  pluginName: String!
+  originalAbsoluteFilePath: String!
+  originalRelativeFilePath: String!
+  relativeCompiledFilePath: String!
+  absoluteCompiledFilePath: String!
+  matchPath: String
+}
+
+type SitePage implements Node @dontInfer {
+  path: String!
+  component: String!
+  internalComponentName: String!
+  componentChunkName: String!
+  matchPath: String
+}
+
+type SitePlugin implements Node @derivedTypes @dontInfer {
+  resolve: String
+  name: String
+  version: String
+  nodeAPIs: [String]
+  browserAPIs: [String]
+  ssrAPIs: [String]
+  pluginFilepath: String
+  pluginOptions: SitePluginPluginOptions
+  packageJson: SitePluginPackageJson
+}
+
+type SitePluginPluginOptions @derivedTypes {
+  apiURL: String
+  queryLimit: Int
+  collectionTypes: [SitePluginPluginOptionsCollectionTypes]
+  singleTypes: [SitePluginPluginOptionsSingleTypes]
+  output: String
+  createLinkInHead: Boolean
+  entryLimit: Int
+  query: String
+  trackingIds: [String]
+  pluginConfig: SitePluginPluginOptionsPluginConfig
+  path: String
+  pathCheck: Boolean
+  allExtensions: Boolean
+  isTSX: Boolean
+  jsxPragma: String
+}
+
+type SitePluginPluginOptionsCollectionTypes @derivedTypes {
+  name: String
+  api: SitePluginPluginOptionsCollectionTypesApi
+}
+
+type SitePluginPluginOptionsCollectionTypesApi @derivedTypes {
+  qs: SitePluginPluginOptionsCollectionTypesApiQs
+}
+
+type SitePluginPluginOptionsCollectionTypesApiQs {
+  _locale: String
+}
+
+type SitePluginPluginOptionsSingleTypes @derivedTypes {
+  name: String
+  api: SitePluginPluginOptionsSingleTypesApi
+}
+
+type SitePluginPluginOptionsSingleTypesApi @derivedTypes {
+  qs: SitePluginPluginOptionsSingleTypesApiQs
+}
+
+type SitePluginPluginOptionsSingleTypesApiQs {
+  _locale: String
+}
+
+type SitePluginPluginOptionsPluginConfig {
+  head: Boolean
+  respectDNT: Boolean
+}
+
+type SitePluginPackageJson @derivedTypes {
+  name: String
+  description: String
+  version: String
+  main: String
+  license: String
+  dependencies: [SitePluginPackageJsonDependencies]
+  devDependencies: [SitePluginPackageJsonDevDependencies]
+  peerDependencies: [SitePluginPackageJsonPeerDependencies]
+  keywords: [String]
+}
+
+type SitePluginPackageJsonDependencies {
+  name: String
+  version: String
+}
+
+type SitePluginPackageJsonDevDependencies {
+  name: String
+  version: String
+}
+
+type SitePluginPackageJsonPeerDependencies {
+  name: String
+  version: String
+}
+
+type SiteBuildMetadata implements Node @dontInfer {
+  buildTime: Date @dateformat
+}
+
+type StrapiAgeGroup implements Node @derivedTypes @dontInfer {
+  upper_content_area: JSON
+  lower_content_area: JSON
+  main_image: StrapiImage
+  logo: StrapiImage
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: StrapiAgeGroupSubactivitygroup_term
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  color: String
+  links: [StrapiAgeGroupLinks]
+  activity_groups: [StrapiAgeGroupActivity_groups]
+  localizations: [StrapiAgeGroupLocalizations]
+  strapiId: Int
+  fields: StrapiAgeGroupFields
+}
+
+type StrapiImage {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiImageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  updated_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  localFile: File
+}
+
+type StrapiImageFormats {
+  large: StrapiImageFormat
+  small: StrapiImageFormat
+  medium: StrapiImageFormat
+  thumbnail: StrapiImageFormat
+}
+
+type StrapiImageFormat {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupSubactivitygroup_term {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiAgeGroupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiAgeGroupActivity_groups @derivedTypes {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: Int
+  subactivitygroup_term: Int
+  activitygroup_term: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  age_group: Int
+  activity_group_category: Int
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiAgeGroupActivity_groupsLinks]
+  content_area: [StrapiAgeGroupActivity_groupsContent_area]
+  main_image: StrapiAgeGroupActivity_groupsMain_image
+  logo: StrapiAgeGroupActivity_groupsLogo
+}
+
+type StrapiAgeGroupActivity_groupsLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiAgeGroupActivity_groupsContent_area @derivedTypes {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiAgeGroupActivity_groupsContent_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiAgeGroupActivity_groupsContent_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiAgeGroupActivity_groupsMain_image @derivedTypes {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiAgeGroupActivity_groupsMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiAgeGroupActivity_groupsMain_imageFormats @derivedTypes {
+  thumbnail: StrapiAgeGroupActivity_groupsMain_imageFormatsThumbnail
+  large: StrapiAgeGroupActivity_groupsMain_imageFormatsLarge
+  small: StrapiAgeGroupActivity_groupsMain_imageFormatsSmall
+  medium: StrapiAgeGroupActivity_groupsMain_imageFormatsMedium
+}
+
+type StrapiAgeGroupActivity_groupsMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsMain_imageFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsMain_imageFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsLogo @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiAgeGroupActivity_groupsLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiAgeGroupActivity_groupsLogoFormats @derivedTypes {
+  small: StrapiAgeGroupActivity_groupsLogoFormatsSmall
+  thumbnail: StrapiAgeGroupActivity_groupsLogoFormatsThumbnail
+  medium: StrapiAgeGroupActivity_groupsLogoFormatsMedium
+  large: StrapiAgeGroupActivity_groupsLogoFormatsLarge
+}
+
+type StrapiAgeGroupActivity_groupsLogoFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsLogoFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupActivity_groupsLogoFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiAgeGroupLocalizations {
+  id: Int
+  locale: String
+  published_at: Date @dateformat
+}
+
+type StrapiAgeGroupFields {
+  path: String
+}
+
+type StrapiActivityGroup implements Node @derivedTypes @dontInfer {
+  content_area: JSON
+  main_image: StrapiImage
+  logo: StrapiImage
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: StrapiActivityGroupSubactivity_term
+  subactivitygroup_term: StrapiActivityGroupSubactivitygroup_term
+  activitygroup_term: StrapiActivityGroupActivitygroup_term
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  age_group: StrapiActivityGroupAge_group
+  activity_group_category: StrapiActivityGroupActivity_group_category
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiActivityGroupLinks]
+  files: [StrapiActivityGroupFiles]
+  activities: [StrapiActivityGroupActivities]
+  localizations: [StrapiActivityGroupLocalizations]
+  strapiId: Int
+  fields: StrapiActivityGroupFields
+}
+
+type StrapiActivityGroupSubactivity_term {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityGroupSubactivitygroup_term {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityGroupActivitygroup_term {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityGroupAge_group @derivedTypes {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  color: String
+  links: [StrapiActivityGroupAge_groupLinks]
+  upper_content_area: [StrapiActivityGroupAge_groupUpper_content_area]
+  lower_content_area: [StrapiActivityGroupAge_groupLower_content_area]
+  main_image: StrapiActivityGroupAge_groupMain_image
+  logo: StrapiActivityGroupAge_groupLogo
+}
+
+type StrapiActivityGroupAge_groupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityGroupAge_groupUpper_content_area @derivedTypes {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityGroupAge_groupUpper_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityGroupAge_groupUpper_content_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityGroupAge_groupLower_content_area @derivedTypes {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityGroupAge_groupLower_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityGroupAge_groupLower_content_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityGroupAge_groupMain_image @derivedTypes {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityGroupAge_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroupAge_groupMain_imageFormats @derivedTypes {
+  large: StrapiActivityGroupAge_groupMain_imageFormatsLarge
+  small: StrapiActivityGroupAge_groupMain_imageFormatsSmall
+  medium: StrapiActivityGroupAge_groupMain_imageFormatsMedium
+  thumbnail: StrapiActivityGroupAge_groupMain_imageFormatsThumbnail
+}
+
+type StrapiActivityGroupAge_groupMain_imageFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupMain_imageFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupLogo @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityGroupAge_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroupAge_groupLogoFormats @derivedTypes {
+  large: StrapiActivityGroupAge_groupLogoFormatsLarge
+  small: StrapiActivityGroupAge_groupLogoFormatsSmall
+  medium: StrapiActivityGroupAge_groupLogoFormatsMedium
+  thumbnail: StrapiActivityGroupAge_groupLogoFormatsThumbnail
+}
+
+type StrapiActivityGroupAge_groupLogoFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupLogoFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupLogoFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupAge_groupLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupActivity_group_category {
+  id: Int
+  name: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  wp_guid: String
+  sort_order: Int
+}
+
+type StrapiActivityGroupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityGroupFiles {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroupActivities @derivedTypes {
+  id: Int
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: Int
+  duration: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  activity_group: Int
+  age_group: Int
+  preparation_duration: Int
+  links: [StrapiActivityGroupActivitiesLinks]
+  logo: StrapiActivityGroupActivitiesLogo
+  files: [StrapiActivityGroupActivitiesFiles]
+  images: [StrapiActivityGroupActivitiesImages]
+}
+
+type StrapiActivityGroupActivitiesLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityGroupActivitiesLogo @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityGroupActivitiesLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Int
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroupActivitiesLogoFormats @derivedTypes {
+  thumbnail: StrapiActivityGroupActivitiesLogoFormatsThumbnail
+}
+
+type StrapiActivityGroupActivitiesLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupActivitiesFiles {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroupActivitiesImages @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityGroupActivitiesImagesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroupActivitiesImagesFormats @derivedTypes {
+  large: StrapiActivityGroupActivitiesImagesFormatsLarge
+  small: StrapiActivityGroupActivitiesImagesFormatsSmall
+  medium: StrapiActivityGroupActivitiesImagesFormatsMedium
+  thumbnail: StrapiActivityGroupActivitiesImagesFormatsThumbnail
+}
+
+type StrapiActivityGroupActivitiesImagesFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupActivitiesImagesFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupActivitiesImagesFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupActivitiesImagesFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityGroupLocalizations {
+  id: Int
+  locale: String
+  published_at: Date @dateformat
+}
+
+type StrapiActivityGroupFields {
+  path: String
+}
 
 type StrapiContentPage implements Node @derivedTypes @dontInfer {
   content: JSON
@@ -60,43 +976,6 @@ type StrapiContentPageMain_imageFormatsThumbnail {
   size: Float
   width: Int
   height: Int
-}
-
-type File implements Node @dontInfer {
-  sourceInstanceName: String!
-  absolutePath: String!
-  relativePath: String!
-  extension: String!
-  size: Int!
-  prettySize: String!
-  modifiedTime: Date! @dateformat
-  accessTime: Date! @dateformat
-  changeTime: Date! @dateformat
-  birthTime: Date! @dateformat
-  root: String!
-  dir: String!
-  base: String!
-  ext: String!
-  name: String!
-  relativeDirectory: String!
-  dev: Int!
-  mode: Int!
-  nlink: Int!
-  uid: Int!
-  gid: Int!
-  rdev: Int!
-  ino: Float!
-  atimeMs: Float!
-  mtimeMs: Float!
-  ctimeMs: Float!
-  atime: Date! @dateformat
-  mtime: Date! @dateformat
-  ctime: Date! @dateformat
-  birthtime: Date @deprecated(reason: "Use `birthTime` instead")
-  birthtimeMs: Float @deprecated(reason: "Use `birthTime` instead")
-  blksize: Int
-  blocks: Int
-  url: String
 }
 
 type StrapiContentPageLocalizations {
@@ -241,6 +1120,670 @@ type StrapiFrontPageLocalizations {
   id: Int
   locale: String
   published_at: Date @dateformat
+}
+
+type StrapiActivity implements Node @derivedTypes @dontInfer {
+  images: [StrapiImage]
+  logo: StrapiImage
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: StrapiActivityActivity_term
+  duration: StrapiActivityDuration
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  activity_group: StrapiActivityActivity_group
+  age_group: StrapiActivityAge_group
+  preparation_duration: StrapiActivityPreparation_duration
+  links: [StrapiActivityLinks]
+  files: [StrapiActivityFiles]
+  group_sizes: [StrapiActivityGroup_sizes]
+  skill_areas: [StrapiActivitySkill_areas]
+  educational_objectives: [StrapiActivityEducational_objectives]
+  leader_skills: [StrapiActivityLeader_skills]
+  suggestions: [StrapiActivitySuggestions]
+  locations: [StrapiActivityLocations]
+  localizations: [StrapiActivityLocalizations]
+  strapiId: Int
+  fields: StrapiActivityFields
+}
+
+type StrapiActivityActivity_term {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityDuration {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityActivity_group @derivedTypes {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: Int
+  subactivitygroup_term: Int
+  activitygroup_term: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  age_group: Int
+  activity_group_category: Int
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiActivityActivity_groupLinks]
+  content_area: [StrapiActivityActivity_groupContent_area]
+  main_image: StrapiActivityActivity_groupMain_image
+  logo: StrapiActivityActivity_groupLogo
+  files: [StrapiActivityActivity_groupFiles]
+}
+
+type StrapiActivityActivity_groupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityActivity_groupContent_area @derivedTypes {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityActivity_groupContent_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityActivity_groupContent_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityActivity_groupMain_image @derivedTypes {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityActivity_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityActivity_groupMain_imageFormats @derivedTypes {
+  thumbnail: StrapiActivityActivity_groupMain_imageFormatsThumbnail
+  large: StrapiActivityActivity_groupMain_imageFormatsLarge
+  small: StrapiActivityActivity_groupMain_imageFormatsSmall
+  medium: StrapiActivityActivity_groupMain_imageFormatsMedium
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupMain_imageFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogo @derivedTypes {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityActivity_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityActivity_groupLogoFormats @derivedTypes {
+  thumbnail: StrapiActivityActivity_groupLogoFormatsThumbnail
+  small: StrapiActivityActivity_groupLogoFormatsSmall
+  medium: StrapiActivityActivity_groupLogoFormatsMedium
+  large: StrapiActivityActivity_groupLogoFormatsLarge
+}
+
+type StrapiActivityActivity_groupLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogoFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogoFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupLogoFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityActivity_groupFiles {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityAge_group @derivedTypes {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: Int
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  color: String
+  links: [StrapiActivityAge_groupLinks]
+  upper_content_area: [StrapiActivityAge_groupUpper_content_area]
+  lower_content_area: [StrapiActivityAge_groupLower_content_area]
+  main_image: StrapiActivityAge_groupMain_image
+  logo: StrapiActivityAge_groupLogo
+}
+
+type StrapiActivityAge_groupLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityAge_groupUpper_content_area @derivedTypes {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityAge_groupUpper_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityAge_groupUpper_content_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityAge_groupLower_content_area @derivedTypes {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityAge_groupLower_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+
+type StrapiActivityAge_groupLower_content_areaBlock_width {
+  id: Int
+  name: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityAge_groupMain_image @derivedTypes {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityAge_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityAge_groupMain_imageFormats @derivedTypes {
+  large: StrapiActivityAge_groupMain_imageFormatsLarge
+  small: StrapiActivityAge_groupMain_imageFormatsSmall
+  medium: StrapiActivityAge_groupMain_imageFormatsMedium
+  thumbnail: StrapiActivityAge_groupMain_imageFormatsThumbnail
+}
+
+type StrapiActivityAge_groupMain_imageFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupMain_imageFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupMain_imageFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupMain_imageFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogo @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityAge_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityAge_groupLogoFormats @derivedTypes {
+  large: StrapiActivityAge_groupLogoFormatsLarge
+  small: StrapiActivityAge_groupLogoFormatsSmall
+  medium: StrapiActivityAge_groupLogoFormatsMedium
+  thumbnail: StrapiActivityAge_groupLogoFormatsThumbnail
+}
+
+type StrapiActivityAge_groupLogoFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogoFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogoFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityAge_groupLogoFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityPreparation_duration {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityFiles {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityGroup_sizes @derivedTypes {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  icon: StrapiActivityGroup_sizesIcon
+}
+
+type StrapiActivityGroup_sizesIcon {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivitySkill_areas {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityEducational_objectives {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivityLeader_skills {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+}
+
+type StrapiActivitySuggestions @derivedTypes {
+  id: Int
+  title: String
+  content: String
+  activity: Int
+  wp_guid: String
+  author: String
+  locale: String
+  published_at: Date @dateformat
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  from_web: Boolean
+  like_count: Int
+  pinned: Boolean
+  duration: Int
+  links: [StrapiActivitySuggestionsLinks]
+  files: [StrapiActivitySuggestionsFiles]
+}
+
+type StrapiActivitySuggestionsLinks {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivitySuggestionsFiles @derivedTypes {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivitySuggestionsFilesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivitySuggestionsFilesFormats @derivedTypes {
+  large: StrapiActivitySuggestionsFilesFormatsLarge
+  small: StrapiActivitySuggestionsFilesFormatsSmall
+  medium: StrapiActivitySuggestionsFilesFormatsMedium
+  thumbnail: StrapiActivitySuggestionsFilesFormatsThumbnail
+}
+
+type StrapiActivitySuggestionsFilesFormatsLarge {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivitySuggestionsFilesFormatsSmall {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivitySuggestionsFilesFormatsMedium {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivitySuggestionsFilesFormatsThumbnail {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+
+type StrapiActivityLocations @derivedTypes {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  icon: StrapiActivityLocationsIcon
+}
+
+type StrapiActivityLocationsIcon {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at: Date @dateformat
+  updated_at: Date @dateformat
+  localFile: File @link(by: "id", from: "localFile___NODE")
+}
+
+type StrapiActivityLocalizations {
+  id: Int
+  locale: String
+  published_at: Date @dateformat
+}
+
+type StrapiActivityFields {
+  path: String
 }
 
 type StrapiSuggestion implements Node @derivedTypes @dontInfer {
@@ -992,4 +2535,62 @@ type StrapiDurationPreparation_activitiesImagesFormatsThumbnail {
 type StrapiDurationLocalizations {
   id: Int
   locale: String
+}
+
+type Program_Navigation implements Node @derivedTypes @dontInfer {
+  items: [Program_NavigationItems]
+}
+
+type Program_NavigationItems @derivedTypes {
+  title: String
+  type: String
+  id: Int
+  path: String
+  color: String
+  subitems: [Program_NavigationItemsSubitems]
+  minimum_age: Int
+  maximum_age: Int
+}
+
+type Program_NavigationItemsSubitems @derivedTypes {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Program_NavigationItemsSubitemsSubitems]
+}
+
+type Program_NavigationItemsSubitemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+
+type Content_Navigation implements Node @derivedTypes @dontInfer {
+  items: [Content_NavigationItems]
+}
+
+type Content_NavigationItems @derivedTypes {
+  title: String
+  subitems: [Content_NavigationItemsSubitems]
+}
+
+type Content_NavigationItemsSubitems @derivedTypes {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Content_NavigationItemsSubitemsSubitems]
+}
+
+type Content_NavigationItemsSubitemsSubitems {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+
+type Activity_Logo implements Node @dontInfer {
+  logo: String
 }

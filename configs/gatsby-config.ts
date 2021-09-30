@@ -56,9 +56,6 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-schema-snapshot`,
       options: {
         path: `schema.gql`,
-        include: { // Create fixed schema for Strapi data only.  
-          plugins: ['gatsby-source-strapi']
-        },
         update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
       },
     },
