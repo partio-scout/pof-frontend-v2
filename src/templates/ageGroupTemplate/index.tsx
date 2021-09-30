@@ -2,13 +2,16 @@ import React from 'react';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
-import { StrapiActivityGroup, StrapiAgeGroup } from '../../../graphql-types';
+import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
+import { currentLocale } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
+import { Locale } from '../../types/locale';
 
 interface AgeGroupPageTemplateProps {
   data: StrapiAgeGroup;
@@ -17,9 +20,8 @@ interface AgeGroupPageTemplateProps {
 interface QueryType {
   ageGroup: StrapiAgeGroup;
   activityGroups: { nodes: StrapiActivityGroup[] };
+  localeData: { nodes: SitePage[] };
 }
-
-const currentLocale = 'fi';
 
 const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
   const {
@@ -35,16 +37,18 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     lower_content_area,
     upper_content_area,
     color,
+    locale,
   } = data.ageGroup;
 
+  const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
 
-  // TODO translate
-  const subTitle = `${minimum_age}-${maximum_age} vuotiaat`;
+  const subTitle = `${minimum_age}-${maximum_age} ${t('aged')}`;
 
   return (
     <Layout
       showBreadCrumbs={true}
+      locale={locale as Locale}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url) || ''}
@@ -56,7 +60,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
         />
       }
     >
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
+      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
@@ -85,7 +89,12 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-  query ActivityGroupQuery($id: Int) {
+  query ActivityGroupQuery($id: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
     ageGroup: strapiAgeGroup(strapiId: { eq: $id }) {
       locale
       localizations {

@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React from 'react';
 import { StrapiActivity } from '../../../graphql-types';
-import ActivityCard from '../../components/activityCard';
-import PlusIcon from '../../images/plus-round.inline.svg';
 import ActivityCardList from '../../components/activityCardList';
+import { useTranslation } from 'react-i18next';
 
 interface ActivitiesProps {
   activities: StrapiActivity[];
@@ -28,20 +26,20 @@ function Activities({
 }: ActivitiesProps) {
   const mandatoryActivities = activities.filter((activity) => activity.mandatory);
   const optionalActivities = activities.filter((activity) => !activity.mandatory);
+  const { t } = useTranslation();
 
   return (
     <div>
-      {/* TODO Translate */}
       {mandatoryActivities.length > 0 && (
         <div className="py-5">
-          <Heading>{mandatoryTitle || 'Pakolliset aktiviteetit'}</Heading>
+          <Heading>{mandatoryTitle || t('mandatory-activities')}</Heading>
           {mandatoryDescription && <Paragraph>{mandatoryDescription}</Paragraph>}
           <ActivityCardList activities={mandatoryActivities} showInitially={12} />
         </div>
       )}
       {optionalActivities.length > 0 && (
         <div className="py-5">
-          <Heading>{optionalTitle || 'Valinnaiset aktiviteetit'}</Heading>
+          <Heading>{optionalTitle || t('optional-activities')}</Heading>
           {optionalDescription && <Paragraph>{optionalDescription}</Paragraph>}
           <ActivityCardList activities={optionalActivities} showInitially={12} />
         </div>

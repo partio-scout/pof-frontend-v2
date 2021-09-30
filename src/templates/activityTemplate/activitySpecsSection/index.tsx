@@ -15,6 +15,7 @@ import RichText from '../../../components/RichText';
 import { prependApiUrl } from '../../../utils/helpers';
 import { hexToRgba } from '../../../utils/color';
 import SquareIcon from '../squareIcon';
+import { useTranslation } from 'react-i18next';
 
 interface ActivitySpecsProps {
   data: StrapiActivity;
@@ -34,6 +35,7 @@ const itemClasses = 'bg-gray-light flex p-4 rounded-xl';
 
 const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
+  const { t } = useTranslation();
 
   return (
     <div className="mt-8">
@@ -43,26 +45,26 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             {data.mandatory ? (
               <>
                 <SquareIcon icon={ExclamationIcon} alt="Pakollinen aktiviteetti" backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase">PAKOLLINEN AKTIVITEETTI</h4>
+                <h4 className="ml-4 text-blue text-xl uppercase">{t('mandatory-activity')}</h4>
               </>
             ) : (
               <>
                 <SquareIcon icon={PlusIcon} alt="Valinnainen aktiviteetti" backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase">VALINNAINEN AKTIVITEETTI</h4>
+                <h4 className="ml-4 text-blue text-xl uppercase">{t('optional-activity')}</h4>
               </>
             )}
           </div>
           <div className={itemClasses}>
             <SquareIcon icon={ClockIcon} alt="Arvioitu kesto" backgroundColor={iconBackground} />
             <div>
-              <h4 className="ml-4 text-blue text-xl">ARVIOITU KESTO</h4>
+              <h4 className="ml-4 text-blue text-xl uppercase">{t('estimated-duration')}</h4>
               <span className="block ml-4 text-blue">{data.duration?.name}</span>
             </div>
           </div>
           <div className={itemClasses}>
             <SquareIcon icon={StarIcon} alt="Taitoalueet" backgroundColor={iconBackground} />
             <div>
-              <h4 className="ml-4 text-blue text-xl">TAITOALUEET</h4>
+              <h4 className="ml-4 text-blue text-xl uppercase">{t('skills')}</h4>
               <span className="block ml-4 text-blue">
                 {data.skill_areas?.map((skill_obj) => skill_obj?.name).join(', ')}
               </span>
@@ -72,7 +74,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
         <div className="ml-4 space-y-4 w-1/3">
           <div className={itemClasses}>
             <div>
-              <h4 className="text-blue block w-full text-xl">PAIKKA</h4>
+              <h4 className="text-blue block w-full text-xl uppercase">{t('paikka')}</h4>
               {data.locations?.map((location, index: number) => (
                 <div className="flex mt-2 items-center" key={location?.id}>
                   {location?.icon?.url ? (
@@ -93,13 +95,14 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               ))}
             </div>
           </div>
+          ;
         </div>
 
         <div className="ml-4 space-y-4 w-1/3">
           <div className={itemClasses}>
-            <SquareIcon icon={ParentIcon} alt="Kasvatustavoitteet" backgroundColor={iconBackground} />
+            <SquareIcon icon={ParentIcon} alt={t('educational-objectives')} backgroundColor={iconBackground} />
             <div>
-              <h4 className="ml-4 text-blue text-xl">KASVATUSTAVOITTEET</h4>
+              <h4 className="ml-4 text-blue text-xl uppercase">{t('educational-objectives')}</h4>
               <span className="block ml-4 text-blue">
                 {data.educational_objectives?.map((ed_obj) => ed_obj?.name).join(', ')}
               </span>
@@ -107,7 +110,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
           </div>
           <div className={itemClasses}>
             <div>
-              <h4 className="text-blue text-xl">JOHTAJAN TEHTÄVÄ</h4>
+              <h4 className="text-blue text-xl uppercase">{t('leaders-role')}</h4>
               <RichText className="text-blue" html={data.leader_tasks} />
             </div>
           </div>

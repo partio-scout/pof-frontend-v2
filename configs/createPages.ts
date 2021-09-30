@@ -7,10 +7,14 @@ import {
   StrapiFrontPage,
   StrapiFrontPageNavigation,
   StrapiFrontPageNavigationSubnavigation,
+  StrapiContentPage,
+  StrapiActivityGroupLocalizations,
+  StrapiAgeGroupActivity_Groups,
 } from '../graphql-types';
 import { getActivityGroup } from '../src/queries/activityGroup';
 import { getAllAgeGroups } from '../src/queries/ageGroup';
 import { getAllFrontPages } from '../src/queries/frontPage';
+import { getContentPage } from '../src/queries/contentPage';
 import { parseAgeGroupRouteName, parseRouteName } from './utils';
 
 interface PageCreationResults {
@@ -68,7 +72,7 @@ function mergePageCreationResults(...results: PageCreationResults[]): PageCreati
 }
 
 async function handleActivity(
-  activity: Pick<StrapiActivity, 'id' | 'title'>,
+  activity: Pick<StrapiActivity, 'id' | 'title' | 'localizations' | 'locale'>,
   activityGroupPath: string,
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
@@ -80,14 +84,19 @@ async function handleActivity(
 
   const activityPath = `${activityGroupPath}/${parseRouteName(activity?.title!)}`;
 
-  createPage({
+  const page = {
     path: activityPath,
     component: path.resolve(`src/templates/activityTemplate/index.tsx`),
     context: {
       type: 'activity',
+      localizations: activity.localizations?.map((x) => x?.id) || [],
+      locale: activity.locale,
       id: activity.id,
     },
-  });
+  }
+
+  createPage(page);
+
   results.activities.push(activity?.title!);
 
   return results;
@@ -104,7 +113,7 @@ async function graphqlWithErrors<T>(graphql: CreatePagesArgs['graphql'], query: 
 }
 
 async function handleActivityGroup(
-  activityGroup: Pick<StrapiActivityGroup, 'id' | 'title' | 'age_group'>,
+  activityGroup: Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group'>,
   ageGroupPath: string,
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
@@ -116,7 +125,11 @@ async function handleActivityGroup(
   }
 
   const { data } = await graphqlWithErrors<{
-    strapiActivityGroup: { activities: Pick<StrapiActivity, 'id' | 'title'>[] };
+    strapiActivityGroup: {
+      activities: Pick<StrapiActivity, 'id' | 'title' | 'localizations' | 'locale'>[];
+      localizations: StrapiActivityGroupLocalizations[];
+      locale?: string;
+    };
   }>(graphql, getActivityGroup, {
     id: activityGroup?.id,
   });
@@ -130,15 +143,20 @@ async function handleActivityGroup(
 
   const activityGroupPath = `${ageGroupPath}/${parseRouteName(activityGroup?.title)}`;
 
-  createPage({
+  const page = {
     path: activityGroupPath,
     component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
     context: {
       type: 'activityGroup',
-      id: activityGroup.id,
-      ageGroupId: activityGroup.age_group?.id,
+      localizations: activityGroupData!.localizations?.map((x) => x?.id) || [],
+      locale: activityGroupData?.locale,
+      id: activityGroup!.id,
+      ageGroupId: activityGroup.age_group,
     },
-  });
+  }
+
+  createPage(page);
+
   results.activityGroups.push(activityGroup?.title!);
 
   // Fetch Activities
@@ -152,7 +170,7 @@ async function handleActivityGroup(
 }
 
 async function handleAgeGroup(
-  ageGroup: Pick<StrapiAgeGroup, 'id' | 'strapiId' | 'title' | 'activity_groups'>,
+  ageGroup: Pick<StrapiAgeGroup, 'id' | 'strapiId' | 'title' | 'activity_groups' | 'localizations' | 'locale'>,
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
@@ -164,19 +182,25 @@ async function handleAgeGroup(
   }
 
   const ageGroupPath = `/${parseAgeGroupRouteName(ageGroup.title!)}`;
-  createPage({
+  
+  const page = {
     path: ageGroupPath,
     component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
     context: {
       type: 'ageGroup',
+      localizations: ageGroup.localizations?.map((x) => x?.id) || [],
+      locale: ageGroup.locale,
       id: ageGroup.strapiId,
     },
-  });
+  }
+  
+  createPage(page);
+
   results.ageGroups.push(ageGroup.title!);
 
   const promises = (ageGroup.activity_groups || []).map(async (activityGroup) =>
     handleActivityGroup(
-      activityGroup as unknown as Pick<StrapiActivityGroup, 'id' | 'title' | 'age_group'>,
+      activityGroup as Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group'>,
       ageGroupPath,
       graphql,
       createPage,
@@ -220,26 +244,42 @@ async function handleContentPages(
     graphql,
     getAllFrontPages,
   );
+  frontPageResponse.data?.allStrapiFrontPage.nodes.forEach((frontPage) => {
+    const locale = frontPage.locale;
+    createPage({
+      path: locale === 'fi' ? '/' : `/${locale}/`,
+      component: path.resolve(`src/templates/frontPageTemplate/index.tsx`),
+      context: {
+        type: 'frontPage',
+        locale,
+        id: frontPage.strapiId,
+      },
+    });
+  });
 
   const frontPages = frontPageResponse.data?.allStrapiFrontPage.nodes || [];
 
   if (!frontPages.length) return results;
 
-  const subResults = (frontPages || []).map((localization) => {
-    const navigationResults = (localization.navigation || []).map((navigationItem) =>
+  const promises = (frontPages || []).map(async (localization) => {
+    const navigationPromises = (localization.navigation || []).map(async (navigationItem) =>
       createNavigationLevel(graphql, createPage, navigationItem!),
     );
+
+    const navigationResults = await Promise.all(navigationPromises);
     return mergePageCreationResults(...navigationResults);
   });
+
+  const subResults = await Promise.all(promises);
 
   return mergePageCreationResults(results, ...subResults);
 }
 
-function createNavigationLevel(
+async function createNavigationLevel(
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
   data: StrapiFrontPageNavigation,
-): PageCreationResults {
+): Promise<PageCreationResults> {
   const results = createPageCreationResults();
 
   // If the page's id is null, the page is not published so let's skip it
@@ -254,7 +294,8 @@ function createNavigationLevel(
   if (!data.subnavigation?.length) {
     return results;
   }
-  const pageResults = createNavigationItems(
+  const pageResults = await createNavigationItems(
+    graphql,
     createPage,
     data.subnavigation as StrapiFrontPageNavigationSubnavigation[],
     pagePath,
@@ -263,12 +304,13 @@ function createNavigationLevel(
   return mergePageCreationResults(results, pageResults);
 }
 
-function createNavigationItems(
+async function createNavigationItems(
+  graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
   items: StrapiFrontPageNavigationSubnavigation[],
   rootPath: string,
-): PageCreationResults {
-  const results = (items || []).map((subitem) => {
+): Promise<PageCreationResults> {
+  const promises = (items || []).map(async (subitem) => {
     // If the page's id is null, the page is not published so let's skip it
     if (!subitem?.page?.id) return createPageCreationResults();
     if (!subitem.title) {
@@ -278,13 +320,14 @@ function createNavigationItems(
 
     const subPagePath = rootPath + '/' + parseRouteName(subitem?.title!);
 
-    const pageResult = createContentPage(createPage, subitem!.page!.id!, subPagePath);
+    const pageResult = await createContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
 
     if (!subitem.subnavigation?.length) {
       return pageResult;
     }
 
-    const result = createNavigationItems(
+    const result = await createNavigationItems(
+      graphql,
       createPage,
       subitem.subnavigation as StrapiFrontPageNavigationSubnavigation[],
       subPagePath,
@@ -292,21 +335,34 @@ function createNavigationItems(
     return mergePageCreationResults(pageResult, result);
   });
 
+  const results = await Promise.all(promises);
+
   return mergePageCreationResults(...results);
 }
 
-function createContentPage(
+async function createContentPage(
+  graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
   id: number,
   pagePath: string,
-): PageCreationResults {
-  createPage({
+): Promise<PageCreationResults> {
+  const pageDataResponse = await graphqlWithErrors<{ strapiContentPage: StrapiContentPage }>(graphql, getContentPage, {
+    id,
+  });
+
+  const page = {
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
-      id,
+      type: 'contentPage',
+      localizations: pageDataResponse.data?.strapiContentPage.localizations?.map((x) => x?.id) || [],
+      locale: pageDataResponse.data?.strapiContentPage.locale,
+      id: pageDataResponse?.data?.strapiContentPage.strapiId,
     },
-  });
+  };
+
+  createPage(page);
+
   const results = createPageCreationResults();
   results.contentPages.push(id.toString());
   return results;
