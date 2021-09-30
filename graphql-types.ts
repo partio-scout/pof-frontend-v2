@@ -312,6 +312,8 @@ export type SitePageContext = {
   locale?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   ageGroupId?: Maybe<Scalars['Int']>;
+  title?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
 };
 
 export type SitePlugin = Node & {

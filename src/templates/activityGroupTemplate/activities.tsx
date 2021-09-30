@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
-import clsx from 'clsx';
+import React from 'react';
 import { StrapiActivity } from '../../../graphql-types';
-import ActivityCard from '../../components/activityCard';
-import PlusIcon from '../../images/plus-round.inline.svg';
 import ActivityCardList from '../../components/activityCardList';
 import { useTranslation } from 'react-i18next';
 
