@@ -5,7 +5,14 @@ query MyQuery {
       id
       title
       strapiId
+      locale
       activity_groups {
+        id
+        title
+        age_group
+      }
+      localizations {
+        locale
         id
         title
         age_group

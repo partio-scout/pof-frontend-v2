@@ -7,6 +7,7 @@ import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import useNavigation from '../../hooks/navigation';
 import RichText from '../RichText';
 import { hexToRgba } from '../../utils/color';
+import { currentLocale } from '../../utils/helpers';
 
 export interface AgeGroupBlockType extends BlockType {
   title?: string;
@@ -34,15 +35,13 @@ const query = graphql`
   }
 `;
 
-const currentLocale = 'fi';
-
 function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
   const queryResult = useStaticQuery<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(query);
-  const navigation = useNavigation(currentLocale);
+  const navigation = useNavigation(currentLocale());
 
   const { nodes: ageGroups } = queryResult.allStrapiAgeGroup;
 
-  const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale === currentLocale);
+  const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale === currentLocale());
 
   return (
     <div className="">

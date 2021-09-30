@@ -69,8 +69,7 @@ const ActivityCardList = ({ activities, showInitially, augmentData }: ActivityCa
             onClick={() => setAllVisible(true)}
             className="group flex justify-center items-center uppercase border border-blue border-opacity-40 rounded py-3 px-16 font-tondu tracking-widest"
           >
-            <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" />{' '}
-            Näytä kaikki ({activities.length})
+            <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" /> Näytä kaikki ({activities.length})
           </button>
         </div>
       )}

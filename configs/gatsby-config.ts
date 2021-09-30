@@ -52,16 +52,6 @@ const config: GatsbyConfig = {
       },
     },
     `gatsby-plugin-sitemap`,
-    {
-      resolve: `gatsby-plugin-schema-snapshot`,
-      options: {
-        path: `schema.gql`,
-        include: { // Create fixed schema for Strapi data only.  
-          plugins: ['gatsby-source-strapi']
-        },
-        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
-      },
-    },
     `gatsby-plugin-use-query-params`,
     {
       resolve: `gatsby-plugin-google-gtag`,

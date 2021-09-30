@@ -1,12 +1,13 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import useMetadata from '../../hooks/metadata';
+import { Locale } from '../../types/locale';
 
 export interface MetadataProps {
   title: string;
   description: string;
   path: string;
-  locale: 'fi' | 'sv' | 'en' | 'sme' | 'smn';
+  locale: Locale;
 }
 
 const languageTerritories = {
@@ -14,12 +15,12 @@ const languageTerritories = {
   sv: 'sv_SE',
   en: 'en_US',
   // These two are probably not correct, couldn't find anything
-  sme: 'sme', 
-  smn: 'smn'
-}
+  sme: 'sme',
+  smn: 'smn',
+};
 
 /**
- * Creates Helmet element with page-specific metadata. 
+ * Creates Helmet element with page-specific metadata.
  * Use this in page templates to add their data as site metadata.
  */
 function Metadata({ description, title, locale, path }: MetadataProps) {

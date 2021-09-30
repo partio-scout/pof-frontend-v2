@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import useCoreSelect, { SelectProps } from '../coreSelect';
 import CheckIcon from '../../images/check-round.inline.svg';
+import { useTranslation } from 'react-i18next';
 
 // TODO: Icons for items. Probably those will come from Strapi (via Algolia).
 interface PillSelectProps {
@@ -9,6 +10,7 @@ interface PillSelectProps {
 }
 
 const PillSelect = <T,>({ itemBorders, ...props }: PillSelectProps & SelectProps<T>): React.ReactElement => {
+  const { t } = useTranslation();
   const { items, title, toggle, toggleAll } = useCoreSelect<T>(props);
 
   const allSelected = !items.some((item) => !item.checked);
@@ -38,7 +40,7 @@ const PillSelect = <T,>({ itemBorders, ...props }: PillSelectProps & SelectProps
                 'text-opacity-40': !allSelected,
               })}
             />
-            Kaikki
+            {t('all')}
           </button>
         </li>
         {items.map((item, index) => {

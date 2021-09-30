@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery, Node } from 'gatsby';
+import { useTranslation } from 'react-i18next';
 import {
   Content_Navigation,
   Content_NavigationItemsSubitems,
@@ -64,14 +65,15 @@ const useNavigation = (currentLocale: string) => {
     allContentNavigation: { nodes: Content_Navigation[] };
     allProgramNavigation: { nodes: Program_Navigation[] };
   }>(navigationQuery);
+  const { t } = useTranslation()
 
   const itemFilter =
     (requirePath: boolean) =>
-    (item: Maybe<Program_NavigationItems>): boolean => {
-      if (requirePath && !item?.path) return false;
+      (item: Maybe<Program_NavigationItems>): boolean => {
+        if (requirePath && !item?.path) return false;
 
-      return Boolean(item?.title);
-    };
+        return Boolean(item?.title);
+      };
 
   const mapSubItems = (subItems?: Maybe<Maybe<Content_NavigationItemsSubitems>[]>): HeaderItem[] => {
     return (
@@ -114,7 +116,7 @@ const useNavigation = (currentLocale: string) => {
 
   const programNavigation: HeaderItemFirstLevel[] = [
     {
-      name: 'Partio-ohjelma', // TODO locale
+      name: t('scouting-program'),
       subMenu: programItems,
     },
   ];

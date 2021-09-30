@@ -1,13 +1,12 @@
 import React from 'react';
-import { graphql, PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
-import { StrapiContentPage } from '../../../graphql-types';
+import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, currentLocale } from '../../utils/helpers';
 import RichText from '../../components/RichText';
+import { graphql, PageProps } from 'gatsby';
 import ContentPageNav from './contentPageNav';
-
-const currentLocale = 'fi';
+import { Locale } from '../../types/locale';
 
 interface ContentPageTemplateProps {
   data: StrapiContentPage;
@@ -15,6 +14,7 @@ interface ContentPageTemplateProps {
 
 interface ContentPageQueryType {
   contentPage: StrapiContentPage;
+  localeData: { nodes: SitePage[] };
 }
 
 const MainContent = ({ data }: ContentPageTemplateProps) => (
@@ -28,12 +28,13 @@ const MainContent = ({ data }: ContentPageTemplateProps) => (
 );
 
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
-  const { strapiId, content } = data.contentPage;
+  const { strapiId, content, locale } = data.contentPage;
 
   return (
     <Layout
       showBreadCrumbs
-      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale} />}
+      locale={locale as Locale}
+      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
     >
       <MainContent data={data.contentPage} />
       <BlockArea blocks={content} />
@@ -44,7 +45,12 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-  query getContentPage($id: Int!) {
+  query getContentPage($id: Int!, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
     contentPage: strapiContentPage(strapiId: { eq: $id }) {
       locale
       localizations {

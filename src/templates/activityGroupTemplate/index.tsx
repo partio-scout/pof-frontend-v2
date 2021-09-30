@@ -1,6 +1,12 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
-import { StrapiActivity, StrapiActivityGroup, StrapiAgeGroup, StrapiSuggestion } from '../../../graphql-types';
+import {
+  StrapiActivity,
+  StrapiActivityGroup,
+  StrapiAgeGroup,
+  StrapiSuggestion,
+  SitePage,
+} from '../../../graphql-types';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';
@@ -10,10 +16,13 @@ import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
+import { useTranslation } from 'react-i18next';
+import { currentLocale } from '../../utils/helpers';
 import useNavigation from '../../hooks/navigation';
 import { findHitUrl, HitModel } from '../../utils/search';
 import { ContentType } from '../../types/content';
 import { SuggestionWithUrl } from '../../components/suggestionCard';
+import { Locale } from '../../types/locale';
 interface ActivityGroupPageTemplateProps {
   data: StrapiActivityGroup;
 }
@@ -24,9 +33,8 @@ interface QueryType {
   otherGroups: { nodes: StrapiActivityGroup[] };
   suggestions: { nodes: StrapiSuggestion[] };
   activities: { nodes: StrapiActivity[] };
+  localeData: { nodes: SitePage[] };
 }
-
-const currentLocale = 'fi';
 
 const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
   const {
@@ -43,10 +51,12 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     mandatory_activities_description,
     optional_activities_title,
     optional_activities_description,
+    locale,
   } = data.activityGroup;
 
   // TODO correct locale
-  const navigation = useNavigation('fi');
+  const navigation = useNavigation(currentLocale());
+  const { t } = useTranslation();
 
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
@@ -63,6 +73,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
   return (
     <Layout
       showBreadCrumbs
+      locale={locale as Locale}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
@@ -74,7 +85,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
         />
       }
     >
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale} />
+      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row py-5">
           <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress}</div>
@@ -95,9 +106,9 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           optionalTitle={optional_activities_title}
           optionalDescription={optional_activities_description}
         />
-        <h2 className="uppercase">Uusimmat toteutusvinkit</h2>
+        <h2 className="uppercase">{t('newest-implementation-suggestions')}</h2>
         <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
-        <h2 className="uppercase text-center">Muut {activitygroup_term?.plural}</h2>
+        <h2 className="uppercase text-center">{t('others') + activitygroup_term?.plural}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>
@@ -108,7 +119,12 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
 export default activityGroupTemplate;
 
 export const query = graphql`
-  query Query($id: Int, $ageGroupId: Int) {
+  query Query($id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
     activityGroup: strapiActivityGroup(strapiId: { eq: $id }) {
       locale
       localizations {
@@ -165,7 +181,7 @@ export const query = graphql`
       mandatory_activities_description
       optional_activities_description
       mandatory_activities_title
-      optional_activities_title
+      optional_activities_title 
     }
     ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
       strapiId
