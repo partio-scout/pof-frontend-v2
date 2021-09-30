@@ -8,7 +8,7 @@ import PlusIcon from '../../images/plus-round.inline.svg';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl } from '../../utils/helpers';
-import Pill from './pill';
+import Pill from '../pill';
 import Card from '../card';
 import { useTranslation } from 'react-i18next';
 
@@ -51,8 +51,8 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
             {duration.slug}
           </Pill>
         )}
-        {locations?.length &&
-          locations.map((location) => (
+        {(locations?.length || 0) > 0 &&
+          locations?.map((location) => (
             <Pill key={location?.name}>
               <img
                 src={prependApiUrl(location?.icon?.url || '')}
@@ -66,12 +66,12 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
       <div className="flex-grow mb-4 break-words uppercase">
         <h4>{activity.title}</h4>
       </div>
-      {suggestions?.length && (
+      {(suggestions?.length || 0) > 0 && (
         <div className="flex mb-2">
           <Pill>
             <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
             {suggestions?.length}{' '}
-            {suggestions.length === 1 ? t('implementation-suggestion') : t('implementation-suggestions')}
+            {suggestions?.length === 1 ? t('implementation-suggestion') : t('implementation-suggestions')}
           </Pill>
         </div>
       )}

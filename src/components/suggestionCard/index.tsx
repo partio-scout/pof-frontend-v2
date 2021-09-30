@@ -3,7 +3,7 @@ import { StrapiSuggestion } from '../../../graphql-types';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl } from '../../utils/helpers';
-import Pill from './pill';
+import Pill from '../pill';
 import Card from '../card';
 import ClampLines from 'react-clamp-lines';
 import { useTranslation } from 'react-i18next';

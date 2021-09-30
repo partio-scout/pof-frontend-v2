@@ -11,29 +11,13 @@ import { Locale } from '../../types/locale';
 interface ContentPageTemplateProps {
   data: StrapiContentPage;
 }
-interface LocalePathData {
+
+interface ContentPageQueryType {
+  contentPage: StrapiContentPage;
   localeData: { nodes: SitePage[] };
 }
-interface MainContentProps {
-  data: StrapiContentPage;
-}
 
-export const query = graphql`
-  query ContentPageQuery($localizations: [Int], $type: String) {
-    localeData: allSitePage(filter: { context: { data: { strapiId: { in: $localizations } }, type: { eq: $type } } }) {
-      nodes {
-        path
-        context {
-          data {
-            locale
-          }
-        }
-      }
-    }
-  }
-`;
-
-const MainContent = ({ data }: MainContentProps) => (
+const MainContent = ({ data }: ContentPageTemplateProps) => (
   <div className="flex flex-wrap mt-14">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
@@ -43,18 +27,48 @@ const MainContent = ({ data }: MainContentProps) => (
   </div>
 );
 
-const ContentPageTemplate = ({ pageContext, path, data }: PageProps<LocalePathData, ContentPageTemplateProps>) => {
-  const { strapiId } = pageContext.data;
+const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
+  const { strapiId, content, locale } = data.contentPage;
+
   return (
     <Layout
       showBreadCrumbs
-      locale={pageContext.data.locale as Locale}
+      locale={locale as Locale}
       pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
     >
-      <MainContent data={pageContext.data} />
-      <BlockArea blocks={pageContext.data.content} />
+      <MainContent data={data.contentPage} />
+      <BlockArea blocks={content} />
     </Layout>
   );
 };
 
 export default ContentPageTemplate;
+
+export const query = graphql`
+  query getContentPage($id: Int!, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
+    contentPage: strapiContentPage(strapiId: { eq: $id }) {
+      locale
+      localizations {
+        locale
+        id
+      }
+      title
+      updated_at
+      created_at
+      published_at
+      id
+      strapiId
+      content
+      main_text
+      main_image {
+        url
+      }
+      ingress
+    }
+  }
+`;

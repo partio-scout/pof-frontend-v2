@@ -1,7 +1,6 @@
 import React from 'react';
-import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
-import ActivityCard from '../../components/activityCard';
+import ActivityCardList from '../../components/activityCardList';
 import { useTranslation } from 'react-i18next';
 
 interface ActivitiesProps {
@@ -32,26 +31,18 @@ function Activities({
   return (
     <div>
       {mandatoryActivities.length > 0 && (
-        <>
+        <div className="py-5">
           <Heading>{mandatoryTitle || t('mandatory-activities')}</Heading>
           {mandatoryDescription && <Paragraph>{mandatoryDescription}</Paragraph>}
-          <div className="masonry before:box-inherit after:box-inherit mb-5">
-            {mandatoryActivities?.map((activity) => (
-              <ActivityCard activity={activity} key={activity.strapiId} />
-            ))}
-          </div>
-        </>
+          <ActivityCardList activities={mandatoryActivities} showInitially={12} />
+        </div>
       )}
       {optionalActivities.length > 0 && (
-        <>
+        <div className="py-5">
           <Heading>{optionalTitle || t('optional-activities')}</Heading>
           {optionalDescription && <Paragraph>{optionalDescription}</Paragraph>}
-          <div className="masonry before:box-inherit after:box-inherit mb-5">
-            {optionalActivities?.map((activity) => (
-              <ActivityCard activity={activity} key={activity.strapiId} />
-            ))}
-          </div>
-        </>
+          <ActivityCardList activities={optionalActivities} showInitially={12} />
+        </div>
       )}
     </div>
   );
