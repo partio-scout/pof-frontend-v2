@@ -35,3 +35,8 @@ export const sendSuggestionUnlike = (suggestionId: number, userId: string) => {
     user: userId,
   });
 };
+
+export const fetchActivities = (activityIds: string[]) => {
+  const query = activityIds.map((id) => `id_in=${id}`).join('&');
+  return axios.get(`${trimUrl(process.env.API_URL)}/activities?${query}`);
+}

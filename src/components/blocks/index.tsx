@@ -4,6 +4,7 @@ import { StrapiActivity } from '../../../graphql-types';
 import { prependApiUrl } from '../../utils/helpers';
 import RichText from '../RichText';
 import CombinedLink from '../combinedLink';
+import ActivityCardList from '../activityCardList';
 
 export interface GeneralBlockType extends BlockType {
   title?: string;
@@ -34,8 +35,6 @@ export interface HighlightBlockType extends BlockType {
   link_text?: string;
   link_url?: string;
 }
-
-
 
 export interface ActivityBlockType extends BlockType {
   activities?: Array<StrapiActivity>;
@@ -110,10 +109,5 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
   </div>
 );
 
-export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) => (
-  <div className="flex flex-wrap space-x-2">
-    {block.activities && block.activities.map((activity) => <ActivityCard activity={activity} />)}
-  </div>
-);
-
-
+export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) =>
+  block.activities ? <ActivityCardList activities={block.activities} augmentData /> : null;
