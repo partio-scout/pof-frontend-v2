@@ -1,13 +1,9 @@
-import { CreateSchemaCustomizationArgs } from "gatsby";
+import { CreateSchemaCustomizationArgs } from 'gatsby';
 
 const createSchemaCustomization = ({ actions }: CreateSchemaCustomizationArgs) => {
   const { createTypes } = actions;
 
   const typeDefs = `
-    type SitePageContext implements Node {
-      data: JSON
-    }
-
     type StrapiAgeGroup implements Node {
       main_image: StrapiImage
       logo: StrapiImage
@@ -62,6 +58,6 @@ const createSchemaCustomization = ({ actions }: CreateSchemaCustomizationArgs) =
   `;
 
   createTypes(typeDefs);
-}
+};
 
 export default createSchemaCustomization;

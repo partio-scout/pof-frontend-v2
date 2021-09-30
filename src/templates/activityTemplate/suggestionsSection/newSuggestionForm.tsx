@@ -3,6 +3,7 @@ import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
 import UploadIcon from '../../../images/upload.inline.svg';
 import DeleteIcon from '../../../images/delete.inline.svg';
+import { useTranslation } from 'react-i18next';
 import { CommonSuggestionFormProps } from './index';
 import DropdownSelect from '../../../components/dropdownSelect';
 import { StrapiDuration, StrapiLocation } from '../../../../graphql-types';
@@ -36,10 +37,11 @@ const NewSuggestionForm = ({
 }: NewSuggestionFormProps) => {
   const [selectedDuration, setSelectedDuration] = useState<NewSuggestionFormProps['durations'][0]>();
   const [selectedLocations, setSelectedLocations] = useState<NewSuggestionFormProps['locations']>([]);
+  const { t } = useTranslation();
 
   return (
     <div className="my-12">
-      <h2 className="text-blue">KIRJOITA TOTEUTUSVINKKI</h2>
+      <h2 className="text-blue">{t('write-implementation-suggestion').toUpperCase()}</h2>
       <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
         <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2">
           <div className="w-1/4 space-y-2">
@@ -47,7 +49,7 @@ const NewSuggestionForm = ({
             {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
             <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
             <DropdownSelect
-              title="Arvioitu kesto" // TODO translate
+              title={t('estimated-duration')}
               items={durations}
               getItemTitle={(duration) => duration.name!}
               getItemId={(duration) => duration.id}
@@ -65,7 +67,7 @@ const NewSuggestionForm = ({
               whiteBackground
             />
             <DropdownSelect
-              title="Aktiviteettipaikka" // TODO translate
+              title={t('Aktiviteettipaikka')}
               items={locations}
               getItemTitle={(location) => location.name!}
               getItemId={(location) => location.id}
@@ -86,18 +88,18 @@ const NewSuggestionForm = ({
               }}
               whiteBackground
             />
-            <span className="block text-blue">Lisää liitetiedosto</span>
+            <span className="block text-blue">{t('add-attachment')}</span>
             <label
               className="block bg-hardBlue text-white w-full p-1 rounded-xl font-tondu tracking-wider text-center cursor-pointer"
               htmlFor="file"
             >
               <AttachmentIcon className="fill-current inline-block text-white mr-1" />
-              <span> VALITSE TIEDOSTO</span>
+              <span>{t('choose-file').toUpperCase()}</span>
             </label>
             <input className="opacity-0 absolute -z-10" type="file" name="file" id="file" onChange={onFileChange} />
             {selectedFile && (
               <div>
-                <span className="block font-semibold text-sm">Valittu tiedosto:</span>
+                <span className="block font-semibold text-sm">{`${t('chosen-file')}:`}</span>
                 <UploadIcon fill={'#28AAE1'} className="inline-block mr-0.5" />
                 <span className="text-blue text-xs ">{selectedFile.name}</span>
                 <button onClick={removeSelectedFile} className="inline-block float-right mt-1">
@@ -105,7 +107,7 @@ const NewSuggestionForm = ({
                 </button>
               </div>
             )}
-            <span className="block">Lisää linkki</span>
+            <span className="block">{t('add-link')}</span>
             <div className="relative">
               <LinkIcon className="fill-current absolute top-3 left-3" />
               <input placeholder="url" className={`${inputStyle} pl-6`} onChange={onLinkChange} />
@@ -141,7 +143,7 @@ const NewSuggestionForm = ({
               className="absolute bottom-0 right-0 bg-hardBlue text-white p-2 rounded-br-xl font-tondu tracking-wider z-20"
               onClick={onSubmit}
             >
-              LÄHETÄ
+              {t('send').toUpperCase()}
             </button>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Layout from '../../layouts/default';
 import mockHero from '../../images/mockHero.png';
 import HeroTitleSection from '../../components/heroTitleSection';
@@ -6,24 +6,29 @@ import { PaddedContainer } from '../../components/ui.general';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps, graphql } from 'gatsby';
-import { StrapiActivity, StrapiActivityGroup } from '../../../graphql-types';
+import { StrapiActivity, StrapiActivityGroup, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
-import Metadata from '../../components/metadata';
 import { prependApiUrl } from '../../utils/helpers';
+import Metadata from '../../components/metadata';
+import { Locale } from '../../types/locale';
+import { currentLocale } from '../../utils/helpers';
 
 interface ActivityPageTemplateProps {
   data: { activity: StrapiActivity; activityGroup: StrapiActivityGroup };
 }
 
-const currentLocale = 'fi';
+interface LocalePathData {
+  localeData: { nodes: SitePage[] };
+}
 
 interface ActivityQueryType {
   activity: StrapiActivity;
   activityGroup: StrapiActivityGroup;
+  localeData: { nodes: SitePage[] };
 }
 
 const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
-  const { activity, activityGroup } = data;
+  const { activity, activityGroup, localeData } = data;
 
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
@@ -32,6 +37,7 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
   return (
     <Layout
       showBreadCrumbs
+      locale={activity.locale}
       pageHeader={
         <HeroTitleSection
           logoUrl={
@@ -45,7 +51,12 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
         />
       }
     >
-      <Metadata title={activity.title || ''} description={activity.ingress || ''} path={path} locale={currentLocale} />
+      <Metadata
+        title={activity.title || ''}
+        description={activity.ingress || ''}
+        path={path}
+        locale={currentLocale()}
+      />
       <h2 className="pt-4">{activity.title}</h2>
       <ActivityContentSection data={activity} />
       <ActivitySpecsSection data={activity} />
@@ -57,7 +68,12 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
 export default ActivityPageTemplate;
 
 export const query = graphql`
-  query getActivity($id: Int!) {
+  query getActivity($id: Int!, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
     activity: strapiActivity(strapiId: { eq: $id }) {
       locale
       localizations {
