@@ -18,23 +18,33 @@ export const query = graphql`
       locale
       title
       ingress
+      hero_link_text
+      hero_link_url
+      hero_image {
+        ...ImageFragment
+      }
     }
   }
 `;
 
 interface FrontPageQueryType {
-  frontPage: Pick<StrapiFrontPage, 'content' | 'locale' | 'title' | 'ingress'>;
+  frontPage: Pick<
+    StrapiFrontPage,
+    'content' | 'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
+  >;
 }
 
 const IndexPage = ({ pageContext, data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
-  const { frontPage } = data;
+  const {
+    frontPage: { content, title, hero_link_text, hero_link_url, hero_image, locale },
+  } = data;
 
   return (
-    <Layout locale={frontPage.locale as Locale}>
-      <PaddedContainer>
-        <Hero data={frontPage} />
-        <BlockArea blocks={frontPage.content} />
-      </PaddedContainer>
+    <Layout
+      locale={locale as Locale}
+      pageHeader={<Hero title={title} linkText={hero_link_text} linkUrl={hero_link_url} imageUrl={hero_image?.url} />}
+    >
+      <BlockArea blocks={content} />
     </Layout>
   );
 };

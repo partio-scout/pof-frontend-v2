@@ -520,6 +520,9 @@ type StrapiContentPageLocalizations @dontInfer {
 type StrapiFrontPage implements Node @dontInfer {
   content: JSON
   title: String
+  hero_link_text: String
+  hero_link_url: String
+  hero_image: StrapiImage
   ingress: String
   meta_description: String
   locale: String
