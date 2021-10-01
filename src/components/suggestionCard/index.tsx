@@ -2,7 +2,7 @@ import React from 'react';
 import { StrapiSuggestion } from '../../../graphql-types';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, removeHtml } from '../../utils/helpers';
 import Pill from '../pill';
 import Card from '../card';
 import ClampLines from 'react-clamp-lines';
@@ -55,7 +55,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
           <h4>{title}</h4>
         </div>
         <div className="flex-grow mb-4">
-          <ClampLines text={content!} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
+          <ClampLines text={removeHtml(content!)} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
         </div>
         {(likesExist || commentsExist) && (
           <div className="flex mb-1">

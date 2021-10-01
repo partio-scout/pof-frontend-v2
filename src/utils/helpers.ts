@@ -33,3 +33,7 @@ export const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng)
   }
 }
+
+export const removeHtml = (input: string) => {
+  return input.replace(/(<([^>]+)>)/gi, "");
+};

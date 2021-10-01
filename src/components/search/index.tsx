@@ -102,6 +102,9 @@ const Search = (): React.ReactElement | null => {
                   <Index indexName={`${environment}_${ContentType['content-page']}`}>
                     <SetContextHits type={ContentType['content-page']} />
                   </Index>
+                  <Index indexName={`${environment}_${ContentType['age-group']}`}>
+                    <SetContextHits type={ContentType['age-group']} />
+                  </Index>
                   <Index indexName={`${environment}_${ContentType['activity-group']}`}>
                     <SetContextHits type={ContentType['activity-group']} />
                   </Index>

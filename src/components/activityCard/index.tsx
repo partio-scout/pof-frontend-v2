@@ -22,11 +22,13 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
   const { age_group, activity_group, mandatory, suggestions, duration, locations, fields } = activity;
   const { t } = useTranslation();
 
+  const iconUrl = prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!);
+
   return (
     <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
-          <img src={prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!)} className="h-8 w-8"></img>
+          {iconUrl && <img src={iconUrl} className="h-8 w-8 mr-1 object-contain"></img>}
           <div>
             <div className="text-xs font-semibold">{activity_group?.title}</div>
             <div className="text-xxs">{age_group?.title}</div>
