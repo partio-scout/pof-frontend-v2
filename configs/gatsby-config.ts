@@ -1,12 +1,11 @@
 import 'dotenv';
+import { GatsbyConfig } from 'gatsby';
 
 require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
-const fetchLimit = -1;
-
-module.exports = {
+const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
@@ -15,19 +14,8 @@ module.exports = {
     PRESERVE_WEBPACK_CACHE: true,
   },
   plugins: [
-    'gatsby-plugin-image',
     'gatsby-plugin-react-helmet',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
     'gatsby-plugin-postcss',
-    {
-      resolve: 'gatsby-source-filesystem',
-      options: {
-        name: 'images',
-        path: './src/images/',
-      },
-      __key: 'images',
-    },
     {
       resolve: 'gatsby-source-strapi',
       options: {
@@ -36,6 +24,8 @@ module.exports = {
         collectionTypes: [
           { name: 'activity', api: { qs: { _locale: 'all' } } },
           { name: 'age-group', api: { qs: { _locale: 'all' } } },
+          { name: 'duration', api: { qs: { _locale: 'all' } } },
+          { name: 'location', api: { qs: { _locale: 'all' } } },
           { name: 'activity-group', api: { qs: { _locale: 'all' } } },
           {
             name: 'content-page',
@@ -62,16 +52,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-sitemap`,
-    {
-      resolve: `gatsby-plugin-schema-snapshot`,
-      options: {
-        path: `schema.gql`,
-        exclude: {
-          types: ['SitePage'],
-        },
-        update: process.env.GATSBY_UPDATE_SCHEMA_SNAPSHOT,
-      },
-    },
     `gatsby-plugin-use-query-params`,
     {
       resolve: `gatsby-plugin-google-gtag`,
@@ -100,3 +80,5 @@ module.exports = {
     },
   ],
 };
+
+module.exports = config;

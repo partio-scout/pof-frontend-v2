@@ -5,6 +5,8 @@ import { StrapiContentPage } from '../../../graphql-types';
 import useNavigation from '../../hooks/navigation';
 import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
+import { useTranslation } from 'react-i18next';
+import { currentLocale } from '../../utils/helpers';
 
 type ContentPageFromBlock = StrapiContentPage & {
   id: number;
@@ -14,10 +16,9 @@ interface ContentPageCardProps {
   page: ContentPageFromBlock;
 }
 
-const currentLocale = 'fi';
-
 const ContentPageCard = ({ page }: ContentPageCardProps) => {
-  const navigation = useNavigation(currentLocale);
+  const { t } = useTranslation();
+  const navigation = useNavigation(currentLocale());
 
   const { title, ingress, main_image, published_at, id } = page;
 
@@ -37,8 +38,11 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
           <span className="font-sourceSansPro pl-2 pb-2 color-gray-dark">
             {new Date(published_at).toLocaleDateString('fi')}
           </span>
-          <Link to={url} className="rounded px-4 py-3.5 w-1/2 bg-lightBlue hover:bg-hardBlue font-tondu tracking-wider text-center">
-            Lue lisää
+          <Link
+            to={url}
+            className="rounded px-4 py-3.5 w-1/2 bg-lightBlue hover:bg-hardBlue font-tondu tracking-wider text-center"
+          >
+            {t('read-more')}
           </Link>
         </div>
       </div>

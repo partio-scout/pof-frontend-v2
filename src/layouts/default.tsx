@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLocation } from '@reach/router';
 import Helmet from 'react-helmet';
-import Header from '../components/header';
+import Header, { HeaderItem } from '../components/header';
 import BreadCrumbs from '../components/header/breadCrumbs';
 import Search from '../components/search';
 import { SearchContextProvider } from '../contexts/searchContext';
@@ -9,27 +9,40 @@ import { LogoContextProvider } from '../contexts/logoContext';
 import useNavigation from '../hooks/navigation';
 import useMetadata from '../hooks/metadata';
 import { findBreadcrumbPath } from '../utils/breadcrumbs';
+import { changeLanguage, currentLocale } from '../utils/helpers';
+import { Toaster } from 'react-hot-toast';
+import Container from '../components/container';
+import Footer from '../components/footer';
+import { Locale } from '../types/locale';
 
 interface LayoutProps {
   children: React.ReactNode;
   showBreadCrumbs?: boolean;
   omitPadding?: boolean;
+  pageHeader?: React.ReactElement;
+  locale: Locale;
 }
 
-// TODO get locale dynamically
-const currentLocale = 'fi';
-
-const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false }: LayoutProps) => {
+const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false, pageHeader, locale }: LayoutProps) => {
   const { pathname } = useLocation();
-  const navigation = useNavigation(currentLocale);
-  const metadata = useMetadata(currentLocale);
+  const navigation = useNavigation(currentLocale());
+  const metadata = useMetadata(currentLocale());
+  changeLanguage(locale);
 
-  const path = findBreadcrumbPath(pathname, navigation);
+  const path = findBreadcrumbPath(pathname, navigation as HeaderItem[]);
 
   return (
     <SearchContextProvider>
       <LogoContextProvider>
+        <Toaster position="bottom-right" />
         <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
+          <script
+            id="Cookiebot"
+            src="https://consent.cookiebot.com/uc.js"
+            data-cbid={process.env.GATSBY_COOKIEBOT_ID}
+            data-blockingmode="auto"
+            type="text/javascript"
+          ></script>
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
           <meta property="og:locale:alternate" content="sv_SE" />
@@ -43,12 +56,20 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false 
           <meta name="twitter:title" content={metadata.title} />
         </Helmet>
         <div className="relative">
+          <script
+            id="CookieDeclaration"
+            src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
+            type="text/javascript"
+            async
+          ></script>
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
           <Search />
           <div>
             {showBreadCrumbs && <BreadCrumbs trail={path} />}
-            <div className={`container ${!omitPadding && 'md:px-24 2xl:px-0'} mx-auto max-w-7xl`}>{children}</div>
+            {pageHeader && pageHeader}
+            <Container omitPadding={omitPadding}>{children}</Container>
           </div>
+          <Footer />
         </div>
       </LogoContextProvider>
     </SearchContextProvider>

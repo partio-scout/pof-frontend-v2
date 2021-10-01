@@ -1,22 +1,24 @@
 import React from 'react';
 import Layout from '../../layouts/default';
-import { StrapiContentPage } from '../../../graphql-types';
+import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, currentLocale } from '../../utils/helpers';
 import RichText from '../../components/RichText';
+import { graphql, PageProps } from 'gatsby';
+import ContentPageNav from './contentPageNav';
+import { Locale } from '../../types/locale';
 
 interface ContentPageTemplateProps {
-  pageContext: {
-    data: StrapiContentPage;
-  };
-}
-
-interface MainContentProps {
   data: StrapiContentPage;
 }
 
-const MainContent = ({ data }: MainContentProps) => (
-  <div className="flex flex-wrap px-20">
+interface ContentPageQueryType {
+  contentPage: StrapiContentPage;
+  localeData: { nodes: SitePage[] };
+}
+
+const MainContent = ({ data }: ContentPageTemplateProps) => (
+  <div className="flex flex-wrap mt-14">
     <div className="w-full md:w-1/2">
       <h1 className="mb-2">{data.title}</h1>
       <RichText html={data.main_text} />
@@ -25,11 +27,48 @@ const MainContent = ({ data }: MainContentProps) => (
   </div>
 );
 
-const ContentPageTemplate = ({ pageContext }: ContentPageTemplateProps) => (
-  <Layout omitPadding showBreadCrumbs>
-    <MainContent data={pageContext.data} />
-    <BlockArea blocks={pageContext.data.content} />
-  </Layout>
-);
+const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
+  const { strapiId, content, locale } = data.contentPage;
+
+  return (
+    <Layout
+      showBreadCrumbs
+      locale={locale as Locale}
+      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
+    >
+      <MainContent data={data.contentPage} />
+      <BlockArea blocks={content} />
+    </Layout>
+  );
+};
 
 export default ContentPageTemplate;
+
+export const query = graphql`
+  query getContentPage($id: Int!, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
+    contentPage: strapiContentPage(strapiId: { eq: $id }) {
+      locale
+      localizations {
+        locale
+        id
+      }
+      title
+      updated_at
+      created_at
+      published_at
+      id
+      strapiId
+      content
+      main_text
+      main_image {
+        url
+      }
+      ingress
+    }
+  }
+`;

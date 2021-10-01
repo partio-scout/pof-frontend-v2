@@ -3,9 +3,10 @@ import { StrapiSuggestion } from '../../../graphql-types';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl } from '../../utils/helpers';
-import Pill from './pill';
+import Pill from '../pill';
 import Card from '../card';
 import ClampLines from 'react-clamp-lines';
+import { useTranslation } from 'react-i18next';
 
 export type SuggestionWithUrl = StrapiSuggestion & { url?: string; logo?: string };
 
@@ -18,6 +19,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
   const { author, activity, id, content, like_count, comments, title, published_at, duration, locations, logo } =
     suggestion;
 
+  const { t } = useTranslation();
   const likesExist = (like_count || 0) > 0;
   const commentsExist = (comments?.length || 0) > 0;
 
@@ -60,15 +62,13 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
             {likesExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {/* TODO translate */}
-                {like_count} {like_count === 1 ? 'huuto' : 'huutoa'}
+                {like_count} {like_count === 1 ? t('shout') : t('shouts')}
               </Pill>
             )}
             {commentsExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {/* TODO translate */}
-                {comments?.length} {comments?.length === 1 ? 'vastaus' : 'vastausta'}
+                {comments?.length} {comments?.length === 1 ? t('reply') : t('replies')}
               </Pill>
             )}
           </div>

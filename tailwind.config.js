@@ -1,4 +1,5 @@
 const plugin = require('tailwindcss/plugin');
+const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default;
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -25,6 +26,7 @@ module.exports = {
       colors: {
         blue: {
           DEFAULT: '#253764',
+          border: '#A9DDF3',
         },
         lightBlue: {
           DEFAULT: '#93D4F0',
@@ -38,6 +40,7 @@ module.exports = {
         },
         gray: {
           dark: '#6A6A6A',
+          semiDark: '#D1D1D1',
           DEFAULT: '#EAEAEA',
           light: '#F7F7F7',
         },
@@ -71,6 +74,9 @@ module.exports = {
       },
       inset: {
         'full+1': 'calc(100% + .5rem)',
+      },
+      borderRadius: {
+        '4xl': 32,
       },
     },
     fontFamily: {
@@ -109,6 +115,21 @@ module.exports = {
         });
       });
     }),
-    require('@tailwindcss/line-clamp'),
+    // Create utils for changing individual border colors.
+    // Copied from here https://github.com/tailwindlabs/tailwindcss/pull/560#issuecomment-670045304
+    ({ addUtilities, e, theme, variants }) => {
+      const colors = flattenColorPalette(theme('borderColor'));
+      delete colors['default'];
+
+      const colorMap = Object.keys(colors).map((color) => ({
+        [`.border-t-${color}`]: { borderTopColor: colors[color] },
+        [`.border-r-${color}`]: { borderRightColor: colors[color] },
+        [`.border-b-${color}`]: { borderBottomColor: colors[color] },
+        [`.border-l-${color}`]: { borderLeftColor: colors[color] },
+      }));
+      const utilities = Object.assign({}, ...colorMap);
+
+      addUtilities(utilities, variants('borderColor'));
+    },
   ],
 };

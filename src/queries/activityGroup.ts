@@ -1,49 +1,16 @@
-import { commonFragment, mediaFragment } from './common';
-
 export const getActivityGroup = `
 query getActivityGroup($id: Int!) {
   strapiActivityGroup(strapiId: {eq: $id}) {
-    ${commonFragment}
-    ingress
-    content
-    mandatory
-    sort_order
-    logo {
-      ${mediaFragment}
+    localizations {
+      id
+      locale
+      published_at
     }
-    main_image {
-      ${mediaFragment}
-    }
+    locale
     activities {
       id
       title
-    }
-    activity_group_category {
-      name
-      sort_order
-    }
-    activitygroup_term {
-      name
-      plural
-      singular
-    }
-    subactivity_term {
-      name
-      plural
-      singular
-    }
-    subactivitygroup_term {
-      name
-      plural
-      singular
-    }
-    age_group {
-      id
-      title
-    }
-    links {
-      description
-      url
+      locale
     }
   }
 }

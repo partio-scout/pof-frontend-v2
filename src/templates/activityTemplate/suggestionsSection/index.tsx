@@ -1,12 +1,23 @@
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { StrapiActivity } from '../../../../graphql-types';
+import { StrapiActivity, StrapiDuration, StrapiLocation, StrapiSuggestion } from '../../../../graphql-types';
+import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
+import toast from 'react-hot-toast';
+import { graphql, useStaticQuery } from 'gatsby';
+import { currentLocale } from '../../../utils/helpers';
 
 interface SuggestionsSectionProps {
   activityId: number;
   data: StrapiActivity;
+}
+
+export interface CommonSuggestionFormProps {
+  onSubmit: (suggestionId: number) => void;
+  onFieldChange: (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => void;
+  onTermsChange: () => void;
+  termsChecked: boolean;
 }
 
 export interface Error {
@@ -14,66 +25,145 @@ export interface Error {
   err?: any;
 }
 
-interface InitialSuggestion {
+export interface InitialSuggestion {
   title: string;
   content: string;
   links: Array<{ url: string; description: string }>;
+  locations?: Array<number>;
+  duration?: number;
+}
+
+export interface InitialReply {
+  title: string;
+  text: string;
+  author: string;
 }
 
 const initialSuggestion: InitialSuggestion = {
   title: '',
   content: '',
   links: [],
+  locations: undefined,
+  duration: undefined,
 };
 
+const initialReply: InitialReply = {
+  title: '',
+  author: '',
+  text: '',
+};
+
+const query = graphql`
+  {
+    allStrapiDuration {
+      nodes {
+        name
+        id
+        strapiId
+        locale
+      }
+    }
+    allStrapiLocation {
+      nodes {
+        name
+        id
+        strapiId
+        locale
+      }
+    }
+  }
+`;
+
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
-  //TODO: Change all strings to localized versions instead of harcoded ones
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
-  const [suggestionPostSent, setSuggestionPostSent] = useState(false);
-  const [termsChecked, setTermsChecked] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
+  const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
+  const [newReply, setNewReply] = useState(initialReply);
+  const [suggestions, setSuggestions] = useState<Array<any> | null>(null);
+  const [replyTermsChecked, setReplyTermsChecked] = useState(false);
+  const [modalData, setModalData] = useState({
+    modalText: '',
+    sendButtonText: '',
+    backButtonText: '',
+  });
   const [modalOpen, setModalOpen] = useState(false);
+  const [callBack, setCallback] = useState<() => void | null>(() => {});
+  const queryResult =
+    useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
+      query,
+    );
 
-  const suggestionValid = () =>
-    newSuggestion.title && newSuggestion.content && newSuggestion.title !== '' && newSuggestion.content !== '';
+  useEffect(() => {
+    fetchSuggestions(activityId)
+      .then((res) => setSuggestions(res.data))
+      .catch((err) => {
+        console.error(err);
+        toast.error('Toteutusvinkkien haku epäonnistui');
+      });
+  }, [data]);
 
-  const openConfirmationModal = () => {
-    setSuggestionPostSent(false);
-    setError(null);
-    if (!termsChecked) {
-      setError({
-        text: 'Hyväksy ehdot ennen lähettämistä',
-      });
-    } else if (!suggestionValid()) {
-      setError({
-        text: 'Tarkista että kentät eivät ole tyhjiä',
-      });
+  const suggestionValid = (obj: InitialSuggestion) =>
+    obj.title && obj.content && obj.title !== '' && obj.content !== '';
+
+  const replyValid = (obj: InitialReply) => obj.title && obj.text && obj.title !== '' && obj.text !== '';
+
+  const validateSuggestion = () => {
+    setCallback(() => postNewSuggestion);
+    // TODO translate
+    setModalData({
+      modalText: 'Haluatko lähettää uuden toteutusvinkin?',
+      sendButtonText: 'Lähetä toteutusvinkki',
+      backButtonText: 'Takaisin',
+    });
+    if (!suggestionTermsChecked) {
+      toast.error('Hyväksy ehdot ennen lähetystä');
+    } else if (!suggestionValid(newSuggestion)) {
+      toast.success('Tarkista että kentät eivät ole tyhjiä');
     } else {
       setModalOpen(true);
     }
   };
 
   const postNewSuggestion = () => {
-    const formData = new FormData();
-    formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
-    selectedFile && formData.append('files.files', selectedFile!, selectedFile.name);
-    fetch(`${process.env.API_URL}suggestions/new`, {
-      method: 'post',
-      body: formData,
-    })
+    // TODO translate
+    sendNewSuggestion(newSuggestion, activityId)
       .then((res) => {
         setModalOpen(false);
-        setSuggestionPostSent(true);
-        setError(null);
+        toast.success('Toteutusvinkki lähetetty onnistuneesti');
       })
       .catch((err) => {
         setModalOpen(false);
-        setSuggestionPostSent(false);
-        setError({
-          text: 'Toteutusvinkin lähettäminen epäonnistui.',
-          err,
-        });
+        toast.error('Toteutusvinkin lähettäminen epäonnistui');
+      });
+  };
+
+  const validateReply = (suggestionId: number) => {
+    // TODO translate
+    setCallback(() => () => postNewReply(suggestionId));
+    setModalData({
+      modalText: 'Haluatko lähettää uuden kommentin?',
+      sendButtonText: 'Lähetä kommentti',
+      backButtonText: 'Takaisin',
+    });
+    if (!replyTermsChecked) {
+      toast.error('Hyväksy ehdot ennen lähetystä');
+    } else if (!replyValid(newReply)) {
+      toast.error('Tarkista että kentät eivät ole tyhjiä');
+    } else {
+      setModalOpen(true);
+    }
+  };
+
+  const postNewReply = (suggestionId: number) => {
+    // TODO translate
+    sendNewReply(newReply, suggestionId)
+      .then((res) => {
+        setModalOpen(false);
+        toast.success('Kommentti lähetetty onnistuneesti');
+      })
+      .catch((err) => {
+        setModalOpen(false);
+        toast.error('Kommentin lähettäminen epäonnistui');
       });
   };
 
@@ -81,14 +171,22 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     event.target.files && setSelectedFile(event.target.files[0]);
   };
 
-  const onFieldChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+  const onReplyFieldChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
+    setNewReply({
+      ...newReply,
+      [event.target.name]: event.target.value,
+    });
+  };
+  const onSuggestionFieldChange = (event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>) => {
     setNewSuggestion({
       ...newSuggestion,
       [event.target.name]: event.target.value,
     });
   };
 
-  const onTermsChange = () => setTermsChecked(!termsChecked);
+  const onSuggestionTermsChange = () => setSuggestionTermsChecked(!suggestionTermsChecked);
+
+  const onReplyTermsChange = () => setReplyTermsChecked(!replyTermsChecked);
 
   const onLinkChange = (event: ChangeEvent<HTMLInputElement>) =>
     setNewSuggestion({
@@ -101,23 +199,55 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       ],
     });
 
+  const resetFormState = () => {
+    setReplyTermsChecked(false);
+    setNewReply(initialReply);
+  };
+
+  const onDurationChange = (duration: StrapiDuration) => {
+    setNewSuggestion({
+      ...newSuggestion,
+      duration: duration.strapiId!,
+    });
+  };
+
+  const onLocationChange = (locations: StrapiLocation[]) => {
+    setNewSuggestion({
+      ...newSuggestion,
+      locations: locations.map((l) => l.strapiId!),
+    });
+  };
+
   return (
     <div className="mt-8">
+     {/* TODO translate */}
       <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
-      <Suggestions data={data} />
+      {suggestions && (
+        <Suggestions
+          suggestions={suggestions!}
+          onSubmit={validateReply}
+          resetFormState={resetFormState}
+          onFieldChange={onReplyFieldChange}
+          onTermsChange={onReplyTermsChange}
+          termsChecked={replyTermsChecked}
+          ageGroupColor={data.age_group?.color}
+        />
+      )}
       <NewSuggestionForm
-        onSubmit={openConfirmationModal}
+        onSubmit={validateSuggestion}
+        durations={queryResult.allStrapiDuration.nodes.filter((d) => d.locale === currentLocale())}
+        locations={queryResult.allStrapiLocation.nodes.filter((l) => l.locale === currentLocale())}
         selectedFile={selectedFile}
         onFileChange={onFileChange}
-        onFieldChange={onFieldChange}
-        onTermsChange={onTermsChange}
+        onFieldChange={onSuggestionFieldChange}
+        onTermsChange={onSuggestionTermsChange}
         removeSelectedFile={() => setSelectedFile(null)}
         onLinkChange={onLinkChange}
-        termsChecked={termsChecked}
-        error={error}
-        suggestionPostSent={suggestionPostSent}
+        termsChecked={suggestionTermsChecked}
+        onDurationChange={onDurationChange}
+        onLocationChange={onLocationChange}
       />
-      <ConfirmationModal modalOpen={modalOpen} setModalOpen={setModalOpen} postNewSuggestion={postNewSuggestion} />
+      <ConfirmationModal modalOpen={modalOpen} setModalOpen={setModalOpen} callBack={callBack} modalData={modalData} />
     </div>
   );
 };

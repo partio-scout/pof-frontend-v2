@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavProps, HeaderItem } from '.';
+import { NavProps, HeaderItem, HeaderItemFirstLevel } from '.';
 import Search from '../search/headerSearchBox';
 import nav from '../../images/nav.svg';
 import navClose from '../../images/nav-close.svg';
@@ -7,6 +7,7 @@ import logo from '../../images/logo.svg';
 import upArrow from '../../images/upArrow.svg';
 import downArrow from '../../images/downArrow.svg';
 import { useSearchContext } from '../../contexts/searchContext';
+import { Link } from 'gatsby';
 
 interface MobileNavProps extends NavProps {
   hamburgerMenuOpen: boolean;
@@ -36,22 +37,22 @@ const MobileNav = ({
         </div>
       </div>
       {hamburgerMenuOpen && (
-        <div className="absolute w-full h-full bg-white z-20">
-          {headerItems.map((headerItem: HeaderItem, index: number) => (
+        <div className="absolute w-full h-full bg-white z-30">
+          {headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div
               key={headerItem.name + index.toString()}
               className="mt-4"
-              onClick={index === 0 ? () => toggleDropDown(index) : undefined}
+              onClick={() => toggleDropDown(index)}
             >
               <span className="text-blue font-tondu tracking-wider text-xl ml-4">{headerItem.name.toUpperCase()}</span>
               <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} />
               {headerItem.subMenu && currentDropDownOpen === index && (
                 <div className="flex flex-col w-10/12 bg-gray-light rounded-lg py-1 mx-auto font-sourceSansPro cursor-pointer">
                   {headerItem.subMenu.map((subItem: HeaderItem) => (
-                    <a className="px-2 py-1 text-blue hover:bg-gray" href={subItem.url}>
+                    <Link className="px-2 py-1 text-blue hover:bg-gray" to={subItem.url}>
                       <span className="block font-bold">{subItem.name}</span>
                       <span className="block">{subItem.ingress}</span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}

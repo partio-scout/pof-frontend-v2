@@ -1,4 +1,5 @@
 import { graphql, useStaticQuery, Node } from 'gatsby';
+import { useTranslation } from 'react-i18next';
 import {
   Content_Navigation,
   Content_NavigationItemsSubitems,
@@ -64,12 +65,15 @@ const useNavigation = (currentLocale: string) => {
     allContentNavigation: { nodes: Content_Navigation[] };
     allProgramNavigation: { nodes: Program_Navigation[] };
   }>(navigationQuery);
+  const { t } = useTranslation()
 
-  const itemFilter = (requirePath: boolean) => (item: Maybe<Program_NavigationItems>): boolean => {
-    if (requirePath && !item?.path) return false; 
+  const itemFilter =
+    (requirePath: boolean) =>
+      (item: Maybe<Program_NavigationItems>): boolean => {
+        if (requirePath && !item?.path) return false;
 
-    return Boolean(item?.title);
-  }
+        return Boolean(item?.title);
+      };
 
   const mapSubItems = (subItems?: Maybe<Maybe<Content_NavigationItemsSubitems>[]>): HeaderItem[] => {
     return (
@@ -91,7 +95,8 @@ const useNavigation = (currentLocale: string) => {
         name: item?.title!,
         id: item?.title!,
         subMenu: mapSubItems(item?.subitems),
-      })) || [];
+      }))
+      .filter((item) => item.subMenu.length > 0) || [];
 
   // Program data navigation items are filtered by their locale here and not in the graphql query because
   // Gatsby's useStaticQuery doesn't allow the use of variables.
@@ -111,7 +116,7 @@ const useNavigation = (currentLocale: string) => {
 
   const programNavigation: HeaderItemFirstLevel[] = [
     {
-      name: 'Partio-ohjelma', // TODO locale
+      name: t('scouting-program'),
       subMenu: programItems,
     },
   ];
