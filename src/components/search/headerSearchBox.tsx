@@ -3,9 +3,11 @@ import SearchLogo from '../../images/search.inline.svg';
 import { useSearchContext } from '../../contexts/searchContext';
 import DeleteIcon from '../../images/delete.inline.svg';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 const Search = () => {
   const { state, dispatch } = useSearchContext();
+  const { t } = useTranslation();
 
   return (
     <div className={clsx("flex h-full border-lightBlue self-stretch flex-row justify-start items-center", {
@@ -17,7 +19,7 @@ const Search = () => {
             <input
               type="text"
               className="p-3 pr-8 bg-gray rounded-2xl h-12 w-80 text-xl"
-              placeholder="Hakusana"
+              placeholder={t('search-term')}
               value={state.searchState.configure?.query || ""}
               autoFocus
               onChange={(e) => dispatch({ type: 'set-search-term', payload: e.target.value })}

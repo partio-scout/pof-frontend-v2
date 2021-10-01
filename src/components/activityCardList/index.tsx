@@ -5,6 +5,8 @@ import PlusIcon from '../../images/plus-round.inline.svg';
 import { fetchActivities } from '../../services/activity';
 import useNavigation from '../../hooks/navigation';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
+import { useTranslation } from 'react-i18next';
+import { currentLocale } from '../../utils/helpers';
 
 interface ActivityCardListProps {
   activities: StrapiActivity[];
@@ -14,7 +16,7 @@ interface ActivityCardListProps {
   showInitially?: number;
   /**
    * Set this true to fetch the activities' data from Strapi directly.
-   * This is needed when showing activities which come from inside Strapi components, 
+   * This is needed when showing activities which come from inside Strapi components,
    * which don't currently show component relations properly in api responses.
    */
   augmentData?: boolean;
@@ -23,7 +25,9 @@ interface ActivityCardListProps {
 const ActivityCardList = ({ activities, showInitially, augmentData }: ActivityCardListProps) => {
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
-  const navigation = useNavigation('fi');
+  const navigation = useNavigation(currentLocale());
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (augmentData) {
@@ -52,9 +56,9 @@ const ActivityCardList = ({ activities, showInitially, augmentData }: ActivityCa
       ...activity,
       fields: {
         path: headerItem?.url,
-      }
+      },
     };
-  })
+  });
 
   return (
     <div>
@@ -69,7 +73,8 @@ const ActivityCardList = ({ activities, showInitially, augmentData }: ActivityCa
             onClick={() => setAllVisible(true)}
             className="group flex justify-center items-center uppercase border border-blue border-opacity-40 rounded py-3 px-16 font-tondu tracking-widest"
           >
-            <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" /> Näytä kaikki ({activities.length})
+            <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" />
+            {t('show-all')} ({activities.length})
           </button>
         </div>
       )}

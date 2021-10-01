@@ -35,7 +35,7 @@ const Filters = () => {
         </div>
         <div className="my-3">
           <DropdownRefinementList
-            title="Ikäryhmä"
+            title={t('age-group')}
             attribute="age_group.title"
             limit={50}
             defaultRefinement={state.searchState.refinementList?.['age_group.title']}

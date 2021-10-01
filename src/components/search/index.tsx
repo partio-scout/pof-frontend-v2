@@ -6,6 +6,8 @@ import { client } from '../../utils/algolia';
 import Hits from '../../components/search/hits';
 import { useSearchContext } from '../../contexts/searchContext';
 import Filters from './filters';
+import { currentLocale } from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 const environment = process.env.GATSBY_ALGOLIA_ENVIRONMENT;
 
@@ -27,6 +29,8 @@ const Search = (): React.ReactElement | null => {
   const [debouncedSetState, setDebouncedSetState] = useState<any | null>(null);
 
   const [searchStateQS, setSearchStateQS] = useQueryParam('search', NullJsonParam);
+  const locale = currentLocale();
+  const { t } = useTranslation();
 
   const onSearchStateChange = (updatedSearchState: any) => {
     clearTimeout(debouncedSetState);
@@ -74,7 +78,7 @@ const Search = (): React.ReactElement | null => {
         onSearchStateChange={onSearchStateChange}
       >
         {/* TODO: Switch locale */}
-        <Configure filters="locale:fi" query={state.searchState?.configure?.query} />
+        <Configure filters={`locale:${locale}`} query={state.searchState?.configure?.query} />
         <div className="flex flex-col h-full">
           <Filters />
           <div className="flex flex-col flex-1 backdrop-filter backdrop-blur-xl bg-opacity-50 bg-white">
@@ -82,7 +86,7 @@ const Search = (): React.ReactElement | null => {
               {state.visibleContentTypes.map(({ name, type }) => (
                 <div className="my-3" key={name}>
                   <Index indexName={`${environment}_${type}`}>
-                    <h2 className="uppercase text-3xl my-5">{name}</h2>
+                    <h2 className="uppercase text-3xl my-5">{t(name + '-plural')}</h2>
                     <Hits type={type} />
                   </Index>
                 </div>
