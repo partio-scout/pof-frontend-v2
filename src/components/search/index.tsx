@@ -81,7 +81,6 @@ const Search = (): React.ReactElement | null => {
         searchState={state.searchState}
         onSearchStateChange={onSearchStateChange}
       >
-        {/* TODO: Switch locale */}
         <Configure filters={`locale:${locale}`} query={state.searchState?.configure?.query} />
         <div className="flex flex-col h-full">
           <Filters />
@@ -92,7 +91,7 @@ const Search = (): React.ReactElement | null => {
                 .map(({ name, type }) => (
                   <div className="my-3" key={name}>
                     <Index indexName={`${environment}_${type}`}>
-                      <h2 className="uppercase text-3xl my-5">{t(name + '-plural')}</h2>
+                      <h2 className="uppercase text-3xl my-5">{t(type + '-plural')}</h2>
                       <Hits type={type} />
                     </Index>
                   </div>
@@ -106,7 +105,7 @@ const Search = (): React.ReactElement | null => {
                   <Index indexName={`${environment}_${ContentType['activity-group']}`}>
                     <SetContextHits type={ContentType['activity-group']} />
                   </Index>
-                  <h2 className="uppercase text-3xl my-5">Muut</h2>
+                  <h2 className="uppercase text-3xl my-5">{t('others')}</h2>
                   <ContextHits />
                 </HitContextProvider>
               )}
