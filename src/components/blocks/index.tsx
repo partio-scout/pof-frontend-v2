@@ -110,4 +110,4 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
 );
 
 export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) =>
-  block.activities ? <ActivityCardList activities={block.activities} augmentData /> : null;
+  block.activities ? <ActivityCardList activities={block.activities} augmentData showActivityAndAgeGroup  /> : null;

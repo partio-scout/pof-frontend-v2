@@ -20,9 +20,10 @@ interface ActivityCardListProps {
    * which don't currently show component relations properly in api responses.
    */
   augmentData?: boolean;
+  showActivityAndAgeGroup?: boolean;
 }
 
-const ActivityCardList = ({ activities, showInitially, augmentData }: ActivityCardListProps) => {
+const ActivityCardList = ({ activities, showInitially, augmentData, showActivityAndAgeGroup }: ActivityCardListProps) => {
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
   const navigation = useNavigation(currentLocale());
@@ -64,7 +65,7 @@ const ActivityCardList = ({ activities, showInitially, augmentData }: ActivityCa
     <div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
         {activitiesWithLinks?.map((activity) => (
-          <ActivityCard activity={activity} key={activity.strapiId} />
+          <ActivityCard activity={activity} key={activity.strapiId} showActivityAndAgeGroup={showActivityAndAgeGroup} />
         ))}
       </div>
       {activitiesWithLinks.length < activities.length && (
