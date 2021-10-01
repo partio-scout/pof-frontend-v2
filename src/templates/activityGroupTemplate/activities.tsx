@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
 import ActivityCardList from '../../components/activityCardList';
 import { useTranslation } from 'react-i18next';
