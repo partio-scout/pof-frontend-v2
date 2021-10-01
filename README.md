@@ -15,6 +15,7 @@ For development, add the following variables into file: `.env.development`.
 Required environment variables:
 
 - `API_URL`: The address of the Strapi API
+- `GATSBY_API_URL`: The address of the Strapi API
 - `GATSBY_ALGOLIA_APP_ID`: Id of the Algolia application
 - `GATSBY_ALGOLIA_API_KEY`: API-KEY for the Algolia application
 - `GATSBY_ALGOLIA_ENVIRONMENT`: the environment used in Algolia
