@@ -39,7 +39,7 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
           logoUrl={
             prependApiUrl(activity.activity_group?.logo?.formats?.thumbnail?.url || activityGroup?.logo?.url) || ''
           }
-          mainImageUrl={mockHero}
+          mainImageUrl={prependApiUrl(activity.activity_group?.main_image?.url || activity.age_group?.main_image?.url)}
           mainTitle={activityGroup?.title || ''}
           subTitle={subTitle}
           smallMainTitle
@@ -175,6 +175,9 @@ export const query = graphql`
       age_group {
         color
         title
+        main_image {
+          ...ImageFragment
+        }
       }
     }
     activityGroup: strapiActivityGroup(activities: { elemMatch: { id: { eq: $id } } }) {

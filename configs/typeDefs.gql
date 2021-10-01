@@ -1064,8 +1064,8 @@ type StrapiActivityAge_group @dontInfer {
   links: [StrapiActivityAge_groupLinks]
   upper_content_area: [StrapiActivityAge_groupUpper_content_area]
   lower_content_area: [StrapiActivityAge_groupLower_content_area]
-  main_image: StrapiActivityAge_groupMain_image
-  logo: StrapiActivityAge_groupLogo
+  main_image: StrapiImage
+  logo: StrapiImage
 }
 type StrapiActivityAge_groupLinks @dontInfer {
   id: Int
