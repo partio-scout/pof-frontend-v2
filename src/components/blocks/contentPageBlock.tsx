@@ -24,18 +24,22 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
 
   const url = findHeaderItemByTypeAndId('ContentPage', id, navigation)?.url;
 
+  const imageUrl = prependApiUrl(main_image?.formats?.small?.url);
+
   return url ? (
     <div className="flex flex-col rounded-lg m-3 w-96 h-491  overflow-hidden">
-      <div>
-        <img src={prependApiUrl(main_image?.formats?.medium?.url) || ''} className="w-full" />
-      </div>
+      {imageUrl && (
+        <div>
+          <img src={imageUrl} className="w-full h-64 object-cover" />
+        </div>
+      )}
       <div className="flex flex-col justify-around bg-gray-light w-full flex-grow">
         <div className="flex-grow p-2">
           <h4 className="bold font-tondu tracking-wider text-blue">{title}</h4>
           <p className="text-blue">{ingress}</p>
         </div>
         <div className="flex justify-between items-center pl-2">
-          <span className="font-sourceSansPro pl-2 pb-2 color-gray-dark">
+          <span className="font-sourceSansPro pl-2 pb-2 text-gray-dark">
             {new Date(published_at).toLocaleDateString('fi')}
           </span>
           <Link

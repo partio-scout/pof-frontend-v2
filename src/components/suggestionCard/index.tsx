@@ -28,7 +28,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
       <div className="p-3 flex-grow">
         <div className="mb-1">
           {author && <div className="text-xs font-semibold">{author}</div>}
-          <div className="text-xxs">{new Date(published_at).toLocaleDateString()}</div>
+          <div className="text-xxs">{new Date(published_at).toLocaleDateString('fi')}</div>
         </div>
         {(duration || (locations?.length || 0) > 0) && (
           <div className="flex mb-2 flex-wrap">
