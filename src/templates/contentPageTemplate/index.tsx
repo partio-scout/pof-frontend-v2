@@ -19,8 +19,8 @@ interface ContentPageQueryType {
 
 const MainContent = ({ data }: ContentPageTemplateProps) => (
   <div className="flex flex-wrap mt-14">
-    <div className="w-full md:w-1/2">
-      <h1 className="mb-2">{data.title}</h1>
+    <div className="w-full lg:w-1/2 flex-grow pr-3">
+      <h1 className="mb-2 break-words">{data.title}</h1>
       <RichText html={data.main_text} />
     </div>
     {data.main_image && <img className="w-full md:w-1/2" src={prependApiUrl(data.main_image?.url)}></img>}

@@ -13,8 +13,8 @@ import {
 } from '../graphql-types';
 import { getActivityGroup } from '../src/queries/activityGroup';
 import { getAllAgeGroups } from '../src/queries/ageGroup';
-import { getContentPage } from '../src/queries/contentPage';
 import { getAllFrontPages } from '../src/queries/frontPage';
+import { getContentPage } from '../src/queries/contentPage';
 import { parseAgeGroupRouteName, parseRouteName } from './utils';
 
 interface PageCreationResults {

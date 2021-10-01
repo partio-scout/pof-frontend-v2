@@ -6,32 +6,37 @@ const trimUrl = (url?: string): string => {
 }
 
 export const fetchSuggestions = (activityId: number) => {
-  return axios.get(`${trimUrl(process.env.API_URL)}/suggestions?activity.id=${activityId}`);
+  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions?activity.id=${activityId}`);
 };
 
 export const fetchComments = (suggestionId: number) => {
-  return axios.get(`${trimUrl(process.env.API_URL)}/suggestions/${suggestionId}`);
+  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}`);
 };
 
 export const sendNewSuggestion = (newSuggestion: any, activityId: number) => {
   const formData = new FormData();
   formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
-  return axios.post(`${trimUrl(process.env.API_URL)}/suggestions/new`, formData, {
+  return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/new`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
 };
 
 export const sendNewReply = (newReply: InitialReply, suggestionId: number) =>
-  axios.post(`${trimUrl(process.env.API_URL)}/suggestions/${suggestionId}/comment`, newReply);
+  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply);
 
 export const sendSuggestionLike = (suggestionId: number, userId: string) => {
-  return axios.post(`${trimUrl(process.env.API_URL)}/suggestions/${suggestionId}/like`, {
+  return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/like`, {
     user: userId,
   });
 };
 
 export const sendSuggestionUnlike = (suggestionId: number, userId: string) => {
-  return axios.post(`${trimUrl(process.env.API_URL)}/suggestions/${suggestionId}/unlike`, {
+  return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/unlike`, {
     user: userId,
   });
 };
+
+export const fetchActivities = (activityIds: string[]) => {
+  const query = activityIds.map((id) => `id_in=${id}`).join('&');
+  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/activities?${query}`);
+}

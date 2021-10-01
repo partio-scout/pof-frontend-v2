@@ -13,7 +13,7 @@ i18n
       escapeValue: false,
     },
     backend: {
-      loadPath: `${process.env.API_URL}/settings/translations/{{lng}}`
+      loadPath: `${process.env.GATSBY_API_URL}/settings/translations/{{lng}}`
     },
     react: {
       useSuspense: false,

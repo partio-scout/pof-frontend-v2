@@ -1,6 +1,7 @@
 import React from 'react';
 import { StrapiFrontPageFooter_SectionsLink_GroupsLinks } from '../../../graphql-types';
 import CombinedLink from '../combinedLink';
+import { addLineBreaks } from './utils';
 
 function FooterLink({ description, email, phone_number, url, title }: StrapiFrontPageFooter_SectionsLink_GroupsLinks) {
   let linkClasses = 'hover:text-hardBlue font-bold';
@@ -23,15 +24,11 @@ function FooterLink({ description, email, phone_number, url, title }: StrapiFron
         {title || phone_number}
       </a>
     );
-  else {
-    console.warn('FooterLink with nothing to show!');
-    return null;
-  }
 
   return (
     <div className="mb-2">
-      {link}
-      <p className="text-gray-semiDark tracking-wide">{description}</p>
+      {link && link}
+      <p className="text-gray-semiDark tracking-wide">{addLineBreaks(description)}</p>
     </div>
   );
 }

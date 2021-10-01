@@ -17,10 +17,6 @@ interface ActivityPageTemplateProps {
   data: { activity: StrapiActivity; activityGroup: StrapiActivityGroup };
 }
 
-interface LocalePathData {
-  localeData: { nodes: SitePage[] };
-}
-
 interface ActivityQueryType {
   activity: StrapiActivity;
   activityGroup: StrapiActivityGroup;
@@ -28,7 +24,7 @@ interface ActivityQueryType {
 }
 
 const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
-  const { activity, activityGroup, localeData } = data;
+  const { activity, activityGroup } = data;
 
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
@@ -37,13 +33,13 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
   return (
     <Layout
       showBreadCrumbs
-      locale={activity.locale}
+      locale={activity.locale as Locale}
       pageHeader={
         <HeroTitleSection
           logoUrl={
             prependApiUrl(activity.activity_group?.logo?.formats?.thumbnail?.url || activityGroup?.logo?.url) || ''
           }
-          mainImageUrl={mockHero}
+          mainImageUrl={prependApiUrl(activity.activity_group?.main_image?.url || activity.age_group?.main_image?.url)}
           mainTitle={activityGroup?.title || ''}
           subTitle={subTitle}
           smallMainTitle
@@ -179,6 +175,9 @@ export const query = graphql`
       age_group {
         color
         title
+        main_image {
+          ...ImageFragment
+        }
       }
     }
     activityGroup: strapiActivityGroup(activities: { elemMatch: { id: { eq: $id } } }) {
@@ -195,5 +194,5 @@ export const query = graphql`
         name
       }
     }
-  }
+  } 
 `;

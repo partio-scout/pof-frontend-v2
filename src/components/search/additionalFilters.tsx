@@ -16,7 +16,7 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => {
         <div className="">
           {/*TODO: How to localize below */}
           <PillRefinementList
-            title="Aktiviteetin pakollisuus"
+            title={t('activity-compulsion')}
             attribute="mandatory"
             getItemTitle={(item) => (item.label === 'true' ? 'Pakollinen' : 'Valinnainen')}
             getItemIcon={(item) =>
@@ -31,22 +31,22 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => {
         </div>
         <div className="">
           <PillRefinementList
-            title="Aktiviteetin kesto"
+            title={t('activity-duration')}
             attribute="duration.slug"
             getItemIcon={(_) => <TimeIcon className="fill-current" />}
             limit={50}
           />
         </div>
         <div className="">
-          <PillRefinementList title="Paikka" attribute="locations.name" limit={50} />
+          <PillRefinementList title={t('location')} attribute="locations.name" limit={50} />
         </div>
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  my-4">
         <div className="">
-          <AccordionPillRefinementList title="Taitoalueet" attribute="skill_areas.slug" limit={50} />
+          <AccordionPillRefinementList title={t('skill-areas')} attribute="skill_areas.slug" limit={50} />
         </div>
         <div className="">
-          <AccordionPillRefinementList title="Kasvatustavoitteet" attribute="educational_objectives.slug" limit={50} />
+          <AccordionPillRefinementList title={t('educational-objectives')} attribute="educational_objectives.slug" limit={50} />
         </div>
       </div>
     </div>
