@@ -10,7 +10,7 @@ import { currentLocale } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
 import { HitContextProvider } from './hitContext';
 import { ContentType } from '../../types/content';
-import SetContextHits from './setcontextHits';
+import SetContextHits from './setContextHits';
 import ContextHits from './contextHits';
 
 const environment = process.env.GATSBY_ALGOLIA_ENVIRONMENT;
