@@ -17,6 +17,9 @@ module.exports = {
         '20rem': '20rem',
         '25rem': '25rem',
       },
+      maxWidth: {
+        'card': '25rem',
+      },
       zIndex: {
         '-10': '-10',
       },
