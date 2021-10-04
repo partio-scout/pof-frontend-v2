@@ -2,8 +2,8 @@ import axios from 'axios';
 import { InitialReply } from '../templates/activityTemplate/suggestionsSection/index';
 
 const trimUrl = (url?: string): string => {
-  return url?.replace(/\/+$/, '') || '';
-}
+  return url?.replace(/\/+$/, '') || '';
+};
 
 export const fetchSuggestions = (activityId: number) => {
   return axios.get(`${trimUrl(process.env.API_URL)}/activities/${activityId}`);
@@ -13,9 +13,13 @@ export const fetchComments = (suggestionId: number) => {
   return axios.get(`${trimUrl(process.env.API_URL)}/suggestions/${suggestionId}`);
 };
 
-export const sendNewSuggestion = (newSuggestion: any, activityId: number) => {
+export const sendNewSuggestion = (newSuggestion: any, activityId: number, attachedFile: File | null) => {
+  console.log(attachedFile);
   const formData = new FormData();
   formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
+  if (attachedFile) {
+    formData.append('files.files', attachedFile);
+  }
   return axios.post(`${trimUrl(process.env.API_URL)}/suggestions/new`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });

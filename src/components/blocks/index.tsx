@@ -1,7 +1,7 @@
 import React from 'react';
 import ActivityCard from '../activityCard';
 import { StrapiActivity } from '../../../graphql-types';
-import { prependApiUrl } from '../../utils/helpers';
+import { parseLinkUrl, prependApiUrl } from '../../utils/helpers';
 import RichText from '../RichText';
 
 export interface GeneralBlockType extends BlockType {
@@ -71,7 +71,7 @@ export const GeneralBlock = ({ block }: BlockProps<GeneralBlockType>) => (
 
 export const LinkBlock = ({ block }: BlockProps<LinkBlockType>) => (
   <a
-    href={block.url}
+    href={parseLinkUrl(block.url)}
     target="_blank"
     rel="noopener noreferrer"
     className="inline-block md:w-full bg-gray-light font-tondu text-blue w-full py-4 justify-center text-center rounded-xl"

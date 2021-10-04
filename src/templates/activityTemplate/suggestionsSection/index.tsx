@@ -139,7 +139,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
-    sendNewSuggestion(newSuggestion, activityId)
+    sendNewSuggestion(newSuggestion, activityId, selectedFile)
       .then((res) => {
         setModalOpen(false);
         toast.success('Toteutusvinkki lähetetty onnistuneesti');

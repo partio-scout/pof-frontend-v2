@@ -2,13 +2,14 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import NewReplyForm from './newReplyForm';
 import { CommonSuggestionFormProps, Error } from './index';
 import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
-import { parseDate } from '../../../utils/helpers';
+import { parseDate, parseLinkUrl } from '../../../utils/helpers';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
 import { sendSuggestionLike, sendSuggestionUnlike } from '../../../services/activity';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
+import { linkSync } from 'fs';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -110,7 +111,7 @@ const Suggestions = ({ suggestions, resetFormState, ...rest }: SuggestionsProps)
   };
 
   const getUserId = () => {
-    const idFromLocalStorage = JSON.parse(localStorage.getItem('userId') || '\"\"');
+    const idFromLocalStorage = JSON.parse(localStorage.getItem('userId') || '""');
     if (idFromLocalStorage && idFromLocalStorage != '') {
       return idFromLocalStorage;
     } else {
@@ -202,14 +203,25 @@ const Suggestions = ({ suggestions, resetFormState, ...rest }: SuggestionsProps)
                 'border-hardBlue border-2 border-t-0': focusedSuggestion === suggestion?.id,
               })}
             >
-              <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                <LinkIcon className="fill-current inline-block mr-1" />
-                <span className="font-semibold">Linkki</span>
-              </div>
-              <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                <AttachmentIcon className="fill-current inline-block mr-1" />
-                <span className="font-semibold">Liite</span>
-              </div>
+              {suggestion.links && suggestion.links.length > 0 && (
+                <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
+                  <a href={parseLinkUrl(suggestion.links[0].url)} target="_blank">
+                    <LinkIcon className="fill-current inline-block mr-1" />
+                    <span className="font-semibold">
+                      {suggestion.links[0].description || suggestion.links[0].url.replace(/(.{20})..+/, '$1…')}
+                    </span>
+                  </a>
+                </div>
+              )}
+              {suggestion.files && suggestion.files.length > 0 && (
+                <a href={suggestion.files[0].url} download>
+                  <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
+                    <AttachmentIcon className="fill-current inline-block mr-1" />
+                    <span className="font-semibold">{suggestion.files[0].name}</span>
+                  </div>
+                </a>
+              )}
+
               <div className="float-right">
                 <span className={getVotedStyles(suggestion.id)} onClick={() => handleVote(suggestion.id)}>
                   {suggestion!.like_count} huutoa
