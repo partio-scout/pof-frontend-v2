@@ -70,7 +70,7 @@ const ActivityCardList = ({ activities, showInitially, augmentData, showActivity
         'sm:grid-cols-2': activitiesWithLinks.length > 1,
       })}>
         {activitiesWithLinks?.map((activity) => (
-          <ActivityCard activity={activity} key={activity.strapiId} showActivityAndAgeGroup={showActivityAndAgeGroup} />
+          <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
         ))}
       </div>
       {activitiesWithLinks.length < activities.length && (
