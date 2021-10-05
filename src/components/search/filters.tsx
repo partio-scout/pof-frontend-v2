@@ -7,8 +7,10 @@ import PlusIcon from '../../images/plus-gray.svg';
 import MinusIcon from '../../images/minus-white.svg';
 import clsx from 'clsx';
 import { useSearchContext } from '../../contexts/searchContext';
+import { useTranslation } from 'react-i18next';
 
 const Filters = () => {
+  const { t } = useTranslation();
   const { state, dispatch } = useSearchContext();
   const [additionalFiltersVisible, setAdditionalFiltersVisible] = useState(false);
 
@@ -17,7 +19,7 @@ const Filters = () => {
     const matchB = parseInt(/^.*\((\d+)-.+\)$/.exec(b)?.[1] || '-1');
 
     return matchA > matchB ? 1 : -1;
-  }
+  };
 
   return (
     <div className="bg-white border-b border-lightBlue">
@@ -25,14 +27,20 @@ const Filters = () => {
         <div className="my-3">
           <DropdownSelect
             items={contentTypes}
-            title="Sisältötyyppi"
+            title={t('content-type')}
             onChange={(selectedItems) => dispatch({ type: 'set-visible-content-types', payload: selectedItems })}
             getItemTitle={(item) => item.name}
             selectOne
           />
         </div>
         <div className="my-3">
-          <DropdownRefinementList title="Ikäryhmä" attribute="age_group.title" limit={50} defaultRefinement={state.searchState.refinementList?.['age_group.title']} sortFunction={sortAgeGroups} />
+          <DropdownRefinementList
+            title={t('age-group')}
+            attribute="age_group.title"
+            limit={50}
+            defaultRefinement={state.searchState.refinementList?.['age_group.title']}
+            sortFunction={sortAgeGroups}
+          />
         </div>
         <button
           className={clsx(
@@ -42,7 +50,7 @@ const Filters = () => {
           onClick={() => setAdditionalFiltersVisible(!additionalFiltersVisible)}
         >
           <img src={additionalFiltersVisible ? MinusIcon : PlusIcon} className="mr-1" />
-          Tarkenna hakua
+          {t('refine-search')}
         </button>
         <div className="my-3">
           {/* TODO: Have to decide if the order selector is necessary */}

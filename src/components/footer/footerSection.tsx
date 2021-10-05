@@ -3,6 +3,7 @@ import {
   StrapiFrontPageFooter_Sections,
 } from '../../../graphql-types';
 import FooterLinkGroup from './footerLinkGroup';
+import { addLineBreaks } from './utils';
 
 
 interface FooterSectionProps {
@@ -14,12 +15,7 @@ function FooterSection({ data }: FooterSectionProps) {
     <div className="flex flex-col text-white mr-6">
       {data.title && (
         <h2 className="text-white text-xl mb-4">
-          {data.title.split('\n').map((span, i, arr) => (
-            <>
-              {span}
-              {i !== arr.length - 1 && <br />}
-            </>
-          ))}
+          {addLineBreaks(data.title)}
         </h2>
       )}
       {(data.link_groups?.length || 0) > 0 &&

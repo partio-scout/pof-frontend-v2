@@ -2,10 +2,11 @@ import React from 'react';
 import { StrapiSuggestion } from '../../../graphql-types';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
-import { prependApiUrl } from '../../utils/helpers';
-import Pill from './pill';
+import { prependApiUrl, removeHtml } from '../../utils/helpers';
+import Pill from '../pill';
 import Card from '../card';
 import ClampLines from 'react-clamp-lines';
+import { useTranslation } from 'react-i18next';
 
 export type SuggestionWithUrl = StrapiSuggestion & { url?: string; logo?: string };
 
@@ -18,6 +19,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
   const { author, activity, id, content, like_count, comments, title, published_at, duration, locations, logo } =
     suggestion;
 
+  const { t } = useTranslation();
   const likesExist = (like_count || 0) > 0;
   const commentsExist = (comments?.length || 0) > 0;
 
@@ -26,7 +28,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
       <div className="p-3 flex-grow">
         <div className="mb-1">
           {author && <div className="text-xs font-semibold">{author}</div>}
-          <div className="text-xxs">{new Date(published_at).toLocaleDateString()}</div>
+          <div className="text-xxs">{new Date(published_at).toLocaleDateString('fi')}</div>
         </div>
         {(duration || (locations?.length || 0) > 0) && (
           <div className="flex mb-2 flex-wrap">
@@ -53,22 +55,20 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
           <h4>{title}</h4>
         </div>
         <div className="flex-grow mb-4">
-          <ClampLines text={content!} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
+          <ClampLines text={removeHtml(content!)} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
         </div>
         {(likesExist || commentsExist) && (
           <div className="flex mb-1">
             {likesExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {/* TODO translate */}
-                {like_count} {like_count === 1 ? 'huuto' : 'huutoa'}
+                {like_count} {like_count === 1 ? t('shout') : t('shouts')}
               </Pill>
             )}
             {commentsExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {/* TODO translate */}
-                {comments?.length} {comments?.length === 1 ? 'vastaus' : 'vastausta'}
+                {comments?.length} {comments?.length === 1 ? t('reply') : t('replies')}
               </Pill>
             )}
           </div>

@@ -7,6 +7,7 @@ import logo from '../../images/logo.svg';
 import upArrow from '../../images/upArrow.svg';
 import downArrow from '../../images/downArrow.svg';
 import { useSearchContext } from '../../contexts/searchContext';
+import { Link } from 'gatsby';
 
 interface MobileNavProps extends NavProps {
   hamburgerMenuOpen: boolean;
@@ -48,10 +49,10 @@ const MobileNav = ({
               {headerItem.subMenu && currentDropDownOpen === index && (
                 <div className="flex flex-col w-10/12 bg-gray-light rounded-lg py-1 mx-auto font-sourceSansPro cursor-pointer">
                   {headerItem.subMenu.map((subItem: HeaderItem) => (
-                    <a className="px-2 py-1 text-blue hover:bg-gray" href={subItem.url}>
+                    <Link className="px-2 py-1 text-blue hover:bg-gray" to={subItem.url}>
                       <span className="block font-bold">{subItem.name}</span>
                       <span className="block">{subItem.ingress}</span>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               )}

@@ -3,6 +3,8 @@ import ActivityCard from '../activityCard';
 import { StrapiActivity } from '../../../graphql-types';
 import { parseLinkUrl, prependApiUrl } from '../../utils/helpers';
 import RichText from '../RichText';
+import CombinedLink from '../combinedLink';
+import ActivityCardList from '../activityCardList';
 
 export interface GeneralBlockType extends BlockType {
   title?: string;
@@ -29,8 +31,9 @@ export interface HighlightBlockType extends BlockType {
   title?: string;
   url?: string;
   text?: string;
-  image?: any;
   background?: any;
+  link_text?: string;
+  link_url?: string;
 }
 
 export interface ActivityBlockType extends BlockType {
@@ -82,19 +85,29 @@ export const LinkBlock = ({ block }: BlockProps<LinkBlockType>) => (
 
 export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
   <div
-    className="inline-block text-center justify-center p-2 bg-cover"
-    style={block.background && { backgroundImage: `url(${block.background.url})` }}
+    className="text-center justify-center py-20 md:py-40 bg-cover bg-center -mx-2 sm:-mx-10 md:-mx-24 xl:px-0"
+    style={
+      block.background && {
+        backgroundImage: `linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), url(${prependApiUrl(
+          block.background.url,
+        )})`,
+      }
+    }
   >
-    <div className="md:max-w-1/2 mx-auto bg-white bg-opacity-50 rounded-xl">
-      {block.title && <h2>{block.title.toUpperCase()}</h2>}
-      {block.text && <RichText className="text-blue" html={block.text} />}
-      {block.image && <img className="w-full" src={prependApiUrl(block.image?.url)} />}
+    <div className="flex flex-col items-center justify-center">
+      {block.title && <h2 className="mb-4">{block.title.toUpperCase()}</h2>}
+      {block.text && <p className="text-blue mb-4">{block.text}</p>}
+      {block.link_text && block.link_url && (
+        <CombinedLink
+          to={block.link_url}
+          className="px-14 py-4 rounded bg-hardBlue text-white uppercase font-tondu font-bold text-xl tracking-widest"
+        >
+          {block.link_text}
+        </CombinedLink>
+      )}
     </div>
   </div>
 );
 
-export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) => (
-  <div className="flex flex-wrap space-x-2">
-    {block.activities && block.activities.map((activity) => <ActivityCard activity={activity} />)}
-  </div>
-);
+export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) =>
+  block.activities ? <ActivityCardList activities={block.activities} augmentData showActivityAndAgeGroup  /> : null;

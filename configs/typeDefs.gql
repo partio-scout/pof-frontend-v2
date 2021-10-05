@@ -1,0 +1,2687 @@
+# THIS FILE CONTAINS TYPE DEFINITIONS FOR STRAPI DATA.
+# IF YOU MAKE CHANGES TO STRAPI MODELS, MAKE THEM HERE ALSO IF YOU WANT THEM TO BE IN THE GRAPHQL SCHEMA. 
+type StrapiAgeGroup implements Node @dontInfer {
+  upper_content_area: JSON
+  lower_content_area: JSON
+  main_image: StrapiImage
+  logo: StrapiImage
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: StrapiAgeGroupSubactivitygroup_term
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  color: String
+  links: [StrapiAgeGroupLinks]
+  activity_groups: [StrapiAgeGroupActivity_groups]
+  localizations: [StrapiAgeGroupLocalizations]
+  strapiId: Int
+  fields: StrapiAgeGroupFields
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+type StrapiAgeGroupSubactivitygroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiAgeGroupLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiAgeGroupActivity_groups @dontInfer {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: Int
+  subactivitygroup_term: Int
+  activitygroup_term: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  age_group: Int
+  activity_group_category: Int
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiAgeGroupActivity_groupsLinks]
+  content_area: [StrapiAgeGroupActivity_groupsContent_area]
+  main_image: StrapiImage
+  logo: StrapiImage
+}
+type StrapiAgeGroupActivity_groupsLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiAgeGroupActivity_groupsContent_area @dontInfer {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiAgeGroupActivity_groupsContent_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+type StrapiAgeGroupActivity_groupsContent_areaBlock_width @dontInfer {
+  id: Int
+  name: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+
+type StrapiAgeGroupLocalizations @dontInfer {
+  id: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiAgeGroupFields @dontInfer  {
+  path: String
+}
+type StrapiActivityGroup implements Node @dontInfer  {
+  content_area: JSON
+  main_image: StrapiImage
+  logo: StrapiImage
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: StrapiActivityGroupSubactivity_term
+  subactivitygroup_term: StrapiActivityGroupSubactivitygroup_term
+  activitygroup_term: StrapiActivityGroupActivitygroup_term
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  age_group: StrapiActivityGroupAge_group
+  activity_group_category: StrapiActivityGroupActivity_group_category
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiActivityGroupLinks]
+  files: [StrapiActivityGroupFiles]
+  activities: [StrapiActivityGroupActivities]
+  localizations: [StrapiActivityGroupLocalizations]
+  strapiId: Int
+  fields: StrapiActivityGroupFields
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+type StrapiActivityGroupSubactivity_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityGroupSubactivitygroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityGroupActivitygroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityGroupAge_group @dontInfer {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  color: String
+  links: [StrapiActivityGroupAge_groupLinks]
+  upper_content_area: [StrapiActivityGroupAge_groupUpper_content_area]
+  lower_content_area: [StrapiActivityGroupAge_groupLower_content_area]
+  main_image: StrapiImage
+  logo: StrapiImage
+}
+type StrapiActivityGroupAge_groupLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiActivityGroupAge_groupUpper_content_area @dontInfer {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityGroupAge_groupUpper_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+type StrapiActivityGroupAge_groupUpper_content_areaBlock_width @dontInfer {
+  id: Int
+  name: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityGroupAge_groupLower_content_area @dontInfer {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityGroupAge_groupLower_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+type StrapiActivityGroupAge_groupLower_content_areaBlock_width @dontInfer {
+  id: Int
+  name: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+
+type StrapiActivityGroupActivity_group_category @dontInfer {
+  id: Int
+  name: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  wp_guid: String
+  sort_order: Int
+}
+type StrapiActivityGroupLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiActivityGroupFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityGroupActivities @dontInfer {
+  id: Int
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: Int
+  duration: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activity_group: Int
+  age_group: Int
+  preparation_duration: Int
+  links: [StrapiActivityGroupActivitiesLinks]
+  logo: StrapiImage
+  files: [StrapiActivityGroupActivitiesFiles]
+  images: [StrapiImage]
+}
+type StrapiActivityGroupActivitiesLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+
+type StrapiActivityGroupActivitiesFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+
+type StrapiActivityGroupLocalizations @dontInfer {
+  id: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityGroupFields @dontInfer {
+  path: String
+}
+type StrapiContentPage implements Node @dontInfer {
+  content: JSON
+  title: String
+  ingress: String
+  main_text: String
+  meta_description: String
+  meta_title: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  main_image: StrapiImage
+  localizations: [StrapiContentPageLocalizations]
+  strapiId: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+
+type StrapiContentPageLocalizations @dontInfer {
+  id: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiFrontPage implements Node @dontInfer {
+  content: JSON
+  title: String
+  hero_link_text: String
+  hero_link_url: String
+  hero_image: StrapiImage
+  ingress: String
+  meta_description: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  navigation: [StrapiFrontPageNavigation]
+  footer_sections: [StrapiFrontPageFooter_sections]
+  localizations: [StrapiFrontPageLocalizations]
+  strapiId: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+type StrapiFrontPageNavigation @dontInfer {
+  id: Int
+  title: String
+  page: Int
+  subnavigation: [StrapiFrontPageNavigationSubnavigation]
+}
+type StrapiFrontPageNavigationSubnavigation @dontInfer {
+  id: Int
+  title: String
+  page: StrapiFrontPageNavigationSubnavigationPage
+  subnavigation: [StrapiFrontPageNavigationSubnavigationSubnavigation]
+}
+type StrapiFrontPageNavigationSubnavigationPage @dontInfer {
+  id: Int
+  title: String
+  ingress: String
+  main_text: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  main_image: StrapiFrontPageNavigationSubnavigationPageMain_image
+}
+type StrapiFrontPageNavigationSubnavigationPageMain_image @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiFrontPageNavigationSubnavigationPageMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiFrontPageNavigationSubnavigationPageMain_imageFormats @dontInfer {
+  small: StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsSmall
+  thumbnail: StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsThumbnail
+}
+type StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiFrontPageNavigationSubnavigationPageMain_imageFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiFrontPageNavigationSubnavigationSubnavigation @dontInfer {
+  id: Int
+  title: String
+  page: StrapiFrontPageNavigationSubnavigationSubnavigationPage
+}
+type StrapiFrontPageNavigationSubnavigationSubnavigationPage @dontInfer {
+  id: Int
+  title: String
+  main_text: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiFrontPageFooter_sections @dontInfer {
+  id: Int
+  title: String
+  link_groups: [StrapiFrontPageFooter_sectionsLink_groups]
+}
+type StrapiFrontPageFooter_sectionsLink_groups @dontInfer {
+  id: Int
+  links: [StrapiFrontPageFooter_sectionsLink_groupsLinks]
+  some_links: StrapiFrontPageFooter_sectionsLink_groupsSome_links
+}
+type StrapiFrontPageFooter_sectionsLink_groupsLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+  phone_number: String
+  email: String
+  title: String
+}
+type StrapiFrontPageFooter_sectionsLink_groupsSome_links @dontInfer {
+  id: Int
+  facebook_url: String
+  twitter_url: String
+  instagram_url: String
+  youtube_url: String
+}
+type StrapiFrontPageLocalizations @dontInfer {
+  id: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivity implements Node @dontInfer {
+  images: [StrapiImage]
+  logo: StrapiImage
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: StrapiActivityActivity_term
+  duration: StrapiActivityDuration
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activity_group: StrapiActivityActivity_group
+  age_group: StrapiActivityAge_group
+  preparation_duration: StrapiActivityPreparation_duration
+  links: [StrapiActivityLinks]
+  files: [StrapiActivityFiles]
+  group_sizes: [StrapiActivityGroup_sizes]
+  skill_areas: [StrapiActivitySkill_areas]
+  educational_objectives: [StrapiActivityEducational_objectives]
+  leader_skills: [StrapiActivityLeader_skills]
+  suggestions: [StrapiActivitySuggestions]
+  locations: [StrapiActivityLocations]
+  localizations: [StrapiActivityLocalizations]
+  strapiId: Int
+  fields: StrapiActivityFields
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
+type StrapiActivityActivity_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityDuration @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityActivity_group @dontInfer {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  wp_guid: String
+  mandatory: Boolean
+  subactivity_term: Int
+  subactivitygroup_term: Int
+  activitygroup_term: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  age_group: Int
+  activity_group_category: Int
+  sort_order: Int
+  mandatory_activities_title: String
+  mandatory_activities_description: String
+  optional_activities_title: String
+  optional_activities_description: String
+  links: [StrapiActivityActivity_groupLinks]
+  content_area: [StrapiActivityActivity_groupContent_area]
+  main_image: StrapiActivityActivity_groupMain_image
+  logo: StrapiActivityActivity_groupLogo
+  files: [StrapiActivityActivity_groupFiles]
+}
+type StrapiActivityActivity_groupLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiActivityActivity_groupContent_area @dontInfer {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityActivity_groupContent_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+type StrapiActivityActivity_groupContent_areaBlock_width @dontInfer {
+  id: Int
+  name: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityActivity_groupMain_image @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityActivity_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityActivity_groupMain_imageFormats @dontInfer {
+  thumbnail: StrapiActivityActivity_groupMain_imageFormatsThumbnail
+  large: StrapiActivityActivity_groupMain_imageFormatsLarge
+  small: StrapiActivityActivity_groupMain_imageFormatsSmall
+  medium: StrapiActivityActivity_groupMain_imageFormatsMedium
+}
+type StrapiActivityActivity_groupMain_imageFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupMain_imageFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupMain_imageFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupMain_imageFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupLogo @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityActivity_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityActivity_groupLogoFormats @dontInfer {
+  thumbnail: StrapiActivityActivity_groupLogoFormatsThumbnail
+  small: StrapiActivityActivity_groupLogoFormatsSmall
+  medium: StrapiActivityActivity_groupLogoFormatsMedium
+  large: StrapiActivityActivity_groupLogoFormatsLarge
+}
+type StrapiActivityActivity_groupLogoFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupLogoFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupLogoFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupLogoFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityActivity_groupFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityAge_group @dontInfer {
+  id: Int
+  title: String
+  ingress: String
+  content: String
+  minimum_age: Int
+  maximum_age: Int
+  wp_guid: String
+  subactivitygroup_term: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  color: String
+  links: [StrapiActivityAge_groupLinks]
+  upper_content_area: [StrapiActivityAge_groupUpper_content_area]
+  lower_content_area: [StrapiActivityAge_groupLower_content_area]
+  main_image: StrapiImage
+  logo: StrapiImage
+}
+type StrapiActivityAge_groupLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiActivityAge_groupUpper_content_area @dontInfer {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityAge_groupUpper_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+type StrapiActivityAge_groupUpper_content_areaBlock_width @dontInfer {
+  id: Int
+  name: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityAge_groupLower_content_area @dontInfer {
+  id: Int
+  title: String
+  text: String
+  block_width: StrapiActivityAge_groupLower_content_areaBlock_width
+  number_of_columns: Int
+  strapi_component: String
+}
+type StrapiActivityAge_groupLower_content_areaBlock_width @dontInfer {
+  id: Int
+  name: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityAge_groupMain_image @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiActivityAge_groupMain_imageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityAge_groupMain_imageFormats @dontInfer {
+  large: StrapiActivityAge_groupMain_imageFormatsLarge
+  small: StrapiActivityAge_groupMain_imageFormatsSmall
+  medium: StrapiActivityAge_groupMain_imageFormatsMedium
+  thumbnail: StrapiActivityAge_groupMain_imageFormatsThumbnail
+}
+type StrapiActivityAge_groupMain_imageFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupMain_imageFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupMain_imageFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupMain_imageFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupLogo @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivityAge_groupLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityAge_groupLogoFormats @dontInfer {
+  large: StrapiActivityAge_groupLogoFormatsLarge
+  small: StrapiActivityAge_groupLogoFormatsSmall
+  medium: StrapiActivityAge_groupLogoFormatsMedium
+  thumbnail: StrapiActivityAge_groupLogoFormatsThumbnail
+}
+type StrapiActivityAge_groupLogoFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupLogoFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupLogoFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityAge_groupLogoFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityPreparation_duration @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiActivityFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityGroup_sizes @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  icon: StrapiActivityGroup_sizesIcon
+}
+type StrapiActivityGroup_sizesIcon @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivitySkill_areas @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityEducational_objectives @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityLeader_skills @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivitySuggestions @dontInfer {
+  id: Int
+  title: String
+  content: String
+  activity: Int
+  wp_guid: String
+  author: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  from_web: Boolean
+  like_count: Int
+  pinned: Boolean
+  duration: Int
+  links: [StrapiActivitySuggestionsLinks]
+  files: [StrapiActivitySuggestionsFiles]
+}
+type StrapiActivitySuggestionsLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiActivitySuggestionsFiles @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiActivitySuggestionsFilesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivitySuggestionsFilesFormats @dontInfer {
+  large: StrapiActivitySuggestionsFilesFormatsLarge
+  small: StrapiActivitySuggestionsFilesFormatsSmall
+  medium: StrapiActivitySuggestionsFilesFormatsMedium
+  thumbnail: StrapiActivitySuggestionsFilesFormatsThumbnail
+}
+type StrapiActivitySuggestionsFilesFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivitySuggestionsFilesFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivitySuggestionsFilesFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivitySuggestionsFilesFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiActivityLocations @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  icon: StrapiActivityLocationsIcon
+}
+type StrapiActivityLocationsIcon @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiActivityLocalizations @dontInfer {
+  id: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivityFields @dontInfer {
+  path: String
+}
+type StrapiImage @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiImageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  updated_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  localFile: File
+}
+type StrapiImageFormats @dontInfer {
+  large: StrapiImageFormat
+  small: StrapiImageFormat
+  medium: StrapiImageFormat
+  thumbnail: StrapiImageFormat
+}
+type StrapiImageFormat @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestion implements Node @dontInfer {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  title: String
+  content: String
+  activity: StrapiSuggestionActivity
+  wp_guid: String
+  author: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  from_web: Boolean
+  like_count: Int
+  pinned: Boolean
+  duration: StrapiSuggestionDuration
+  links: [StrapiSuggestionLinks]
+  files: [StrapiSuggestionFiles]
+  comments: [StrapiSuggestionComments]
+  locations: [StrapiSuggestionLocations]
+  strapiId: Int
+}
+type StrapiSuggestionActivity @dontInfer {
+  id: Int
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: Int
+  duration: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activity_group: Int
+  age_group: Int
+  preparation_duration: Int
+  links: [StrapiSuggestionActivityLinks]
+  logo: StrapiSuggestionActivityLogo
+  images: [StrapiSuggestionActivityImages]
+}
+type StrapiSuggestionActivityLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiSuggestionActivityLogo @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiSuggestionActivityLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Int
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiSuggestionActivityLogoFormats @dontInfer {
+  thumbnail: StrapiSuggestionActivityLogoFormatsThumbnail
+}
+type StrapiSuggestionActivityLogoFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionActivityImages @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiSuggestionActivityImagesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiSuggestionActivityImagesFormats @dontInfer {
+  large: StrapiSuggestionActivityImagesFormatsLarge
+  small: StrapiSuggestionActivityImagesFormatsSmall
+  medium: StrapiSuggestionActivityImagesFormatsMedium
+  thumbnail: StrapiSuggestionActivityImagesFormatsThumbnail
+}
+type StrapiSuggestionActivityImagesFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionActivityImagesFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionActivityImagesFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionActivityImagesFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionDuration @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiSuggestionLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiSuggestionFiles @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiSuggestionFilesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiSuggestionFilesFormats @dontInfer {
+  large: StrapiSuggestionFilesFormatsLarge
+  small: StrapiSuggestionFilesFormatsSmall
+  medium: StrapiSuggestionFilesFormatsMedium
+  thumbnail: StrapiSuggestionFilesFormatsThumbnail
+}
+type StrapiSuggestionFilesFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionFilesFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionFilesFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionFilesFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiSuggestionComments @dontInfer {
+  id: Int
+  text: String
+  author: String
+  suggestion: Int
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiSuggestionLocations @dontInfer {
+  id: Int
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  icon: StrapiSuggestionLocationsIcon
+}
+type StrapiSuggestionLocationsIcon @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiLocation implements Node @dontInfer {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  icon: StrapiLocationIcon
+  activities: [StrapiLocationActivities]
+  localizations: [StrapiLocationLocalizations]
+  strapiId: Int
+}
+type StrapiLocationIcon @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiLocationActivities @dontInfer {
+  id: Int
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: Int
+  duration: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activity_group: Int
+  age_group: Int
+  preparation_duration: Int
+  links: [StrapiLocationActivitiesLinks]
+  logo: StrapiLocationActivitiesLogo
+  files: [StrapiLocationActivitiesFiles]
+  images: [StrapiLocationActivitiesImages]
+}
+type StrapiLocationActivitiesLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiLocationActivitiesLogo @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiLocationActivitiesLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Int
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiLocationActivitiesLogoFormats @dontInfer {
+  thumbnail: StrapiLocationActivitiesLogoFormatsThumbnail
+}
+type StrapiLocationActivitiesLogoFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiLocationActivitiesFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiLocationActivitiesImages @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiLocationActivitiesImagesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiLocationActivitiesImagesFormats @dontInfer {
+  large: StrapiLocationActivitiesImagesFormatsLarge
+  small: StrapiLocationActivitiesImagesFormatsSmall
+  medium: StrapiLocationActivitiesImagesFormatsMedium
+  thumbnail: StrapiLocationActivitiesImagesFormatsThumbnail
+}
+type StrapiLocationActivitiesImagesFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiLocationActivitiesImagesFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiLocationActivitiesImagesFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiLocationActivitiesImagesFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiLocationLocalizations @dontInfer {
+  id: Int
+  locale: String
+}
+type StrapiDuration implements Node @dontInfer {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  name: String
+  slug: String
+  locale: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activities: [StrapiDurationActivities]
+  preparation_activities: [StrapiDurationPreparation_activities]
+  localizations: [StrapiDurationLocalizations]
+  strapiId: Int
+}
+type StrapiDurationActivities @dontInfer {
+  id: Int
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: Int
+  duration: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activity_group: Int
+  age_group: Int
+  preparation_duration: Int
+  links: [StrapiDurationActivitiesLinks]
+  logo: StrapiDurationActivitiesLogo
+  files: [StrapiDurationActivitiesFiles]
+  images: [StrapiDurationActivitiesImages]
+}
+type StrapiDurationActivitiesLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiDurationActivitiesLogo @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiDurationActivitiesLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Int
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiDurationActivitiesLogoFormats @dontInfer {
+  thumbnail: StrapiDurationActivitiesLogoFormatsThumbnail
+}
+type StrapiDurationActivitiesLogoFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationActivitiesFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiDurationActivitiesImages @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiDurationActivitiesImagesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiDurationActivitiesImagesFormats @dontInfer {
+  large: StrapiDurationActivitiesImagesFormatsLarge
+  small: StrapiDurationActivitiesImagesFormatsSmall
+  medium: StrapiDurationActivitiesImagesFormatsMedium
+  thumbnail: StrapiDurationActivitiesImagesFormatsThumbnail
+}
+type StrapiDurationActivitiesImagesFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationActivitiesImagesFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationActivitiesImagesFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationActivitiesImagesFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationPreparation_activities @dontInfer {
+  id: Int
+  title: String
+  content: String
+  mandatory: Boolean
+  ingress: String
+  wp_guid: String
+  leader_tasks: String
+  activity_term: Int
+  duration: Int
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  activity_group: Int
+  age_group: Int
+  preparation_duration: Int
+  links: [StrapiDurationPreparation_activitiesLinks]
+  logo: StrapiDurationPreparation_activitiesLogo
+  files: [StrapiDurationPreparation_activitiesFiles]
+  images: [StrapiDurationPreparation_activitiesImages]
+}
+type StrapiDurationPreparation_activitiesLinks @dontInfer {
+  id: Int
+  description: String
+  url: String
+}
+type StrapiDurationPreparation_activitiesLogo @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiDurationPreparation_activitiesLogoFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Int
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiDurationPreparation_activitiesLogoFormats @dontInfer {
+  thumbnail: StrapiDurationPreparation_activitiesLogoFormatsThumbnail
+}
+type StrapiDurationPreparation_activitiesLogoFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationPreparation_activitiesFiles @dontInfer {
+  id: Int
+  name: String
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiDurationPreparation_activitiesImages @dontInfer {
+  id: Int
+  name: String
+  width: Int
+  height: Int
+  formats: StrapiDurationPreparation_activitiesImagesFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localFile: File
+}
+type StrapiDurationPreparation_activitiesImagesFormats @dontInfer {
+  large: StrapiDurationPreparation_activitiesImagesFormatsLarge
+  small: StrapiDurationPreparation_activitiesImagesFormatsSmall
+  medium: StrapiDurationPreparation_activitiesImagesFormatsMedium
+  thumbnail: StrapiDurationPreparation_activitiesImagesFormatsThumbnail
+}
+type StrapiDurationPreparation_activitiesImagesFormatsLarge @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationPreparation_activitiesImagesFormatsSmall @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationPreparation_activitiesImagesFormatsMedium @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationPreparation_activitiesImagesFormatsThumbnail @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}
+type StrapiDurationLocalizations @dontInfer {
+  id: Int
+  locale: String
+}
+type Program_Navigation implements Node @dontInfer {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  items: [Program_NavigationItems]
+}
+type Program_NavigationItems @dontInfer {
+  title: String
+  type: String
+  id: Int
+  path: String
+  color: String
+  subitems: [Program_NavigationItemsSubitems]
+  minimum_age: Int
+  maximum_age: Int
+}
+type Program_NavigationItemsSubitems @dontInfer {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Program_NavigationItemsSubitemsSubitems]
+}
+type Program_NavigationItemsSubitemsSubitems @dontInfer {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+type Content_Navigation implements Node @dontInfer {
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  items: [Content_NavigationItems]
+}
+type Content_NavigationItems @dontInfer {
+  title: String
+  subitems: [Content_NavigationItemsSubitems]
+}
+type Content_NavigationItemsSubitems @dontInfer {
+  title: String
+  type: String
+  id: Int
+  path: String
+  subitems: [Content_NavigationItemsSubitemsSubitems]
+}
+type Content_NavigationItemsSubitemsSubitems @dontInfer {
+  title: String
+  type: String
+  id: Int
+  path: String
+}
+type StrapiAgeGroup implements Node @dontInfer {
+  main_image: StrapiImage
+  logo: StrapiImage
+}
+type StrapiActivityGroup implements Node @dontInfer {
+  main_image: StrapiImage
+  logo: StrapiImage
+}
+type StrapiActivity implements Node @dontInfer {
+  images: [StrapiImage]
+  logo: StrapiImage
+}
+type StrapiImage @dontInfer {
+  id: Int
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: StrapiImageFormats
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  provider: String
+  created_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  updated_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  localFile: File
+}
+type StrapiImageFormats @dontInfer {
+  large: StrapiImageFormat
+  small: StrapiImageFormat
+  medium: StrapiImageFormat
+  thumbnail: StrapiImageFormat
+}
+type StrapiImageFormat @dontInfer {
+  ext: String
+  url: String
+  hash: String
+  mime: String
+  name: String
+  size: Float
+  width: Int
+  height: Int
+}

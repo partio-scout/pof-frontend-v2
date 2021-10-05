@@ -15,6 +15,7 @@ module.exports = {
       },
       minHeight: {
         '20rem': '20rem',
+        '25rem': '25rem',
       },
       zIndex: {
         '-10': '-10',
@@ -75,6 +76,9 @@ module.exports = {
       inset: {
         'full+1': 'calc(100% + .5rem)',
       },
+      borderRadius: {
+        '4xl': 32,
+      },
     },
     fontFamily: {
       tondu: ['Tondu'],
@@ -109,8 +113,8 @@ module.exports = {
         });
         modifySelectors(({ className }) => {
           return `.${e(`no-hover-focus${separator}${className}`)}:not(:hover):not(:focus)`;
-        })
-      })
+        });
+      });
     }),
     // Create utils for changing individual border colors.
     // Copied from here https://github.com/tailwindlabs/tailwindcss/pull/560#issuecomment-670045304
@@ -118,13 +122,12 @@ module.exports = {
       const colors = flattenColorPalette(theme('borderColor'));
       delete colors['default'];
 
-      const colorMap = Object.keys(colors)
-        .map(color => ({
-          [`.border-t-${color}`]: {borderTopColor: colors[color]},
-          [`.border-r-${color}`]: {borderRightColor: colors[color]},
-          [`.border-b-${color}`]: {borderBottomColor: colors[color]},
-          [`.border-l-${color}`]: {borderLeftColor: colors[color]},
-        }));
+      const colorMap = Object.keys(colors).map((color) => ({
+        [`.border-t-${color}`]: { borderTopColor: colors[color] },
+        [`.border-r-${color}`]: { borderRightColor: colors[color] },
+        [`.border-b-${color}`]: { borderBottomColor: colors[color] },
+        [`.border-l-${color}`]: { borderLeftColor: colors[color] },
+      }));
       const utilities = Object.assign({}, ...colorMap);
 
       addUtilities(utilities, variants('borderColor'));

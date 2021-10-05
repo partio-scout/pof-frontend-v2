@@ -6,16 +6,15 @@ import {
   StrapiActivity,
   StrapiFrontPage,
   StrapiFrontPageNavigation,
-  StrapiContentPage,
-  StrapiActivityGroupActivities,
-  StrapiAgeGroupActivity_Groups,
   StrapiFrontPageNavigationSubnavigation,
+  StrapiContentPage,
+  StrapiActivityGroupLocalizations,
+  StrapiAgeGroupActivity_Groups,
 } from '../graphql-types';
-import { getActivity } from '../src/queries/activity';
 import { getActivityGroup } from '../src/queries/activityGroup';
 import { getAllAgeGroups } from '../src/queries/ageGroup';
-import { getContentPage } from '../src/queries/contentPage';
 import { getAllFrontPages } from '../src/queries/frontPage';
+import { getContentPage } from '../src/queries/contentPage';
 import { parseAgeGroupRouteName, parseRouteName } from './utils';
 
 interface PageCreationResults {
@@ -73,9 +72,8 @@ function mergePageCreationResults(...results: PageCreationResults[]): PageCreati
 }
 
 async function handleActivity(
-  activity: StrapiActivityGroupActivities,
+  activity: Pick<StrapiActivity, 'id' | 'title' | 'localizations' | 'locale'>,
   activityGroupPath: string,
-  graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
   const results = createPageCreationResults();
@@ -84,30 +82,22 @@ async function handleActivity(
     return results;
   }
 
-  const { data } = await graphqlWithErrors<{ strapiActivity: StrapiActivity }>(graphql, getActivity, {
-    id: activity?.id,
-  });
+  const activityPath = `${activityGroupPath}/${parseRouteName(activity?.title!)}`;
 
-  const activityData = data?.strapiActivity;
-
-  if (!activityData?.title) {
-    results.skippedActivities.push(activityData?.id!);
-    return results;
-  }
-
-  const activityPath = `${activityGroupPath}/${parseRouteName(activityData?.title!)}`;
-
-  createPage({
+  const page = {
     path: activityPath,
     component: path.resolve(`src/templates/activityTemplate/index.tsx`),
     context: {
-      data: activityData,
       type: 'activity',
-      id: activityData.strapiId,
-      activityGroupId: activityData.activity_group?.id,
+      localizations: activity.localizations?.map((x) => x?.id) || [],
+      locale: activity.locale,
+      id: activity.id,
     },
-  });
-  results.activities.push(activityData?.title!);
+  }
+
+  createPage(page);
+
+  results.activities.push(activity?.title!);
 
   return results;
 }
@@ -123,7 +113,7 @@ async function graphqlWithErrors<T>(graphql: CreatePagesArgs['graphql'], query: 
 }
 
 async function handleActivityGroup(
-  activityGroup: StrapiAgeGroupActivity_Groups,
+  activityGroup: Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group'>,
   ageGroupPath: string,
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
@@ -134,34 +124,44 @@ async function handleActivityGroup(
     return results;
   }
 
-  const { data } = await graphqlWithErrors<{ strapiActivityGroup: StrapiActivityGroup }>(graphql, getActivityGroup, {
+  const { data } = await graphqlWithErrors<{
+    strapiActivityGroup: {
+      activities: Pick<StrapiActivity, 'id' | 'title' | 'localizations' | 'locale'>[];
+      localizations: StrapiActivityGroupLocalizations[];
+      locale?: string;
+    };
+  }>(graphql, getActivityGroup, {
     id: activityGroup?.id,
   });
 
   const activityGroupData = data?.strapiActivityGroup;
 
-  if (!activityGroupData?.title) {
-    results.skippedActivityGroups.push(activityGroupData?.id!);
+  if (!activityGroup.title) {
+    results.skippedActivityGroups.push(activityGroup?.id.toString());
     return results;
   }
 
-  const activityGroupPath = `${ageGroupPath}/${parseRouteName(activityGroupData?.title!)}`;
+  const activityGroupPath = `${ageGroupPath}/${parseRouteName(activityGroup?.title)}`;
 
-  createPage({
+  const page = {
     path: activityGroupPath,
     component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
     context: {
-      data: activityGroupData,
       type: 'activityGroup',
-      id: activityGroupData.strapiId,
-      ageGroupId: activityGroupData.age_group?.id,
+      localizations: activityGroupData!.localizations?.map((x) => x?.id) || [],
+      locale: activityGroupData?.locale,
+      id: activityGroup!.id,
+      ageGroupId: activityGroup.age_group,
     },
-  });
-  results.activityGroups.push(activityGroupData?.title!);
+  }
+
+  createPage(page);
+
+  results.activityGroups.push(activityGroup?.title!);
 
   // Fetch Activities
   const promises = (activityGroupData?.activities || []).map(async (activity) =>
-    handleActivity(activity!, activityGroupPath, graphql, createPage),
+    handleActivity(activity!, activityGroupPath, createPage),
   );
 
   const activityResults = await Promise.all(promises);
@@ -170,7 +170,7 @@ async function handleActivityGroup(
 }
 
 async function handleAgeGroup(
-  ageGroup: StrapiAgeGroup,
+  ageGroup: Pick<StrapiAgeGroup, 'id' | 'strapiId' | 'title' | 'activity_groups' | 'localizations' | 'locale'>,
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
@@ -182,19 +182,29 @@ async function handleAgeGroup(
   }
 
   const ageGroupPath = `/${parseAgeGroupRouteName(ageGroup.title!)}`;
-  createPage({
+  
+  const page = {
     path: ageGroupPath,
     component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
     context: {
-      data: ageGroup,
       type: 'ageGroup',
+      localizations: ageGroup.localizations?.map((x) => x?.id) || [],
+      locale: ageGroup.locale,
       id: ageGroup.strapiId,
     },
-  });
+  }
+  
+  createPage(page);
+
   results.ageGroups.push(ageGroup.title!);
 
   const promises = (ageGroup.activity_groups || []).map(async (activityGroup) =>
-    handleActivityGroup(activityGroup!, ageGroupPath, graphql, createPage),
+    handleActivityGroup(
+      activityGroup as Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group'>,
+      ageGroupPath,
+      graphql,
+      createPage,
+    ),
   );
 
   const activityGroupResults = await Promise.all(promises);
@@ -207,7 +217,10 @@ async function handleProgramData(
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
   // Fetch AgeGroups
-  const { data } = await graphqlWithErrors<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(graphql, getAllAgeGroups);
+  const { data } = await graphqlWithErrors<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(
+    graphql,
+    getAllAgeGroups,
+  );
 
   const promises = (data?.allStrapiAgeGroup.nodes || []).map((ageGroup) =>
     handleAgeGroup(ageGroup, graphql, createPage),
@@ -227,20 +240,38 @@ async function handleContentPages(
   const results = createPageCreationResults();
 
   // First fetch all FrontPages (all language versions)
-  const frontPageResponse = await graphqlWithErrors<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(graphql, getAllFrontPages);
+  const frontPageResponse = await graphqlWithErrors<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(
+    graphql,
+    getAllFrontPages,
+  );
+  frontPageResponse.data?.allStrapiFrontPage.nodes.forEach((frontPage) => {
+    const locale = frontPage.locale;
+    createPage({
+      path: locale === 'fi' ? '/' : `/${locale}/`,
+      component: path.resolve(`src/templates/frontPageTemplate/index.tsx`),
+      context: {
+        type: 'frontPage',
+        locale,
+        id: frontPage.strapiId,
+      },
+    });
+  });
 
   const frontPages = frontPageResponse.data?.allStrapiFrontPage.nodes || [];
 
   if (!frontPages.length) return results;
 
-  const localizationPromises = (frontPages || []).map(async (localization) => {
-    const navigationPromises = (localization.navigation || []).map(
-      async (navigationItem) => await createNavigationLevel(graphql, createPage, navigationItem!),
+  const promises = (frontPages || []).map(async (localization) => {
+    const navigationPromises = (localization.navigation || []).map(async (navigationItem) =>
+      createNavigationLevel(graphql, createPage, navigationItem!),
     );
-    const results = await Promise.all(navigationPromises);
-    return mergePageCreationResults(...results);
+
+    const navigationResults = await Promise.all(navigationPromises);
+    return mergePageCreationResults(...navigationResults);
   });
-  const subResults = await Promise.all(localizationPromises);
+
+  const subResults = await Promise.all(promises);
+
   return mergePageCreationResults(results, ...subResults);
 }
 
@@ -289,7 +320,7 @@ async function createNavigationItems(
 
     const subPagePath = rootPath + '/' + parseRouteName(subitem?.title!);
 
-    const pageResult = await fetchAndCreateContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
+    const pageResult = await createContentPage(graphql, createPage, subitem!.page!.id!, subPagePath);
 
     if (!subitem.subnavigation?.length) {
       return pageResult;
@@ -305,10 +336,11 @@ async function createNavigationItems(
   });
 
   const results = await Promise.all(promises);
+
   return mergePageCreationResults(...results);
 }
 
-async function fetchAndCreateContentPage(
+async function createContentPage(
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
   id: number,
@@ -318,15 +350,21 @@ async function fetchAndCreateContentPage(
     id,
   });
 
-  createPage({
+  const page = {
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
-      data: pageDataResponse.data?.strapiContentPage,
+      type: 'contentPage',
+      localizations: pageDataResponse.data?.strapiContentPage.localizations?.map((x) => x?.id) || [],
+      locale: pageDataResponse.data?.strapiContentPage.locale,
+      id: pageDataResponse?.data?.strapiContentPage.strapiId,
     },
-  });
+  };
+
+  createPage(page);
+
   const results = createPageCreationResults();
-  results.contentPages.push(pageDataResponse.data?.strapiContentPage.title!);
+  results.contentPages.push(id.toString());
   return results;
 }
 
