@@ -1,7 +1,7 @@
 import React from 'react';
 import './src/styles/global.css';
 import { I18nextProvider } from 'react-i18next';
-import i18n from './configs/i18n';
+import i18n, { setupI18n } from './configs/i18n';
 
 export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPosition }) => {
   // If query parameter "tip" exists, we don't want to scroll anywhere
@@ -15,4 +15,10 @@ export const shouldUpdateScroll = ({ routerProps: { location }, getSavedScrollPo
   return false;
 };
 
-export const wrapRootElement = ({ element }) => <I18nextProvider i18n={i18n}>{element}</I18nextProvider>;
+export const wrapRootElement = ({ element }) => {
+  const isBrowser = typeof window !== 'undefined';
+
+  setupI18n(!isBrowser);
+
+  return <I18nextProvider i18n={i18n}>{element}</I18nextProvider>;
+};
