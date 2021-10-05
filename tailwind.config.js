@@ -66,6 +66,9 @@ module.exports = {
         ageRed: {
           DEFAULT: '#B9382C',
         },
+        notFoundRed: {
+          DEFAULT: '#F04150'
+        }
       },
       spacing: {
         '0.5': '0.25rem',
