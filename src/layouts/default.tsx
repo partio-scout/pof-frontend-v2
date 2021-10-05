@@ -57,12 +57,6 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
           <meta name="twitter:title" content={metadata.title} />
         </Helmet>
         <div className="relative">
-          <script
-            id="CookieDeclaration"
-            src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
-            type="text/javascript"
-            defer
-          ></script>
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
           <Search />
           <div>
@@ -71,6 +65,12 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
             <Container omitPadding={omitPadding}>{children}</Container>
           </div>
           <Footer />
+          <script
+            id="CookieDeclaration"
+            src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
+            type="text/javascript"
+            defer
+          ></script>
         </div>
       </LogoContextProvider>
     </SearchContextProvider>
