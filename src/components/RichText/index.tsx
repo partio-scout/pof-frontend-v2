@@ -4,6 +4,7 @@ import parse, { DOMNode, Element, domToReact, HTMLReactParserOptions } from 'htm
 import './styles.css';
 import CombinedLink from '../combinedLink';
 import { prependApiUrl } from '../../utils/helpers';
+import ReactPlayer from 'react-player';
 
 interface RichTextProps {
   html?: string | null;
@@ -29,6 +30,8 @@ const replaceDomNodeWithComponent = (node: Element) => {
       );
     case 'img':
       return <img src={prependApiUrl(node.attribs.src)} alt={node.attribs.alt} title={node.attribs.title} />;
+    case 'video':
+      return <ReactPlayer url={prependApiUrl(node.attribs['data-url'])} controls />
   }
 };
 
