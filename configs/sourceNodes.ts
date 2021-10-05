@@ -1,4 +1,7 @@
 import { Node, SourceNodesArgs } from 'gatsby';
+import axios, { AxiosError } from 'axios';
+import { writeFileSync, existsSync, mkdirSync } from 'fs';
+import Path from 'path';
 import {
   StrapiAgeGroup,
   StrapiActivityGroup,
@@ -9,6 +12,7 @@ import {
   StrapiFrontPageNavigationSubnavigation,
 } from '../graphql-types';
 import { parseRouteName, parseAgeGroupRouteName } from './utils';
+import { locales } from '../src/types/locale';
 
 interface ContentNavigationItemFirstLevel {
   title: string;
@@ -48,8 +52,9 @@ const mapNavigationItems = (
 const firstLevelNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigation, 'id' | 'title'>>) =>
   navigationItem?.id && navigationItem.title;
 
-const subNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>) =>
-  navigationItem?.id && navigationItem.title && navigationItem.page?.id;
+const subNavigationItemFilter = (
+  navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>,
+) => navigationItem?.id && navigationItem.title && navigationItem.page?.id;
 
 /**
  * Reads navigation data from StrapiFrontPage nodes and write them as Navigation nodes.
@@ -67,10 +72,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
     const navigationData: ContentNavigationItemFirstLevel[] =
       frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem) => ({
         title: navigationItem?.title!,
-        subitems: mapNavigationItems(
-          navigationItem?.subnavigation,
-          `/${parseRouteName(navigationItem?.title!)}`,
-        ),
+        subitems: mapNavigationItems(navigationItem?.subnavigation, `/${parseRouteName(navigationItem?.title!)}`),
       })) || [];
 
     createNode(
@@ -185,10 +187,10 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
             id: 'activity-logo-' + properActivity.strapiId!,
             internal: {
               type: 'Activity_Logo',
-              contentDigest: createContentDigest(properActivity.activity_group?.logo?.formats?.thumbnail?.url || '')
+              contentDigest: createContentDigest(properActivity.activity_group?.logo?.formats?.thumbnail?.url || ''),
             },
             logo: properActivity.activity_group?.logo?.formats?.thumbnail?.url,
-          })
+          });
 
           activityGroupNav.subitems?.push(activityNav);
         }
@@ -220,9 +222,44 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
   }
 }
 
+const loadTranslations = async (args: SourceNodesArgs) => {
+  const apiUrl = process.env.GATSBY_API_URL;
+  const translationsPath = './.cache/translations';
+
+  const promises = locales.map(async (locale) => {
+    let translations;
+    try {
+      const response = await axios.get<Object>(apiUrl + '/settings/translations/' + locale);
+      translations = response.data;
+    } catch (error: any) {
+      if (error.isAxiosError && (error as AxiosError).response?.status === 404) {
+        console.error("Couldn't load translations for locale", locale, 'error: Not found');
+      } else {
+        console.error("Couldn't load translations for locale", locale, 'error:', error);
+      }
+      translations = {};
+    }
+
+    try {
+      const filePath = Path.join(translationsPath, `${locale}.json`);
+
+      if (!existsSync(translationsPath)) {
+        mkdirSync(translationsPath, { recursive: true });
+      }
+
+      writeFileSync(filePath, JSON.stringify(translations));
+    } catch (error) {
+      console.error("Couldn't write translations for locale", locale, 'error:', error);
+    }
+  });
+
+  return Promise.all(promises);
+};
+
 const sourceNodes = async (args: SourceNodesArgs) => {
   createContentNavigationNodes(args);
   createProgramNavigationNodes(args);
+  await loadTranslations(args);
 };
 
 export default sourceNodes;
