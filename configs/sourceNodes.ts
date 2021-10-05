@@ -222,7 +222,10 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
   }
 }
 
-const loadTranslations = async (args: SourceNodesArgs) => {
+/**
+ * Fetch and write translations for i18next into: `/.cache/translations`
+ */
+const loadTranslations = async () => {
   const apiUrl = process.env.GATSBY_API_URL;
   const translationsPath = './.cache/translations';
 
@@ -233,7 +236,7 @@ const loadTranslations = async (args: SourceNodesArgs) => {
       translations = response.data;
     } catch (error: any) {
       if (error.isAxiosError && (error as AxiosError).response?.status === 404) {
-        console.error("Couldn't load translations for locale", locale, 'error: Not found');
+        console.warn("Couldn't load translations for locale", locale, 'error: Not found');
       } else {
         console.error("Couldn't load translations for locale", locale, 'error:', error);
       }
@@ -259,7 +262,7 @@ const loadTranslations = async (args: SourceNodesArgs) => {
 const sourceNodes = async (args: SourceNodesArgs) => {
   createContentNavigationNodes(args);
   createProgramNavigationNodes(args);
-  await loadTranslations(args);
+  await loadTranslations();
 };
 
 export default sourceNodes;
