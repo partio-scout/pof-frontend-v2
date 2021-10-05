@@ -19,7 +19,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: process.env.API_URL,
+        apiURL: process.env.GATSBY_API_URL,
         queryLimit: -1,
         collectionTypes: [
           { name: 'activity', api: { qs: { _locale: 'all' } } },
