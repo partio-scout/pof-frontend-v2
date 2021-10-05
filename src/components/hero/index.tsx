@@ -14,8 +14,12 @@ interface HeroProps {
 const Hero = ({ title, linkText, linkUrl, imageUrl }: HeroProps) => (
   <div className="relative py-20 min-h-25rem">
     <div
-      className="absolute right-0 top-0 h-full w-full -z-10 bg-no-repeat bg-right"
-      style={{ backgroundImage: `url(${prependApiUrl(imageUrl)})` }}
+      className="absolute right-0 top-0 h-full w-full -z-10"
+      style={{
+        background: `linear-gradient(to right, white, rgba(0,0,0,0)), url(${prependApiUrl(imageUrl)})`,
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'right',
+      }}
     />
     <Container>
       <h1 className="text-blue tracking-wider font-tondu break-words uppercase mb-5">{title}</h1>
