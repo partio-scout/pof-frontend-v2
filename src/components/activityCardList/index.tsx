@@ -7,6 +7,7 @@ import useNavigation from '../../hooks/navigation';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { useTranslation } from 'react-i18next';
 import { currentLocale } from '../../utils/helpers';
+import clsx from 'clsx';
 
 interface ActivityCardListProps {
   activities: StrapiActivity[];
@@ -62,10 +63,14 @@ const ActivityCardList = ({ activities, showInitially, augmentData, showActivity
   });
 
   return (
-    <div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+    <div className="flex justify-center">
+      <div className={clsx("grid grid-cols-1 gap-3", {
+        'xl:grid-cols-4': activitiesWithLinks.length > 3,
+        'lg:grid-cols-3': activitiesWithLinks.length > 2,
+        'sm:grid-cols-2': activitiesWithLinks.length > 1,
+      })}>
         {activitiesWithLinks?.map((activity) => (
-          <ActivityCard activity={activity} key={activity.strapiId} showActivityAndAgeGroup={showActivityAndAgeGroup} />
+          <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
         ))}
       </div>
       {activitiesWithLinks.length < activities.length && (

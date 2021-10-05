@@ -2,8 +2,6 @@
 Partio-ohjelma frontend
 
 
-TODO
-
 ## Graphql schema
 
 Gatsby uses graphql as its data query language, and it creates the schema for it automatically base on the data that it has. This doesn't work well for Strapi data, since unpopulated fields are not returned from the REST-API which the plugin `gatsby-source-strapi` uses to fetch the data. This leads to unpopulated starpi fields not ending up in the schema, and we don't want that. This problem has been fixed by defining the schema for Strapi data statically, in the file `configs/typeDefs.gql`. If you need to define something else manually, add those definitions to the same file.
@@ -14,7 +12,6 @@ For development, add the following variables into file: `.env.development`.
 
 Required environment variables:
 
-- `API_URL`: The address of the Strapi API
 - `GATSBY_API_URL`: The address of the Strapi API
 - `GATSBY_ALGOLIA_APP_ID`: Id of the Algolia application
 - `GATSBY_ALGOLIA_API_KEY`: API-KEY for the Algolia application
@@ -26,8 +23,3 @@ Optional environment variables:
 
 - `GATSBY_UPDATE_SCHEMA_SNAPSHOT`: Set this to true to update the graphql schema on `yarn develop`
 - `ENABLE_GATSBY_REFRESH_ENDPOINT`: Set this to true to enable Gatsby's refresh-endpoint on `yarn develop`. Useful when running a preview server.
-
-## Note about Gatsby's graphql schema
-Gatsby's normally dynamic graphql schema has been locked down with `gatsby-plugin-schema-snapshot` which writes the current schema to `./schema.gql` and uses it an override after initial creation. This way optional fields from Strapi don't need to be populated all the time.
-If there are changes in the Strapi data so that the schema has to updated, just set environment variable `GATSBY_UPDATE_SCHEMA_SNAPSHOT` to true and restart the development server. That updates the schema. 
-

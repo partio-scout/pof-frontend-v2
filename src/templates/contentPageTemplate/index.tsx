@@ -23,7 +23,7 @@ const MainContent = ({ data }: ContentPageTemplateProps) => (
       <h1 className="mb-2 break-words">{data.title}</h1>
       <RichText html={data.main_text} />
     </div>
-    {data.main_image && <img className="w-full md:w-1/2" src={prependApiUrl(data.main_image?.url)}></img>}
+    {data.main_image && <img className="w-full md:w-1/2" src={prependApiUrl(data.main_image?.url)} alt={data.main_image?.alternativeText || ''} title={data.main_image.caption || ''}></img>}
   </div>
 );
 

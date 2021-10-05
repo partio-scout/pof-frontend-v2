@@ -8,9 +8,12 @@ import upArrow from '../../images/upArrow.svg';
 import downArrow from '../../images/downArrow.svg';
 import { useSearchContext } from '../../contexts/searchContext';
 import './style.css';
+import { useTranslation } from 'react-i18next';
 
 const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs }: NavProps) => {
   const { state } = useSearchContext();
+  const { t } = useTranslation();
+
   return (
     <div
       className={clsx('hidden md:flex overflow-hidden h-20', {
@@ -18,7 +21,7 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
       })}
     >
       <a href="/">
-        <img src={logo} className="mx-4 my-1 w-26" />
+        <img src={logo} className="mx-4 my-1 w-26" alt={t('logo-title')} title={t('logo-title')} />
       </a>
       <div className="flex flex-1 space-x-4 cursor-default h-full justify-end z-50">
         {!state.searchActive &&

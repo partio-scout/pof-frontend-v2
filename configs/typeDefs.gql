@@ -517,6 +517,37 @@ type StrapiContentPageLocalizations @dontInfer {
     locale: String
   ): Date
 }
+
+type StrapiNotFoundPage implements Node @dontInfer {
+  content: JSON
+  title: String
+  ingress: String
+  locale: String
+  published_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  created_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updated_at(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  localizations: [StrapiFrontPageLocalizations]
+  strapiId: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+}
 type StrapiFrontPage implements Node @dontInfer {
   content: JSON
   title: String
