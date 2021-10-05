@@ -53,7 +53,7 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
         {currentLocaleAgeGroups.map((group) => (
           <div
             className="m-2 text-center uppercase font-bold transform transition-transform duration-100 hover:-translate-y-0.5 w-44"
-            key={group.id}
+            key={group.strapiId}
           >
             <Link to={findHeaderItemByTypeAndId('AgeGroup', group.strapiId || 0, navigation)?.url || ''}>
               <div
