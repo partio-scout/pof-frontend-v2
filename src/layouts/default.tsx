@@ -42,6 +42,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
             data-cbid={process.env.GATSBY_COOKIEBOT_ID}
             data-blockingmode="auto"
             type="text/javascript"
+            defer
           ></script>
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
@@ -60,7 +61,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
             id="CookieDeclaration"
             src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
             type="text/javascript"
-            async
+            defer
           ></script>
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
           <Search />
