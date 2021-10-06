@@ -23,6 +23,7 @@ import { findHitUrl, HitModel } from '../../utils/search';
 import { ContentType } from '../../types/content';
 import { SuggestionWithUrl } from '../../components/suggestionCard';
 import { Locale } from '../../types/locale';
+import RichText from '../../components/RichText';
 interface ActivityGroupPageTemplateProps {
   data: StrapiActivityGroup;
 }
@@ -40,6 +41,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
   const {
     title,
     ingress,
+    content,
     main_image,
     age_group,
     logo,
@@ -99,6 +101,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
             </div>
           )}
         </div>
+        <RichText html={content} />
         <Activities
           activities={activities.nodes}
           mandatoryTitle={mandatory_activities_title}
