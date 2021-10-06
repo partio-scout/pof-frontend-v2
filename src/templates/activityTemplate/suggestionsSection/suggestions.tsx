@@ -127,7 +127,7 @@ interface CommentProps {
 interface CommentType {
   title?: string;
   author?: string;
-  scoutGroup?: string;
+  scout_group?: string;
   text?: string;
 }
 
@@ -143,9 +143,9 @@ const ConversationLayout = ({ lastItem = false, children }: ConversationLayoutPr
 
 const Comment = ({ comment }: CommentProps) => (
   <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
-    <h3>{comment.title}</h3>
+    <h5>{comment.title?.toUpperCase() || '-'.toUpperCase()}</h5>
     <span className="font-semibold text-blue">
-      {comment.author || 'Anonyymi'}, {comment.scoutGroup || 'Ei lippukuntatietoja'}
+      {comment.author || 'Anonyymi'}, {comment.scout_group || 'Ei lippukuntatietoja'}
     </span>
     <p className="text-blue">{comment.text}</p>
   </div>
@@ -307,7 +307,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   />
                 )}
                 <div>
-                  <h4 className="text-blue">{suggestion!.title}</h4>
+                  <h5 className="text-blue">{suggestion!.title}</h5>
                   <span>{parseDate(suggestion!.published_at)}</span>
                   <span className="text-blue font-semibold ml-2 inline-block">
                     {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}

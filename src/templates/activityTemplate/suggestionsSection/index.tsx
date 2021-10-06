@@ -95,7 +95,9 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   useEffect(() => {
     fetchSuggestions(activityId)
-      .then((res) => setSuggestions(res.data))
+      .then((res) => {
+        setSuggestions(res.data);
+      })
       .catch((err) => {
         console.error(err);
         toast.error('Toteutusvinkkien haku epäonnistui');
@@ -125,12 +127,15 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
+    let toastId = toast.loading('Lähetetään...');
     sendNewSuggestion(newSuggestion, activityId, selectedFile)
       .then((res) => {
         setModalOpen(false);
+        toast.dismiss(toastId);
         toast.success('Toteutusvinkki lähetetty onnistuneesti');
       })
       .catch((err) => {
+        toast.dismiss(toastId);
         setModalOpen(false);
         toast.error('Toteutusvinkin lähettäminen epäonnistui');
       });
@@ -155,12 +160,15 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const postNewReply = (suggestionId: number) => {
     // TODO translate
+    let toastId = toast.loading('Lähetetään...');
     sendNewReply(newReply, suggestionId)
       .then((res) => {
+        toast.dismiss(toastId);
         setModalOpen(false);
         toast.success('Kommentti lähetetty onnistuneesti');
       })
       .catch((err) => {
+        toast.dismiss(toastId);
         setModalOpen(false);
         toast.error('Kommentin lähettäminen epäonnistui');
       });
@@ -223,7 +231,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
       {suggestions && (
         <Suggestions
-          suggestions={suggestions!}
+          suggestions={suggestions}
           onSubmit={validateReply}
           resetFormState={resetFormState}
           onFieldChange={onReplyFieldChange}

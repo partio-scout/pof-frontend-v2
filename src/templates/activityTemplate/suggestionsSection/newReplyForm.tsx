@@ -27,8 +27,12 @@ const NewReplyForm = ({
       <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2 mt-3">
         <div className="w-1/4 space-y-2">
           <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
-          {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
-          <input onChange={onFieldChange} placeholder="Lippukunta" className={`${inputStyle}`}></input>
+          <input
+            name="scout_group"
+            onChange={onFieldChange}
+            placeholder="Lippukunta"
+            className={`${inputStyle}`}
+          ></input>
           <div className="flex">
             <input
               type="checkbox"

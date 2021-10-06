@@ -71,7 +71,6 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <div className="flex flex-row md:max-w-sm md:flex-col">
               {links?.map((link) => (
                 <div className="mb-1 mr-2 md:mr-0">
-                  {console.log(parseLinkUrl(link?.url!))}
                   <PillLink to={parseLinkUrl(link?.url!)}>{link?.description}</PillLink>
                 </div>
               ))}

@@ -31,7 +31,7 @@ const locationIcons: locationIconsTypes = {
   metsässä: forest,
   ulkona: sun,
 };
-const itemClasses = 'bg-gray-light flex p-4 rounded-xl';
+const itemClasses = 'bg-gray-light flex p-4 rounded-xl w-full mx-auto';
 
 const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
@@ -39,8 +39,8 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
 
   return (
     <div className="mt-8">
-      <div className="flex space-x-4">
-        <div className="space-y-4 w-1/3">
+      <div className="flex flex-wrap lg:space-x-2 space-y-4 lg:space-y-0">
+        <div className="w-full lg:max-w-1/3 space-y-4 mb-2 mr-2 md:mb-0 md:mr-0 flex-grow">
           <div className={itemClasses}>
             {data.mandatory ? (
               <>
@@ -71,7 +71,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             </div>
           </div>
         </div>
-        <div className="ml-4 space-y-4 w-1/3">
+        <div className="w-full lg:max-w-1/3 space-y-4 mb-2 md:mb-0 flex-grow">
           <div className={itemClasses}>
             <div>
               <h4 className="text-blue block w-full text-xl uppercase">{t('paikka')}</h4>
@@ -95,10 +95,8 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               ))}
             </div>
           </div>
-          ;
         </div>
-
-        <div className="ml-4 space-y-4 w-1/3">
+        <div className="w-full lg:max-w-1/3 space-y-4">
           <div className={itemClasses}>
             <SquareIcon icon={ParentIcon} alt={t('educational-objectives')} backgroundColor={iconBackground} />
             <div>

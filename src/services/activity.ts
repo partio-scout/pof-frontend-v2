@@ -14,7 +14,6 @@ export const fetchComments = (suggestionId: number) => {
 };
 
 export const sendNewSuggestion = (newSuggestion: any, activityId: number, attachedFile: File | null) => {
-  console.log(attachedFile);
   const formData = new FormData();
   formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
   if (attachedFile) {
