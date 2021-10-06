@@ -23,7 +23,7 @@ interface ActivityQueryType {
   localeData: { nodes: SitePage[] };
 }
 
-const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
+const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
   const { activity, activityGroup } = data;
 
   const subTitle = `${activityGroup?.title || ''}${
@@ -37,7 +37,11 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
       pageHeader={
         <HeroTitleSection
           logoUrl={
-            prependApiUrl(activity.activity_group?.logo?.formats?.thumbnail?.url || activityGroup?.logo?.url) || ''
+            prependApiUrl(
+              activity.logo?.formats?.thumbnail?.url ||
+                activity.activity_group?.logo?.formats?.thumbnail?.url ||
+                activity.age_group?.logo?.formats?.thumbnail?.url,
+            ) || ''
           }
           mainImageUrl={prependApiUrl(activity.activity_group?.main_image?.url || activity.age_group?.main_image?.url)}
           mainTitle={activityGroup?.title || ''}
@@ -194,5 +198,5 @@ export const query = graphql`
         name
       }
     }
-  } 
+  }
 `;
