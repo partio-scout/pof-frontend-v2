@@ -39,7 +39,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
 
   return (
     <div className="mt-8">
-      <div className="flex flex-wrap lg:space-x-2 space-y-4 lg:space-y-0">
+      <div className="flex flex-wrap lg:space-x-2 space-y-2 lg:space-y-0">
         <div className="w-full lg:max-w-1/3 space-y-4 mb-2 mr-2 md:mb-0 md:mr-0 flex-grow">
           <div className={itemClasses}>
             {data.mandatory ? (
@@ -96,7 +96,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             </div>
           </div>
         </div>
-        <div className="w-full lg:max-w-1/3 space-y-4">
+        <div className="w-full lg:max-w-1/3 space-y-4 flex-grow">
           <div className={itemClasses}>
             <SquareIcon icon={ParentIcon} alt={t('educational-objectives')} backgroundColor={iconBackground} />
             <div>

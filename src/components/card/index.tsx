@@ -32,9 +32,9 @@ function InnerCard({ children, borderColor, backGround = true, rounded = true, p
 function Card(props: CardProps) {
   return (
     <div
-      className={clsx('h-full min-h-0', {
+      className={clsx('h-full min-h-0 max-w-card', {
         'transform transition-transform hover:-translate-y-0.5 focus-within:-translate-y-0.5 duration-75': props.link,
-        'sm:min-h-20rem': !props.noMinHeight
+        'sm:min-h-20rem': !props.noMinHeight,
       })}
     >
       {props.link ? (

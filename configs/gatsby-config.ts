@@ -19,7 +19,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
-        apiURL: process.env.API_URL,
+        apiURL: process.env.GATSBY_API_URL,
         queryLimit: -1,
         collectionTypes: [
           { name: 'activity', api: { qs: { _locale: 'all' } } },
@@ -39,6 +39,11 @@ const config: GatsbyConfig = {
           { name: 'front-page', api: { qs: { _locale: 'en' } } },
           { name: 'front-page', api: { qs: { _locale: 'smn' } } },
           { name: 'front-page', api: { qs: { _locale: 'sme' } } },
+          { name: 'not-found-page', api: { qs: { _locale: 'fi' } } },
+          { name: 'not-found-page', api: { qs: { _locale: 'sv' } } },
+          { name: 'not-found-page', api: { qs: { _locale: 'en' } } },
+          { name: 'not-found-page', api: { qs: { _locale: 'smn' } } },
+          { name: 'not-found-page', api: { qs: { _locale: 'sme' } } },
         ],
       },
     },

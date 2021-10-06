@@ -13,12 +13,13 @@ module.exports = {
         '4.5rem': '4.5rem',
         '23.5rem': '23.5rem',
       },
-      maxWidth: {
-        '1/3': '31%',
-      },
       minHeight: {
         '20rem': '20rem',
         '25rem': '25rem',
+      },
+      maxWidth: {
+        card: '25rem',
+        '1/3': '31%',
       },
       zIndex: {
         '-10': '-10',
@@ -65,6 +66,9 @@ module.exports = {
         },
         ageRed: {
           DEFAULT: '#B9382C',
+        },
+        notFoundRed: {
+          DEFAULT: '#F04150',
         },
       },
       spacing: {

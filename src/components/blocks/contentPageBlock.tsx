@@ -1,6 +1,6 @@
 import { Link } from 'gatsby';
 import React from 'react';
-import { BlockProps, BlockType, GeneralBlockType } from '.';
+import { BlockProps, BlockType } from '.';
 import { StrapiContentPage } from '../../../graphql-types';
 import useNavigation from '../../hooks/navigation';
 import { prependApiUrl } from '../../utils/helpers';

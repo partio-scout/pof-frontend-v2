@@ -1132,6 +1132,46 @@ export type StrapiContentPageLocalizationsPublished_AtArgs = {
   locale?: Maybe<Scalars['String']>;
 };
 
+export type StrapiNotFoundPage = Node & {
+  content?: Maybe<Scalars['JSON']>;
+  title?: Maybe<Scalars['String']>;
+  ingress?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+  published_at?: Maybe<Scalars['Date']>;
+  created_at?: Maybe<Scalars['Date']>;
+  updated_at?: Maybe<Scalars['Date']>;
+  localizations?: Maybe<Array<Maybe<StrapiFrontPageLocalizations>>>;
+  strapiId?: Maybe<Scalars['Int']>;
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+};
+
+
+export type StrapiNotFoundPagePublished_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiNotFoundPageCreated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiNotFoundPageUpdated_AtArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
 export type StrapiFrontPageNavigation = {
   id?: Maybe<Scalars['Int']>;
   title?: Maybe<Scalars['String']>;
@@ -3760,6 +3800,8 @@ export type Query = {
   allStrapiAgeGroup: StrapiAgeGroupConnection;
   strapiActivityGroup?: Maybe<StrapiActivityGroup>;
   allStrapiActivityGroup: StrapiActivityGroupConnection;
+  strapiNotFoundPage?: Maybe<StrapiNotFoundPage>;
+  allStrapiNotFoundPage: StrapiNotFoundPageConnection;
   strapiActivity?: Maybe<StrapiActivity>;
   allStrapiActivity: StrapiActivityConnection;
   strapiSuggestion?: Maybe<StrapiSuggestion>;
@@ -4123,6 +4165,31 @@ export type QueryStrapiActivityGroupArgs = {
 export type QueryAllStrapiActivityGroupArgs = {
   filter?: Maybe<StrapiActivityGroupFilterInput>;
   sort?: Maybe<StrapiActivityGroupSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryStrapiNotFoundPageArgs = {
+  content?: Maybe<JsonQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  ingress?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localizations?: Maybe<StrapiFrontPageLocalizationsFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllStrapiNotFoundPageArgs = {
+  filter?: Maybe<StrapiNotFoundPageFilterInput>;
+  sort?: Maybe<StrapiNotFoundPageSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -8661,6 +8728,213 @@ export type StrapiActivityGroupSortInput = {
   order?: Maybe<Array<Maybe<SortOrderEnum>>>;
 };
 
+export type StrapiNotFoundPageConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiNotFoundPageEdge>;
+  nodes: Array<StrapiNotFoundPage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StrapiNotFoundPageGroupConnection>;
+};
+
+
+export type StrapiNotFoundPageConnectionDistinctArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageConnectionMaxArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageConnectionMinArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageConnectionSumArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+export type StrapiNotFoundPageEdge = {
+  next?: Maybe<StrapiNotFoundPage>;
+  node: StrapiNotFoundPage;
+  previous?: Maybe<StrapiNotFoundPage>;
+};
+
+export type StrapiNotFoundPageFieldsEnum =
+  | 'content'
+  | 'title'
+  | 'ingress'
+  | 'locale'
+  | 'published_at'
+  | 'created_at'
+  | 'updated_at'
+  | 'localizations'
+  | 'localizations___id'
+  | 'localizations___locale'
+  | 'localizations___published_at'
+  | 'strapiId'
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type';
+
+export type StrapiNotFoundPageGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StrapiNotFoundPageEdge>;
+  nodes: Array<StrapiNotFoundPage>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  max?: Maybe<Scalars['Float']>;
+  min?: Maybe<Scalars['Float']>;
+  sum?: Maybe<Scalars['Float']>;
+  group: Array<StrapiNotFoundPageGroupConnection>;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+
+export type StrapiNotFoundPageGroupConnectionDistinctArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageGroupConnectionMaxArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageGroupConnectionMinArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageGroupConnectionSumArgs = {
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+
+export type StrapiNotFoundPageGroupConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StrapiNotFoundPageFieldsEnum;
+};
+
+export type StrapiNotFoundPageFilterInput = {
+  content?: Maybe<JsonQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  ingress?: Maybe<StringQueryOperatorInput>;
+  locale?: Maybe<StringQueryOperatorInput>;
+  published_at?: Maybe<DateQueryOperatorInput>;
+  created_at?: Maybe<DateQueryOperatorInput>;
+  updated_at?: Maybe<DateQueryOperatorInput>;
+  localizations?: Maybe<StrapiFrontPageLocalizationsFilterListInput>;
+  strapiId?: Maybe<IntQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+export type StrapiNotFoundPageSortInput = {
+  fields?: Maybe<Array<Maybe<StrapiNotFoundPageFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type StrapiActivityActivity_TermFilterInput = {
   id?: Maybe<IntQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
@@ -13172,6 +13446,11 @@ export type NavigationsQuery = { allContentNavigation: { nodes: Array<(
       )>>> }
     )> } };
 
+export type Unnamed_5_QueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type Unnamed_5_Query = { pages: { nodes: Array<Pick<StrapiNotFoundPage, 'content' | 'ingress' | 'title' | 'locale'>> } };
+
 export type SitePageLocaleFragmentFragment = (
   Pick<SitePage, 'path'>
   & { context?: Maybe<Pick<SitePageContext, 'type' | 'locale' | 'localizations'>> }
@@ -13247,10 +13526,10 @@ export type GetActivityQuery = { localeData: { nodes: Array<SitePageLocaleFragme
     )>, activity_group_category?: Maybe<Pick<StrapiActivityGroupActivity_Group_Category, 'name'>> }
   )> };
 
-export type Unnamed_5_QueryVariables = Exact<{ [key: string]: never; }>;
+export type Unnamed_6_QueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type Unnamed_5_Query = { allStrapiDuration: { nodes: Array<Pick<StrapiDuration, 'name' | 'id' | 'strapiId' | 'locale'>> }, allStrapiLocation: { nodes: Array<Pick<StrapiLocation, 'name' | 'id' | 'strapiId' | 'locale'>> } };
+export type Unnamed_6_Query = { allStrapiDuration: { nodes: Array<Pick<StrapiDuration, 'name' | 'id' | 'strapiId' | 'locale'>> }, allStrapiLocation: { nodes: Array<Pick<StrapiLocation, 'name' | 'id' | 'strapiId' | 'locale'>> } };
 
 export type ActivityGroupQueryQueryVariables = Exact<{
   id?: Maybe<Scalars['Int']>;

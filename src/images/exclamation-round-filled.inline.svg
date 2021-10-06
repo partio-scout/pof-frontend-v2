@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
   <g transform="translate(-18 -18)">
-    <path class="b"
+    <path
       d="M50,18A32,32,0,1,0,82,50,31.966,31.966,0,0,0,50,18Zm0,48a4,4,0,1,1,4-4A4.012,4.012,0,0,1,50,66Zm4-14H46V34h8Z" />
   </g>
 </svg>

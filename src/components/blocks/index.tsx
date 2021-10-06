@@ -1,15 +1,17 @@
 import React from 'react';
-import ActivityCard from '../activityCard';
-import { StrapiActivity } from '../../../graphql-types';
-import { parseLinkUrl, prependApiUrl } from '../../utils/helpers';
+import { StrapiActivity, StrapiImage } from '../../../graphql-types';
+import { prependApiUrl } from '../../utils/helpers';
 import RichText from '../RichText';
-import CombinedLink from '../combinedLink';
 import ActivityCardList from '../activityCardList';
+import BlueLink from '../BlueLink';
 
-export interface GeneralBlockType extends BlockType {
+export interface TextBlockType extends BlockType {
   title?: string;
   text?: string;
-  image?: any;
+}
+
+export interface ImageBlockType extends BlockType {
+  image?: StrapiImage;
 }
 
 export interface BlockType {
@@ -44,19 +46,14 @@ export const getBlockWidth = (widthString: string | undefined) => {
   switch (widthString) {
     case '1/2':
       return 'md:w-1/2';
-      break;
     case '1/1':
       return 'w-full';
-      break;
     case '1/3':
       return 'md:w-1/3';
-      break;
-    case '1/3':
+    case '2/3':
       return 'md:w-2/3';
-      break;
     default:
       return 'w-full';
-      break;
   }
 };
 
@@ -64,23 +61,28 @@ export interface BlockProps<BLOCK_TYPE> {
   block: BLOCK_TYPE;
 }
 
-export const GeneralBlock = ({ block }: BlockProps<GeneralBlockType>) => (
+export const TextBlock = ({ block }: BlockProps<TextBlockType>) => (
   <div className="flex-none inline-block w-full">
     {block.title && <h2>{block.title.toUpperCase()}</h2>}
     {block.text && <RichText className="text-blue" html={block.text} />}
-    {block.image && <img className="w-full" src={prependApiUrl(block.image?.url)} />}
+  </div>
+);
+
+export const ImageBlock = ({ block }: BlockProps<ImageBlockType>) => (
+  <div className="flex-none inline-block w-full">
+    {block.image && (
+      <img
+        className="w-full"
+        src={prependApiUrl(block.image?.url)}
+        alt={block.image.alternativeText || ''}
+        title={block.image.caption || ''}
+      />
+    )}
   </div>
 );
 
 export const LinkBlock = ({ block }: BlockProps<LinkBlockType>) => (
-  <a
-    href={parseLinkUrl(block.url)}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="inline-block md:w-full bg-gray-light font-tondu text-blue w-full py-4 justify-center text-center rounded-xl"
-  >
-    {block.text}
-  </a>
+  <BlueLink to={block.url || ''}>{block.text}</BlueLink>
 );
 
 export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
@@ -97,17 +99,10 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
     <div className="flex flex-col items-center justify-center">
       {block.title && <h2 className="mb-4">{block.title.toUpperCase()}</h2>}
       {block.text && <p className="text-blue mb-4">{block.text}</p>}
-      {block.link_text && block.link_url && (
-        <CombinedLink
-          to={block.link_url}
-          className="px-14 py-4 rounded bg-hardBlue text-white uppercase font-tondu font-bold text-xl tracking-widest"
-        >
-          {block.link_text}
-        </CombinedLink>
-      )}
+      {block.link_text && block.link_url && <BlueLink to={block.link_url}>{block.link_text}</BlueLink>}
     </div>
   </div>
 );
 
 export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) =>
-  block.activities ? <ActivityCardList activities={block.activities} augmentData showActivityAndAgeGroup  /> : null;
+  block.activities ? <ActivityCardList activities={block.activities} augmentData showActivityAndAgeGroup /> : null;
