@@ -44,25 +44,25 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
           <div className={itemClasses}>
             {data.mandatory ? (
               <>
-                <SquareIcon icon={ExclamationIcon} alt="Pakollinen aktiviteetti" backgroundColor={iconBackground} />
+                <SquareIcon icon={ExclamationIcon} alt={t('mandatory-activity')} backgroundColor={iconBackground} />
                 <h4 className="ml-4 text-blue text-xl uppercase">{t('mandatory-activity')}</h4>
               </>
             ) : (
               <>
-                <SquareIcon icon={PlusIcon} alt="Valinnainen aktiviteetti" backgroundColor={iconBackground} />
+                <SquareIcon icon={PlusIcon} alt={t('optional-activity')} backgroundColor={iconBackground} />
                 <h4 className="ml-4 text-blue text-xl uppercase">{t('optional-activity')}</h4>
               </>
             )}
           </div>
           <div className={itemClasses}>
-            <SquareIcon icon={ClockIcon} alt="Arvioitu kesto" backgroundColor={iconBackground} />
+            <SquareIcon icon={ClockIcon} alt={t('estimated-duration')} backgroundColor={iconBackground} />
             <div>
               <h4 className="ml-4 text-blue text-xl uppercase">{t('estimated-duration')}</h4>
               <span className="block ml-4 text-blue">{data.duration?.name}</span>
             </div>
           </div>
           <div className={itemClasses}>
-            <SquareIcon icon={StarIcon} alt="Taitoalueet" backgroundColor={iconBackground} />
+            <SquareIcon icon={StarIcon} alt={t('skills')} backgroundColor={iconBackground} />
             <div>
               <h4 className="ml-4 text-blue text-xl uppercase">{t('skills')}</h4>
               <span className="block ml-4 text-blue">
@@ -95,7 +95,14 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               ))}
             </div>
           </div>
-          ;
+          <div className={itemClasses}>
+            <div>
+              <h4 className="text-blue text-xl uppercase">{t('group-sizes')}</h4>
+              <span className="block text-blue">
+                {data.group_sizes?.map((size) => size?.name).join(', ')}
+              </span>
+            </div>
+          </div>
         </div>
 
         <div className="ml-4 space-y-4 w-1/3">
