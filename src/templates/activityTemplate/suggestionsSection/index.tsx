@@ -128,7 +128,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
-    let toastId = toast.loading(t('sending') + '...');
+    let toastId = toast.loading(t('lahetetaan') + '...');
     sendNewSuggestion(newSuggestion, activityId, selectedFile)
       .then((res) => {
         setModalOpen(false);
@@ -159,7 +159,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewReply = (suggestionId: number) => {
-    let toastId = toast.loading(t('sending') + '...');
+    let toastId = toast.loading(t('lahetetaan') + '...');
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         toast.dismiss(toastId);
