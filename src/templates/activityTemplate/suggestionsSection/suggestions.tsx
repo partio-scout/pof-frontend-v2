@@ -14,6 +14,7 @@ import clsx from 'clsx';
 import { linkSync } from 'fs';
 import { hexToRgba } from '../../../utils/color';
 import Pill from '../../../components/pill';
+import { useTranslation } from 'react-i18next';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -157,6 +158,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
   const [expandedIndex, setExpandedIndex] = useState({});
   const [votes, setVotes] = useState<{ [key: number]: any }>({});
   const [updatedSuggestions, setUpdatedSuggestions] = useState<Array<SuggestionFromRest> | null>(null);
+  const { t } = useTranslation();
 
   useLayoutEffect(() => {
     if (focusedSuggestion) {
@@ -338,40 +340,45 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
               <p className="mt-3">{suggestion!.content}</p>
             </div>
             <div
-              className={clsx('bg-gray p-1 overflow-auto rounded-br-xl', {
+              className={clsx('bg-gray p-1 overflow-auto rounded-br-xl flex', {
                 'border-hardBlue border-2 border-t-0': focusedSuggestion === suggestion?.id,
               })}
             >
-              {suggestion.links && suggestion.links.length > 0 && (
-                <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                  <a href={parseLinkUrl(suggestion.links[0].url)} target="_blank">
-                    <LinkIcon className="fill-current inline-block mr-1" />
-                    <span className="font-semibold">
-                      {suggestion.links[0].description || suggestion.links[0].url.replace(/(.{20})..+/, '$1…')}
-                    </span>
-                  </a>
-                </div>
-              )}
-              {suggestion.files && suggestion.files.length > 0 && (
-                <a href={suggestion.files[0].url} download>
-                  <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                    <AttachmentIcon className="fill-current inline-block mr-1" />
-                    <span className="font-semibold">{suggestion.files[0].name}</span>
-                  </div>
-                </a>
-              )}
+              <div className="flex-grow">
+                {suggestion.links &&
+                  suggestion.links.length > 0 &&
+                  suggestion.links.map((l) => (
+                    <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
+                      <a href={parseLinkUrl(l.url)} target="_blank">
+                        <LinkIcon className="fill-current inline-block mr-1" />
+                        <span className="font-semibold">
+                          {l.description?.replace(/(.{20})..+/, '$1…') || l.url?.replace(/(.{20})..+/, '$1…')}
+                        </span>
+                      </a>
+                    </div>
+                  ))}
+                {suggestion.files &&
+                  suggestion.files.length > 0 &&
+                  suggestion.files.map((f) => (
+                    <a href={f.url} download>
+                      <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
+                        <AttachmentIcon className="fill-current inline-block mr-1" />
+                        <span className="font-semibold">{f.name}</span>
+                      </div>
+                    </a>
+                  ))}
+              </div>
 
-              <div className="float-right">
-                {/* TODO translate */}
+              <div className="w-1/3 float-right">
                 <span className={getVotedStyles(suggestion.id)} onClick={() => handleVote(suggestion.id)}>
-                  {suggestion!.like_count} huutoa
+                  {suggestion!.like_count} {t('shouts')}
                 </span>
                 <button
                   className="bg-hardBlue rounded-xl text-white p-1 font-tondu ml-2 tracking-wide"
                   onClick={() => openCommentAccordion(index)}
                 >
                   {/* TODO translate */}
-                  Vastaa
+                  {t('reply-noun')}
                 </button>
               </div>
             </div>
@@ -400,7 +407,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   className="mx-auto bg-hardBlue mt-4 text-white font-tondu rounded-xl p-2"
                   onClick={() => openCommentAccordion(index)}
                 >
-                  Näytä kaikki
+                  {t('show-all')}
                 </button>
               </>
             )}

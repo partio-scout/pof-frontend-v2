@@ -7,6 +7,7 @@ import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
 import { currentLocale } from '../../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface SuggestionsSectionProps {
   activityId: number;
@@ -88,6 +89,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [callBack, setCallback] = useState<() => void | null>(() => {});
+  const { t } = useTranslation();
   const queryResult =
     useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
       query,
@@ -127,32 +129,31 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
-    let toastId = toast.loading('Lähetetään...');
+    let toastId = toast.loading(t('sending') + '...');
     sendNewSuggestion(newSuggestion, activityId, selectedFile)
       .then((res) => {
         setModalOpen(false);
         toast.dismiss(toastId);
-        toast.success('Toteutusvinkki lähetetty onnistuneesti');
+        toast.success(t('suggestion-send-success'));
       })
       .catch((err) => {
         toast.dismiss(toastId);
         setModalOpen(false);
-        toast.error('Toteutusvinkin lähettäminen epäonnistui');
+        toast.error(t('suggestion-send-fail'));
       });
   };
 
   const validateReply = (suggestionId: number) => {
-    // TODO translate
     setCallback(() => () => postNewReply(suggestionId));
     setModalData({
-      modalText: 'Haluatko lähettää uuden kommentin?',
-      sendButtonText: 'Lähetä kommentti',
-      backButtonText: 'Takaisin',
+      modalText: t('new-comment-modal-text'),
+      sendButtonText: t('send'),
+      backButtonText: t('back'),
     });
     if (!replyTermsChecked) {
-      toast.error('Hyväksy ehdot ennen lähetystä');
+      toast.error(t('accept-terms-warning'));
     } else if (!replyValid(newReply)) {
-      toast.error('Tarkista että kentät eivät ole tyhjiä');
+      toast.error(t('empty-fields-warning'));
     } else {
       setModalOpen(true);
     }
@@ -160,17 +161,17 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const postNewReply = (suggestionId: number) => {
     // TODO translate
-    let toastId = toast.loading('Lähetetään...');
+    let toastId = toast.loading(t('sending') + '...');
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         toast.dismiss(toastId);
         setModalOpen(false);
-        toast.success('Kommentti lähetetty onnistuneesti');
+        toast.success(t('comment-send-success'));
       })
       .catch((err) => {
         toast.dismiss(toastId);
         setModalOpen(false);
-        toast.error('Kommentin lähettäminen epäonnistui');
+        toast.error(t('comment-send-fail'));
       });
   };
 
@@ -228,7 +229,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   return (
     <div className="mt-8">
       {/* TODO translate */}
-      <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
+      <h2 className="text-blue tracking-wider">{t('suggestions').toUpperCase()}</h2>
       {suggestions && (
         <Suggestions
           suggestions={suggestions}

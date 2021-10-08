@@ -1,6 +1,7 @@
 import { Maybe } from '../../graphql-types';
 import { useTranslation } from 'react-i18next';
 import { Locale } from '../types/locale';
+import prependHttp from 'prepend-http';
 
 export const parseDate = (dateString: string) => {
   const d = new Date(dateString);
@@ -23,10 +24,8 @@ export const prependApiUrl = (url?: Maybe<string>) => {
 };
 
 export const parseLinkUrl = (url: string | undefined) => {
-  if (url && url.slice(0, 3) === 'www') {
-    return 'https://'.concat(url);
-  } else if (url) {
-    return url;
+  if (url) {
+    return prependHttp(url);
   }
   return '';
 };
