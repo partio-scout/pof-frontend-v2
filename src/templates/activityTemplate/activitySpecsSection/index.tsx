@@ -51,13 +51,6 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               <>
                 <SquareIcon icon={PlusIcon} alt="Valinnainen aktiviteetti" backgroundColor={iconBackground} />
                 <h4 className="ml-4 text-blue text-xl uppercase">{t('valinnainen-aktiviteetti')}</h4>
-                <SquareIcon icon={ExclamationIcon} alt={t('mandatory-activity')} backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase">{t('mandatory-activity')}</h4>
-              </>
-            ) : (
-              <>
-                <SquareIcon icon={PlusIcon} alt={t('optional-activity')} backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase">{t('optional-activity')}</h4>
               </>
             )}
           </div>
@@ -105,9 +98,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
           <div className={itemClasses}>
             <div>
               <h4 className="text-blue text-xl uppercase">{t('group-sizes')}</h4>
-              <span className="block text-blue">
-                {data.group_sizes?.map((size) => size?.name).join(', ')}
-              </span>
+              <span className="block text-blue">{data.group_sizes?.map((size) => size?.name).join(', ')}</span>
             </div>
           </div>
         </div>
