@@ -44,27 +44,27 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
           <div className={itemClasses}>
             {data.mandatory ? (
               <>
-                <SquareIcon icon={ExclamationIcon} alt={t('mandatory-activity')} backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase">{t('mandatory-activity')}</h4>
+                <SquareIcon icon={ExclamationIcon} alt="Pakollinen aktiviteetti" backgroundColor={iconBackground} />
+                <h4 className="ml-4 text-blue text-xl uppercase">{t('pakollinen-aktiviteetti')}</h4>
               </>
             ) : (
               <>
-                <SquareIcon icon={PlusIcon} alt={t('optional-activity')} backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase">{t('optional-activity')}</h4>
+                <SquareIcon icon={PlusIcon} alt="Valinnainen aktiviteetti" backgroundColor={iconBackground} />
+                <h4 className="ml-4 text-blue text-xl uppercase">{t('valinnainen-aktiviteetti')}</h4>
               </>
             )}
           </div>
           <div className={itemClasses}>
             <SquareIcon icon={ClockIcon} alt={t('estimated-duration')} backgroundColor={iconBackground} />
             <div>
-              <h4 className="ml-4 text-blue text-xl uppercase">{t('estimated-duration')}</h4>
+              <h4 className="ml-4 text-blue text-xl uppercase">{t('arvioitu-kesto')}</h4>
               <span className="block ml-4 text-blue">{data.duration?.name}</span>
             </div>
           </div>
           <div className={itemClasses}>
             <SquareIcon icon={StarIcon} alt={t('skills')} backgroundColor={iconBackground} />
             <div>
-              <h4 className="ml-4 text-blue text-xl uppercase">{t('skills')}</h4>
+              <h4 className="ml-4 text-blue text-xl uppercase">{t('taitoalueet')}</h4>
               <span className="block ml-4 text-blue">
                 {data.skill_areas?.map((skill_obj) => skill_obj?.name).join(', ')}
               </span>
@@ -98,18 +98,16 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
           <div className={itemClasses}>
             <div>
               <h4 className="text-blue text-xl uppercase">{t('group-sizes')}</h4>
-              <span className="block text-blue">
-                {data.group_sizes?.map((size) => size?.name).join(', ')}
-              </span>
+              <span className="block text-blue">{data.group_sizes?.map((size) => size?.name).join(', ')}</span>
             </div>
           </div>
         </div>
 
         <div className="ml-4 space-y-4 w-1/3">
           <div className={itemClasses}>
-            <SquareIcon icon={ParentIcon} alt={t('educational-objectives')} backgroundColor={iconBackground} />
+            <SquareIcon icon={ParentIcon} alt={t('kasvatustavoitteet')} backgroundColor={iconBackground} />
             <div>
-              <h4 className="ml-4 text-blue text-xl uppercase">{t('educational-objectives')}</h4>
+              <h4 className="ml-4 text-blue text-xl uppercase">{t('kasvatustavoitteet')}</h4>
               <span className="block ml-4 text-blue">
                 {data.educational_objectives?.map((ed_obj) => ed_obj?.name).join(', ')}
               </span>
@@ -117,7 +115,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
           </div>
           <div className={itemClasses}>
             <div>
-              <h4 className="text-blue text-xl uppercase">{t('leaders-role')}</h4>
+              <h4 className="text-blue text-xl uppercase">{t('johtajan-tehtava')}</h4>
               <RichText className="text-blue" html={data.leader_tasks} />
             </div>
           </div>

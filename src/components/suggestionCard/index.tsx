@@ -62,13 +62,13 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
             {likesExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {like_count} {like_count === 1 ? t('shout') : t('shouts')}
+                {t('huuto', { count: like_count as number })}
               </Pill>
             )}
             {commentsExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {comments?.length} {comments?.length === 1 ? t('reply') : t('replies')}
+                {t('vastausWithCount', { count: comments?.length })}
               </Pill>
             )}
           </div>

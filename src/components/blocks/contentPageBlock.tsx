@@ -46,7 +46,7 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
             to={url}
             className="rounded px-4 py-3.5 w-1/2 bg-lightBlue hover:bg-hardBlue font-tondu tracking-wider text-center"
           >
-            {t('read-more')}
+            {t('lue-lisaa')}
           </Link>
         </div>
       </div>

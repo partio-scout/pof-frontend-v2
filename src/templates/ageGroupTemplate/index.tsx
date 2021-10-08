@@ -42,9 +42,8 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
+  const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
-
-  const subTitle = `${minimum_age}-${maximum_age} ${t('aged')}`;
 
   return (
     <Layout

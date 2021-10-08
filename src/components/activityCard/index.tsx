@@ -38,11 +38,11 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
       <div className="flex font-bold mb-2">
         {mandatory ? (
           <>
-            <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('mandatory-activity')}
+            <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('pakollinen-aktiviteetti')}
           </>
         ) : (
           <>
-            <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('optional-activity')}
+            <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('valinnainen-aktiviteetti')}
           </>
         )}
       </div>
@@ -68,12 +68,11 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
       <div className="flex-grow mb-4 break-words uppercase">
         <h4>{activity.title}</h4>
       </div>
-      {(suggestions?.length || 0) > 0 && (
+      {(suggestions?.length || 0) > 0 && (
         <div className="flex mb-2">
           <Pill>
             <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-            {suggestions?.length}{' '}
-            {suggestions?.length === 1 ? t('implementation-suggestion') : t('implementation-suggestions')}
+            {t('toteutusvinkki', { count: suggestions?.length })}
           </Pill>
         </div>
       )}
