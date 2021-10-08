@@ -29,7 +29,7 @@ const NotFoundComponent = ({ page }: { page?: StrapiNotFoundPage }) => {
         }}
         className="inline-block bg-hardBlue uppercase text-xl rounded px-6 py-3 font-tondu text-white tracking-wide"
       >
-        {t('open-search')}
+        {t('avaa-haku')}
       </a>
       <div className="pt-10">
         <BlockArea blocks={content} />

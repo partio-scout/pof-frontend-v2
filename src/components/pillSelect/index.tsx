@@ -40,7 +40,7 @@ const PillSelect = <T,>({ itemBorders, ...props }: PillSelectProps & SelectProps
                 'text-opacity-40': !allSelected,
               })}
             />
-            {t('all')}
+            {t('kaikki')}
           </button>
         </li>
         {items.map((item, index) => {

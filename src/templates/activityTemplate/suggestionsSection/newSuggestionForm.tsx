@@ -41,7 +41,7 @@ const NewSuggestionForm = ({
 
   return (
     <div className="my-12">
-      <h2 className="text-blue">{t('write-implementation-suggestion').toUpperCase()}</h2>
+      <h2 className="text-blue">{t('kirjoita-toteutusvinkki').toUpperCase()}</h2>
       <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
         <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2">
           <div className="w-1/4 space-y-2">
@@ -49,7 +49,7 @@ const NewSuggestionForm = ({
             {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
             <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
             <DropdownSelect
-              title={t('estimated-duration')}
+              title={t('arvioitu-kesto')}
               items={durations}
               getItemTitle={(duration) => duration.name!}
               getItemId={(duration) => duration.id}
@@ -67,7 +67,7 @@ const NewSuggestionForm = ({
               whiteBackground
             />
             <DropdownSelect
-              title={t('Aktiviteettipaikka')}
+              title={t('aktiviteettipaikka')}
               items={locations}
               getItemTitle={(location) => location.name!}
               getItemId={(location) => location.id}
@@ -88,18 +88,18 @@ const NewSuggestionForm = ({
               }}
               whiteBackground
             />
-            <span className="block text-blue">{t('add-attachment')}</span>
+            <span className="block text-blue">{t('lisaa-liitetiedosto')}</span>
             <label
               className="block bg-hardBlue text-white w-full p-1 rounded-xl font-tondu tracking-wider text-center cursor-pointer"
               htmlFor="file"
             >
               <AttachmentIcon className="fill-current inline-block text-white mr-1" />
-              <span>{t('choose-file').toUpperCase()}</span>
+              <span>{t('valitse-tiedosto').toUpperCase()}</span>
             </label>
             <input className="opacity-0 absolute -z-10" type="file" name="file" id="file" onChange={onFileChange} />
             {selectedFile && (
               <div>
-                <span className="block font-semibold text-sm">{`${t('chosen-file')}:`}</span>
+                <span className="block font-semibold text-sm">{`${t('valittu-tiedosto')}:`}</span>
                 <UploadIcon fill={'#28AAE1'} className="inline-block mr-0.5" />
                 <span className="text-blue text-xs ">{selectedFile.name}</span>
                 <button onClick={removeSelectedFile} className="inline-block float-right mt-1">
@@ -107,7 +107,7 @@ const NewSuggestionForm = ({
                 </button>
               </div>
             )}
-            <span className="block">{t('add-link')}</span>
+            <span className="block">{t('lisaa-linkki')}</span>
             <div className="relative">
               <LinkIcon className="fill-current absolute top-3 left-3" />
               <input placeholder="url" className={`${inputStyle} pl-6`} onChange={onLinkChange} />
@@ -143,7 +143,7 @@ const NewSuggestionForm = ({
               className="absolute bottom-0 right-0 bg-hardBlue text-white p-2 rounded-br-xl font-tondu tracking-wider z-20"
               onClick={onSubmit}
             >
-              {t('send').toUpperCase()}
+              {t('laheta').toUpperCase()}
             </button>
           </div>
         </div>

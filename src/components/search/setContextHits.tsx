@@ -6,9 +6,6 @@ import Hit from './hit';
 import useNavigation from '../../hooks/navigation';
 import { useHitContext } from './hitContext';
 
-// TODO dynamic locale
-const currentLocale = 'fi';
-
 const SetContextHits = connectHits<HitsProvided<unknown> & { type: ContentType }, unknown>(({ type, hits }) => {
   const { dispatch } = useHitContext();
 
