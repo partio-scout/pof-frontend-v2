@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ClickAwayListener from 'react-click-away-listener';
+import { LocaleLink } from '../../types/locale';
 import DefaultNav from './defaultNav';
 import MobileNav from './mobileNav';
 
@@ -20,6 +21,7 @@ export interface HeaderItemFirstLevel {
 interface HeaderProps {
   headerItems: Array<HeaderItemFirstLevel>;
   showBreadCrumbs: boolean;
+  localeLinks?: LocaleLink[];
 }
 
 export interface NavProps {
@@ -27,9 +29,10 @@ export interface NavProps {
   currentDropDownOpen: number | null;
   toggleDropDown: (index: number) => void;
   showBreadCrumbs: boolean;
+  localeLinks?: LocaleLink[];
 }
 
-const Header = ({ headerItems, showBreadCrumbs }: HeaderProps) => {
+const Header = ({ headerItems, showBreadCrumbs, localeLinks }: HeaderProps) => {
   const [currentDropDownOpen, setCurrentDropDownOpen] = useState<null | number>(null);
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState<boolean>(false);
 
@@ -46,6 +49,7 @@ const Header = ({ headerItems, showBreadCrumbs }: HeaderProps) => {
           currentDropDownOpen={currentDropDownOpen}
           toggleDropDown={toggleDropDown}
           showBreadCrumbs={showBreadCrumbs}
+          localeLinks={localeLinks}
         />
         <MobileNav
           headerItems={headerItems}
@@ -55,6 +59,7 @@ const Header = ({ headerItems, showBreadCrumbs }: HeaderProps) => {
           hamburgerMenuOpen={hamburgerMenuOpen}
           //TODO: Change away from hardcoded when mobilenav finished
           showBreadCrumbs={false}
+          localeLinks={localeLinks}
         />
       </div>
     </ClickAwayListener>

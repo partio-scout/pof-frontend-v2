@@ -30,7 +30,7 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
     <div className="flex flex-col rounded-lg m-3 w-96 h-491  overflow-hidden">
       {imageUrl && (
         <div>
-          <img src={imageUrl} className="w-full h-64 object-cover" />
+          <img src={imageUrl} className="w-full h-64 object-cover" alt={title || ''} />
         </div>
       )}
       <div className="flex flex-col justify-around bg-gray-light w-full flex-grow">

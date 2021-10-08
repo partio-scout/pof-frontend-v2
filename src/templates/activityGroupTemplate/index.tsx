@@ -13,7 +13,7 @@ import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
@@ -56,6 +56,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     locale,
   } = data.activityGroup;
 
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const navigation = useNavigation(currentLocale());
   const { t } = useTranslation();
 
@@ -75,6 +76,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     <Layout
       showBreadCrumbs
       locale={locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}

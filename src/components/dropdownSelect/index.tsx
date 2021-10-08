@@ -9,7 +9,7 @@ import useCoreSelect, { SelectProps } from '../coreSelect';
 import { useTranslation } from 'react-i18next';
 
 const Checkbox = ({ checked }: { checked: boolean }) => {
-  return <img src={checked ? CheckboxIcon : CheckboxEmptyIcon} />;
+  return <img src={checked ? CheckboxIcon : CheckboxEmptyIcon} alt="" />;
 };
 
 const ListItem = ({ title, subTitle }: { title: string; subTitle?: string }) => {
@@ -67,7 +67,7 @@ const DropdownSelect = <T,>({ hideAllToggle, whiteBackground, ...props }: Dropdo
           tabIndex={0}
         >
           {getTitleText()}
-          <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} />
+          <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} alt="" />
         </button>
         {dropdownOpen && (
           <>
