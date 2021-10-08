@@ -49,7 +49,7 @@ const MobileNav = ({
           {headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div key={headerItem.name + index.toString()} className="mt-4" onClick={() => toggleDropDown(index)}>
               <span className="text-blue font-tondu tracking-wider text-xl ml-4">{headerItem.name.toUpperCase()}</span>
-              <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} />
+              <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} alt="" />
               {headerItem.subMenu && currentDropDownOpen === index && (
                 <div className="flex flex-col w-10/12 bg-gray-light rounded-lg py-1 mx-auto font-sourceSansPro cursor-pointer">
                   {headerItem.subMenu.map((subItem: HeaderItem) => (
