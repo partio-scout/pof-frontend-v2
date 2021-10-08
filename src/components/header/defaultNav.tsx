@@ -9,8 +9,9 @@ import downArrow from '../../images/downArrow.svg';
 import { useSearchContext } from '../../contexts/searchContext';
 import './style.css';
 import { useTranslation } from 'react-i18next';
+import LocaleSelector from './localeSelector';
 
-const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs }: NavProps) => {
+const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs, localeLinks }: NavProps) => {
   const { state } = useSearchContext();
   const { t } = useTranslation();
 
@@ -52,6 +53,12 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
               )}
             </div>
           ))}
+        <LocaleSelector
+          currentDropDownOpen={currentDropDownOpen}
+          toggleDropDown={toggleDropDown}
+          menuAmount={headerItems.length}
+          localeLinks={localeLinks}
+        />
         <Search />
       </div>
     </div>
