@@ -76,7 +76,6 @@ const query = graphql`
 `;
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
-  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
