@@ -8,7 +8,7 @@ import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps, graphql } from 'gatsby';
 import { StrapiActivity, StrapiActivityGroup, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import Metadata from '../../components/metadata';
 import { Locale } from '../../types/locale';
 import { currentLocale } from '../../utils/helpers';
@@ -24,8 +24,8 @@ interface ActivityQueryType {
 }
 
 const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
-  const { activity, activityGroup } = data;
-
+  const { activity, activityGroup, localeData } = data;
+  const localeLinks = sitePageDataToLocaleLinks(localeData.nodes);
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
@@ -34,6 +34,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
     <Layout
       showBreadCrumbs
       locale={activity.locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           logoUrl={

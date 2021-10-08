@@ -5,7 +5,7 @@ import { graphql, PageProps } from 'gatsby';
 import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
@@ -42,6 +42,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
 
   const subTitle = `${minimum_age}-${maximum_age} ${t('aged')}`;
 
@@ -49,6 +50,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     <Layout
       showBreadCrumbs={true}
       locale={locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url) || ''}

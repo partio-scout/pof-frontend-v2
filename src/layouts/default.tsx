@@ -13,7 +13,7 @@ import { changeLanguage, currentLocale } from '../utils/helpers';
 import { Toaster } from 'react-hot-toast';
 import Container from '../components/container';
 import Footer from '../components/footer';
-import { Locale } from '../types/locale';
+import { Locale, LocaleLink } from '../types/locale';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -21,9 +21,17 @@ interface LayoutProps {
   omitPadding?: boolean;
   pageHeader?: React.ReactElement;
   locale?: Locale;
+  localeLinks?: LocaleLink[];
 }
 
-const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false, pageHeader, locale }: LayoutProps) => {
+const DefaultLayout = ({
+  children,
+  showBreadCrumbs = false,
+  omitPadding = false,
+  pageHeader,
+  locale,
+  localeLinks,
+}: LayoutProps) => {
   const { pathname } = useLocation();
   const navigation = useNavigation(currentLocale());
   const metadata = useMetadata(currentLocale());
@@ -58,7 +66,7 @@ const DefaultLayout = ({ children, showBreadCrumbs = false, omitPadding = false,
           <meta name="twitter:title" content={metadata.title} />
         </Helmet>
         <div className="flex flex-col relative min-h-screen">
-          <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} />
+          <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} localeLinks={localeLinks} />
           <div className="flex-grow relative">
             <Search />
             {showBreadCrumbs && <BreadCrumbs trail={path} />}

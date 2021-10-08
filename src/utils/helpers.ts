@@ -1,6 +1,6 @@
-import { Maybe } from "../../graphql-types";
+import { Maybe, SitePage } from "../../graphql-types";
 import { useTranslation } from "react-i18next";
-import { Locale } from "../types/locale";
+import { Locale, LocaleLink } from "../types/locale";
 
 export const parseDate = (dateString: string) => {
   const d = new Date(dateString);
@@ -37,3 +37,6 @@ export const changeLanguage = (lng: string) => {
 export const removeHtml = (input: string) => {
   return input.replace(/(<([^>]+)>)/gi, "");
 };
+
+export const sitePageDataToLocaleLinks = (sitePages: SitePage[]): LocaleLink[] =>
+  sitePages.map((page) => ({ path: page.path, locale: page.context?.locale as Locale }));
