@@ -28,7 +28,7 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
     <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
-          {iconUrl && <img src={iconUrl} className="h-8 w-8 mr-1 object-contain"></img>}
+          {iconUrl && <img src={iconUrl} className="h-8 w-8 mr-1 object-contain" alt={activity_group?.title || ''}></img>}
           <div>
             <div className="text-xs font-semibold">{activity_group?.title}</div>
             <div className="text-xxs">{age_group?.title}</div>

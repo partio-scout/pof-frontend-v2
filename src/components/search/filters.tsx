@@ -49,7 +49,7 @@ const Filters = () => {
           )}
           onClick={() => setAdditionalFiltersVisible(!additionalFiltersVisible)}
         >
-          <img src={additionalFiltersVisible ? MinusIcon : PlusIcon} className="mr-1" />
+          <img src={additionalFiltersVisible ? MinusIcon : PlusIcon} className="mr-1" alt={t('refine-search')} />
           {t('refine-search')}
         </button>
         <div className="my-3">
