@@ -371,14 +371,13 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
 
               <div className="w-1/3 float-right">
                 <span className={getVotedStyles(suggestion.id)} onClick={() => handleVote(suggestion.id)}>
-                  {suggestion!.like_count} {t('shouts')}
+                  {t('huuto', { count: suggestion!.like_count })}
                 </span>
                 <button
                   className="bg-hardBlue rounded-xl text-white p-1 font-tondu ml-2 tracking-wide"
                   onClick={() => openCommentAccordion(index)}
                 >
-                  {/* TODO translate */}
-                  {t('reply-noun')}
+                  {t('vastaa')}
                 </button>
               </div>
             </div>

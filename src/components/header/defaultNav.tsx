@@ -9,8 +9,9 @@ import downArrow from '../../images/downArrow.svg';
 import { useSearchContext } from '../../contexts/searchContext';
 import './style.css';
 import { useTranslation } from 'react-i18next';
+import LocaleSelector from './localeSelector';
 
-const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs }: NavProps) => {
+const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBreadCrumbs, localeLinks }: NavProps) => {
   const { state } = useSearchContext();
   const { t } = useTranslation();
 
@@ -28,13 +29,13 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
           headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div
               key={headerItem.name + index.toString()}
-              className="py-4"
+              className="py-4 cursor-pointer"
               onKeyPress={(e) => e.key === 'Enter' && toggleDropDown(index)}
               onClick={() => toggleDropDown(index)}
               tabIndex={0}
             >
               <span className="text-blue font-tondu tracking-wider">{headerItem.name.toUpperCase()}</span>
-              <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} />
+              <img className="mx-1 my-0.5 w-8 inline-block" src={currentDropDownOpen === index ? downArrow : upArrow} alt="" />
               {headerItem.subMenu && currentDropDownOpen === index && (
                 <div className="flex flex-col w-40 bg-gray-light absolute py-1 font-sourceSansPro cursor-pointer z-20 rounded-lg">
                   {headerItem.subMenu.map((subItem: HeaderItem, index: number) => (
@@ -52,6 +53,12 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
               )}
             </div>
           ))}
+        <LocaleSelector
+          currentDropDownOpen={currentDropDownOpen}
+          toggleDropDown={toggleDropDown}
+          menuAmount={headerItems.length}
+          localeLinks={localeLinks}
+        />
         <Search />
       </div>
     </div>

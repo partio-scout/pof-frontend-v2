@@ -6,9 +6,10 @@ import DownArrowIcon from '../../images/downArrow.svg';
 import UpArrowIcon from '../../images/upArrow.svg';
 import clsx from 'clsx';
 import useCoreSelect, { SelectProps } from '../coreSelect';
+import { useTranslation } from 'react-i18next';
 
 const Checkbox = ({ checked }: { checked: boolean }) => {
-  return <img src={checked ? CheckboxIcon : CheckboxEmptyIcon} />;
+  return <img src={checked ? CheckboxIcon : CheckboxEmptyIcon} alt="" />;
 };
 
 const ListItem = ({ title, subTitle }: { title: string; subTitle?: string }) => {
@@ -25,25 +26,23 @@ interface DropdownSelectProps {
   whiteBackground?: boolean;
 }
 
-const DropdownSelect = <T,>({hideAllToggle, whiteBackground, ...props}: DropdownSelectProps & SelectProps<T>) => {
+const DropdownSelect = <T,>({ hideAllToggle, whiteBackground, ...props }: DropdownSelectProps & SelectProps<T>) => {
   const { items, title, toggle, toggleAll } = useCoreSelect<T>(props);
+  const { t } = useTranslation();
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   const allSelected = !items.some((item) => !item.checked);
   const selectedItems = items.filter((item) => item.checked);
-
   const getTitleText = () => {
     return (
       <span>
-        <strong className="mr-1">{title || 'Valitse'}:</strong>
+        <strong className="mr-1">{title || t('valitse')}:</strong>
         {allSelected
-          ? 'kaikki'
+          ? t('kaikki')
           : selectedItems.length === 0
           ? '-'
-          : selectedItems.length === 1
-          ? selectedItems[0].title
-          : `${selectedItems.length} valittu`}
+          : t('valittu', { count: selectedItems.length, firstTitle: selectedItems[0]?.title })}
       </span>
     );
   };
@@ -57,21 +56,18 @@ const DropdownSelect = <T,>({hideAllToggle, whiteBackground, ...props}: Dropdown
     <ClickAwayListener onClickAway={() => setDropdownOpen(false)}>
       <div className="relative">
         <button
-          className={clsx(
-            'rounded-2xl h-12 flex px-3 items-center justify-between cursor-pointer w-full',
-            {
-              'bg-white': whiteBackground && !dropdownOpen,
-              'bg-gray-light': (whiteBackground && dropdownOpen) || (!whiteBackground && !dropdownOpen),
-              'bg-gray': !whiteBackground && dropdownOpen,
-            }
-          )}
+          className={clsx('rounded-2xl h-12 flex px-3 items-center justify-between cursor-pointer w-full', {
+            'bg-white': whiteBackground && !dropdownOpen,
+            'bg-gray-light': (whiteBackground && dropdownOpen) || (!whiteBackground && !dropdownOpen),
+            'bg-gray': !whiteBackground && dropdownOpen,
+          })}
           onClick={() => {
             setDropdownOpen(!dropdownOpen);
           }}
           tabIndex={0}
         >
           {getTitleText()}
-          <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} />
+          <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} alt="" />
         </button>
         {dropdownOpen && (
           <>
@@ -90,7 +86,7 @@ const DropdownSelect = <T,>({hideAllToggle, whiteBackground, ...props}: Dropdown
                     <div className="inline-block mr-3 mt-0.5">
                       <Checkbox checked={allSelected} />
                     </div>{' '}
-                    <ListItem title={'Kaikki'} />
+                    <ListItem title={t('kaikki')} />
                   </button>
                 </li>
               )}
@@ -102,7 +98,7 @@ const DropdownSelect = <T,>({hideAllToggle, whiteBackground, ...props}: Dropdown
                       className={itemClasses(itemChecked)}
                       onClick={(e) => {
                         e.stopPropagation();
-                        const id = props.getItemId ? props.getItemId(item.itemData) : item.id
+                        const id = props.getItemId ? props.getItemId(item.itemData) : item.id;
                         toggle(id);
                       }}
                     >

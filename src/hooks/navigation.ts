@@ -108,7 +108,7 @@ const useNavigation = (currentLocale: string) => {
         name: node?.title!.replace(/\s\(.*\)/, '') as string,
         id: node?.id!,
         url: node?.path || '',
-        ingress: `${node?.minimum_age}-${node?.maximum_age} vuotiaat`,
+        ingress: t('vuotiaat', { minAge: node?.minimum_age, maxAge: node?.maximum_age }),
         type: node?.type!,
         color: node?.color!,
         subMenu: mapSubItems(node?.subitems),
@@ -116,7 +116,7 @@ const useNavigation = (currentLocale: string) => {
 
   const programNavigation: HeaderItemFirstLevel[] = [
     {
-      name: t('scouting-program'),
+      name: t('partio-ohjelma'),
       subMenu: programItems,
     },
   ];

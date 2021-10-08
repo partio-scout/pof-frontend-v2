@@ -88,14 +88,17 @@ const Search = (): React.ReactElement | null => {
             <div className="container mx-auto px-4 md:px-0">
               {state.visibleContentTypes
                 .filter((x) => x.type !== ContentType.others)
-                .map(({ name, type }) => (
-                  <div className="my-3" key={name}>
-                    <Index indexName={`${environment}_${type}`}>
-                      <h2 className="uppercase text-3xl my-5">{t(type + '-plural')}</h2>
-                      <Hits type={type} />
-                    </Index>
-                  </div>
-                ))}
+                .map(({ name, type }) => {
+                  const transKey = type === 'activity' ? 'aktiviteetit' : 'toteutusvinkit';
+                  return (
+                    <div className="my-3" key={name}>
+                      <Index indexName={`${environment}_${type}`}>
+                        <h2 className="uppercase text-3xl my-5">{t(transKey)}</h2>
+                        <Hits type={type} />
+                      </Index>
+                    </div>
+                  );
+                })}
               {/* Other contents need to be rendered a bit differently because we need to combine multiple indices hits to one list, which isn't possible with Instant Search */}
               {state.visibleContentTypes.find((x) => x.type === ContentType.others) && (
                 <HitContextProvider>
@@ -108,7 +111,7 @@ const Search = (): React.ReactElement | null => {
                   <Index indexName={`${environment}_${ContentType['activity-group']}`}>
                     <SetContextHits type={ContentType['activity-group']} />
                   </Index>
-                  <h2 className="uppercase text-3xl my-5">{t('others')}</h2>
+                  <h2 className="uppercase text-3xl my-5">{t('muut')}</h2>
                   <ContextHits />
                 </HitContextProvider>
               )}

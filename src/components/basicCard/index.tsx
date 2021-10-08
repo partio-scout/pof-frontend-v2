@@ -16,7 +16,7 @@ interface BasicCardProps {
 function BasicCard({ image, title, text, link, typeName }: BasicCardProps) {
   return (
     <Card link={link} padded={false} backGround={false} noMinHeight rounded={false}>
-      {image && <img src={prependApiUrl(image)} className="rounded-2xl h-48 object-cover mb-2"></img>}
+      {image && <img src={prependApiUrl(image)} className="rounded-2xl h-48 object-cover mb-2" alt={title}></img>}
       {typeName && (
         <div className="flex">
           <Pill className="text-sm py-0.5 px-1">{typeName}</Pill>

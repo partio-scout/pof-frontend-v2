@@ -76,6 +76,7 @@ const query = graphql`
 `;
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
+  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
@@ -102,7 +103,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       })
       .catch((err) => {
         console.error(err);
-        toast.error('Toteutusvinkkien haku epäonnistui');
+        toast.error(t('toteutusvinkki-haku-epaonnistui'));
       });
   }, [data]);
 
@@ -113,16 +114,15 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const validateSuggestion = () => {
     setCallback(() => postNewSuggestion);
-    // TODO translate
     setModalData({
-      modalText: 'Haluatko lähettää uuden toteutusvinkin?',
-      sendButtonText: 'Lähetä toteutusvinkki',
-      backButtonText: 'Takaisin',
+      modalText: t('haluatko-lahettaa-toteutusvinkin'),
+      sendButtonText: t('laheta-toteutusvinkki'),
+      backButtonText: t('takaisin'),
     });
     if (!suggestionTermsChecked) {
-      toast.error('Hyväksy ehdot ennen lähetystä');
+      toast.error(t('hyvaksy-ehdot-ennen-lahetysta'));
     } else if (!suggestionValid(newSuggestion)) {
-      toast.success('Tarkista että kentät eivät ole tyhjiä');
+      toast.success(t('tarkista-etta-kentat'));
     } else {
       setModalOpen(true);
     }
@@ -134,44 +134,43 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       .then((res) => {
         setModalOpen(false);
         toast.dismiss(toastId);
-        toast.success(t('suggestion-send-success'));
+        toast.success(t('toteutusvinkki-lahetetty-onnistui'));
       })
       .catch((err) => {
         toast.dismiss(toastId);
         setModalOpen(false);
-        toast.error(t('suggestion-send-fail'));
+        toast.error(t('toteutusvinkki-lahetetty-epaonnistui'));
       });
   };
 
   const validateReply = (suggestionId: number) => {
     setCallback(() => () => postNewReply(suggestionId));
     setModalData({
-      modalText: t('new-comment-modal-text'),
-      sendButtonText: t('send'),
-      backButtonText: t('back'),
+      modalText: t('haluatko-lahettaa-kommentin'),
+      sendButtonText: t('laheta-kommentti'),
+      backButtonText: t('takaisin'),
     });
     if (!replyTermsChecked) {
-      toast.error(t('accept-terms-warning'));
+      toast.error(t('hyvaksy-ehdot-ennen-lahetysta'));
     } else if (!replyValid(newReply)) {
-      toast.error(t('empty-fields-warning'));
+      toast.error(t('tarkista-etta-kentat'));
     } else {
       setModalOpen(true);
     }
   };
 
   const postNewReply = (suggestionId: number) => {
-    // TODO translate
     let toastId = toast.loading(t('sending') + '...');
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         toast.dismiss(toastId);
         setModalOpen(false);
-        toast.success(t('comment-send-success'));
+        toast.success(t('kommentti-onnistui'));
       })
       .catch((err) => {
         toast.dismiss(toastId);
         setModalOpen(false);
-        toast.error(t('comment-send-fail'));
+        toast.error(t('kommentti-epaonnistui'));
       });
   };
 
@@ -228,8 +227,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   return (
     <div className="mt-8">
-      {/* TODO translate */}
-      <h2 className="text-blue tracking-wider">{t('suggestions').toUpperCase()}</h2>
+      <h2 className="text-blue tracking-wider">{t('toteutusvinkit').toUpperCase()}</h2>
       {suggestions && (
         <Suggestions
           suggestions={suggestions}

@@ -13,7 +13,7 @@ import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
@@ -56,7 +56,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     locale,
   } = data.activityGroup;
 
-  // TODO correct locale
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const navigation = useNavigation(currentLocale());
   const { t } = useTranslation();
 
@@ -76,6 +76,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     <Layout
       showBreadCrumbs
       locale={locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
@@ -110,10 +111,10 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           optionalDescription={optional_activities_description}
         />
         <div className="my-5">
-          <h2 className="uppercase my-5">{t('newest-implementation-suggestions')}</h2>
+          <h2 className="uppercase my-5">{t('uusimmat-toteutusvinkit')}</h2>
           <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         </div>
-        <h2 className="uppercase text-center mb-10 mt-20">{`${t('others')} ${activitygroup_term?.plural}`}</h2>
+        <h2 className="uppercase text-center mb-10 mt-20">{`${t('muut')} ${activitygroup_term?.plural}`}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>

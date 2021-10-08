@@ -28,7 +28,7 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
     <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
-          {iconUrl && <img src={iconUrl} className="h-8 w-8 mr-1 object-contain"></img>}
+          {iconUrl && <img src={iconUrl} className="h-8 w-8 mr-1 object-contain" alt={activity_group?.title || ''}></img>}
           <div>
             <div className="text-xs font-semibold">{activity_group?.title}</div>
             <div className="text-xxs">{age_group?.title}</div>
@@ -38,11 +38,11 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
       <div className="flex font-bold mb-2">
         {mandatory ? (
           <>
-            <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('mandatory-activity')}
+            <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('pakollinen-aktiviteetti')}
           </>
         ) : (
           <>
-            <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('optional-activity')}
+            <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('valinnainen-aktiviteetti')}
           </>
         )}
       </div>
@@ -68,12 +68,11 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
       <div className="flex-grow mb-4 break-words uppercase">
         <h4>{activity.title}</h4>
       </div>
-      {(suggestions?.length || 0) > 0 && (
+      {(suggestions?.length || 0) > 0 && (
         <div className="flex mb-2">
           <Pill>
             <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-            {suggestions?.length}{' '}
-            {suggestions?.length === 1 ? t('implementation-suggestion') : t('implementation-suggestions')}
+            {t('toteutusvinkki', { count: suggestions?.length })}
           </Pill>
         </div>
       )}

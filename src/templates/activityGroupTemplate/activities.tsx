@@ -33,14 +33,14 @@ function Activities({
     <div>
       {mandatoryActivities.length > 0 && (
         <div className="py-5">
-          <Heading>{mandatoryTitle || t('mandatory-activities')}</Heading>
+          <Heading>{mandatoryTitle || t('pakolliset-aktiviteetit')}</Heading>
           {mandatoryDescription && <Paragraph>{mandatoryDescription}</Paragraph>}
           <ActivityCardList activities={mandatoryActivities} showInitially={12} />
         </div>
       )}
       {optionalActivities.length > 0 && (
         <div className="py-5">
-          <Heading>{optionalTitle || t('optional-activities')}</Heading>
+          <Heading>{optionalTitle || t('valinnaiset-aktiviteetit')}</Heading>
           {optionalDescription && <Paragraph>{optionalDescription}</Paragraph>}
           <ActivityCardList activities={optionalActivities} showInitially={12} />
         </div>

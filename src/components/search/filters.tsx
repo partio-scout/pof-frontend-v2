@@ -27,7 +27,7 @@ const Filters = () => {
         <div className="my-3">
           <DropdownSelect
             items={contentTypes}
-            title={t('content-type')}
+            title={t('sisaltotyyppi')}
             onChange={(selectedItems) => dispatch({ type: 'set-visible-content-types', payload: selectedItems })}
             getItemTitle={(item) => item.name}
             selectOne
@@ -35,7 +35,7 @@ const Filters = () => {
         </div>
         <div className="my-3">
           <DropdownRefinementList
-            title={t('age-group')}
+            title={t('ikaryhma')}
             attribute="age_group.title"
             limit={50}
             defaultRefinement={state.searchState.refinementList?.['age_group.title']}
@@ -50,7 +50,7 @@ const Filters = () => {
           onClick={() => setAdditionalFiltersVisible(!additionalFiltersVisible)}
         >
           <img src={additionalFiltersVisible ? MinusIcon : PlusIcon} className="mr-1" />
-          {t('refine-search')}
+          {t('tarkenna-hakua')}
         </button>
         <div className="my-3">
           {/* TODO: Have to decide if the order selector is necessary */}
