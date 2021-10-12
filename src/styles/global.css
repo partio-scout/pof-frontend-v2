@@ -18,7 +18,7 @@
 }
 
 html {
-  color: #253764;
+  color: theme('colors.blue.DEFAULT');
 }
 
 p, span {
@@ -27,7 +27,7 @@ p, span {
 
 h1, h2, h3, h4, h5 {
   font-family: 'Tondu', serif;
-  color: #253764;
+  color: theme('colors.blue.DEFAULT');
 }
 
 h1 {
@@ -87,6 +87,32 @@ h5 {
   background-repeat: no-repeat;
   background-position: 98% 50%;
 }
+
+/* Styles for tables coming from Strapi data */
+.richtext .table-border, .richtext .table-border td, .richtext .table-border tr {
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: theme('colors.blue.DEFAULT') !important;
+}
+
+.richtext table td {
+  padding: .5rem;
+}
+
+.richtext .table-border-bg-odd tr:nth-child(odd) {
+  background-color: theme('colors.lightBlue.light');
+}
+
+.richtext .table-border-bg-even tr:nth-child(even) {
+  background-color: theme('colors.lightBlue.light');
+}
+
+.richtext .table-border-light, .richtext .table-border-light td, .richtext .table-border-light tr {
+  border-width: 2px !important;
+  border-style: solid !important;
+  border-color: theme('colors.lightBlue.DEFAULT') !important;
+}
+
 
 @layer utilities {
   @variants responsive {
