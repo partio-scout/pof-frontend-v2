@@ -5,6 +5,7 @@ import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
 import { parseDate, parseLinkUrl, prependApiUrl } from '../../../utils/helpers';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
+import LikeIcon from '../../../images/like.inline.svg';
 import PinnedIcon from '../../../images/pinned.inline.svg';
 import TimeIcon from '../../../images/time.inline.svg';
 import { sendSuggestionLike, sendSuggestionUnlike } from '../../../services/activity';
@@ -15,6 +16,7 @@ import { linkSync } from 'fs';
 import { hexToRgba } from '../../../utils/color';
 import Pill from '../../../components/pill';
 import { useTranslation } from 'react-i18next';
+import * as _ from 'lodash';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -277,6 +279,8 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     }
   };
 
+  const debounceVote = _.debounce((suggestionId) => handleVote(suggestionId), 500);
+
   /**
    * Sort Suggestions by `pinned` and then by `updated_at`
    */
@@ -369,9 +373,10 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   ))}
               </div>
 
-              <div className="w-1/3 float-right">
-                <span className={getVotedStyles(suggestion.id)} onClick={() => handleVote(suggestion.id)}>
-                  {t('huuto', { count: suggestion!.like_count })}
+              <div className="float-right">
+                <span className={getVotedStyles(suggestion.id)} onClick={() => debounceVote(suggestion.id)}>
+                  <LikeIcon className="fill-current inline-block mr-1" />
+                  {t('huuto_other', { count: suggestion!.like_count })}
                 </span>
                 <button
                   className="bg-hardBlue rounded-xl text-white p-1 font-tondu ml-2 tracking-wide"

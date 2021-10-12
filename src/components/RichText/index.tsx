@@ -18,7 +18,7 @@ const options: HTMLReactParserOptions = {
 };
 
 /**
- * Replaces the given node with a React Component if necessary. 
+ * Replaces the given node with a React Component if necessary.
  */
 const replaceDomNodeWithComponent = (node: Element) => {
   switch (node.name) {
@@ -31,7 +31,7 @@ const replaceDomNodeWithComponent = (node: Element) => {
     case 'img':
       return <img src={prependApiUrl(node.attribs.src)} alt={node.attribs.alt} title={node.attribs.title} />;
     case 'video':
-      return <ReactPlayer url={prependApiUrl(node.attribs['data-url'])} controls />
+      return <ReactPlayer url={prependApiUrl(node.attribs['data-url'])} controls />;
   }
 };
 
