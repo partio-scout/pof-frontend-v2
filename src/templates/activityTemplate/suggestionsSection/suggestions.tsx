@@ -144,15 +144,18 @@ const ConversationLayout = ({ lastItem = false, children }: ConversationLayoutPr
   </div>
 );
 
-const Comment = ({ comment }: CommentProps) => (
-  <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
-    <h5>{comment.title?.toUpperCase() || '-'.toUpperCase()}</h5>
-    <span className="font-semibold text-blue">
-      {comment.author || 'Anonyymi'}, {comment.scout_group || 'Ei lippukuntatietoja'}
-    </span>
-    <p className="text-blue">{comment.text}</p>
-  </div>
-);
+const Comment = ({ comment }: CommentProps) => {
+  const { t } = useTranslation();
+  return (
+    <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
+      <h5>{comment.title?.toUpperCase() || '-'}</h5>
+      <span className="font-semibold text-blue">
+        {comment.author || t('anonymous')}, {comment.scout_group || 'Ei lippukuntatietoja'}
+      </span>
+      <p className="text-blue">{comment.text}</p>
+    </div>
+  );
+};
 
 const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: SuggestionsProps) => {
   // Query param `tip` is used to scroll to a distinct suggestion when coming from search
