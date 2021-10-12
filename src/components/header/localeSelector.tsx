@@ -48,7 +48,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
   const combinedLocaleLinks = mergeDefaultWithLocaleLinks(defaultLinks, localeLinks, locale);
   return !state.searchActive ? (
     <div
-      className="py-4 border-lightBlue border-l w-32"
+      className="py-4 border-lightBlue border-l w-32 cursor-pointer"
       onKeyPress={(e) => e.key === 'Enter' && toggleDropDown(menuAmount)}
       onClick={() => toggleDropDown(menuAmount)}
       tabIndex={0}
