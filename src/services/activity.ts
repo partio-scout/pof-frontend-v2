@@ -2,8 +2,8 @@ import axios from 'axios';
 import { InitialReply } from '../templates/activityTemplate/suggestionsSection/index';
 
 const trimUrl = (url?: string): string => {
-  return url?.replace(/\/+$/, '') || '';
-}
+  return url?.replace(/\/+$/, '') || '';
+};
 
 export const fetchSuggestions = (activityId: number) => {
   return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions?activity.id=${activityId}`);
@@ -13,9 +13,12 @@ export const fetchComments = (suggestionId: number) => {
   return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}`);
 };
 
-export const sendNewSuggestion = (newSuggestion: any, activityId: number) => {
+export const sendNewSuggestion = (newSuggestion: any, activityId: number, attachedFile: File | null) => {
   const formData = new FormData();
   formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
+  if (attachedFile) {
+    formData.append('files.files', attachedFile);
+  }
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/new`, formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
   });
@@ -39,4 +42,4 @@ export const sendSuggestionUnlike = (suggestionId: number, userId: string) => {
 export const fetchActivities = (activityIds: string[]) => {
   const query = activityIds.map((id) => `id_in=${id}`).join('&');
   return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/activities?${query}`);
-}
+};

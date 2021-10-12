@@ -1,4 +1,5 @@
 import { Link } from 'gatsby';
+import { parseLinkUrl } from '../../utils/helpers';
 import React from 'react';
 
 /**
@@ -13,7 +14,7 @@ const CombinedLink = ({ to, className, children }: { to: string; className?: str
     );
   }
   return (
-    <a href={to} className={className} target="_blank">
+    <a href={parseLinkUrl(to)} className={className} target="_blank">
       {children}
     </a>
   );
