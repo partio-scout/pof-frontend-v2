@@ -2,18 +2,21 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import NewReplyForm from './newReplyForm';
 import { CommonSuggestionFormProps, Error } from './index';
 import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
-import { parseDate, prependApiUrl } from '../../../utils/helpers';
+import { parseDate, parseLinkUrl, prependApiUrl } from '../../../utils/helpers';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
+import LikeIcon from '../../../images/like.inline.svg';
 import PinnedIcon from '../../../images/pinned.inline.svg';
 import TimeIcon from '../../../images/time.inline.svg';
 import { sendSuggestionLike, sendSuggestionUnlike } from '../../../services/activity';
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
+import { linkSync } from 'fs';
 import { hexToRgba } from '../../../utils/color';
 import Pill from '../../../components/pill';
 import { useTranslation } from 'react-i18next';
+import debounce from 'lodash.debounce';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -127,7 +130,7 @@ interface CommentProps {
 interface CommentType {
   title?: string;
   author?: string;
-  scoutGroup?: string;
+  scout_group?: string;
   text?: string;
 }
 
@@ -141,15 +144,18 @@ const ConversationLayout = ({ lastItem = false, children }: ConversationLayoutPr
   </div>
 );
 
-const Comment = ({ comment }: CommentProps) => (
-  <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
-    <h3>{comment.title}</h3>
-    <span className="font-semibold text-blue">
-      {comment.author || 'Anonyymi'}, {comment.scoutGroup || 'Ei lippukuntatietoja'}
-    </span>
-    <p className="text-blue">{comment.text}</p>
-  </div>
-);
+const Comment = ({ comment }: CommentProps) => {
+  const { t } = useTranslation();
+  return (
+    <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
+      <h5>{comment.title?.toUpperCase() || '-'}</h5>
+      <span className="font-semibold text-blue">
+        {comment.author || t('anonymous')}, {comment.scout_group || 'Ei lippukuntatietoja'}
+      </span>
+      <p className="text-blue">{comment.text}</p>
+    </div>
+  );
+};
 
 const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: SuggestionsProps) => {
   // Query param `tip` is used to scroll to a distinct suggestion when coming from search
@@ -276,6 +282,8 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     }
   };
 
+  const debounceVote = debounce((suggestionId) => handleVote(suggestionId), 500);
+
   /**
    * Sort Suggestions by `pinned` and then by `updated_at`
    */
@@ -308,7 +316,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   />
                 )}
                 <div>
-                  <h4 className="text-blue">{suggestion!.title}</h4>
+                  <h5 className="text-blue">{suggestion!.title}</h5>
                   <span>{parseDate(suggestion!.published_at)}</span>
                   <span className="text-blue font-semibold ml-2 inline-block">
                     {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}
@@ -339,21 +347,39 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
               <p className="mt-3">{suggestion!.content}</p>
             </div>
             <div
-              className={clsx('bg-gray p-1 overflow-auto rounded-br-xl', {
+              className={clsx('bg-gray p-1 overflow-auto rounded-br-xl flex', {
                 'border-hardBlue border-2 border-t-0': focusedSuggestion === suggestion?.id,
               })}
             >
-              <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                <LinkIcon className="fill-current inline-block mr-1" />
-                <span className="font-semibold">{t('linkki')}</span>
+              <div className="flex-grow">
+                {suggestion.links &&
+                  suggestion.links.length > 0 &&
+                  suggestion.links.map((l) => (
+                    <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
+                      <a href={parseLinkUrl(l.url)} target="_blank">
+                        <LinkIcon className="fill-current inline-block mr-1" />
+                        <span className="font-semibold">
+                          {l.description?.replace(/(.{20})..+/, '$1…') || l.url?.replace(/(.{20})..+/, '$1…')}
+                        </span>
+                      </a>
+                    </div>
+                  ))}
+                {suggestion.files &&
+                  suggestion.files.length > 0 &&
+                  suggestion.files.map((f) => (
+                    <a href={f.url} download>
+                      <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
+                        <AttachmentIcon className="fill-current inline-block mr-1" />
+                        <span className="font-semibold">{f.name}</span>
+                      </div>
+                    </a>
+                  ))}
               </div>
-              <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                <AttachmentIcon className="fill-current inline-block mr-1" />
-                <span className="font-semibold">{t('liite')}</span>
-              </div>
+
               <div className="float-right">
-                <span className={getVotedStyles(suggestion.id)} onClick={() => handleVote(suggestion.id)}>
-                  {t('huuto', { count: suggestion!.like_count })}
+                <span className={getVotedStyles(suggestion.id)} onClick={() => debounceVote(suggestion.id)}>
+                  <LikeIcon className="fill-current inline-block mr-1" />
+                  {t('huuto_other', { count: suggestion!.like_count })}
                 </span>
                 <button
                   className="bg-hardBlue rounded-xl text-white p-1 font-tondu ml-2 tracking-wide"
@@ -388,7 +414,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   className="mx-auto bg-hardBlue mt-4 text-white font-tondu rounded-xl p-2"
                   onClick={() => openCommentAccordion(index)}
                 >
-                  Näytä kaikki
+                  {t('show-all')}
                 </button>
               </>
             )}

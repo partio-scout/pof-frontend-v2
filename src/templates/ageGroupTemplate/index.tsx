@@ -9,7 +9,7 @@ import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
-import { currentLocale } from '../../utils/helpers';
+import { parseLinkUrl, currentLocale } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
 import { Locale } from '../../types/locale';
 
@@ -72,14 +72,14 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <div className="flex flex-row md:max-w-sm md:flex-col">
               {links?.map((link) => (
                 <div className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={link?.url || ''}>{link?.description}</PillLink>
+                  <PillLink to={parseLinkUrl(link?.url!)}>{link?.description}</PillLink>
                 </div>
               ))}
             </div>
           )}
         </div>
         <BlockArea blocks={upper_content_area} />
-        <h2 className="uppercase text-center my-6">{subactivitygroup_term?.plural}</h2>
+        <h2 className="uppercase text-center my-6 mx-auto">{subactivitygroup_term?.plural}</h2>
         <ActivityGroupList groups={activityGroups} />
         <BlockArea blocks={lower_content_area} />
       </div>

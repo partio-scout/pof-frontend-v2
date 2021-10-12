@@ -34,9 +34,7 @@ const replaceDomNodeWithComponent = (node: Element) => {
       return <ReactPlayer url={prependApiUrl(node.attribs['data-url'])} controls />;
     case 'table':
       // Wrap tables in overflowable container so they can be viewed fully in mobile also
-      return <div className="overflow-x-auto">
-        {domToReact([node])}
-      </div>
+      return <div className="overflow-x-auto">{domToReact([node])}</div>;
   }
 };
 

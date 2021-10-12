@@ -76,7 +76,6 @@ const query = graphql`
 `;
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
-  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
@@ -90,6 +89,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   });
   const [modalOpen, setModalOpen] = useState(false);
   const [callBack, setCallback] = useState<() => void | null>(() => {});
+  const { t } = useTranslation();
   const queryResult =
     useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
       query,
@@ -97,7 +97,9 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   useEffect(() => {
     fetchSuggestions(activityId)
-      .then((res) => setSuggestions(res.data))
+      .then((res) => {
+        setSuggestions(res.data);
+      })
       .catch((err) => {
         console.error(err);
         toast.error(t('toteutusvinkki-haku-epaonnistui'));
@@ -126,12 +128,15 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
-    sendNewSuggestion(newSuggestion, activityId)
+    let toastId = toast.loading(t('lahetetaan') + '...');
+    sendNewSuggestion(newSuggestion, activityId, selectedFile)
       .then((res) => {
         setModalOpen(false);
+        toast.dismiss(toastId);
         toast.success(t('toteutusvinkki-lahetetty-onnistui'));
       })
       .catch((err) => {
+        toast.dismiss(toastId);
         setModalOpen(false);
         toast.error(t('toteutusvinkki-lahetetty-epaonnistui'));
       });
@@ -154,12 +159,15 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewReply = (suggestionId: number) => {
+    let toastId = toast.loading(t('lahetetaan') + '...');
     sendNewReply(newReply, suggestionId)
       .then((res) => {
+        toast.dismiss(toastId);
         setModalOpen(false);
         toast.success(t('kommentti-onnistui'));
       })
       .catch((err) => {
+        toast.dismiss(toastId);
         setModalOpen(false);
         toast.error(t('kommentti-epaonnistui'));
       });
@@ -221,7 +229,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       <h2 className="text-blue tracking-wider">{t('toteutusvinkit').toUpperCase()}</h2>
       {suggestions && (
         <Suggestions
-          suggestions={suggestions!}
+          suggestions={suggestions}
           onSubmit={validateReply}
           resetFormState={resetFormState}
           onFieldChange={onReplyFieldChange}

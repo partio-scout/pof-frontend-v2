@@ -18,7 +18,8 @@ module.exports = {
         '25rem': '25rem',
       },
       maxWidth: {
-        'card': '25rem',
+        card: '25rem',
+        '1/3': '31%',
       },
       zIndex: {
         '-10': '-10',
@@ -67,8 +68,8 @@ module.exports = {
           DEFAULT: '#B9382C',
         },
         notFoundRed: {
-          DEFAULT: '#F04150'
-        }
+          DEFAULT: '#F04150',
+        },
       },
       spacing: {
         '0.5': '0.25rem',
