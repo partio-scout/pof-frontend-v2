@@ -16,7 +16,7 @@ import { linkSync } from 'fs';
 import { hexToRgba } from '../../../utils/color';
 import Pill from '../../../components/pill';
 import { useTranslation } from 'react-i18next';
-import * as _ from 'lodash';
+import debounce from 'lodash.debounce';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -282,7 +282,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     }
   };
 
-  const debounceVote = _.debounce((suggestionId) => handleVote(suggestionId), 500);
+  const debounceVote = debounce((suggestionId) => handleVote(suggestionId), 500);
 
   /**
    * Sort Suggestions by `pinned` and then by `updated_at`
