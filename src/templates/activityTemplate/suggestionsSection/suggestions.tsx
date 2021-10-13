@@ -18,8 +18,8 @@ import Pill from '../../../components/pill';
 import { useTranslation } from 'react-i18next';
 import debounce from 'lodash.debounce';
 
-const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
-const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
+const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro cursor-pointer';
+const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro cursor-pointer';
 
 export interface SuggestionFromRest {
   id: number;
