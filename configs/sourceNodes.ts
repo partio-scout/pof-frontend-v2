@@ -82,7 +82,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
         parent: null,
         internal: {
           type: 'Content_Navigation',
-          contentDigest: createContentDigest(node),
+          contentDigest: createContentDigest(navigationData),
         },
         items: navigationData,
       },
