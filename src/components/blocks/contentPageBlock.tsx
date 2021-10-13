@@ -27,7 +27,7 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
   const imageUrl = prependApiUrl(main_image?.formats?.small?.url);
 
   return url ? (
-    <div className="flex flex-col rounded-lg m-3 w-96 h-491  overflow-hidden">
+    <div className="flex flex-col rounded-lg m-3 max-w-card h-491  overflow-hidden">
       {imageUrl && (
         <div>
           <img src={imageUrl} className="w-full h-64 object-cover" alt={title || ''} />

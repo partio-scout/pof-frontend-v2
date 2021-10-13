@@ -48,19 +48,19 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
   const combinedLocaleLinks = mergeDefaultWithLocaleLinks(defaultLinks, localeLinks, locale);
   return !state.searchActive ? (
     <div
-      className="py-4 border-lightBlue border-l w-32"
+      className="py-4 border-lightBlue border-l w-20 sm:w-32 cursor-pointer"
       onKeyPress={(e) => e.key === 'Enter' && toggleDropDown(menuAmount)}
       onClick={() => toggleDropDown(menuAmount)}
       tabIndex={0}
     >
-      <span className="flex flex-row items-center justify-around ml-2">
+      <div className="flex flex-row items-center justify-around">
         <img className="mx-1 my-0.5 w-4 inline-block" src={localeToImage[locale]} />
-        <span className="text-blue ml-0.5 font-tondu tracking-wider w-20">{locale.toUpperCase()}</span>
+        <span className="text-blue ml-0.5 font-tondu tracking-wider hidden sm:inline">{locale.toUpperCase()}</span>
         <img
-          className="mx-1 my-0.5 w-8 h-8 inline-block"
+          className="mx-1 my-0.5 w-8 h-8 hidden sm:inline-block"
           src={currentDropDownOpen === menuAmount ? downArrow : upArrow}
         />
-      </span>
+      </div>
 
       {currentDropDownOpen === menuAmount && (
         <div className="flex flex-col w-40 bg-gray-light absolute py-1 font-sourceSansPro cursor-pointer z-20 rounded-lg">

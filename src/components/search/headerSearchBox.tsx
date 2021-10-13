@@ -11,16 +11,16 @@ const Search = () => {
 
   return (
     <div
-      className={clsx('flex h-full border-lightBlue self-stretch flex-row justify-start items-center', {
+      className={clsx('flex h-full border-lightBlue self-stretch flex-row justify-start items-center min-w-0', {
         'border-l': !state.searchActive,
       })}
     >
       {state.searchActive ? (
         <>
-          <div className="relative flex flex-1 items-center px-3">
+          <div className="relative flex flex-1 items-center px-3 min-w-0">
             <input
               type="text"
-              className="p-3 pr-8 bg-gray rounded-2xl h-12 w-80 text-xl"
+              className="p-3 pr-8 bg-gray rounded-2xl h-12 text-xl min-w-0"
               placeholder={t('hakusana')}
               value={state.searchState.configure?.query || ''}
               autoFocus

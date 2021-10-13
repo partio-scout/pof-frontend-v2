@@ -32,6 +32,9 @@ const replaceDomNodeWithComponent = (node: Element) => {
       return <img src={prependApiUrl(node.attribs.src)} alt={node.attribs.alt} title={node.attribs.title} />;
     case 'video':
       return <ReactPlayer url={prependApiUrl(node.attribs['data-url'])} controls />;
+    case 'table':
+      // Wrap tables in overflowable container so they can be viewed fully in mobile also
+      return <div className="overflow-x-auto">{domToReact([node])}</div>;
   }
 };
 

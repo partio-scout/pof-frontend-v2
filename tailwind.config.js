@@ -20,6 +20,7 @@ module.exports = {
       maxWidth: {
         card: '25rem',
         '1/3': '31%',
+        navItem: '20rem',
       },
       zIndex: {
         '-10': '-10',
