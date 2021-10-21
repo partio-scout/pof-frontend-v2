@@ -33,7 +33,7 @@ const MobileNav = ({
           className="w-6 inline-block border-lightBlue border-r p-2"
           onClick={toggleHamburger}
         />
-        {!state.searchActive && <img src={logo} className="mx-4 w-24" />}
+        {!state.searchActive && <a href='/' className="flex flex-row"><img src={logo} className="mx-4 w-24"/></a>}
         <div className="flex flex-row space-x-4 cursor-default ml-auto">
           <LocaleSelector
             currentDropDownOpen={currentDropDownOpen}
