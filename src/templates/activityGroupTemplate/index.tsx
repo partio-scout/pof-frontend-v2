@@ -111,10 +111,10 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           optionalDescription={optional_activities_description}
         />
         <div className="my-5">
-          <h2 className="uppercase my-5">{t('uusimmat-toteutusvinkit')}</h2>
+          <h2 className="uppercase my-5 sm:text-4xl">{t('uusimmat-toteutusvinkit')}</h2>
           <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         </div>
-        <h2 className="uppercase text-center mb-10 mt-20">{`${t('muut')} ${activitygroup_term?.plural}`}</h2>
+        <h2 className="uppercase text-center mb-10 mt-20 sm:text-4xl">{`${t('muut')} ${activitygroup_term?.plural}`}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>

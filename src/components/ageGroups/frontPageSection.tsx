@@ -13,7 +13,7 @@ const ageGroups = [
 const FrontPageSection = () => (
   <div>
     <div className="mt-4">
-      <h2 className="text-blue inline-block lg:w-2/5 md:w-full">
+      <h2 className="text-blue inline-block lg:w-2/5 md:w-full sm:text-4xl">
         LOREM IPSUM <br />
         DOLOR SIT AMET <br />
         PARTIO-OHJELMA
