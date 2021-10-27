@@ -28,7 +28,12 @@ module.exports = {
         xxs: '.625rem',
         // For tablets
         xlt: ['1.75rem', '2rem'],
-        lt: ['1.375rem', '1.563rem']
+        lt: ['1.375rem', '1.563rem'],
+        // For web
+        xxxlw: ['4rem', '4rem'],
+        xxlw: ['3rem', '3.125rem'],
+        xlw: ['2rem', '2.125rem'],
+        lw: ['1.5rem', '1.625rem'],
       },
       colors: {
         blue: {

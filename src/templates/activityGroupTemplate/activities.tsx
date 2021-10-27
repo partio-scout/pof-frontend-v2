@@ -13,10 +13,10 @@ interface ActivitiesProps {
 }
 
 const Heading = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-2xl uppercase mb-3 sm:text-4xl">{children}</h2>
+  <h2 className="text-2xl uppercase mb-3 sm:text-4xl md:text-xxlw">{children}</h2>
 );
 
-const Paragraph = ({ children }: { children: React.ReactNode }) => <p className="mb-5 tracking-wide">{children}</p>;
+const Paragraph = ({ children }: { children: React.ReactNode }) => <p className="mb-5 tracking-wide md:text-base">{children}</p>;
 
 function Activities({
   activities,

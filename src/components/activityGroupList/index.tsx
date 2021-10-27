@@ -43,7 +43,7 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
       {categories.map(({ category, groups }) => {
         return (
           <div className="text-center" key={category}>
-            {category !== '' && <h3 className="sm:text-xlt">{category}</h3>}
+            {category !== '' && <h3 className="sm:text-xlt md:text-xlw">{category}</h3>}
             <div className="flex flex-row justify-center lg:px-20 flex-wrap mb-5 mt-2">
               {groups
                 .sort((a, b) => ((a.sort_order || 0) > (b.sort_order || 0) ? 1 : -1))

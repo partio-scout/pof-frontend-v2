@@ -63,7 +63,7 @@ export interface BlockProps<BLOCK_TYPE> {
 
 export const TextBlock = ({ block }: BlockProps<TextBlockType>) => (
   <div className="flex-none inline-block w-full">
-    {block.title && <h2 className="sm:text-4xl">{block.title.toUpperCase()}</h2>}
+    {block.title && <h2 className="sm:text-4xl md:text-xxlw">{block.title.toUpperCase()}</h2>}
     {block.text && <RichText className="text-blue" html={block.text} />}
   </div>
 );
@@ -97,8 +97,8 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
     }
   >
     <div className="flex flex-col items-center justify-center">
-      {block.title && <h2 className="mb-4 sm:text-4xl">{block.title.toUpperCase()}</h2>}
-      {block.text && <p className="text-blue mb-4">{block.text}</p>}
+      {block.title && <h2 className="mb-4 sm:text-4xl md:text-xxlw">{block.title.toUpperCase()}</h2>}
+      {block.text && <p className="text-blue mb-4 md:text-base">{block.text}</p>}
       {block.link_text && block.link_url && <BlueLink to={block.link_url}>{block.link_text}</BlueLink>}
     </div>
   </div>

@@ -22,7 +22,7 @@ function BasicCard({ image, title, text, link, typeName }: BasicCardProps) {
           <Pill className="text-sm py-0.5 px-1">{typeName}</Pill>
         </div>
       )}
-      {title && <h4 className="mb-3 mt-1 uppercase break-words sm:text-lt">{title}</h4>}
+      {title && <h4 className="mb-3 mt-1 uppercase break-words sm:text-lt md:text-lw">{title}</h4>}
       {text && <ClampLines text={removeHtml(text)} id={`basic-card-${uuidv4()}-text`} lines={7} buttons={false} />}
     </Card>
   );

@@ -93,7 +93,7 @@ const Search = (): React.ReactElement | null => {
                   return (
                     <div className="my-3" key={name}>
                       <Index indexName={`${environment}_${type}`}>
-                        <h2 className="uppercase text-3xl my-5 sm:text-4xl">{t(transKey)}</h2>
+                        <h2 className="uppercase text-3xl my-5 sm:text-4xl md:text-xxlw">{t(transKey)}</h2>
                         <Hits type={type} />
                       </Index>
                     </div>
@@ -111,7 +111,7 @@ const Search = (): React.ReactElement | null => {
                   <Index indexName={`${environment}_${ContentType['activity-group']}`}>
                     <SetContextHits type={ContentType['activity-group']} />
                   </Index>
-                  <h2 className="uppercase text-3xl my-5 sm:text-4xl">{t('muut')}</h2>
+                  <h2 className="uppercase text-3xl my-5 sm:text-4xl md:text-xxlw">{t('muut')}</h2>
                   <ContextHits />
                 </HitContextProvider>
               )}

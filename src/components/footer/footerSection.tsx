@@ -14,7 +14,7 @@ function FooterSection({ data }: FooterSectionProps) {
   return (
     <div className="flex flex-col text-white mr-6">
       {data.title && (
-        <h2 className="text-white text-xl mb-4 sm:text-4xl">
+        <h2 className="text-white text-xl mb-4 sm:text-4xl md:text-xxlw">
           {addLineBreaks(data.title)}
         </h2>
       )}

@@ -35,8 +35,8 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
       )}
       <div className="flex flex-col justify-around bg-gray-light w-full flex-grow">
         <div className="flex-grow p-2">
-          <h4 className="bold font-tondu tracking-wider text-blue sm:text-lt">{title}</h4>
-          <p className="text-blue">{ingress}</p>
+          <h4 className="bold font-tondu tracking-wider text-blue sm:text-lt md:text-lw">{title}</h4>
+          <p className="text-blue md:text-base">{ingress}</p>
         </div>
         <div className="flex justify-between items-center pl-2">
           <span className="font-sourceSansPro pl-2 pb-2 text-gray-dark">

@@ -143,11 +143,11 @@ const ConversationLayout = ({ lastItem = false, children }: ConversationLayoutPr
 
 const Comment = ({ comment }: CommentProps) => (
   <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
-    <h3 className="sm:text-xlt">{comment.title}</h3>
+    <h3 className="sm:text-xlt md:text-xlw">{comment.title}</h3>
     <span className="font-semibold text-blue">
       {comment.author || 'Anonyymi'}, {comment.scoutGroup || 'Ei lippukuntatietoja'}
     </span>
-    <p className="text-blue">{comment.text}</p>
+    <p className="text-blue md:text-base">{comment.text}</p>
   </div>
 );
 
@@ -308,7 +308,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   />
                 )}
                 <div>
-                  <h4 className="text-blue text-lt m">{suggestion!.title}</h4>
+                  <h4 className="text-blue text-lt md:text-lw m">{suggestion!.title}</h4>
                   <span>{parseDate(suggestion!.published_at)}</span>
                   <span className="text-blue font-semibold ml-2 inline-block">
                     {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}
@@ -336,7 +336,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                     ))}
                 </div>
               )}
-              <p className="mt-3">{suggestion!.content}</p>
+              <p className="mt-3 md:text-base">{suggestion!.content}</p>
             </div>
             <div
               className={clsx('bg-gray p-1 overflow-auto rounded-br-xl', {
