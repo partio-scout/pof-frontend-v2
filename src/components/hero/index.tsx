@@ -22,7 +22,7 @@ const Hero = ({ title, linkText, linkUrl, imageUrl }: HeroProps) => (
       }}
     />
     <Container>
-      <h1 className="text-blue tracking-wider font-tondu break-words uppercase mb-5 sm:text-5xl md:text-xxxlw">{title}</h1>
+      <h1 className="text-blue tracking-wider font-tondu break-words uppercase mb-5 sm:text-xxxlt md:text-xxxlw">{title}</h1>
       {linkText && linkUrl && (
         <CombinedLink
           to={linkUrl}
