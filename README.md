@@ -13,7 +13,7 @@ Written with ReactJs
 Backend hosted in Azure
 Algolia as a search engine
 
-### Graphql schema
+### 2.1. Graphql schema
 
 Gatsby uses graphql as its data query language, and it creates the schema for it automatically base on the data that it has. This doesn't work well for Strapi data, since unpopulated fields are not returned from the REST-API which the plugin `gatsby-source-strapi` uses to fetch the data. This leads to unpopulated starpi fields not ending up in the schema, and we don't want that. This problem has been fixed by defining the schema for Strapi data statically, in the file `configs/typeDefs.gql`. If you need to define something else manually, add those definitions to the same file.
 
@@ -40,31 +40,20 @@ Optional environment variables:
 - `GATSBY_UPDATE_SCHEMA_SNAPSHOT`: Set this to true to update the graphql schema on `yarn develop`
 - `ENABLE_GATSBY_REFRESH_ENDPOINT`: Set this to true to enable Gatsby's refresh-endpoint on `yarn develop`. Useful when running a preview server.
 
-
+You can find the .env-file from LastPass.
 ### 3.3. Run tests
 
 TODO: Tests
 
-### 3.4. Migrations
-
-How to run database migrations locally (if necessary). Sometimes the migrations are run as part of the test suite,
-which is preferable.
-
-
-### 3.5. Start the application locally
+### 3.4. Start the application locally
 
 `yarn develop`
 
-### 3.6. Access the application locally
+### 3.5. Access the application locally
 
 `http://localhost:8000/`
 
-### 3.7. IDE setup
-
-If there are some special tricks needed to get the project working in IDEA/Eclipse/something other, then
-describe them here. Preferably attach screenshots, if applicable.
-
-### 3.8. Version control
+### 3.6. Version control
 
 Create a new branch when working with new feature or fixing a bug.
 Create a pull request into `staging` branch. There should be at least one reviewer for changes.
@@ -78,13 +67,13 @@ Test your changes and if everything is fine, merge staging branch to `main`
 
 ### 4.2. Deployment
 
-Merge a branch to staging, Gatsby cloud automatically deploys changes to staging.
+Merge a branch to staging, Gatsby cloud automatically deploys new changes to staging.
 
 ### 4.3. Verifying that a deployment was successful
 
 Check the build logs in Github actions and go to staging site, test if everything is workjing okay.
 
-### 4.5. Logs
+### 4.4. Logs
 
 Deployment logs can be founf from Gatsby cloud and Github,
 
@@ -115,32 +104,10 @@ Merge staging branch to main, Gatsby cloud automatically deploys changes to prod
 ### 5.5. Logs
 // TODO
 
-
 ## 6. Continuous integration
 
-Where is/are the CI(s) for this project?
+// TODO
 
-## 7. Code style
 
-Coding conventions, linting, etc.
-
-## 8. Operating instructions for manual and semi-manual processes
-
-Many applications require some manual processes which occur from time to time, like for example
-adding new users, doing manual database maintenance work, creating monthly reports etc.
-
-Describe how to do them here. The descriptions have to be detailed enough so that someone else can do them
-with these instructions.
-
-## 9. More useful information, Tips and Tricks
-
-Other important or useful things to know.
-
-## 10. Security considerations
-
-Are there any specific things to consider regarding the security of the project, in addition to the usual best practices?
-## Graphql schema
-
-Gatsby uses graphql as its data query language, and it creates the schema for it automatically base on the data that it has. This doesn't work well for Strapi data, since unpopulated fields are not returned from the REST-API which the plugin `gatsby-source-strapi` uses to fetch the data. This leads to unpopulated starpi fields not ending up in the schema, and we don't want that. This problem has been fixed by defining the schema for Strapi data statically, in the file `configs/typeDefs.gql`. If you need to define something else manually, add those definitions to the same file.
 
 
