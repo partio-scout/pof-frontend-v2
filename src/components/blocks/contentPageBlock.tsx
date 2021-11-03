@@ -30,13 +30,13 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
     <div className="flex flex-col rounded-lg m-3 w-96 h-491  overflow-hidden">
       {imageUrl && (
         <div>
-          <img src={imageUrl} className="w-full h-64 object-cover" />
+          <img src={imageUrl} className="w-full h-64 object-cover" alt={title || ''} />
         </div>
       )}
       <div className="flex flex-col justify-around bg-gray-light w-full flex-grow">
         <div className="flex-grow p-2">
-          <h4 className="bold font-tondu tracking-wider text-blue">{title}</h4>
-          <p className="text-blue">{ingress}</p>
+          <h4 className="bold font-tondu tracking-wider text-blue sm:text-lt md:text-lw">{title}</h4>
+          <p className="text-blue md:text-base">{ingress}</p>
         </div>
         <div className="flex justify-between items-center pl-2">
           <span className="font-sourceSansPro pl-2 pb-2 text-gray-dark">
@@ -46,7 +46,7 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
             to={url}
             className="rounded px-4 py-3.5 w-1/2 bg-lightBlue hover:bg-hardBlue font-tondu tracking-wider text-center"
           >
-            {t('read-more')}
+            {t('lue-lisaa')}
           </Link>
         </div>
       </div>

@@ -5,7 +5,7 @@ import { graphql, PageProps } from 'gatsby';
 import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
@@ -42,13 +42,14 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
-
-  const subTitle = `${minimum_age}-${maximum_age} ${t('aged')}`;
+  const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
 
   return (
     <Layout
       showBreadCrumbs={true}
       locale={locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url) || ''}
@@ -78,7 +79,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
           )}
         </div>
         <BlockArea blocks={upper_content_area} />
-        <h2 className="uppercase text-center my-6">{subactivitygroup_term?.plural}</h2>
+        <h2 className="uppercase text-center my-6 sm:text-4xl md:text-xxlw">{subactivitygroup_term?.plural}</h2>
         <ActivityGroupList groups={activityGroups} />
         <BlockArea blocks={lower_content_area} />
       </div>

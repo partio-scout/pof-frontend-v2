@@ -7,6 +7,7 @@ import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
 import { currentLocale } from '../../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 interface SuggestionsSectionProps {
   activityId: number;
@@ -75,6 +76,7 @@ const query = graphql`
 `;
 
 const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
+  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
@@ -98,7 +100,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
       .then((res) => setSuggestions(res.data))
       .catch((err) => {
         console.error(err);
-        toast.error('Toteutusvinkkien haku epäonnistui');
+        toast.error(t('toteutusvinkki-haku-epaonnistui'));
       });
   }, [data]);
 
@@ -109,61 +111,57 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const validateSuggestion = () => {
     setCallback(() => postNewSuggestion);
-    // TODO translate
     setModalData({
-      modalText: 'Haluatko lähettää uuden toteutusvinkin?',
-      sendButtonText: 'Lähetä toteutusvinkki',
-      backButtonText: 'Takaisin',
+      modalText: t('haluatko-lahettaa-toteutusvinkin'),
+      sendButtonText: t('laheta-toteutusvinkki'),
+      backButtonText: t('takaisin'),
     });
     if (!suggestionTermsChecked) {
-      toast.error('Hyväksy ehdot ennen lähetystä');
+      toast.error(t('hyvaksy-ehdot-ennen-lahetysta'));
     } else if (!suggestionValid(newSuggestion)) {
-      toast.success('Tarkista että kentät eivät ole tyhjiä');
+      toast.success(t('tarkista-etta-kentat'));
     } else {
       setModalOpen(true);
     }
   };
 
   const postNewSuggestion = () => {
-    // TODO translate
     sendNewSuggestion(newSuggestion, activityId)
       .then((res) => {
         setModalOpen(false);
-        toast.success('Toteutusvinkki lähetetty onnistuneesti');
+        toast.success(t('toteutusvinkki-lahetetty-onnistui'));
       })
       .catch((err) => {
         setModalOpen(false);
-        toast.error('Toteutusvinkin lähettäminen epäonnistui');
+        toast.error(t('toteutusvinkki-lahetetty-epaonnistui'));
       });
   };
 
   const validateReply = (suggestionId: number) => {
-    // TODO translate
     setCallback(() => () => postNewReply(suggestionId));
     setModalData({
-      modalText: 'Haluatko lähettää uuden kommentin?',
-      sendButtonText: 'Lähetä kommentti',
-      backButtonText: 'Takaisin',
+      modalText: t('haluatko-lahettaa-kommentin'),
+      sendButtonText: t('laheta-kommentti'),
+      backButtonText: t('takaisin'),
     });
     if (!replyTermsChecked) {
-      toast.error('Hyväksy ehdot ennen lähetystä');
+      toast.error(t('hyvaksy-ehdot-ennen-lahetysta'));
     } else if (!replyValid(newReply)) {
-      toast.error('Tarkista että kentät eivät ole tyhjiä');
+      toast.error(t('tarkista-etta-kentat'));
     } else {
       setModalOpen(true);
     }
   };
 
   const postNewReply = (suggestionId: number) => {
-    // TODO translate
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         setModalOpen(false);
-        toast.success('Kommentti lähetetty onnistuneesti');
+        toast.success(t('kommentti-onnistui'));
       })
       .catch((err) => {
         setModalOpen(false);
-        toast.error('Kommentin lähettäminen epäonnistui');
+        toast.error(t('kommentti-epaonnistui'));
       });
   };
 
@@ -220,8 +218,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   return (
     <div className="mt-8">
-     {/* TODO translate */}
-      <h2 className="text-blue tracking-wider">TOTEUTUSVINKIT</h2>
+      <h2 className="text-blue tracking-wider sm:text-4xl md:text-xxlw">{t('toteutusvinkit').toUpperCase()}</h2>
       {suggestions && (
         <Suggestions
           suggestions={suggestions!}

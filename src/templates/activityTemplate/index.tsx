@@ -8,7 +8,7 @@ import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps, graphql } from 'gatsby';
 import { StrapiActivity, StrapiActivityGroup, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import Metadata from '../../components/metadata';
 import { Locale } from '../../types/locale';
 import { currentLocale } from '../../utils/helpers';
@@ -23,9 +23,9 @@ interface ActivityQueryType {
   localeData: { nodes: SitePage[] };
 }
 
-const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
-  const { activity, activityGroup } = data;
-
+const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
+  const { activity, activityGroup, localeData } = data;
+  const localeLinks = sitePageDataToLocaleLinks(localeData.nodes);
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
@@ -34,10 +34,15 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
     <Layout
       showBreadCrumbs
       locale={activity.locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           logoUrl={
-            prependApiUrl(activity.activity_group?.logo?.formats?.thumbnail?.url || activityGroup?.logo?.url) || ''
+            prependApiUrl(
+              activity.logo?.formats?.thumbnail?.url ||
+                activity.activity_group?.logo?.formats?.thumbnail?.url ||
+                activity.age_group?.logo?.formats?.thumbnail?.url,
+            ) || ''
           }
           mainImageUrl={prependApiUrl(activity.activity_group?.main_image?.url || activity.age_group?.main_image?.url)}
           mainTitle={activityGroup?.title || ''}
@@ -53,7 +58,7 @@ const ActivityPageTemplate = ({ pageContext, path, data }: PageProps<ActivityQue
         path={path}
         locale={currentLocale()}
       />
-      <h2 className="pt-4">{activity.title}</h2>
+      <h2 className="pt-4 sm:text-4xl md:text-xxlw">{activity.title}</h2>
       <ActivityContentSection data={activity} />
       <ActivitySpecsSection data={activity} />
       <SuggestionsSection data={activity} activityId={activity.strapiId!} />
@@ -194,5 +199,5 @@ export const query = graphql`
         name
       }
     }
-  } 
+  }
 `;

@@ -13,13 +13,13 @@ const ageGroups = [
 const FrontPageSection = () => (
   <div>
     <div className="mt-4">
-      <h2 className="text-blue inline-block lg:w-2/5 md:w-full">
+      <h2 className="text-blue inline-block lg:w-2/5 md:w-full sm:text-4xl md:text-xxlw">
         LOREM IPSUM <br />
         DOLOR SIT AMET <br />
         PARTIO-OHJELMA
       </h2>
       <div className="inline-block lg:w-3/5 md:w-full align-top pt-3">
-        <p className="text-blue">
+        <p className="text-blue md:text-base">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu velit.
           Nullam libero nisi, efficitur vel finibus in, accumsan a est. Morbi ut magna hendrerit, interdum orci porta,
           placerat sapien. <br />

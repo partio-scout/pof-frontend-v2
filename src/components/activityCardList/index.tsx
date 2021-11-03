@@ -24,7 +24,12 @@ interface ActivityCardListProps {
   showActivityAndAgeGroup?: boolean;
 }
 
-const ActivityCardList = ({ activities, showInitially, augmentData, showActivityAndAgeGroup }: ActivityCardListProps) => {
+const ActivityCardList = ({
+  activities,
+  showInitially,
+  augmentData,
+  showActivityAndAgeGroup,
+}: ActivityCardListProps) => {
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
   const navigation = useNavigation(currentLocale());
@@ -64,11 +69,13 @@ const ActivityCardList = ({ activities, showInitially, augmentData, showActivity
 
   return (
     <div className="flex justify-center">
-      <div className={clsx("grid grid-cols-1 gap-3", {
-        'xl:grid-cols-4': activitiesWithLinks.length > 3,
-        'lg:grid-cols-3': activitiesWithLinks.length > 2,
-        'sm:grid-cols-2': activitiesWithLinks.length > 1,
-      })}>
+      <div
+        className={clsx('grid grid-cols-1 gap-3', {
+          'xl:grid-cols-4': activitiesWithLinks.length > 3,
+          'lg:grid-cols-3': activitiesWithLinks.length > 2,
+          'sm:grid-cols-2': activitiesWithLinks.length > 1,
+        })}
+      >
         {activitiesWithLinks?.map((activity) => (
           <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
         ))}
@@ -80,7 +87,7 @@ const ActivityCardList = ({ activities, showInitially, augmentData, showActivity
             className="group flex justify-center items-center uppercase border border-blue border-opacity-40 rounded py-3 px-16 font-tondu tracking-widest"
           >
             <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" />
-            {t('show-all')} ({activities.length})
+            {t('nayta-kaikki')} ({activities.length})
           </button>
         </div>
       )}

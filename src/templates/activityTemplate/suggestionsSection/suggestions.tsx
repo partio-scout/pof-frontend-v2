@@ -13,6 +13,7 @@ import toast from 'react-hot-toast';
 import clsx from 'clsx';
 import { hexToRgba } from '../../../utils/color';
 import Pill from '../../../components/pill';
+import { useTranslation } from 'react-i18next';
 
 const votedStyles = 'bg-gray-light border-2 border-hardBlue rounded-xl p-1 font-sourceSansPro';
 const unVotedStyles = 'bg-gray-light rounded-xl p-1 font-sourceSansPro';
@@ -142,11 +143,11 @@ const ConversationLayout = ({ lastItem = false, children }: ConversationLayoutPr
 
 const Comment = ({ comment }: CommentProps) => (
   <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
-    <h3>{comment.title}</h3>
+    <h3 className="sm:text-xlt md:text-xlw">{comment.title}</h3>
     <span className="font-semibold text-blue">
       {comment.author || 'Anonyymi'}, {comment.scoutGroup || 'Ei lippukuntatietoja'}
     </span>
-    <p className="text-blue">{comment.text}</p>
+    <p className="text-blue md:text-base">{comment.text}</p>
   </div>
 );
 
@@ -156,6 +157,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
   const [expandedIndex, setExpandedIndex] = useState({});
   const [votes, setVotes] = useState<{ [key: number]: any }>({});
   const [updatedSuggestions, setUpdatedSuggestions] = useState<Array<SuggestionFromRest> | null>(null);
+  const { t } = useTranslation();
 
   useLayoutEffect(() => {
     if (focusedSuggestion) {
@@ -306,7 +308,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   />
                 )}
                 <div>
-                  <h4 className="text-blue">{suggestion!.title}</h4>
+                  <h4 className="text-blue text-lt md:text-lw m">{suggestion!.title}</h4>
                   <span>{parseDate(suggestion!.published_at)}</span>
                   <span className="text-blue font-semibold ml-2 inline-block">
                     {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}
@@ -334,7 +336,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                     ))}
                 </div>
               )}
-              <p className="mt-3">{suggestion!.content}</p>
+              <p className="mt-3 md:text-base">{suggestion!.content}</p>
             </div>
             <div
               className={clsx('bg-gray p-1 overflow-auto rounded-br-xl', {
@@ -343,25 +345,21 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
             >
               <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
                 <LinkIcon className="fill-current inline-block mr-1" />
-                {/* TODO translate */}
-                <span className="font-semibold">Linkki</span> 
+                <span className="font-semibold">{t('linkki')}</span>
               </div>
               <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
                 <AttachmentIcon className="fill-current inline-block mr-1" />
-                {/* TODO translate */}
-                <span className="font-semibold">Liite</span>
+                <span className="font-semibold">{t('liite')}</span>
               </div>
               <div className="float-right">
-                {/* TODO translate */}
                 <span className={getVotedStyles(suggestion.id)} onClick={() => handleVote(suggestion.id)}>
-                  {suggestion!.like_count} huutoa
+                  {t('huuto', { count: suggestion!.like_count })}
                 </span>
                 <button
                   className="bg-hardBlue rounded-xl text-white p-1 font-tondu ml-2 tracking-wide"
                   onClick={() => openCommentAccordion(index)}
                 >
-                {/* TODO translate */}
-                  Vastaa
+                  {t('vastaa')}
                 </button>
               </div>
             </div>

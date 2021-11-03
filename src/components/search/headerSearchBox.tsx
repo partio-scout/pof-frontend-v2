@@ -10,17 +10,19 @@ const Search = () => {
   const { t } = useTranslation();
 
   return (
-    <div className={clsx("flex h-full border-lightBlue self-stretch flex-row justify-start items-center", {
-      'border-l': !state.searchActive
-    })}>
+    <div
+      className={clsx('flex h-full border-lightBlue self-stretch flex-row justify-start items-center', {
+        'border-l': !state.searchActive,
+      })}
+    >
       {state.searchActive ? (
         <>
           <div className="relative flex flex-1 items-center px-3">
             <input
               type="text"
               className="p-3 pr-8 bg-gray rounded-2xl h-12 w-80 text-xl"
-              placeholder={t('search-term')}
-              value={state.searchState.configure?.query || ""}
+              placeholder={t('hakusana')}
+              value={state.searchState.configure?.query || ''}
               autoFocus
               onChange={(e) => dispatch({ type: 'set-search-term', payload: e.target.value })}
             />

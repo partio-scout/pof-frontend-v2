@@ -11,4 +11,5 @@
 
 .richtext p {
   @apply pb-2;
+  @apply md:text-base
 }

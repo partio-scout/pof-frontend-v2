@@ -6,18 +6,18 @@ import { ContentType } from '../../types/content';
 import useNavigation from '../../hooks/navigation';
 import HitComponent from './hit';
 import { useHitContext } from './hitContext';
-
-// TODO dynamic locale
-const currentLocale = 'fi';
+import { currentLocale } from '../../utils/helpers';
 
 const ContextHits = () => {
   const { state } = useHitContext();
-  const navigation = useNavigation(currentLocale);
+  const navigation = useNavigation(currentLocale());
 
-  const hits = state.flatMap((hitData) => hitData.hits.map((hit) => ({
-    type: hitData.type,
-    hit,
-  })))
+  const hits = state.flatMap((hitData) =>
+    hitData.hits.map((hit) => ({
+      type: hitData.type,
+      hit,
+    })),
+  );
 
   return (
     <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">

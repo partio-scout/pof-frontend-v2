@@ -26,6 +26,15 @@ module.exports = {
       fontSize: {
         '2rem': '2rem',
         xxs: '.625rem',
+        // For tablets
+        xxxlt: ['3.25rem', '3.5rem'],
+        xlt: ['1.75rem', '2rem'],
+        lt: ['1.375rem', '1.563rem'],
+        // For web
+        xxxlw: ['4rem', '4rem'],
+        xxlw: ['3rem', '3.125rem'],
+        xlw: ['2rem', '2.125rem'],
+        lw: ['1.5rem', '1.625rem'],
       },
       colors: {
         blue: {
@@ -66,6 +75,9 @@ module.exports = {
         ageRed: {
           DEFAULT: '#B9382C',
         },
+        notFoundRed: {
+          DEFAULT: '#F04150'
+        }
       },
       spacing: {
         '0.5': '0.25rem',

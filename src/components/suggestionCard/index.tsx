@@ -52,7 +52,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
           </div>
         )}
         <div className="mb-1 break-words uppercase">
-          <h4>{title}</h4>
+          <h4 className="sm:text-lt md:text-lw">{title}</h4>
         </div>
         <div className="flex-grow mb-4">
           <ClampLines text={removeHtml(content!)} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
@@ -62,13 +62,13 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
             {likesExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {like_count} {like_count === 1 ? t('shout') : t('shouts')}
+                {t('huuto', { count: like_count as number })}
               </Pill>
             )}
             {commentsExist && (
               <Pill>
                 <CommentIcon className="fill-current text-blue h-3 w-3 mr-1" />
-                {comments?.length} {comments?.length === 1 ? t('reply') : t('replies')}
+                {t('vastausWithCount', { count: comments?.length })}
               </Pill>
             )}
           </div>
@@ -76,7 +76,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
       </div>
       {activity && (
         <div className="flex p-3 bg-gray">
-          {logo && <img src={prependApiUrl(logo)} className="h-8 w-8 mr-1"></img>}
+          {logo && <img src={prependApiUrl(logo)} className="h-8 w-8 mr-1" alt=""></img>}
           <div>
             <div className="text-xs font-semibold">{activity?.title}</div>
           </div>

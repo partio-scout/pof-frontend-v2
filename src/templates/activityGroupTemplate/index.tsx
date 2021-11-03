@@ -13,7 +13,7 @@ import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
@@ -23,6 +23,7 @@ import { findHitUrl, HitModel } from '../../utils/search';
 import { ContentType } from '../../types/content';
 import { SuggestionWithUrl } from '../../components/suggestionCard';
 import { Locale } from '../../types/locale';
+import RichText from '../../components/RichText';
 interface ActivityGroupPageTemplateProps {
   data: StrapiActivityGroup;
 }
@@ -40,6 +41,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
   const {
     title,
     ingress,
+    content,
     main_image,
     age_group,
     logo,
@@ -54,7 +56,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     locale,
   } = data.activityGroup;
 
-  // TODO correct locale
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const navigation = useNavigation(currentLocale());
   const { t } = useTranslation();
 
@@ -74,6 +76,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     <Layout
       showBreadCrumbs
       locale={locale as Locale}
+      localeLinks={localeLinks}
       pageHeader={
         <HeroTitleSection
           mainImageUrl={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
@@ -99,6 +102,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
             </div>
           )}
         </div>
+        <RichText html={content} />
         <Activities
           activities={activities.nodes}
           mandatoryTitle={mandatory_activities_title}
@@ -106,9 +110,11 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           optionalTitle={optional_activities_title}
           optionalDescription={optional_activities_description}
         />
-        <h2 className="uppercase">{t('newest-implementation-suggestions')}</h2>
-        <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
-        <h2 className="uppercase text-center">{t('others') + activitygroup_term?.plural}</h2>
+        <div className="my-5">
+          <h2 className="uppercase my-5 sm:text-4xl md:text-xxlw">{t('uusimmat-toteutusvinkit')}</h2>
+          <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
+        </div>
+        <h2 className="uppercase text-center mb-10 mt-20 sm:text-4xl md:text-xxlw">{`${t('muut')} ${activitygroup_term?.plural}`}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>
@@ -181,7 +187,7 @@ export const query = graphql`
       mandatory_activities_description
       optional_activities_description
       mandatory_activities_title
-      optional_activities_title 
+      optional_activities_title
     }
     ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
       strapiId
