@@ -10,8 +10,8 @@ interface ContentPageDesktopNavProps {
 
 function ContentPageDesktopNav({ subNavigationItems, path }: ContentPageDesktopNavProps) {
   return (
-    <div className="bg-gray-light hidden md:block">
-      <ul className="container mx-auto max-w-7xl list-none justify-start h-14 flex px-2 sm:px-10 md:px-24 2xl:px-0">
+    <div className="bg-gray-light hidden md:block h-auto ">
+      <ul className="container mx-auto max-w-full list-none justify-start h-auto flex px-2 sm:px-10 md:px-24 2xl:px-0">
         {subNavigationItems?.map((subItem, index) => (
           <li key={subItem.name}>
             <Link className="h-full w-full flex flex-col no-underline hover:bg-gray focus:bg-gray" to={subItem.url}>
