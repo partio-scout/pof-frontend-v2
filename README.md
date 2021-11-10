@@ -49,6 +49,8 @@ TODO: Tests
 
 `yarn develop`
 
+If you're using development server as an API and the build fails for statuscode 403 - Forbidden, make sure that the public roles are correctly set. Go to `localhost:1337/admin` -> General -> Settings -> USERS & PERMISSIONS PLUGIN  -> Roles -> public -> Permissions. Check from production strapi what permissions to give.
+
 ### 3.5. Access the application locally
 
 `http://localhost:8000/`
