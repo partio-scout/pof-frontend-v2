@@ -226,7 +226,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   return (
     <div className="mt-8">
-      <h2 className="text-blue tracking-wider">{t('toteutusvinkit').toUpperCase()}</h2>
+      <h2 className="text-blue tracking-wider sm:text-4xl md:text-xxlw">{t('toteutusvinkit').toUpperCase()}</h2>
       {suggestions && (
         <Suggestions
           suggestions={suggestions}

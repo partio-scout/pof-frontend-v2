@@ -41,7 +41,7 @@ const NewSuggestionForm = ({
 
   return (
     <div className="my-12">
-      <h2 className="text-blue">{t('kirjoita-toteutusvinkki').toUpperCase()}</h2>
+      <h2 className="text-blue sm:text-4xl md:text-xxlw">{t('kirjoita-toteutusvinkki').toUpperCase()}</h2>
       <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
         <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2">
           <div className="w-1/4 space-y-2">

@@ -79,7 +79,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
           )}
         </div>
         <BlockArea blocks={upper_content_area} />
-        <h2 className="uppercase text-center my-6 mx-auto">{subactivitygroup_term?.plural}</h2>
+        <h2 className="uppercase text-center my-6 sm:text-4xl md:text-xxlw">{subactivitygroup_term?.plural}</h2>
         <ActivityGroupList groups={activityGroups} />
         <BlockArea blocks={lower_content_area} />
       </div>

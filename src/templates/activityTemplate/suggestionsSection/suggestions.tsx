@@ -148,11 +148,11 @@ const Comment = ({ comment }: CommentProps) => {
   const { t } = useTranslation();
   return (
     <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
-      <h5>{comment.title?.toUpperCase() || '-'}</h5>
+      <h3 className="sm:text-xlt md:text-xlw">{comment.title}</h3>
       <span className="font-semibold text-blue">
         {comment.author || t('anonymous')}, {comment.scout_group || 'Ei lippukuntatietoja'}
       </span>
-      <p className="text-blue">{comment.text}</p>
+      <p className="text-blue md:text-base">{comment.text}</p>
     </div>
   );
 };
@@ -316,7 +316,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                   />
                 )}
                 <div>
-                  <h5 className="text-blue">{suggestion!.title}</h5>
+                  <h4 className="text-blue text-lt md:text-lw m">{suggestion!.title}</h4>
                   <span>{parseDate(suggestion!.published_at)}</span>
                   <span className="text-blue font-semibold ml-2 inline-block">
                     {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}
@@ -344,7 +344,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                     ))}
                 </div>
               )}
-              <p className="mt-3">{suggestion!.content}</p>
+              <p className="mt-3 md:text-base">{suggestion!.content}</p>
             </div>
             <div
               className={clsx('bg-gray p-1 overflow-auto rounded-br-xl flex', {
