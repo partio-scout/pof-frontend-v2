@@ -17,6 +17,7 @@ export const prependApiUrl = (url?: Maybe<string>) => {
   if (!url) return undefined;
 
   if (url.startsWith('/uploads')) {
+    // FIXME: Hardcoded URL
     return 'http://localhost:1337' + url;
   }
 
