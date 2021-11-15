@@ -11,7 +11,7 @@ interface PillLinkProps {
 }
 
 function PillLink({ to, children, color, attachmentIcon }: PillLinkProps) {
-  // TODO: display block vs flex
+  // FIXME: remove flex-class
   return (
     <CombinedLink
       to={to}
