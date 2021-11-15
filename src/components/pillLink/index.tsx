@@ -15,7 +15,7 @@ function PillLink({ to, children, color, attachmentIcon }: PillLinkProps) {
   return (
     <CombinedLink
       to={to}
-      className="block flex flex-row bg-gray-light rounded-2xl p-3 md:p-3 font-tondu text-2xl uppercase tracking-wider align-center justify-center"
+      className="block flex flex-row bg-gray-light rounded-2xl p-3 md:p-3 font-tondu text-2xl uppercase tracking-wider align-center justify-start"
     > 
     {attachmentIcon &&
       <div className="flex w-12 h-12 rounded-md p-2 mr-4" style={{ backgroundColor: hexToRgba(color || '', 0.6) }}>
