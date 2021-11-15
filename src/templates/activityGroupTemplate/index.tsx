@@ -92,11 +92,12 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row py-5">
           <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress}</div>
+          <PillLink to={'http://localhost:8000/sudenpennut/askartelu'} color={ageGroup.color}>Linkki lorem ipsum</PillLink>
           {(links?.length || 0) > 0 && (
             <div className="flex flex-row md:flex-col">
               {links?.map((link) => (
-                <div className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={link?.url || ''}>{link?.description}</PillLink>
+                <div className="mb-1 mr-2 md:mr-0"> 
+                  <PillLink to={link?.url || ''} color={ageGroup.color}>{link?.description}</PillLink>
                 </div>
               ))}
             </div>
