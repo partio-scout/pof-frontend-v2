@@ -20,7 +20,7 @@ interface ContentPageQueryType {
 const MainContent = ({ data }: ContentPageTemplateProps) => (
   <div className="flex flex-wrap mt-14">
     <div className="w-full lg:w-1/2 flex-grow pr-3">
-      <h1 className="mb-2 break-words sm:text-5xl md:text-xxxlw">{data.title}</h1>
+      <h1 className="mb-2 break-words sm:text-xxxlt md:text-xxxlw">{data.title}</h1>
       <RichText html={data.main_text} />
     </div>
     {data.main_image && (

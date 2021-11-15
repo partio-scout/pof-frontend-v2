@@ -29,6 +29,7 @@ module.exports = {
         '2rem': '2rem',
         xxs: '.625rem',
         // For tablets
+        xxxlt: ['3.25rem', '3.5rem'],
         xlt: ['1.75rem', '2rem'],
         lt: ['1.375rem', '1.563rem'],
         // For web
