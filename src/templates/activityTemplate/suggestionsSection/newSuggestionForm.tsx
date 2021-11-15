@@ -8,7 +8,7 @@ import { CommonSuggestionFormProps } from './index';
 import DropdownSelect from '../../../components/dropdownSelect';
 import { StrapiDuration, StrapiLocation } from '../../../../graphql-types';
 
-const inputStyle = 'w-full block rounded-xl text-blue p-2 focus:outline-none';
+const inputStyle = 'w-full block rounded-2xl text-blue p-2 focus:outline-none';
 
 interface NewSuggestionFormProps extends CommonSuggestionFormProps {
   selectedFile: File | null;
@@ -43,8 +43,8 @@ const NewSuggestionForm = ({
     <div className="my-12">
       <h2 className="text-blue sm:text-4xl md:text-xxlw">{t('kirjoita-toteutusvinkki').toUpperCase()}</h2>
       <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
-        <div className="flex flex-row w-full p-4 font-sourceSansPro space-x-2">
-          <div className="w-1/4 space-y-2">
+        <div className="flex flex-col sm:flex-row w-full p-4 font-sourceSansPro sm:space-x-2">
+          <div className="w-full space-y-2 sm:w-1/4">
             <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
             {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
             <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
@@ -121,13 +121,13 @@ const NewSuggestionForm = ({
                 checked={termsChecked}
                 onChange={onTermsChange}
               />
-              <span className="inline-block ml-2">
+              <span className="inline-block ml-2 mb-2">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu
                 velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est.
               </span>
             </div>
           </div>
-          <div className="flex flex-col w-3/4 relative">
+          <div className="flex flex-col w-full sm:w-3/4 relative">
             <input
               name="title"
               placeholder="Toteutusvinkin otsikko"
@@ -135,8 +135,9 @@ const NewSuggestionForm = ({
               className={`${inputStyle} mb-2`}
             />
             <textarea
-              className="w-full rounded-xl p-2 text-blue focus:outline-none flex-grow"
+              className="w-full rounded-xl p-2 text-blue focus:outline-none h-80 flex-grow"
               name="content"
+              placeholder="Kirjoita toteutusvinkkisi tähän"
               onChange={onFieldChange}
             ></textarea>
             <button
