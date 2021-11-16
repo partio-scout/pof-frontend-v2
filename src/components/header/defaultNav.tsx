@@ -38,7 +38,7 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
                 <span className="text-blue font-tondu tracking-wider">{headerItem.name.toUpperCase()}</span>
                 <img
                   className="mx-1 my-0.5 w-8 inline-block"
-                  src={currentDropDownOpen === index ? downArrow : upArrow}
+                  src={currentDropDownOpen === index ? upArrow : downArrow}
                   alt=""
                 />
                 {headerItem.subMenu && currentDropDownOpen === index && (
