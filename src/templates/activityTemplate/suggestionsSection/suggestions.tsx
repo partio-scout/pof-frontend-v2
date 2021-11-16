@@ -121,6 +121,7 @@ interface SuggestionsProps extends CommonSuggestionFormProps {
 interface ConversationLayoutProps {
   lastItem?: boolean;
   children: React.ReactChild;
+  key?: string | number;
 }
 
 interface CommentProps {
@@ -392,7 +393,8 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
             {suggestion.comments?.length <= 1 && (
               <>
                 {suggestion.comments.map((comment: Comment) => (
-                  <ConversationLayout key={comment}lastItem={index !== expandedIndex}>
+
+                  <ConversationLayout key={comment.id} lastItem={index !== expandedIndex}>
                     <Comment comment={comment} />
                   </ConversationLayout>
                 ))}
@@ -421,7 +423,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
             {suggestion.comments?.length > 1 && index === expandedIndex && (
               <>
                 {suggestion.comments.map((comment) => (
-                  <ConversationLayout key={comment.title}>
+                  <ConversationLayout key={comment.id}>
                     <Comment comment={comment} />
                   </ConversationLayout>
                 ))}
