@@ -2,7 +2,7 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import NewReplyForm from './newReplyForm';
 import { CommonSuggestionFormProps, Error } from './index';
 import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
-import { parseDate, parseLinkUrl, prependApiUrl } from '../../../utils/helpers';
+import { parseDate, parseLinkUrl, prependApiUrl, removeHtml } from '../../../utils/helpers';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
 import LikeIcon from '../../../images/like.inline.svg';
@@ -344,7 +344,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                     ))}
                 </div>
               )}
-              <p className="mt-3 md:text-base">{suggestion!.content}</p>
+              <p className="mt-3 md:text-base">{removeHtml(suggestion!.content)}</p>
             </div>
             <div
               className={clsx('bg-gray p-1 overflow-auto rounded-br-xl flex', {
