@@ -15,9 +15,7 @@ const NewReplyForm = ({
   onFieldChange,
   onTermsChange,
   termsChecked,
-  suggestionReplySent,
-  suggestionId,
-  error,
+  suggestionId
 }: NewReplyFormProps) => {
   const { t } = useTranslation();
 
