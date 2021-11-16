@@ -392,7 +392,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
             {suggestion.comments?.length <= 1 && (
               <>
                 {suggestion.comments.map((comment: Comment) => (
-                  <ConversationLayout lastItem={index !== expandedIndex}>
+                  <ConversationLayout key={comment}lastItem={index !== expandedIndex}>
                     <Comment comment={comment} />
                   </ConversationLayout>
                 ))}
@@ -421,7 +421,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
             {suggestion.comments?.length > 1 && index === expandedIndex && (
               <>
                 {suggestion.comments.map((comment) => (
-                  <ConversationLayout>
+                  <ConversationLayout key={comment.title}>
                     <Comment comment={comment} />
                   </ConversationLayout>
                 ))}
