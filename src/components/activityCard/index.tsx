@@ -56,12 +56,15 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
         {(locations?.length || 0) > 0 &&
           locations?.map((location) => (
             <Pill key={location?.name}>
-              <img
+              {location?.icon?.url ?
+                <img
                 src={prependApiUrl(location?.icon?.url || '')}
                 alt={location?.slug!}
                 title={location?.slug!}
                 className="h-3"
               ></img>
+              : location?.name
+              }
             </Pill>
           ))}
       </div>
