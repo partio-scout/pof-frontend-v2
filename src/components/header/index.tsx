@@ -43,7 +43,7 @@ const Header = ({ headerItems, showBreadCrumbs, localeLinks }: HeaderProps) => {
 
   return (
     <ClickAwayListener onClickAway={() => setCurrentDropDownOpen(null)}>
-      <div>
+      <div className="select-none">
         <DefaultNav
           headerItems={headerItems}
           currentDropDownOpen={currentDropDownOpen}
