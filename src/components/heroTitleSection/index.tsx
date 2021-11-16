@@ -35,7 +35,7 @@ const HeroTitleSection = ({
       <Container className="flex">
         {logoUrl && (
           <div
-            className="flex w-44 h-44 rounded-4xl align-top p-3 mr-4"
+            className="flex w-44 h-44 rounded-4xl align-top p-1 mr-4"
             style={{ backgroundColor: hexToRgba(color || '', 0.6) }}
           >
             <div className="bg-white rounded-3xl flex flex-col align-center justify-center items-center w-full">
@@ -46,7 +46,7 @@ const HeroTitleSection = ({
         <div className="align-top flex flex-col justify-center">
           <div className="h-16 flex items-center">
             <h1
-              className={clsx('tracking-wider leading-8 break-words uppercase', {
+              className={clsx('tracking-wider leading-8 break-words uppercase sm:text-xxxlt md:text-xxxlw', {
                 'text-2rem': smallMainTitle,
                 'text-white': mainImageUrl,
               })}

@@ -28,7 +28,7 @@ function FooterLink({ description, email, phone_number, url, title }: StrapiFron
   return (
     <div className="mb-2">
       {link && link}
-      <p className="text-gray-semiDark tracking-wide">{addLineBreaks(description)}</p>
+      <p className="text-gray-semiDark tracking-wide md:text-base">{addLineBreaks(description)}</p>
     </div>
   );
 }

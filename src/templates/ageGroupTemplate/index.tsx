@@ -69,17 +69,17 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <RichText html={content} />
           </div>
           {(links?.length || 0) > 0 && (
-            <div className="flex flex-row md:max-w-sm md:flex-col">
+            <div className="flex flex-col sm:flex-row md:max-w-sm md:flex-col">
               {links?.map((link) => (
-                <div className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={parseLinkUrl(link?.url!)}>{link?.description}</PillLink>
+                <div key={link?.url} className="mb-1 mr-2 md:mr-0">
+                  <PillLink to={link?.url || ''} color={color}>{link?.description}</PillLink>
                 </div>
               ))}
             </div>
           )}
         </div>
         <BlockArea blocks={upper_content_area} />
-        <h2 className="uppercase text-center my-6 mx-auto">{subactivitygroup_term?.plural}</h2>
+        <h2 className="uppercase text-center my-6 sm:text-4xl md:text-xxlw">{subactivitygroup_term?.plural}</h2>
         <ActivityGroupList groups={activityGroups} />
         <BlockArea blocks={lower_content_area} />
       </div>

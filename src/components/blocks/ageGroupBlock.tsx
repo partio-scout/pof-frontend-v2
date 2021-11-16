@@ -46,7 +46,7 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
   return (
     <div className="">
       <div className="flex flex-wrap mb-14">
-        <h2 className="w-full lg:w-2/5">{block.title}</h2>
+        <h2 className="w-full lg:w-2/5 sm:text-4xl md:text-xxlw">{block.title}</h2>
         <RichText className="w-full lg:w-3/5" html={block.ingress} />
       </div>
       <div className="flex flex-wrap -mx-2 justify-center">
