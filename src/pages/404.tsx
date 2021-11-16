@@ -19,8 +19,8 @@ const NotFoundComponent = ({ page }: { page?: StrapiNotFoundPage }) => {
       <div className="flex font-tondu text-hardBlue text-8xl py-10">
         4<LibuoyIcon className="mx-1 fill-current text-notFoundRed" />4
       </div>
-      <h1 className="uppercase text-5xl text-center">{title}</h1>
-      {ingress && <p className="my-4">{ingress}</p>}
+      <h1 className="uppercase sm:text-xxxlt md:text-xxxlw text-center">{title}</h1>
+      {ingress && <p className="my-4 md:text-base">{ingress}</p>}
       <a
         href=""
         onClick={(e) => {

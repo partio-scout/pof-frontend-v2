@@ -66,7 +66,7 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
           ))}
       </div>
       <div className="flex-grow mb-4 break-words uppercase">
-        <h4>{activity.title}</h4>
+        <h4 className="sm:text-lt md:text-lw">{activity.title}</h4>
       </div>
       {(suggestions?.length || 0) > 0 && (
         <div className="flex mb-2">

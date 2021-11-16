@@ -52,7 +52,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
           </div>
         )}
         <div className="mb-1 break-words uppercase">
-          <h4>{title}</h4>
+          <h4 className="sm:text-lt md:text-lw">{title}</h4>
         </div>
         <div className="flex-grow mb-4">
           <ClampLines text={removeHtml(content!)} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
