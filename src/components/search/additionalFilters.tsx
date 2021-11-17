@@ -31,7 +31,7 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => {
         <div className="">
           <PillRefinementList
             title={t('aktiviteetin-kesto')}
-            attribute="duration.slug"
+            attribute="duration.name"
             getItemIcon={(_) => <TimeIcon className="fill-current" />}
             limit={50}
           />
@@ -42,12 +42,12 @@ const AdditionalFilters = ({ visible }: { visible: boolean }) => {
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4  my-4">
         <div className="">
-          <AccordionPillRefinementList title={t('taitoalueet')} attribute="skill_areas.slug" limit={50} />
+          <AccordionPillRefinementList title={t('taitoalueet')} attribute="skill_areas.name" limit={50} />
         </div>
         <div className="">
           <AccordionPillRefinementList
             title={t('kasvatustavoitteet')}
-            attribute="educational_objectives.slug"
+            attribute="educational_objectives.name"
             limit={50}
           />
         </div>
