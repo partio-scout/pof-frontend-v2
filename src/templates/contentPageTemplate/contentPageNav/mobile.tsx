@@ -23,9 +23,9 @@ function ContentPageMobileNav({ subNavigationItems, path }: ContentPageMobileNav
         }}
         onClick={toggleNav}
       >
-        {subNavigationItems[0].name}
+        <strong>{subNavigationItems[0].name}</strong>
         <div className="flex w-8 h-full justify-center items-center ">
-          <UpArrow className={clsx('fill-current transform', { 'rotate-180': navOpen })} />
+          <UpArrow className={clsx('fill-current transform', { 'rotate-180': navOpen === false })} />
         </div>
       </div>
       <ul
@@ -37,7 +37,7 @@ function ContentPageMobileNav({ subNavigationItems, path }: ContentPageMobileNav
         {subNavigationItems?.map((subItem) => (
           <li className="px-4 sm:px-10 w-full border-b border-blue-border relative hover:bg-gray focus-within:bg-gray" key={subItem.name}>
             <Link className="h-full w-full py-3 flex items-center no-underline relative" to={subItem.url}>
-              {subItem.name}
+              <strong>{subItem.name}</strong>
               <div
                 className={clsx('h-0.5 w-full bg-hardBlue absolute bottom-0 left-1/2 transform -translate-x-1/2', {
                   hidden: subItem.url !== path,
