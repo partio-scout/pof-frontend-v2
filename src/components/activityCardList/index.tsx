@@ -68,9 +68,10 @@ const ActivityCardList = ({
   });
 
   return (
-    <div className="flex justify-center">
+    <>
+    <div className="flex">
       <div
-        className={clsx('grid grid-cols-1 gap-3', {
+        className={clsx('flex-1 grid grid-cols-1 gap-3', {
           'xl:grid-cols-4': activitiesWithLinks.length > 3,
           'lg:grid-cols-3': activitiesWithLinks.length > 2,
           'sm:grid-cols-2': activitiesWithLinks.length > 1,
@@ -80,6 +81,8 @@ const ActivityCardList = ({
           <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
         ))}
       </div>
+    </div>
+    <div className="flex justify-center">
       {activitiesWithLinks.length < activities.length && (
         <div className="flex items-center justify-center my-12">
           <button
@@ -92,6 +95,7 @@ const ActivityCardList = ({
         </div>
       )}
     </div>
+    </>
   );
 };
 
