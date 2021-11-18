@@ -45,9 +45,9 @@ const NewSuggestionForm = ({
       <div className="bg-lightBlue-light pb-2 rounded-xl overflow-auto">
         <div className="flex flex-col sm:flex-row w-full p-4 font-sourceSansPro sm:space-x-2">
           <div className="w-full space-y-2 sm:w-1/4">
-            <input name="author" placeholder="Nimimerkki" onChange={onFieldChange} className={`${inputStyle}`} />
+            <input name="author" placeholder={t('nimimerkki')} onChange={onFieldChange} className={`${inputStyle}`} />
             {/*         TODO: Add onChange handler when appropriate form for these fields is known */}
-            <input placeholder="Lippukunta" className={`${inputStyle}`}></input>
+            <input placeholder={t('lippukunta')} className={`${inputStyle}`}></input>
             <DropdownSelect
               title={t('arvioitu-kesto')}
               items={durations}
@@ -129,14 +129,14 @@ const NewSuggestionForm = ({
           <div className="flex flex-col w-full sm:w-3/4 relative">
             <input
               name="title"
-              placeholder="Toteutusvinkin otsikko"
+              placeholder={t('toteutusvinkin-otsikko')}
               onChange={onFieldChange}
               className={`${inputStyle} mb-2`}
             />
             <textarea
               className="w-full rounded-xl p-2 text-blue focus:outline-none h-80 flex-grow"
               name="content"
-              placeholder="Kirjoita toteutusvinkkisi tähän"
+              placeholder={t('kirjoita-toteutusvinkki-tahan')}
               onChange={onFieldChange}
             ></textarea>
             <button
