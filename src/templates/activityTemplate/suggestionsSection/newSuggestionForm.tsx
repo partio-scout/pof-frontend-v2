@@ -122,8 +122,7 @@ const NewSuggestionForm = ({
                 onChange={onTermsChange}
               />
               <span className="inline-block ml-2 mb-2">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin id erat vitae ante tempor volutpat eu eu
-                velit. Nullam libero nisi, efficitur vel finibus in, accumsan a est.
+                {t('hyvaksy-ehdot-teksti')}
               </span>
             </div>
           </div>
