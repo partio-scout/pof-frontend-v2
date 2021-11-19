@@ -142,7 +142,7 @@ const NewSuggestionForm = ({
             ></textarea>
             <button
               className="absolute bottom-0 right-0 bg-hardBlue text-white p-2 rounded-br-xl font-tondu tracking-wider z-20"
-              onClick={onSubmit}
+              onClick={(event) => onSubmit(0)}
             >
               {t('laheta').toUpperCase()}
             </button>
