@@ -30,7 +30,7 @@ function BasicCard({ image, title, text, link, typeName }: BasicCardProps) {
         </div>
       )}
       {title && <h4 className="mb-3 mt-1 uppercase break-words sm:text-lt md:text-lw">{title}</h4>}
-      {text && <ClampLines text={removeHtml(trimText(text, 400))} id={`basic-card-${uuidv4()}-text`} lines={7} buttons={false} />}
+      {text && <ClampLines text={trimText(removeHtml(text), 400)} id={`basic-card-${uuidv4()}-text`} lines={7} buttons={false} />}
     </Card>
   );
 }
