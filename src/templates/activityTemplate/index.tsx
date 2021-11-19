@@ -61,7 +61,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
       <h2 className="pt-4 sm:text-4xl md:text-xxlw">{activity.title}</h2>
       <ActivityContentSection data={activity} />
       <ActivitySpecsSection data={activity} />
-      <SuggestionsSection data={activity} activityId={activity.strapiId!} />
+      <SuggestionsSection data={activity} activityId={activity.strapiId!} locale={activity.locale as Locale} />
     </Layout>
   );
 };

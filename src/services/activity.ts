@@ -13,9 +13,9 @@ export const fetchComments = (suggestionId: number) => {
   return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}`);
 };
 
-export const sendNewSuggestion = (newSuggestion: any, activityId: number, attachedFile: File | null) => {
+export const sendNewSuggestion = (newSuggestion: any, activityId: number, attachedFile: File | null, locale: string) => {
   const formData = new FormData();
-  formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
+  formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId, locale: locale }));
   if (attachedFile) {
     formData.append('files.files', attachedFile);
   }
@@ -24,8 +24,8 @@ export const sendNewSuggestion = (newSuggestion: any, activityId: number, attach
   });
 };
 
-export const sendNewReply = (newReply: InitialReply, suggestionId: number) =>
-  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply);
+export const sendNewReply = (newReply: InitialReply, suggestionId: number, locale: string) =>
+  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, { newReply: newReply, locale: locale });
 
 export const sendSuggestionLike = (suggestionId: number, userId: string) => {
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/like`, {

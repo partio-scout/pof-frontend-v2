@@ -12,6 +12,7 @@ import { useTranslation } from 'react-i18next';
 interface SuggestionsSectionProps {
   activityId: number;
   data: StrapiActivity;
+  locale: string; 
 }
 
 export interface CommonSuggestionFormProps {
@@ -75,7 +76,7 @@ const query = graphql`
   }
 `;
 
-const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
+const SuggestionsSection = ({ data, activityId, locale }: SuggestionsSectionProps) => {
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
@@ -129,7 +130,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const postNewSuggestion = () => {
     let toastId = toast.loading(t('lahetetaan') + '...');
-    sendNewSuggestion(newSuggestion, activityId, selectedFile)
+    sendNewSuggestion(newSuggestion, activityId, selectedFile, locale)
       .then((res) => {
         setModalOpen(false);
         toast.dismiss(toastId);
@@ -143,7 +144,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const validateReply = (suggestionId: number) => {
-    setCallback(() => () => postNewReply(suggestionId));
+    setCallback(() => () => postNewReply(suggestionId, locale));
     setModalData({
       modalText: t('haluatko-lahettaa-kommentin'),
       sendButtonText: t('laheta-kommentti'),
@@ -158,9 +159,9 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     }
   };
 
-  const postNewReply = (suggestionId: number) => {
+  const postNewReply = (suggestionId: number, locale: string) => {
     let toastId = toast.loading(t('lahetetaan') + '...');
-    sendNewReply(newReply, suggestionId)
+    sendNewReply(newReply, suggestionId, locale)
       .then((res) => {
         toast.dismiss(toastId);
         setModalOpen(false);
