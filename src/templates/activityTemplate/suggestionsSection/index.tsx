@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { StrapiActivity, StrapiDuration, StrapiLocation, StrapiSuggestion } from '../../../../graphql-types';
-import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
+import { StrapiActivity, StrapiDuration, StrapiLocation } from '../../../../graphql-types';
+import { fetchSuggestions, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
 import { currentLocale } from '../../../utils/helpers';
@@ -12,7 +12,6 @@ import { useTranslation } from 'react-i18next';
 interface SuggestionsSectionProps {
   activityId: number;
   data: StrapiActivity;
-  locale: string; 
 }
 
 export interface CommonSuggestionFormProps {
@@ -76,7 +75,7 @@ const query = graphql`
   }
 `;
 
-const SuggestionsSection = ({ data, activityId, locale }: SuggestionsSectionProps) => {
+const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [selectedFile, setSelectedFile] = useState<null | File>(null);
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
@@ -91,13 +90,14 @@ const SuggestionsSection = ({ data, activityId, locale }: SuggestionsSectionProp
   const [modalOpen, setModalOpen] = useState(false);
   const [callBack, setCallback] = useState<() => void | null>(() => {});
   const { t } = useTranslation();
+  const locale = currentLocale();
   const queryResult =
     useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
       query,
     );
 
   useEffect(() => {
-    fetchSuggestions(activityId)
+    fetchSuggestions(activityId, locale)
       .then((res) => {
         setSuggestions(res.data);
       })
@@ -129,7 +129,7 @@ const SuggestionsSection = ({ data, activityId, locale }: SuggestionsSectionProp
   };
 
   const postNewSuggestion = () => {
-    let toastId = toast.loading(t('lahetetaan') + '...');
+    const toastId = toast.loading(t('lahetetaan') + '...');
     sendNewSuggestion(newSuggestion, activityId, selectedFile, locale)
       .then((res) => {
         setModalOpen(false);
@@ -144,7 +144,7 @@ const SuggestionsSection = ({ data, activityId, locale }: SuggestionsSectionProp
   };
 
   const validateReply = (suggestionId: number) => {
-    setCallback(() => () => postNewReply(suggestionId, locale));
+    setCallback(() => () => postNewReply(suggestionId));
     setModalData({
       modalText: t('haluatko-lahettaa-kommentin'),
       sendButtonText: t('laheta-kommentti'),
@@ -159,8 +159,8 @@ const SuggestionsSection = ({ data, activityId, locale }: SuggestionsSectionProp
     }
   };
 
-  const postNewReply = (suggestionId: number, locale: string) => {
-    let toastId = toast.loading(t('lahetetaan') + '...');
+  const postNewReply = (suggestionId: number) => {
+    const toastId = toast.loading(t('lahetetaan') + '...');
     sendNewReply(newReply, suggestionId, locale)
       .then((res) => {
         toast.dismiss(toastId);
