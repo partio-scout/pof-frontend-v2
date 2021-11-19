@@ -5,17 +5,22 @@ const trimUrl = (url?: string): string => {
   return url?.replace(/\/+$/, '') || '';
 };
 
-export const fetchSuggestions = (activityId: number) => {
-  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions?activity.id=${activityId}`);
+export const fetchSuggestions = (activityId: number, locale: string) => {
+  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions?activity.id=${activityId}&_locale=${locale}`);
 };
 
 export const fetchComments = (suggestionId: number) => {
   return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}`);
 };
 
-export const sendNewSuggestion = (newSuggestion: any, activityId: number, attachedFile: File | null) => {
+export const sendNewSuggestion = (
+  newSuggestion: any,
+  activityId: number,
+  attachedFile: File | null,
+  locale: string,
+) => {
   const formData = new FormData();
-  formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId }));
+  formData.append('data', JSON.stringify({ ...newSuggestion, activity: activityId, locale }));
   if (attachedFile) {
     formData.append('files.files', attachedFile);
   }
@@ -25,7 +30,7 @@ export const sendNewSuggestion = (newSuggestion: any, activityId: number, attach
 };
 
 export const sendNewReply = (newReply: InitialReply, suggestionId: number) =>
-  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply);
+  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply );
 
 export const sendSuggestionLike = (suggestionId: number, userId: string) => {
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/like`, {

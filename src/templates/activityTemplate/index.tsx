@@ -1,8 +1,6 @@
 import React from 'react';
 import Layout from '../../layouts/default';
-import mockHero from '../../images/mockHero.png';
 import HeroTitleSection from '../../components/heroTitleSection';
-import { PaddedContainer } from '../../components/ui.general';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps, graphql } from 'gatsby';

@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { StrapiActivity, StrapiDuration, StrapiLocation, StrapiSuggestion } from '../../../../graphql-types';
-import { fetchSuggestions, fetchComments, sendNewSuggestion, sendNewReply } from '../../../services/activity';
+import { StrapiActivity, StrapiDuration, StrapiLocation } from '../../../../graphql-types';
+import { fetchSuggestions, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
 import { currentLocale } from '../../../utils/helpers';
@@ -90,13 +90,14 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [callBack, setCallback] = useState<() => void | null>(() => {});
   const { t } = useTranslation();
+  const locale = currentLocale();
   const queryResult =
     useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
       query,
     );
 
   useEffect(() => {
-    fetchSuggestions(activityId)
+    fetchSuggestions(activityId, locale)
       .then((res) => {
         setSuggestions(res.data);
       })
@@ -128,8 +129,8 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewSuggestion = () => {
-    let toastId = toast.loading(t('lahetetaan') + '...');
-    sendNewSuggestion(newSuggestion, activityId, selectedFile)
+    const toastId = toast.loading(t('lahetetaan') + '...');
+    sendNewSuggestion(newSuggestion, activityId, selectedFile, locale)
       .then((res) => {
         setModalOpen(false);
         toast.dismiss(toastId);
@@ -159,7 +160,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   };
 
   const postNewReply = (suggestionId: number) => {
-    let toastId = toast.loading(t('lahetetaan') + '...');
+    const toastId = toast.loading(t('lahetetaan') + '...');
     sendNewReply(newReply, suggestionId)
       .then((res) => {
         toast.dismiss(toastId);

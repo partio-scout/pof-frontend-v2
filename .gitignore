@@ -5,3 +5,6 @@ public
 yarn-error.log
 .env
 graphql-types.ts
+
+# IntelliJ IDEA
+.idea
