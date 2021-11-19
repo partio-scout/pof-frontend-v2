@@ -44,7 +44,7 @@ export const sendSuggestionUnlike = (suggestionId: number, userId: string) => {
   });
 };
 
-export const fetchActivities = (activityIds: string[]) => {
+export const fetchActivities = (activityIds: string[], locale: string ) => {
   const query = activityIds.map((id) => `id_in=${id}`).join('&');
-  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/activities?${query}`);
+  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/activities?${query}&_locale=${locale}`);
 };

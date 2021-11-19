@@ -33,12 +33,13 @@ const ActivityCardList = ({
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
   const navigation = useNavigation(currentLocale());
+  const locale = currentLocale()
 
   const { t } = useTranslation();
 
   useEffect(() => {
     if (augmentData) {
-      fetchActivities(activities.map((activity) => activity.id))
+      fetchActivities(activities.map((activity) => activity.id), locale)
         .then((res) => setShowableActivities(res.data))
         .catch((err) => {
           console.error(err);
