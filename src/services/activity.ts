@@ -29,11 +29,8 @@ export const sendNewSuggestion = (
   });
 };
 
-export const sendNewReply = (newReply: InitialReply, suggestionId: number, locale: string) =>
-  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, {
-    newReply,
-    locale,
-  });
+export const sendNewReply = (newReply: InitialReply, suggestionId: number) =>
+  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply );
 
 export const sendSuggestionLike = (suggestionId: number, userId: string) => {
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/like`, {

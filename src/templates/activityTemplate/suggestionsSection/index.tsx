@@ -161,7 +161,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
 
   const postNewReply = (suggestionId: number) => {
     const toastId = toast.loading(t('lahetetaan') + '...');
-    sendNewReply(newReply, suggestionId, locale)
+    sendNewReply(newReply, suggestionId)
       .then((res) => {
         toast.dismiss(toastId);
         setModalOpen(false);
