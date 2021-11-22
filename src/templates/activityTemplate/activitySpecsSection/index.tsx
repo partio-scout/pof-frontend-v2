@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PlusIcon from '../../../images/plus-round.inline.svg';
 import ExclamationIcon from '../../../images/exclamation-round.inline.svg';
 import ClockIcon from '../../../images/time.inline.svg';
@@ -36,6 +36,8 @@ const itemClasses = 'bg-gray-light flex p-4 rounded-xl w-full mx-auto';
 const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
   const { t } = useTranslation();
+  
+  useEffect(() => {       window.scrollTo(0, 0);     }, []);
 
   return (
     <div className="mt-8">
