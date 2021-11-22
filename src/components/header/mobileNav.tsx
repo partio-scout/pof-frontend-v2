@@ -45,7 +45,7 @@ const MobileNav = ({
         </div>
       </div>
       {hamburgerMenuOpen && (
-        <div className="absolute w-full h-full bg-white z-30">
+        <div className="overflow-auto w-100 h-full bg-white z-30 mb-1">
           {headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
             <div key={headerItem.name + index.toString()} className="mt-4" onClick={() => toggleDropDown(index)}>
               <span className="text-blue font-tondu tracking-wider text-xl ml-4">{headerItem.name.toUpperCase()}</span>
