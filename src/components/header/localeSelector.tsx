@@ -57,7 +57,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
         <img className="mx-1 my-0.5 w-4 inline-block" src={localeToImage[locale]} />
         <span className="text-blue ml-0.5 font-tondu tracking-wider hidden sm:inline">{locale.toUpperCase()}</span>
         <img
-          className="mx-1 my-0.5 w-8 h-8 hidden sm:inline-block"
+          className="mx-1 my-0.5 w-8 h-8 hidden md:inline-block"
           src={currentDropDownOpen === menuAmount ? upArrow : downArrow}
         />
       </div>

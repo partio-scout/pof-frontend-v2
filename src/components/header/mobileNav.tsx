@@ -27,7 +27,7 @@ const MobileNav = ({
 
   return (
     <>
-      <div className="flex flex-nowrap align-stretch border-b border-lightBlue md:hidden max-w-full">
+      <div className="flex flex-nowrap align-stretch border-b border-lightBlue lg:hidden max-w-full">
         <img
           src={hamburgerMenuOpen ? navClose : nav}
           className="w-6 inline-block border-lightBlue border-r p-2"

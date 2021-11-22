@@ -17,7 +17,7 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
 
   return (
     <div
-      className={clsx('hidden md:flex overflow-hidden h-20', {
+      className={clsx('hidden lg:flex overflow-hidden h-20', {
         'border-b border-lightBlue': !showBreadCrumbs || state.searchActive,
       })}
     >
