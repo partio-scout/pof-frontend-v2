@@ -41,8 +41,12 @@ const ContentPageNav = ({ pageId, path, currentLocale }: ContentPageNavProps): R
 
   return (
     <div>
+      {/*<h1>pagenavigaaation alku</h1>*/}
+       
       <ContentPageDesktopNav subNavigationItems={subNavigationItems} path={path} />
       <ContentPageMobileNav subNavigationItems={subNavigationItems} path={path} />
+      
+      {/*<h1>pagenavigaaation loppu</h1>*/}
     </div>
   );
 };

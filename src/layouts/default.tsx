@@ -66,14 +66,18 @@ const DefaultLayout = ({
           <meta name="twitter:title" content={metadata.title} />
         </Helmet>
         <div className="flex flex-col relative min-h-screen">
+          {/* 
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} localeLinks={localeLinks} />
+          */}
           <div className="flex-grow relative">
             <Search />
             {showBreadCrumbs && <BreadCrumbs trail={path} />}
             {pageHeader && pageHeader}
             <Container omitPadding={omitPadding}>{children}</Container>
           </div>
+          {/* 
           <Footer />
+          */}
           <script
             id="CookieDeclaration"
             src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}

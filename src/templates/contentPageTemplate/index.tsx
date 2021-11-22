@@ -45,8 +45,10 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
       locale={locale as Locale}
       pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
     >
+      {/* 
       <MainContent data={data.contentPage} />
       <BlockArea blocks={content} />
+      */}
     </Layout>
   );
 };
