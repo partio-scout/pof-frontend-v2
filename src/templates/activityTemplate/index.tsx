@@ -27,8 +27,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
-
-  console.log(activity)
+  
   return (
     <Layout
       showBreadCrumbs
