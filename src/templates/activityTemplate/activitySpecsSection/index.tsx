@@ -37,7 +37,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
   const { t } = useTranslation();
   
-  useEffect(() => {       window.scrollTo(0, 0);     }, []);
+  useEffect(() => { window.scrollTo(0, 0) }, []);
 
   return (
     <div className="mt-8">
