@@ -5,6 +5,7 @@ import { StrapiActivity } from '../../../graphql-types';
 import { hexToRgba } from '../../utils/color';
 import ExclamationIcon from '../../images/exclamation-round-filled.inline.svg';
 import PlusIcon from '../../images/plus-round.inline.svg';
+import Anchor from '../../images/anchor.inline.svg';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl } from '../../utils/helpers';
@@ -19,7 +20,7 @@ interface ActivityCardProps {
 }
 
 const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
-  const { age_group, activity_group, mandatory, suggestions, duration, locations, fields } = activity;
+  const { age_group, activity_group, mandatory, suggestions, duration, locations, fields, is_marine_activity } = activity;
   const { t } = useTranslation();
 
   const iconUrl = prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!);
@@ -35,16 +36,21 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
           </div>
         </div>
       )}
-      <div className="flex font-bold mb-2">
+      <div className="flex flex-col font-bold mb-2">
         {mandatory ? (
-          <>
+          <div className=" flex flex-row my-1">
             <ExclamationIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('pakollinen-aktiviteetti')}
-          </>
+          </div>
         ) : (
-          <>
+          <div className="flex flex-row my-1">
             <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('valinnainen-aktiviteetti')}
-          </>
+          </div>
         )}
+        {is_marine_activity &&
+          <div className="flex flex-row my-1">
+            <Anchor className="fill-current text-blue w-4 h-4 mr-1"/> {t('meripartio-aktiviteetti')}
+          </div>
+        }
       </div>
       <div className="flex mb-2 flex-wrap">
         {duration && (
