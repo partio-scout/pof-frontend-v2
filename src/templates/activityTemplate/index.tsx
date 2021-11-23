@@ -28,6 +28,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
 
+  console.log(activity)
   return (
     <Layout
       showBreadCrumbs
@@ -86,6 +87,7 @@ export const query = graphql`
       id
       strapiId
       content
+      is_marine_activity
       duration {
         locale
         name

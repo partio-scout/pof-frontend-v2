@@ -8,6 +8,7 @@ import home from '../../../images/Home.svg';
 import camping from '../../../images/Camping.svg';
 import forest from '../../../images/Forest.svg';
 import sun from '../../../images/Sun.svg';
+import AnchorIcon from '../../../images/anchor.inline.svg';
 import parent from '../../../images/Parent.svg';
 import ParentIcon from '../../../images/parent.inline.svg';
 import { StrapiActivity } from '../../../../graphql-types';
@@ -54,6 +55,14 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               </>
             )}
           </div>
+          {data.is_marine_activity && (
+            <div className={itemClasses}>
+              <SquareIcon icon={AnchorIcon} alt="Meripartio-aktiviteetti" backgroundColor={iconBackground} />
+              <div>
+                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">{t('meripartio-aktiviteetti')}</h4>
+              </div>
+            </div>
+          )}
           <div className={itemClasses}>
             <SquareIcon icon={ClockIcon} alt={t('estimated-duration')} backgroundColor={iconBackground} />
             <div>
