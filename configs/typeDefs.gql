@@ -65,7 +65,9 @@ type StrapiAgeGroupLinks @dontInfer {
   id: Int
   description: String
   url: String
+  icon: StrapiImage
 }
+
 type StrapiAgeGroupActivity_groups @dontInfer {
   id: Int
   title: String
@@ -750,6 +752,7 @@ type StrapiActivity implements Node @dontInfer {
   activity_term: StrapiActivityActivity_term
   duration: StrapiActivityDuration
   locale: String
+  is_marine_activity: Boolean
   published_at(
     formatString: String
     fromNow: Boolean

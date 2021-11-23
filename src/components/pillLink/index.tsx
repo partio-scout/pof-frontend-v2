@@ -8,18 +8,23 @@ interface PillLinkProps {
   color?: string | null;
   children: React.ReactNode;
   attachmentIcon?: boolean;
+  icon?: string;
 }
 
-function PillLink({ to, children, color, attachmentIcon }: PillLinkProps) {
-  // FIXME: remove flex-class
+function PillLink({ to, children, color, attachmentIcon, icon }: PillLinkProps) {
   return (
     <CombinedLink
       to={to}
-      className="block flex flex-row bg-gray-light rounded-2xl p-3 md:p-3 font-tondu text-2xl uppercase tracking-wider align-center justify-start"
+      className="flex flex-row bg-gray-light rounded-2xl p-3 md:p-3 font-tondu text-2xl uppercase tracking-wider align-center justify-start"
     > 
     {attachmentIcon &&
-      <div className="flex w-12 h-12 rounded-md p-2 mr-4" style={{ backgroundColor: hexToRgba(color || '', 0.6) }}>
+      <div className="w-12 h-12 rounded-md p-2 mr-4 self-center" style={{ backgroundColor: hexToRgba(color || '', 0.6) }}>
         <AttachmentIcon className="h-4 w-4 self-center"/>
+      </div>
+    }
+    {icon &&
+     <div className="w-12 h-12 rounded-md p-2 mr-4 self-center" style={{ backgroundColor: hexToRgba(color || '', 0.6) }}>
+        <img src={icon} className="h-4 w-4 self-center"/>
       </div>
     }
     <div className="self-center">
