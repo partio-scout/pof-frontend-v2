@@ -12,14 +12,6 @@ const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
     <div className="flex flex-col items-center my-10">
       <h1 className="uppercase sm:text-xxxlt md:text-xxxlw text-center">{title}</h1>
       {ingress && <p className="my-4 md:text-base">{ingress}</p>}
-      <Helmet>
-        <script
-          id="CookieDeclaration"
-          src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
-          type="text/javascript"
-          defer
-        ></script>
-      </Helmet>
     </div>
   )
 }
@@ -32,6 +24,11 @@ const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }
   return (
     <Layout>
       <CookiePageComponent page={pageData} />
+      <script
+        id="CookieDeclaration"
+        src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
+        type="text/javascript"
+      ></script>
     </Layout>
   );
 }; 
