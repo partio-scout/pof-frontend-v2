@@ -1,17 +1,11 @@
 import * as React from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import Layout from '../layouts/default';
-import { useSearchContext } from '../contexts/searchContext';
-import { useTranslation } from 'react-i18next';
 import { StrapiCookiePage } from '../../graphql-types';
 import { currentLocale } from '../utils/helpers';
 
 const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
-  const { t } = useTranslation();
-  const { dispatch } = useSearchContext();
-
   const { title, ingress } = page || {};
-  console.log(title, ingress)
 
   return (
     <div className="flex flex-col items-center my-10">
