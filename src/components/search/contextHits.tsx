@@ -22,7 +22,7 @@ const ContextHits = () => {
   return (
     <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
       {hits.map((hitData) => (
-        <div className="" key={hitData.hit.objectID}>
+        <div className="" key={hitData.hit.objectID + hitData.type}>
           <HitComponent hit={hitData.hit} type={hitData.type} navigation={navigation} />
         </div>
       ))}
