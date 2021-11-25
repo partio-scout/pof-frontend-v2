@@ -44,6 +44,7 @@ const config: GatsbyConfig = {
           { name: 'not-found-page', api: { qs: { _locale: 'en' } } },
           { name: 'not-found-page', api: { qs: { _locale: 'smn' } } },
           { name: 'not-found-page', api: { qs: { _locale: 'sme' } } },
+          { name: 'cookie-page', api: { qs: { _locale: 'fi' } } },
         ],
       },
     },
