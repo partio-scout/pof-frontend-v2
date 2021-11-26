@@ -16,7 +16,6 @@ const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
         id="CookieDeclaration"
         src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
         type="text/javascript"
-        async
       ></script>
     </div>
   )
