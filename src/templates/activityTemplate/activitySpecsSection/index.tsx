@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PlusIcon from '../../../images/plus-round.inline.svg';
 import ExclamationIcon from '../../../images/exclamation-round.inline.svg';
 import ClockIcon from '../../../images/time.inline.svg';
@@ -8,6 +8,7 @@ import home from '../../../images/Home.svg';
 import camping from '../../../images/Camping.svg';
 import forest from '../../../images/Forest.svg';
 import sun from '../../../images/Sun.svg';
+import AnchorIcon from '../../../images/anchor.inline.svg';
 import parent from '../../../images/Parent.svg';
 import ParentIcon from '../../../images/parent.inline.svg';
 import { StrapiActivity } from '../../../../graphql-types';
@@ -36,6 +37,8 @@ const itemClasses = 'bg-gray-light flex p-4 rounded-xl w-full mx-auto';
 const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
   const { t } = useTranslation();
+  
+  useEffect(() => { window.scrollTo(0, 0) }, []);
 
   return (
     <div className="mt-8">
@@ -54,6 +57,14 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
               </>
             )}
           </div>
+          {data.is_marine_activity && (
+            <div className={itemClasses}>
+              <SquareIcon icon={AnchorIcon} alt="Meripartio-aktiviteetti" backgroundColor={iconBackground} />
+              <div>
+                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">{t('meripartio-aktiviteetti')}</h4>
+              </div>
+            </div>
+          )}
           <div className={itemClasses}>
             <SquareIcon icon={ClockIcon} alt={t('estimated-duration')} backgroundColor={iconBackground} />
             <div>

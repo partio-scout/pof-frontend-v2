@@ -23,7 +23,7 @@ const Filters = () => {
 
   return (
     <div className="bg-white border-b border-lightBlue">
-      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4 px-4 md:px-0">
+      <div className="container mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4 px-4 lg:px-0">
         <div className="my-3">
           <DropdownSelect
             items={contentTypes}

@@ -74,12 +74,6 @@ const DefaultLayout = ({
             <Container omitPadding={omitPadding}>{children}</Container>
           </div>
           <Footer />
-          <script
-            id="CookieDeclaration"
-            src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
-            type="text/javascript"
-            defer
-          ></script>
         </div>
       </LogoContextProvider>
     </SearchContextProvider>

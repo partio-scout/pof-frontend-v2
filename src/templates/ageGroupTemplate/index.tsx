@@ -72,7 +72,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <div className="flex flex-col sm:flex-row md:max-w-sm md:flex-col">
               {links?.map((link) => (
                 <div key={link?.url} className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={link?.url || ''} color={color}>{link?.description}</PillLink>
+                  <PillLink to={link?.url || ''} icon={link?.icon?.url!} color={color}>{link?.description}</PillLink>
                 </div>
               ))}
             </div>
@@ -114,6 +114,9 @@ export const query = graphql`
         description
         id
         url
+        icon {
+          ...ImageFragment
+        }
       }
       logo {
         ...ImageFragment

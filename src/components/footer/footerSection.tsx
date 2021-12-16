@@ -14,9 +14,9 @@ function FooterSection({ data }: FooterSectionProps) {
   return (
     <div className="flex flex-col text-white mr-6">
       {data.title && (
-        <h2 className="text-white text-xl mb-4 sm:text-4xl md:text-xxlw">
-          {addLineBreaks(data.title)}
-        </h2>
+        <p className="text-white text-l mb-4 sm:text-xl md:text-xl">
+          {addLineBreaks(data.title, "font-tondu uppercase tracking-wider")}
+        </p>
       )}
       {(data.link_groups?.length || 0) > 0 &&
         data.link_groups?.map((linkGroup) => (

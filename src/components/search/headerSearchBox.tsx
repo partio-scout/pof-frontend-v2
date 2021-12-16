@@ -11,7 +11,7 @@ const Search = () => {
 
   return (
     <div
-      className={clsx('flex h-full border-lightBlue self-stretch flex-row justify-start items-center min-w-0', {
+      className={clsx('flex lg:h-full border-lightBlue self-stretch flex-row justify-start items-center min-w-0', {
         'border-l': !state.searchActive,
       })}
     >
@@ -29,7 +29,7 @@ const Search = () => {
             <SearchLogo className="fill-current text-blue absolute right-5" />
           </div>
           <button
-            className="bg-blue flex h-full w-20 justify-center items-center cursor-pointer focus:gray"
+            className="bg-blue flex h-20 lg:h-full w-20 justify-center items-center cursor-pointer focus:gray"
             onClick={() => dispatch({ type: 'set-search-active', payload: false })}
           >
             <DeleteIcon className="fill-current text-white" />
