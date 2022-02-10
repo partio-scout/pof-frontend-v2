@@ -37,6 +37,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
     { locale: 'en', path: '/en' },
     { locale: 'smn', path: '/smn' },
     { locale: 'sme', path: '/sme' },
+    { locale: 'ru', path: '/ru' },
   ];
   const localeToImage = {
     fi: fiFlag,
@@ -44,6 +45,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
     en: gbFlag,
     smn: smnFlag,
     sme: smnFlag,
+    ru: svFlag,
   };
   const combinedLocaleLinks = mergeDefaultWithLocaleLinks(defaultLinks, localeLinks, locale);
   return !state.searchActive ? (
