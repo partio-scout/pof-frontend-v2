@@ -67,7 +67,7 @@ const DropdownSelect = <T,>({ hideAllToggle, whiteBackground, ...props }: Dropdo
           tabIndex={0}
         >
           {getTitleText()}
-          <img src={dropdownOpen ? DownArrowIcon : UpArrowIcon} alt="" />
+          <img src={dropdownOpen ? UpArrowIcon : DownArrowIcon} alt="" />
         </button>
         {dropdownOpen && (
           <>
