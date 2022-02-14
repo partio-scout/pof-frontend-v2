@@ -7,6 +7,7 @@ import fiFlag from '../../images/flag_fi.svg';
 import svFlag from '../../images/flag_sv.svg';
 import gbFlag from '../../images/flag_gb.svg';
 import smnFlag from '../../images/flag_smn_sme.svg';
+import ruFlag from '../../images/flag_ru.svg'
 import { useSearchContext } from '../../contexts/searchContext';
 import { currentLocale } from '../../utils/helpers';
 import { Locale, LocaleLink } from '../../types/locale';
@@ -45,7 +46,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
     en: gbFlag,
     smn: smnFlag,
     sme: smnFlag,
-    ru: svFlag,
+    ru: ruFlag,
   };
   const combinedLocaleLinks = mergeDefaultWithLocaleLinks(defaultLinks, localeLinks, locale);
   return !state.searchActive ? (
