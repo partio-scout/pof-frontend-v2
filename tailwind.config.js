@@ -98,7 +98,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      tondu: ['Tondu'],
+      tondu: ['Tondu', 'SourceProBold'],
       sourceSansPro: ['SourcePro'],
     },
   },
