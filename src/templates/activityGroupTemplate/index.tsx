@@ -244,6 +244,9 @@ export const query = graphql`
         locations {
           slug
           name
+          icon {
+            url
+          }
         }
         duration {
           name
