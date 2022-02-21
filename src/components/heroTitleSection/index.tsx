@@ -22,12 +22,36 @@ const HeroTitleSection = ({
 }: HeroTitleSectionProps) => (
   <div className="relative">
     {mainImageUrl && (
-      <div className="relative h-80 mb-24">
+      <div className="relative h-80 mb-24 border-red-500 border-2">
         <div className="bg-gradient-to-t from-blue w-full h-full absolute opacity-75"></div>
-        <div style={{ background: `url(${mainImageUrl}) center/cover no-repeat` }} className="w-full h-full" />
+        <div style={{ background: `url(${mainImageUrl}) center/cover no-repeat` }} className="w-full h-full flex align-bottom justify-center">
+          <div className='relative max-w-7xl border-2 border-black w-full'>
+            {logoUrl && (
+              <div
+                className="flex w-44 h-44 rounded-4xl align-top p-1 mr-4 absolute bottom-0 left-0"
+                style={{ backgroundColor: hexToRgba(color || '', 0.6) }}
+              >
+                <div className="bg-white rounded-3xl flex flex-col align-center justify-center items-center w-full">
+                  <img className="w-24" src={logoUrl} alt={mainTitle} title={mainTitle}></img>
+                </div>
+              </div>
+            )}
+            <h1
+              className={clsx('absolute bottom-0 tracking-wider leading-8 break-words uppercase sm:text-xxxlt md:text-xxxlw', {
+                'text-2rem': smallMainTitle,
+                'text-white': mainImageUrl,
+              })}
+            >
+              {mainTitle}
+            </h1>
+            <div className="absolute top-full h-16 flex items-center">
+              <span className="text-blue text-2xl inline-block">{subTitle}</span>
+            </div>
+          </div>
+        </div>
       </div>
     )}
-    <div
+    {/* <div
       className={clsx('w-full mt-3', {
         'absolute bottom-0 transform translate-y-1/2 mt-0': mainImageUrl,
       })}
@@ -44,7 +68,7 @@ const HeroTitleSection = ({
           </div>
         )}
         <div className="align-top flex flex-col justify-center">
-          <div className="h-16 flex items-center">
+          <div className="flex items-center grow">
             <h1
               className={clsx('tracking-wider leading-8 break-words uppercase sm:text-xxxlt md:text-xxxlw', {
                 'text-2rem': smallMainTitle,
@@ -59,7 +83,7 @@ const HeroTitleSection = ({
           </div>
         </div>
       </Container>
-    </div>
+    </div> */}
   </div>
 );
 
