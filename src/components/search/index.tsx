@@ -36,6 +36,19 @@ const Search = (): React.ReactElement | null => {
   const locale = currentLocale();
   const { t } = useTranslation();
 
+  const keepScrollPosition = () => {
+    document.addEventListener("DOMContentLoaded", function (event) {
+      const scrollpos = sessionStorage.getItem('scrollpos');
+      if (scrollpos) {
+          window.scrollTo(0, Number(scrollpos));
+          sessionStorage.removeItem('scrollpos');
+      }
+      window.addEventListener("beforeunload", function (e) {
+        sessionStorage.setItem('scrollpos', window.scrollY.toString());
+    });
+  });
+  }
+
   const onSearchStateChange = (updatedSearchState: any) => {
     clearTimeout(debouncedSetState);
 
@@ -44,7 +57,7 @@ const Search = (): React.ReactElement | null => {
         setSearchStateQS(updatedSearchState, 'replaceIn');
       }, DEBOUNCE_TIME),
     );
-
+    keepScrollPosition();
     dispatch({ type: 'set-search-state', payload: updatedSearchState });
   };
 
