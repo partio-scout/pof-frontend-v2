@@ -15,7 +15,7 @@ const Container = ({ children, omitPadding, className }: ContainerProps) => {
   return (
     <div
       className={clsx(
-        'container mx-auto max-w-7xl overflow-hidden',
+        'container mx-auto max-w-7xl overflow-visible',
         {
           'px-2 sm:px-10 md:px-24 2xl:px-0': !omitPadding,
         },

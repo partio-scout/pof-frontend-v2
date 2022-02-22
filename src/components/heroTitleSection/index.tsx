@@ -44,7 +44,7 @@ const HeroTitleSection = ({
           </div>
         )}
         <div className="align-top flex flex-col justify-center">
-          <div className="h-16 flex items-center">
+          <div className="h-16 flex items-end">
             <h1
               className={clsx('tracking-wider leading-8 break-words uppercase sm:text-xxxlt md:text-xxxlw', {
                 'text-2rem': smallMainTitle,
