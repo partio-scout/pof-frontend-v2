@@ -5,6 +5,17 @@ require('dotenv').config({
   path: `.env.${process.env.NODE_ENV}`,
 });
 
+const isStagingEnvironment = process.env.GATSBY_CLOUD_ENV === 'staging';
+const basicAuthUser = process.env.GATSBY_CLOUD_BASIC_AUTH_USER || 'user';
+const basicAuthPass = process.env.GATSBY_CLOUD_BASIC_AUTH_PASSWORD || 'password';
+const stagingBasicAuthHeader = {
+  headers: {
+    '/*': [`Basic-Auth: ${basicAuthUser}:${basicAuthPass}`],
+  },
+};
+console.log('isStagingEnvironment', isStagingEnvironment);
+console.log('stagingBasicAuthHeader', stagingBasicAuthHeader);
+
 const config: GatsbyConfig = {
   siteMetadata: {
     title: 'Partio-Ohjelma',
@@ -90,6 +101,13 @@ const config: GatsbyConfig = {
           // exclude: ["/preview/**", "/do-not-track/me/too/"],
         },
       },
+    },
+    {
+      resolve: `gatsby-plugin-gatsby-cloud`,
+      options:
+        isStagingEnvironment
+          ? stagingBasicAuthHeader
+          : {},
     },
   ],
 };
