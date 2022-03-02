@@ -23,6 +23,3 @@ Optional environment variables:
 
 - `GATSBY_UPDATE_SCHEMA_SNAPSHOT`: Set this to true to update the graphql schema on `yarn develop`
 - `ENABLE_GATSBY_REFRESH_ENDPOINT`: Set this to true to enable Gatsby's refresh-endpoint on `yarn develop`. Useful when running a preview server.
-- `GATSBY_CLOUD_ENV`: Set this to `staging` if you wish to enable basic auth. Note: does not work in local dev environment.
-- `GATSBY_CLOUD_BASIC_AUTH_USER`: The username for the basic auth if it is enabled. Defaults to `user`.
-- `GATSBY_CLOUD_BASIC_AUTH_PASSWORD`: The password for the basic auth if is enabled. Defaults to `password`.
