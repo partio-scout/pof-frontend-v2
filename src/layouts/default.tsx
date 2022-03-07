@@ -13,6 +13,7 @@ import { changeLanguage, currentLocale } from '../utils/helpers';
 import { Toaster } from 'react-hot-toast';
 import Container from '../components/container';
 import Footer from '../components/footer';
+import StagingDisclaimer from '../components/stagingDisclaimer';
 import { Locale, LocaleLink } from '../types/locale';
 
 interface LayoutProps {
@@ -66,6 +67,7 @@ const DefaultLayout = ({
           <meta name="twitter:title" content={metadata.title} />
         </Helmet>
         <div className="flex flex-col relative min-h-screen">
+          <StagingDisclaimer />
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} localeLinks={localeLinks} />
           <div className="flex-grow relative">
             <Search />
