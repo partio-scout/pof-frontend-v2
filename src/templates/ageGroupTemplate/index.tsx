@@ -69,7 +69,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <RichText html={content} />
           </div>
           {(links?.length || 0) > 0 && (
-            <div className="flex flex-col sm:flex-row md:max-w-sm md:flex-col">
+            <div className="flex flex-col sm:flex-row md:flex-col">
               {links?.map((link) => (
                 <div key={link?.url} className="mb-1 mr-2 md:mr-0">
                   <PillLink to={link?.url || ''} icon={link?.icon?.url!} color={color}>{link?.description}</PillLink>
