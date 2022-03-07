@@ -23,3 +23,4 @@ Optional environment variables:
 
 - `GATSBY_UPDATE_SCHEMA_SNAPSHOT`: Set this to true to update the graphql schema on `yarn develop`
 - `ENABLE_GATSBY_REFRESH_ENDPOINT`: Set this to true to enable Gatsby's refresh-endpoint on `yarn develop`. Useful when running a preview server.
+- `GATSBY_CLOUD_ENV`: Set this to `staging` if you want a red banner at the top of the page to disclaim that the user is on the test site.
