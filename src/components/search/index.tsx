@@ -35,29 +35,25 @@ const Search = (): React.ReactElement | null => {
   const [searchStateQS, setSearchStateQS] = useQueryParam('search', NullJsonParam);
   const locale = currentLocale();
   const { t } = useTranslation();
+  const searchScrollPosition = 'searchscrollposition'
 
-  const keepScrollPosition = () => {
-    document.addEventListener("DOMContentLoaded", function (event) {
-      const scrollpos = sessionStorage.getItem('scrollpos');
-      if (scrollpos) {
-          window.scrollTo(0, Number(scrollpos));
-          sessionStorage.removeItem('scrollpos');
-      }
-      window.addEventListener("beforeunload", function (e) {
-        sessionStorage.setItem('scrollpos', window.scrollY.toString());
-    });
-  });
-  }
+  useEffect(() => {
+    const scrollpos = sessionStorage.getItem(searchScrollPosition);
+    if (scrollpos) {
+        window.scrollTo(0, Number(scrollpos));
+        sessionStorage.removeItem(searchScrollPosition);
+    }
+  })
 
   const onSearchStateChange = (updatedSearchState: any) => {
     clearTimeout(debouncedSetState);
 
     setDebouncedSetState(
       setTimeout(() => {
+        sessionStorage.setItem(searchScrollPosition, window.scrollY.toString());
         setSearchStateQS(updatedSearchState, 'replaceIn');
       }, DEBOUNCE_TIME),
     );
-    keepScrollPosition();
     dispatch({ type: 'set-search-state', payload: updatedSearchState });
   };
 
