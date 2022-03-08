@@ -6,7 +6,6 @@ import translationFI from '../.cache/translations/fi.json';
 import translationSV from '../.cache/translations/sv.json';
 import translationSME from '../.cache/translations/sme.json';
 import translationSMN from '../.cache/translations/smn.json';
-import translationRU from '../.cache/translations/ru.json';
 
 // the translations
 const resources = {
@@ -24,9 +23,6 @@ const resources = {
   },
   sme: {
     translation: translationSME,
-  },
-  ru: {
-    translation: translationRU,
   },
 };
 
