@@ -17,7 +17,6 @@ const languageTerritories = {
   // These two are probably not correct, couldn't find anything
   sme: 'sme',
   smn: 'smn',
-  ru: 'os_RU',
 };
 
 /**
