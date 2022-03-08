@@ -17,18 +17,6 @@
   font-weight: bold;
 }
 
-@font-face {
-  font-family: "SourceProBold";
-  src: url("../fonts/SourceSansPro-Bold.ttf");
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: 'SourcePro';
-  src: local("../fonts/SourceSansPro-Regular.ttf");
-  unicode-range: U+0400-U+04FF;
-}
-
 html {
   color: theme('colors.blue.DEFAULT');
 }
@@ -43,7 +31,7 @@ p {
 }
 
 h1, h2, h3, h4, h5 {
-  font-family: 'Tondu', 'SourceProBold';
+  font-family: 'Tondu', serif;
   color: theme('colors.blue.DEFAULT');
 }
 
