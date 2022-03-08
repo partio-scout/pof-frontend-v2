@@ -17,7 +17,7 @@ Required environment variables:
 - `GATSBY_ALGOLIA_API_KEY`: API-KEY for the Algolia application
 - `GATSBY_ALGOLIA_ENVIRONMENT`: the environment used in Algolia
 - `GA_TRACKING_ID`: Google Analytics tracking-id (not needed in development)
-- `GATSBY_COOKIEBOT_ID`: Cookiebot Id (not needed in development)
+- `GATSBY_COOKIEBOT_ID`: Cookiebot Id (not needed in development) 
 
 Optional environment variables:
 
