@@ -2,6 +2,7 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import useMetadata from '../../hooks/metadata';
 import { Locale } from '../../types/locale';
+import striptags from 'striptags';
 
 export interface MetadataProps {
   title: string;
@@ -26,18 +27,23 @@ const languageTerritories = {
  */
 function Metadata({ description, title, locale, path, imageUrl }: MetadataProps) {
   const metadata = useMetadata(locale);
+  
+  function truncate(description: string, maxlength: number){
+    return description.length > maxlength ? description.substring(0, maxlength-1) + '...' : description
+  }
+  const desc = truncate(striptags(description), 160)
 
   return (
     <Helmet>
       <title>{title}</title>
-      <meta name="description" content={description} />
+      <meta name="description" content={desc} />
       <meta property="og:locale" content={languageTerritories[locale]} />
       <meta property="og:type" content="article" />
       <meta property="og:title" content={`${title} | ${metadata.title}`} />
-      <meta property="og:description" content={description} />
+      <meta property="og:description" content={desc} />
       <meta property="og:url" content={`${metadata.siteUrl}${path}`} />
       <meta property="og:image" content={imageUrl} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:description" content={desc} />
       <meta name="twitter:title" content={`${title} | ${metadata.title}`} />
     </Helmet>
   );

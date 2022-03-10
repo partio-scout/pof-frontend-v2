@@ -65,7 +65,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     >
       <Metadata
         title={title || ''}
-        description={ingress || ''}
+        description={ingress || content || ''}
         path={path}
         locale={currentLocale()}
         imageUrl={prependApiUrl(main_image?.url) || metadata.image || ''}
