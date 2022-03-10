@@ -56,12 +56,13 @@ const DefaultLayout = ({
           ></script>
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
-          <meta property="og:locale:alternate" content="sv_SE" />
+          <meta property="og:locale:alternate" content={locale} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={metadata.title} />
           <meta property="og:description" content={metadata.meta_description} />
           <meta property="og:url" content={`https://partio-ohjelma.fi`} />
           <meta property="og:site_name" content={metadata.title} />
+          <meta property="og:image" content={metadata.image} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:description" content={metadata.meta_description} />
           <meta name="twitter:title" content={metadata.title} />

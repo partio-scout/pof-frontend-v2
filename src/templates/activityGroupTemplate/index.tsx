@@ -88,7 +88,13 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
         />
       }
     >
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
+      <Metadata
+        title={title || ''}
+        description={ingress || ''}
+        path={path}
+        locale={currentLocale()}
+        imageUrl={prependApiUrl(main_image?.url || ageGroup?.main_image?.url) || ''}
+      />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row py-5">
           <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress}</div>

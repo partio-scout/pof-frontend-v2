@@ -8,6 +8,7 @@ import { StrapiActivity, StrapiActivityGroup, SitePage } from '../../../graphql-
 import SuggestionsSection from './suggestionsSection/';
 import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import Metadata from '../../components/metadata';
+import useMetadata from '../../hooks/metadata';
 import { Locale } from '../../types/locale';
 import { currentLocale } from '../../utils/helpers';
 
@@ -27,6 +28,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
+  const metadata = useMetadata(activity.locale || 'fi');
   
   return (
     <Layout
@@ -55,6 +57,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
         description={activity.ingress || ''}
         path={path}
         locale={currentLocale()}
+        imageUrl={prependApiUrl(activity.main_image?.url || metadata.image || '' )}
       />
       <h2 className="pt-4 sm:text-4xl md:text-xxlw">{activity.title}</h2>
       <ActivityContentSection data={activity} />
