@@ -37,6 +37,15 @@ const DefaultLayout = ({
   const navigation = useNavigation(currentLocale());
   const metadata = useMetadata(currentLocale());
 
+  const languageTerritories = {
+    fi: 'fi_FI',
+    sv: 'sv_SE',
+    en: 'en_US',
+    // These two are probably not correct, couldn't find anything
+    sme: 'sme',
+    smn: 'smn',
+  };
+
   if (locale) changeLanguage(locale);
 
   const path = findBreadcrumbPath(pathname, navigation as HeaderItem[]);
@@ -56,7 +65,7 @@ const DefaultLayout = ({
           ></script>
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
-          <meta property="og:locale:alternate" content={locale} />
+          <meta property="og:locale:alternate" content={languageTerritories[locale || 'fi']} />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={metadata.title} />
           <meta property="og:description" content={metadata.meta_description} />
