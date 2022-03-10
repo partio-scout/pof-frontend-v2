@@ -4,6 +4,7 @@ import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
 import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
+import useMetadata from '../../hooks/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
 import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
@@ -44,6 +45,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
   const activityGroups = data.activityGroups.nodes;
   const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
+  const metadata = useMetadata(locale || 'fi')
 
   return (
     <Layout
@@ -61,7 +63,13 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
         />
       }
     >
-      <Metadata title={title || ''} description={ingress || ''} path={path} locale={currentLocale()} />
+      <Metadata
+        title={title || ''}
+        description={ingress || ''}
+        path={path}
+        locale={currentLocale()}
+        imageUrl={prependApiUrl(main_image?.url) || metadata.image || ''}
+      />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">

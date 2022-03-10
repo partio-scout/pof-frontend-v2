@@ -8,6 +8,7 @@ export interface MetadataProps {
   description: string;
   path: string;
   locale: Locale;
+  imageUrl?: string;
 }
 
 const languageTerritories = {
@@ -23,7 +24,7 @@ const languageTerritories = {
  * Creates Helmet element with page-specific metadata.
  * Use this in page templates to add their data as site metadata.
  */
-function Metadata({ description, title, locale, path }: MetadataProps) {
+function Metadata({ description, title, locale, path, imageUrl }: MetadataProps) {
   const metadata = useMetadata(locale);
 
   return (
@@ -35,6 +36,7 @@ function Metadata({ description, title, locale, path }: MetadataProps) {
       <meta property="og:title" content={`${title} | ${metadata.title}`} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={`${metadata.siteUrl}${path}`} />
+      <meta property="og:image" content={imageUrl} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:title" content={`${title} | ${metadata.title}`} />
     </Helmet>
