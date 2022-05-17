@@ -67,8 +67,8 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
         title={title || ''}
         description={ingress || content || ''}
         path={path}
-        locale={currentLocale()}
-        imageUrl={prependApiUrl(main_image?.url) || metadata.image || ''}
+        locale={locale as Locale}
+        imageUrl={metadata.image || prependApiUrl(main_image?.url) || ''}
       />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row">
