@@ -56,7 +56,7 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
                     <img
                       src={prependApiUrl(group?.logo?.formats?.thumbnail?.url || group.logo?.url) || ''}
                       alt={group?.title || ''}
-                      className="h-20 w-20 mb-1"
+                      className="h-20 w-auto mb-1"
                     />
                     {group.title}
                   </CombinedLink>

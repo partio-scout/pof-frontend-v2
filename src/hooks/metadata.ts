@@ -1,5 +1,5 @@
 import { useStaticQuery, graphql } from 'gatsby';
-import { StrapiFrontPage } from '../../graphql-types';
+import { StrapiFrontPage, StrapiImage } from '../../graphql-types';
 
 const metadataQuery = graphql`
   {
@@ -10,6 +10,9 @@ const metadataQuery = graphql`
         ingress
         locale
         strapiId
+        hero_image {
+          ...ImageFragment
+        }
       }
     }
   }
@@ -20,14 +23,13 @@ interface Metadata {
   meta_description: string;
   locale: string;
   siteUrl: string;
+  image: string;
 }
-
-
 
 const useMetadata = (currentLocale: string): Metadata => {
   const { allStrapiFrontPage } = useStaticQuery<{
     allStrapiFrontPage: {
-      nodes: Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId'>[];
+      nodes: Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId' | 'hero_image' >[];
     };
   }>(metadataQuery);
 
@@ -38,6 +40,7 @@ const useMetadata = (currentLocale: string): Metadata => {
     locale: correctMetadata?.locale || 'fi',
     meta_description: correctMetadata?.meta_description || correctMetadata?.ingress || '',
     siteUrl: 'https://partio-ohjelma.fi',
+    image: correctMetadata?.hero_image?.url || '',
   };
 
   return metadata;
