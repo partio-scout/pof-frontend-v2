@@ -56,7 +56,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
         title={activity.title || ''}
         description={activity.ingress || ''}
         path={path}
-        locale={currentLocale()}
+        locale={activity.locale as Locale}
         imageUrl={prependApiUrl(activity.main_image?.url || metadata.image || '' )}
       />
       <h2 className="pt-4 sm:text-4xl md:text-xxlw">{activity.title}</h2>
