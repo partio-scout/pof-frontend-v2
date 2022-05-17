@@ -35,7 +35,7 @@ const DefaultLayout = ({
 }: LayoutProps) => {
   const { pathname } = useLocation();
   const navigation = useNavigation(currentLocale());
-  const metadata = useMetadata(currentLocale());
+  const metadata = useMetadata(locale || 'fi');
 
   if (locale) changeLanguage(locale);
 
