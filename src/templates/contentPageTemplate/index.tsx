@@ -7,7 +7,8 @@ import RichText from '../../components/RichText';
 import { graphql, PageProps } from 'gatsby';
 import ContentPageNav from './contentPageNav';
 import { Locale } from '../../types/locale';
-
+import Metadata from '../../components/metadata';
+import useMetadata from '../../hooks/metadata';
 interface ContentPageTemplateProps {
   data: StrapiContentPage;
 }
@@ -37,6 +38,7 @@ const MainContent = ({ data }: ContentPageTemplateProps) => (
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
   const { strapiId, content, locale } = data.contentPage;
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
+  const metadata = useMetadata(locale || 'fi');
 
   return (
     <Layout
@@ -45,6 +47,13 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
       locale={locale as Locale}
       pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
     >
+      <Metadata
+        title={data.contentPage.title || ''}
+        description={data.contentPage.ingress || ''}
+        path={path}
+        locale={currentLocale()}
+        imageUrl={prependApiUrl(data.contentPage.main_image?.url) || metadata.image || ''}
+      />
       <MainContent data={data.contentPage} />
       <BlockArea blocks={content} />
     </Layout>

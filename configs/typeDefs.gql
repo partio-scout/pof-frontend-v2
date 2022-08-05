@@ -776,6 +776,7 @@ type StrapiActivity implements Node @dontInfer {
   images: [StrapiImage]
   logo: StrapiImage
   title: String
+  main_image: StrapiImage
   content: String
   mandatory: Boolean
   ingress: String

@@ -35,17 +35,16 @@ const DefaultLayout = ({
 }: LayoutProps) => {
   const { pathname } = useLocation();
   const navigation = useNavigation(currentLocale());
-  const metadata = useMetadata(currentLocale());
+  const metadata = useMetadata(locale || 'fi');
 
   if (locale) changeLanguage(locale);
 
   const path = findBreadcrumbPath(pathname, navigation as HeaderItem[]);
-
   return (
     <SearchContextProvider>
       <LogoContextProvider>
         <Toaster position="bottom-right" />
-        <Helmet titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
+        <Helmet htmlAttributes={{ lang: locale }} titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
           <script
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
@@ -57,11 +56,13 @@ const DefaultLayout = ({
           <meta name="description" content={metadata.meta_description} />
           <meta property="og:locale" content="fi_FI" />
           <meta property="og:locale:alternate" content="sv_SE" />
+          <meta property="og:locale:alternate" content="en_US" />
           <meta property="og:type" content="article" />
           <meta property="og:title" content={metadata.title} />
           <meta property="og:description" content={metadata.meta_description} />
           <meta property="og:url" content={`https://partio-ohjelma.fi`} />
           <meta property="og:site_name" content={metadata.title} />
+          <meta property="og:image" content={metadata.image} />
           <meta name="twitter:card" content="summary_large_image" />
           <meta name="twitter:description" content={metadata.meta_description} />
           <meta name="twitter:title" content={metadata.title} />
