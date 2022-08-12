@@ -3,10 +3,12 @@ Partio-ohjelma frontend
 ## 1. Project purpose
 Website for Partio-scout Finland
 ## 2. Architecture
-Gatsby app hosted in Gatsby cloud
-Strapi as a CMS
-Written with ReactJs
-Backend hosted in Azure
+- Gatsby app hosted in Gatsby cloud
+  - Staging environment: `https://pof-backend-testing.azurewebsites.net/admin/`
+  - Production environment: `https://pof-backend-production.azurewebsites.net/admin/`
+- Strapi as a CMS
+- Written with ReactJs
+- Backend hosted in Azure
 Algolia as a search engine
 ### 2.1. Graphql schema
 Gatsby uses graphql as its data query language, and it creates the schema for it automatically base on the data that it has. This doesn't work well for Strapi data, since unpopulated fields are not returned from the REST-API which the plugin `gatsby-source-strapi` uses to fetch the data. This leads to unpopulated starpi fields not ending up in the schema, and we don't want that. This problem has been fixed by defining the schema for Strapi data statically, in the file `configs/typeDefs.gql`. If you need to define something else manually, add those definitions to the same file.
@@ -49,9 +51,9 @@ Test your changes and if everything is fine, merge staging branch to `main`
 ### 4.2. Deployment
 Merge a branch to staging, Gatsby cloud automatically deploys new changes to staging.
 ### 4.3. Verifying that a deployment was successful
-Check the build logs in Github actions and go to staging site, test if everything is workjing okay.
+Check the build logs in Github actions and go to staging site, test if everything is working okay.
 ### 4.4. Logs
-Deployment logs can be found from Gatsby cloud and Github,
+Deployment logs can be found from Gatsby cloud and Github.
 ## 5. Production environment
 ### 5.1. Access
 -  `https://partio-ohjelma.fi/`
