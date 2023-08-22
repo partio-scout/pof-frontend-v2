@@ -11,7 +11,7 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
   let categories = groups.reduce((prev, curr) => {
     const category = curr.activity_group_category;
 
-    let i = prev.findIndex((x) => x.category === (category?.name || ''));
+    const i = prev.findIndex((x) => x.category === (category?.name || ''));
     if (i > -1) {
       prev[i].groups.push(curr);
     } else {
@@ -27,9 +27,9 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
   categories = categories.sort((categoryA, categoryB) => (categoryA.sort_order < categoryB.sort_order ? -1 : 1));
 
   const categoryWithNoNameIndex = categories.findIndex((c) => c.category === '');
-  
+
   let categoryWithNoName;
-  
+
   if (categoryWithNoNameIndex) {
     categoryWithNoName = categories.splice(categoryWithNoNameIndex, 1)[0];
   }

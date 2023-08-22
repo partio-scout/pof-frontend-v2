@@ -1,7 +1,6 @@
 import { CreateSchemaCustomizationArgs } from 'gatsby';
 import { readFileSync } from 'fs';
 
-
 const createSchemaCustomization = ({ actions }: CreateSchemaCustomizationArgs) => {
   const { createTypes } = actions;
 

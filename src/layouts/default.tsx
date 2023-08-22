@@ -44,7 +44,11 @@ const DefaultLayout = ({
     <SearchContextProvider>
       <LogoContextProvider>
         <Toaster position="bottom-right" />
-        <Helmet htmlAttributes={{ lang: locale }} titleTemplate={`%s | ${metadata.title}`} defaultTitle={metadata.title}>
+        <Helmet
+          htmlAttributes={{ lang: locale }}
+          titleTemplate={`%s | ${metadata.title}`}
+          defaultTitle={metadata.title}
+        >
           <script
             id="Cookiebot"
             src="https://consent.cookiebot.com/uc.js"
@@ -70,7 +74,7 @@ const DefaultLayout = ({
         <div className="flex flex-col relative min-h-screen">
           <StagingDisclaimer />
           <Header headerItems={navigation} showBreadCrumbs={showBreadCrumbs} localeLinks={localeLinks} />
-          <div className="flex-grow relative">
+          <div className="grow relative">
             <Search />
             {showBreadCrumbs && <BreadCrumbs trail={path} />}
             {pageHeader && pageHeader}

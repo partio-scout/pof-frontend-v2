@@ -6,4 +6,3 @@ export const parseAgeGroupRouteName = (name: string) => {
   const parsedName = name.trim().split(' ')[0];
   return parseRouteName(parsedName);
 };
-

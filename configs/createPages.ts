@@ -2,7 +2,6 @@ import { Actions, CreatePagesArgs } from 'gatsby';
 import path from 'path';
 import {
   StrapiAgeGroup,
-  StrapiActivityGroup,
   StrapiActivity,
   StrapiFrontPage,
   StrapiFrontPageNavigation,
@@ -93,7 +92,7 @@ async function handleActivity(
       locale: activity.locale,
       id: activity.id,
     },
-  }
+  };
 
   createPage(page);
 
@@ -153,7 +152,7 @@ async function handleActivityGroup(
       id: activityGroup!.id,
       ageGroupId: activityGroup.age_group,
     },
-  }
+  };
 
   createPage(page);
 
@@ -182,7 +181,7 @@ async function handleAgeGroup(
   }
 
   const ageGroupPath = `/${parseAgeGroupRouteName(ageGroup.title!)}`;
-  
+
   const page = {
     path: ageGroupPath,
     component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
@@ -192,8 +191,8 @@ async function handleAgeGroup(
       locale: ageGroup.locale,
       id: ageGroup.strapiId,
     },
-  }
-  
+  };
+
   createPage(page);
 
   results.ageGroups.push(ageGroup.title!);

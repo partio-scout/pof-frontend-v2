@@ -30,7 +30,7 @@ export const sendNewSuggestion = (
 };
 
 export const sendNewReply = (newReply: InitialReply, suggestionId: number) =>
-  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply );
+  axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply);
 
 export const sendSuggestionLike = (suggestionId: number, userId: string) => {
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/like`, {
@@ -44,7 +44,7 @@ export const sendSuggestionUnlike = (suggestionId: number, userId: string) => {
   });
 };
 
-export const fetchActivities = (activityIds: string[], locale: string ) => {
+export const fetchActivities = (activityIds: string[], locale: string) => {
   const query = activityIds.map((id) => `id_in=${id}`).join('&');
   return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/activities?${query}&_locale=${locale}`);
 };

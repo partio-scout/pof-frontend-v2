@@ -33,13 +33,16 @@ const ActivityCardList = ({
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
   const navigation = useNavigation(currentLocale());
-  const locale = currentLocale()
+  const locale = currentLocale();
 
   const { t } = useTranslation();
 
   useEffect(() => {
     if (augmentData) {
-      fetchActivities(activities.map((activity) => activity.id), locale)
+      fetchActivities(
+        activities.map((activity) => activity.id),
+        locale,
+      )
         .then((res) => setShowableActivities(res.data))
         .catch((err) => {
           console.error(err);
@@ -70,32 +73,32 @@ const ActivityCardList = ({
 
   return (
     <>
-    <div className="flex">
-      <div
-        className={clsx('flex-1 grid grid-cols-1 gap-3', {
-          'xl:grid-cols-4': activitiesWithLinks.length > 3,
-          'lg:grid-cols-3': activitiesWithLinks.length > 2,
-          'sm:grid-cols-2': activitiesWithLinks.length > 1,
-        })}
-      >
-        {activitiesWithLinks?.map((activity) => (
-          <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
-        ))}
-      </div>
-    </div>
-    <div className="flex justify-center">
-      {activitiesWithLinks.length < activities.length && (
-        <div className="flex items-center justify-center my-12">
-          <button
-            onClick={() => setAllVisible(true)}
-            className="group flex justify-center items-center uppercase border border-blue border-opacity-40 rounded py-3 px-16 font-tondu tracking-widest"
-          >
-            <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" />
-            {t('nayta-kaikki')} ({activities.length})
-          </button>
+      <div className="flex">
+        <div
+          className={clsx('flex-1 grid grid-cols-1 gap-3', {
+            'xl:grid-cols-4': activitiesWithLinks.length > 3,
+            'lg:grid-cols-3': activitiesWithLinks.length > 2,
+            'sm:grid-cols-2': activitiesWithLinks.length > 1,
+          })}
+        >
+          {activitiesWithLinks?.map((activity) => (
+            <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
+          ))}
         </div>
-      )}
-    </div>
+      </div>
+      <div className="flex justify-center">
+        {activitiesWithLinks.length < activities.length && (
+          <div className="flex items-center justify-center my-12">
+            <button
+              onClick={() => setAllVisible(true)}
+              className="group flex justify-center items-center uppercase border border-blue border-opacity-40 rounded py-3 px-16 font-tondu tracking-widest"
+            >
+              <PlusIcon className="text-blue group-hover:text-opacity-100 text-opacity-40 fill-current mr-2 w-4 h-4" />
+              {t('nayta-kaikki')} ({activities.length})
+            </button>
+          </div>
+        )}
+      </div>
     </>
   );
 };

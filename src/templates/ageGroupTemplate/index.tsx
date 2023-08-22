@@ -10,7 +10,6 @@ import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import RichText from '../../components/RichText';
-import { parseLinkUrl, currentLocale } from '../../utils/helpers';
 import { useTranslation } from 'react-i18next';
 import { Locale } from '../../types/locale';
 
@@ -45,7 +44,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
   const activityGroups = data.activityGroups.nodes;
   const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
-  const metadata = useMetadata(locale || 'fi')
+  const metadata = useMetadata(locale || 'fi');
 
   return (
     <Layout
@@ -80,7 +79,9 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <div className="flex flex-col sm:flex-row md:flex-col">
               {links?.map((link) => (
                 <div key={link?.url} className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={link?.url || ''} icon={link?.icon?.url!} color={color}>{link?.description}</PillLink>
+                  <PillLink to={link?.url || ''} icon={link?.icon?.url!} color={color}>
+                    {link && link.description}
+                  </PillLink>
                 </div>
               ))}
             </div>

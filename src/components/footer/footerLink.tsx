@@ -4,7 +4,7 @@ import CombinedLink from '../combinedLink';
 import { addLineBreaks } from './utils';
 
 function FooterLink({ description, email, phone_number, url, title }: StrapiFrontPageFooter_SectionsLink_GroupsLinks) {
-  let linkClasses = 'hover:text-hardBlue font-bold';
+  const linkClasses = 'hover:text-hardBlue font-bold';
   let link;
   if (url)
     link = (

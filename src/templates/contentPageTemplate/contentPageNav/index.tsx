@@ -31,7 +31,7 @@ interface ContentPageNavProps {
   currentLocale: string;
 }
 
-const ContentPageNav = ({ pageId, path, currentLocale }: ContentPageNavProps): React.ReactElement | null => {
+const ContentPageNav = ({ pageId, path, currentLocale }: ContentPageNavProps): JSX.Element | null => {
   const navigation = useNavigation(currentLocale);
 
   const subNavigationItems = createSubNavigation(pageId, path, navigation as HeaderItem[]);

@@ -121,9 +121,7 @@ const NewSuggestionForm = ({
                 checked={termsChecked}
                 onChange={onTermsChange}
               />
-              <span className="inline-block ml-2 mb-2">
-                {t('hyvaksy-ehdot-teksti')}
-              </span>
+              <span className="inline-block ml-2 mb-2">{t('hyvaksy-ehdot-teksti')}</span>
             </div>
           </div>
           <div className="flex flex-col w-full sm:w-3/4 relative">
@@ -134,7 +132,7 @@ const NewSuggestionForm = ({
               className={`${inputStyle} mb-2`}
             />
             <textarea
-              className="w-full rounded-xl p-2 text-blue focus:outline-none h-80 flex-grow"
+              className="w-full rounded-xl p-2 text-blue focus:outline-none h-80 grow"
               name="content"
               placeholder={t('kirjoita-toteutusvinkki-tahan')}
               onChange={onFieldChange}

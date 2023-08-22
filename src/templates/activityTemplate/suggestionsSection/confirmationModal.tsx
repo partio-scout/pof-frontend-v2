@@ -13,7 +13,7 @@ interface ConfirmationModalProps {
 
 const ConfirmationModal = ({ modalOpen, callBack, setModalOpen, modalData }: ConfirmationModalProps) =>
   modalOpen ? (
-    <div className="z-50 fixed left-0 top-0 w-full h-full bg-white bg-opacity-40">
+    <div className="z-50 fixed left-0 top-0 w-full h-full bg-white/40">
       <div className="bg-gray-light rounded-xl p-4 mx-auto my-auto w-80 h-80">
         <span className="text-blue tracking wide font-sourceSansPro">{modalData.text}</span>
         <button

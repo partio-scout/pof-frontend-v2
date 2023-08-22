@@ -1,7 +1,5 @@
-import React from 'react'
-import {
-  StrapiFrontPageFooter_SectionsLink_Groups,
-} from '../../../graphql-types';
+import React from 'react';
+import { StrapiFrontPageFooter_SectionsLink_Groups } from '../../../graphql-types';
 import FooterLink from './footerLink';
 import FooterSomeLinks from './footerSomeLinks';
 

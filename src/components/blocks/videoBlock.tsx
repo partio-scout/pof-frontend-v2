@@ -1,7 +1,10 @@
 import React from 'react';
-import ReactPlayer from 'react-player';
+// import ReactPlayer from 'react-player';
 import { BlockProps, BlockType } from '.';
 import { prependApiUrl } from '../../utils/helpers';
+import { default as _ReactPlayer } from 'react-player/lazy';
+import { ReactPlayerProps } from 'react-player/types/lib';
+const ReactPlayer = _ReactPlayer as unknown as React.FC<ReactPlayerProps>;
 
 export interface VideoBlockType extends BlockType {
   video?: {
