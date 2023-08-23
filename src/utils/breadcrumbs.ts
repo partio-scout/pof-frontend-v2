@@ -1,5 +1,4 @@
-import { HeaderItem } from "../components/header";
-import { BreadCrumb } from "../components/header/breadCrumbs";
+import { HeaderItem } from '../components/header';
 
 export const checkHeaderItemForPath = (path: string, headerItem: HeaderItem): HeaderItem[] | null => {
   if (headerItem.url === path) return [headerItem];

@@ -33,8 +33,8 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
           <img src={imageUrl} className="w-full h-64 object-cover" alt={title || ''} />
         </div>
       )}
-      <div className="flex flex-col justify-around bg-gray-light w-full flex-grow">
-        <div className="flex-grow p-2">
+      <div className="flex flex-col justify-around bg-gray-light w-full grow">
+        <div className="grow p-2">
           <h4 className="bold font-tondu tracking-wider text-blue sm:text-lt md:text-lw">{title}</h4>
           <p className="text-blue md:text-base">{ingress}</p>
         </div>

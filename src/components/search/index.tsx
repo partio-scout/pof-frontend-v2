@@ -35,15 +35,15 @@ const Search = (): React.ReactElement | null => {
   const [searchStateQS, setSearchStateQS] = useQueryParam('search', NullJsonParam);
   const locale = currentLocale();
   const { t } = useTranslation();
-  const searchScrollPosition = 'searchscrollposition'
+  const searchScrollPosition = 'searchscrollposition';
 
   useEffect(() => {
     const scrollpos = sessionStorage.getItem(searchScrollPosition);
     if (scrollpos) {
-        window.scrollTo(0, Number(scrollpos));
-        sessionStorage.removeItem(searchScrollPosition);
+      window.scrollTo(0, Number(scrollpos));
+      sessionStorage.removeItem(searchScrollPosition);
     }
-  })
+  });
 
   const onSearchStateChange = (updatedSearchState: any) => {
     clearTimeout(debouncedSetState);

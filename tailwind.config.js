@@ -2,7 +2,7 @@ const plugin = require('tailwindcss/plugin');
 const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default;
 
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
@@ -39,6 +39,7 @@ module.exports = {
         lw: ['1.5rem', '1.625rem'],
       },
       colors: {
+        current: 'currentColor',
         blue: {
           DEFAULT: '#253764',
           border: '#A9DDF3',
@@ -102,14 +103,6 @@ module.exports = {
       sourceSansPro: ['SourcePro'],
     },
   },
-  variants: {
-    extend: {
-      borderColor: ['no-hover-focus'],
-      backgroundColor: ['no-hover-focus'],
-      margin: ['important'],
-      translate: ['focus-within'],
-    },
-  },
   plugins: [
     plugin(function ({ addVariant }) {
       addVariant('important', ({ container }) => {
@@ -135,7 +128,7 @@ module.exports = {
     }),
     // Create utils for changing individual border colors.
     // Copied from here https://github.com/tailwindlabs/tailwindcss/pull/560#issuecomment-670045304
-    ({ addUtilities, e, theme, variants }) => {
+    ({ addUtilities, theme, variants }) => {
       const colors = flattenColorPalette(theme('borderColor'));
       delete colors['default'];
 

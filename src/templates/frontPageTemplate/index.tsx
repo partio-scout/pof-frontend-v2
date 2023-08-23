@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
-import { PaddedContainer } from '../../components/ui.general';
 import Hero from '../../components/hero';
 import BlockArea from '../../components/blockArea';
 import { StrapiFrontPage } from '../../../graphql-types';
@@ -34,7 +33,7 @@ interface FrontPageQueryType {
   >;
 }
 
-const IndexPage = ({ pageContext, data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
+const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
   const {
     frontPage: { content, title, hero_link_text, hero_link_url, hero_image, locale },
   } = data;

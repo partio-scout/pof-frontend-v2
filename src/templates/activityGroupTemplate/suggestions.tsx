@@ -1,5 +1,5 @@
 import React from 'react';
-import {SuggestionWithUrl} from '../../components/suggestionCard';
+import { SuggestionWithUrl } from '../../components/suggestionCard';
 import SuggestionCard from '../../components/suggestionCard';
 
 interface SuggestionsProps {

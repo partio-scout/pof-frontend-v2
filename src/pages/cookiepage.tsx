@@ -4,14 +4,14 @@ import Layout from '../layouts/default';
 import { StrapiCookiePage } from '../../graphql-types';
 import { currentLocale } from '../utils/helpers';
 
-const loadDeclarationScript = ( callback: any ) => {
+const loadDeclarationScript = (callback: any) => {
   const existingScript = document.getElementById('CookieDeclaration');
   if (!existingScript) {
     const script = document.createElement('script');
-    script.src=`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`
+    script.src = `https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`;
     script.id = 'CookieDeclaration';
     document.body.appendChild(script);
-    script.onload = () => { 
+    script.onload = () => {
       if (callback) callback();
     };
   }
@@ -31,8 +31,8 @@ const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
         type="text/javascript"
       ></script>
     </div>
-  )
-}
+  );
+};
 
 const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }>) => {
   const [loaded, setLoaded] = useState(false);
@@ -46,14 +46,10 @@ const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }
   const locale = currentLocale();
   const pageData = data.pages.nodes.find((page) => page.locale === locale);
 
-  return (
-    <Layout>
-        {loaded ? <CookiePageComponent page={pageData}/> : ''}
-    </Layout>
-  );
-}; 
+  return <Layout>{loaded ? <CookiePageComponent page={pageData} /> : ''}</Layout>;
+};
 
-export default CookiePage
+export default CookiePage;
 
 export const query = graphql`
   {
@@ -67,4 +63,3 @@ export const query = graphql`
     }
   }
 `;
-

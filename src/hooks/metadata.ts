@@ -29,7 +29,7 @@ interface Metadata {
 const useMetadata = (currentLocale: string): Metadata => {
   const { allStrapiFrontPage } = useStaticQuery<{
     allStrapiFrontPage: {
-      nodes: Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId' | 'hero_image' >[];
+      nodes: Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId' | 'hero_image'>[];
     };
   }>(metadataQuery);
 

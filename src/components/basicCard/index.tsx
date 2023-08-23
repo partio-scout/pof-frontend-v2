@@ -14,11 +14,10 @@ interface BasicCardProps {
 }
 
 function BasicCard({ image, title, text, link, typeName }: BasicCardProps) {
-
-  function trimText(text: string, n:number) {
-    let trimmed = text.substr(0, n);
-    const cut = trimmed.substr(0, Math.min(trimmed.length, trimmed.lastIndexOf(" ")))
-    return cut + '...'
+  function trimText(text: string, n: number) {
+    const trimmed = text.substr(0, n);
+    const cut = trimmed.substr(0, Math.min(trimmed.length, trimmed.lastIndexOf(' ')));
+    return cut + '...';
   }
 
   return (
@@ -30,7 +29,14 @@ function BasicCard({ image, title, text, link, typeName }: BasicCardProps) {
         </div>
       )}
       {title && <h4 className="mb-3 mt-1 uppercase break-words sm:text-lt md:text-lw">{title}</h4>}
-      {text && <ClampLines text={trimText(removeHtml(text), 400)} id={`basic-card-${uuidv4()}-text`} lines={7} buttons={false} />}
+      {text && (
+        <ClampLines
+          text={trimText(removeHtml(text), 400)}
+          id={`basic-card-${uuidv4()}-text`}
+          lines={7}
+          buttons={false}
+        />
+      )}
     </Card>
   );
 }

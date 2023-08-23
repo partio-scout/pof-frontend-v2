@@ -15,13 +15,21 @@ const getHitComponent = (type: ContentType, data: any, url: string, typeName?: s
     case ContentType.activity:
       return <ActivityCard activity={data} link={url} showActivityAndAgeGroup />;
     case ContentType['age-group']:
-      return <BasicCard title={data.title} text={data.content} link={url} typeName={typeName} />; 
+      return <BasicCard title={data.title} text={data.content} link={url} typeName={typeName} />;
     case ContentType['content-page']:
-      return <BasicCard title={data.title} text={data.main_text} link={url} image={data.main_image?.formats?.medium?.url} typeName={typeName} />
+      return (
+        <BasicCard
+          title={data.title}
+          text={data.main_text}
+          link={url}
+          image={data.main_image?.formats?.medium?.url}
+          typeName={typeName}
+        />
+      );
     case ContentType['activity-group']:
-      return <BasicCard title={data.title} text={data.ingress} link={url} typeName={typeName} />
+      return <BasicCard title={data.title} text={data.ingress} link={url} typeName={typeName} />;
   }
-}
+};
 
 const Hit = ({
   hit,
@@ -42,9 +50,9 @@ const Hit = ({
   const hitWithLogo = {
     ...hit,
     logo: activityLogos[type === ContentType.suggestion ? hit.activity?.id : hit.id],
-  }
+  };
 
-  return getHitComponent(type, hitWithLogo, linkUrl, typeName) || null;
+  return getHitComponent(type, hitWithLogo, linkUrl, typeName) || null;
 };
 
 export default Hit;

@@ -23,7 +23,7 @@ export interface CommonSuggestionFormProps {
 
 export interface Error {
   text: string;
-  err?: any;
+  err?: unknown;
 }
 
 export interface InitialSuggestion {
@@ -91,10 +91,10 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [callBack, setCallback] = useState<() => void | null>(() => {});
   const { t } = useTranslation();
   const locale = currentLocale();
-  const queryResult =
-    useStaticQuery<{ allStrapiDuration: { nodes: StrapiDuration[] }; allStrapiLocation: { nodes: StrapiLocation[] } }>(
-      query,
-    );
+  const queryResult = useStaticQuery<{
+    allStrapiDuration: { nodes: StrapiDuration[] };
+    allStrapiLocation: { nodes: StrapiLocation[] };
+  }>(query);
 
   useEffect(() => {
     fetchSuggestions(activityId, locale)

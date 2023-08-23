@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'gatsby';
-import clsx from 'clsx';
 import { StrapiActivity } from '../../../graphql-types';
 import { hexToRgba } from '../../utils/color';
 import ExclamationIcon from '../../images/exclamation-round-filled.inline.svg';
@@ -20,7 +18,8 @@ interface ActivityCardProps {
 }
 
 const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
-  const { age_group, activity_group, mandatory, suggestions, duration, locations, fields, is_marine_activity } = activity;
+  const { age_group, activity_group, mandatory, suggestions, duration, locations, fields, is_marine_activity } =
+    activity;
   const { t } = useTranslation();
 
   const iconUrl = prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!);
@@ -29,7 +28,9 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
     <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
-          {iconUrl && <img src={iconUrl} className="h-8 w-8 mr-1 object-contain" alt={activity_group?.title || ''}></img>}
+          {iconUrl && (
+            <img src={iconUrl} className="h-8 w-8 mr-1 object-contain" alt={activity_group?.title || ''}></img>
+          )}
           <div>
             <div className="text-xs font-semibold">{activity_group?.title}</div>
             <div className="text-xxs">{age_group?.title}</div>
@@ -46,11 +47,11 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
             <PlusIcon className="fill-current text-blue w-4 h-4 mr-1" /> {t('valinnainen-aktiviteetti')}
           </div>
         )}
-        {is_marine_activity &&
+        {is_marine_activity && (
           <div className="flex flex-row my-1">
-            <Anchor className="fill-current text-blue w-4 h-4 mr-1"/> {t('meripartio-aktiviteetti')}
+            <Anchor className="fill-current text-blue w-4 h-4 mr-1" /> {t('meripartio-aktiviteetti')}
           </div>
-        }
+        )}
       </div>
       <div className="flex mb-2 flex-wrap">
         {duration && (
@@ -62,19 +63,20 @@ const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardP
         {(locations?.length || 0) > 0 &&
           locations?.map((location) => (
             <Pill key={location?.name}>
-              {location?.icon?.url ?
+              {location?.icon?.url ? (
                 <img
-                src={prependApiUrl(location?.icon?.url || '')}
-                alt={location?.slug!}
-                title={location?.slug!}
-                className="h-3"
-              ></img>
-              : location?.name
-              }
+                  src={prependApiUrl(location?.icon?.url || '')}
+                  alt={location?.slug!}
+                  title={location?.slug!}
+                  className="h-3"
+                ></img>
+              ) : (
+                location?.name
+              )}
             </Pill>
           ))}
       </div>
-      <div className="flex-grow mb-4 break-words uppercase">
+      <div className="grow mb-4 break-words uppercase">
         <h4 className="sm:text-lt md:text-lw">{activity.title}</h4>
       </div>
       {(suggestions?.length || 0) > 0 && (

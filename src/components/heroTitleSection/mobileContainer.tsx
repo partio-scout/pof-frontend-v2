@@ -38,24 +38,24 @@ const MobileHeroTitleContainer = ({
           )}
         </div>
       )}
-        <Container className="flex flex-col px-10 items-start">
-          <div className="align-top flex flex-col justify-center">
-            <div className="min-h-12 min-w-0 flex items-center">
-              <h2
-                className={clsx('tracking-wider leading-8 break-words uppercase', {
-                  'text-2rem': smallMainTitle,
-                })}
-              >
-                {mainTitle}
-              </h2>
-            </div>
-            <div className="min-h-12 flex items-center">
-              <span className="text-blue text-2xl inline-block">{subTitle}</span>
-            </div>
+      <Container className="flex flex-col px-10 items-start">
+        <div className="align-top flex flex-col justify-center">
+          <div className="min-h-12 min-w-0 flex items-center">
+            <h2
+              className={clsx('tracking-wider leading-8 break-words uppercase', {
+                'text-2rem': smallMainTitle,
+              })}
+            >
+              {mainTitle}
+            </h2>
           </div>
-        </Container>
+          <div className="min-h-12 flex items-center">
+            <span className="text-blue text-2xl inline-block">{subTitle}</span>
+          </div>
+        </div>
+      </Container>
     </div>
-  )
-}
+  );
+};
 
 export default MobileHeroTitleContainer;

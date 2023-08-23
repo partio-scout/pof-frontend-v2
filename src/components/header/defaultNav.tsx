@@ -26,7 +26,9 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
       </a>
       <div className="flex flex-1 space-x-4 cursor-default h-full justify-end z-50">
         {!state.searchActive && (
-          <div className="flex space-x-4"> {/* Without this wrapper div Gatsby's hydration fails for some reason */}
+          <div className="flex space-x-4">
+            {' '}
+            {/* Without this wrapper div Gatsby's hydration fails for some reason */}
             {headerItems.map((headerItem: HeaderItemFirstLevel, index: number) => (
               <div
                 key={headerItem.name + index.toString()}

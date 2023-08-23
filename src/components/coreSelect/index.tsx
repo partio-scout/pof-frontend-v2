@@ -127,7 +127,7 @@ const reducer =
   };
 
 /**
- * Hook that provides selector logic to components. Can be used in controlled or uncontrolled mode. 
+ * Hook that provides selector logic to components. Can be used in controlled or uncontrolled mode.
  * In controlled mode this hook keeps its own state of the selection, and in uncontrolled it doesn't.
  * Uncontrolled mode is activated by passing the prop `getItemSelected` which is then used in determining if an item is selected.
  * In uncontrolled mode the props `onToggle` and `onToggleAll` can be used to set up event handlers for those actions.
