@@ -16,6 +16,7 @@ const config: GatsbyConfig = {
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
+    'gatsby-plugin-netlify',
     {
       resolve: 'gatsby-source-strapi',
       options: {
