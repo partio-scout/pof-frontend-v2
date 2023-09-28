@@ -148,7 +148,7 @@ const ConversationLayout = ({ lastItem = false, children }: ConversationLayoutPr
 const Comment = ({ comment }: CommentProps) => {
   const { t } = useTranslation();
   return (
-    <div className="rounded-xl border-gray border-2 flex-grow p-2 mt-4">
+    <div className="rounded-xl border-gray border-2 grow p-2 mt-4">
       <h3 className="sm:text-xlt md:text-xlw">{comment.title}</h3>
       <span className="font-semibold text-blue">
         {comment.author || t('anonymous')}, {comment.scout_group || 'Ei lippukuntatietoja'}
@@ -218,7 +218,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     if (idFromLocalStorage && idFromLocalStorage != '') {
       return idFromLocalStorage;
     } else {
-      let uuid = uuidv4();
+      const uuid = uuidv4();
       localStorage.setItem('userId', JSON.stringify(uuid));
       return uuid;
     }
@@ -352,12 +352,12 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                 'border-hardBlue border-2 border-t-0': focusedSuggestion === suggestion?.id,
               })}
             >
-              <div className="flex-grow">
+              <div className="grow">
                 {suggestion.links &&
                   suggestion.links.length > 0 &&
                   suggestion.links.map((l) => (
                     <div className="ml-2 inline-block bg-gray-light rounded-xl p-1 font-sourceSansPro">
-                      <a href={parseLinkUrl(l.url)} target="_blank">
+                      <a href={parseLinkUrl(l.url)} target="_blank" rel="noreferrer">
                         <LinkIcon className="fill-current inline-block mr-1" />
                         <span className="font-semibold">
                           {l.description?.replace(/(.{20})..+/, '$1…') || l.url?.replace(/(.{20})..+/, '$1…')}
@@ -393,7 +393,6 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
             {suggestion.comments?.length <= 1 && (
               <>
                 {suggestion.comments.map((comment: Comment) => (
-
                   <ConversationLayout key={comment.id} lastItem={index !== expandedIndex}>
                     <Comment comment={comment} />
                   </ConversationLayout>

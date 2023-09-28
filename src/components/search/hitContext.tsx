@@ -9,12 +9,9 @@ interface HitsWithType {
 
 type HitContextState = HitsWithType[];
 
-type Action =
-  | { type: 'set-hit-type'; payload: HitsWithType }
+type Action = { type: 'set-hit-type'; payload: HitsWithType };
 
-const HitContext = createContext<{ state: HitContextState, dispatch: Dispatch<Action>} | undefined>(
-  undefined,
-);
+const HitContext = createContext<{ state: HitContextState; dispatch: Dispatch<Action> } | undefined>(undefined);
 
 const HitContextReducer = (state: HitContextState, action: Action): HitContextState => {
   switch (action.type) {
@@ -29,13 +26,13 @@ const HitContextReducer = (state: HitContextState, action: Action): HitContextSt
     default:
       return state;
   }
-}
+};
 
 export const useHitContext = () => {
   const context = useContext(HitContext);
-  
+
   if (context === undefined) throw new Error('useHitContext must be used within a HitContextProvider');
-  
+
   return context;
 };
 
@@ -45,7 +42,7 @@ export const HitContextProvider = ({ children }: { children: React.ReactNode }):
   const outputState = {
     state,
     dispatch,
-  }
+  };
 
   return <HitContext.Provider value={outputState}>{children}</HitContext.Provider>;
 };

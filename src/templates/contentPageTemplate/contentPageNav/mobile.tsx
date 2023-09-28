@@ -35,7 +35,10 @@ function ContentPageMobileNav({ subNavigationItems, path }: ContentPageMobileNav
         }}
       >
         {subNavigationItems?.map((subItem) => (
-          <li className="px-4 sm:px-10 w-full border-b border-blue-border relative hover:bg-gray focus-within:bg-gray" key={subItem.name}>
+          <li
+            className="px-4 sm:px-10 w-full border-b border-blue-border relative hover:bg-gray focus-within:bg-gray"
+            key={subItem.name}
+          >
             <Link className="h-full w-full py-3 flex items-center no-underline relative" to={subItem.url}>
               <strong>{subItem.name}</strong>
               <div

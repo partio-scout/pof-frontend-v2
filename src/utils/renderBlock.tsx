@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
 import { HighLightBlock, BlockType, TextBlock, ActivityBlock, LinkBlock, ImageBlock } from '../components/blocks';
 import AgeGroupBlock from '../components/blocks/ageGroupBlock';
 import ContentPageBlock from '../components/blocks/contentPageBlock';

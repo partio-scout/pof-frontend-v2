@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import React from 'react';
 import { hexToRgba } from '../../utils/color';
 import Container from '../container';
-import MobileHeroTitleContainer from './mobileContainer'
+import MobileHeroTitleContainer from './mobileContainer';
 
 type HeroTitleSectionProps = {
   mainImageUrl?: string;

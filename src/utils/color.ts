@@ -14,7 +14,7 @@ export const hexToRgba = (hex: string | undefined, alpha: number): string => {
   alpha = alpha || 1;
 
   // convert to decimal
-  const rgb: number[] = []
+  const rgb: number[] = [];
 
   for (let i = 0; i < 3; i++) {
     rgb[i] = parseInt(_hex.substr(i * 2, 2), 16);

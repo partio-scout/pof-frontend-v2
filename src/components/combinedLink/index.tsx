@@ -14,7 +14,7 @@ const CombinedLink = ({ to, className, children }: { to: string; className?: str
     );
   }
   return (
-    <a href={parseLinkUrl(to)} className={className} target="_blank">
+    <a href={parseLinkUrl(to)} className={className} target="_blank" rel="noreferrer">
       {children}
     </a>
   );

@@ -10,13 +10,7 @@ interface NewReplyFormProps extends CommonSuggestionFormProps {
   error: Error | null;
 }
 
-const NewReplyForm = ({
-  onSubmit,
-  onFieldChange,
-  onTermsChange,
-  termsChecked,
-  suggestionId
-}: NewReplyFormProps) => {
+const NewReplyForm = ({ onSubmit, onFieldChange, onTermsChange, termsChecked, suggestionId }: NewReplyFormProps) => {
   const { t } = useTranslation();
 
   return (
@@ -40,9 +34,7 @@ const NewReplyForm = ({
                 checked={termsChecked}
                 onChange={onTermsChange}
               />
-              <span className="inline-block ml-2 mb-2">
-                {t('hyvaksy-ehdot-teksti')}
-              </span>
+              <span className="inline-block ml-2 mb-2">{t('hyvaksy-ehdot-teksti')}</span>
             </div>
           </div>
           <div className="flex flex-col sm:w-3/4 relative">
@@ -53,7 +45,7 @@ const NewReplyForm = ({
               className={`${inputStyle} mb-2`}
             />
             <textarea
-              className="w-full rounded-xl p-2 text-blue focus:outline-none h-80 flex-grow"
+              className="w-full rounded-xl p-2 text-blue focus:outline-none h-80 grow"
               placeholder={t('kommentti')}
               name="text"
               onChange={onFieldChange}

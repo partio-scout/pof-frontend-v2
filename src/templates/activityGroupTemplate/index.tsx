@@ -60,7 +60,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const navigation = useNavigation(currentLocale());
   const { t } = useTranslation();
-  const metadata = useMetadata(locale || 'fi')
+  const metadata = useMetadata(locale || 'fi');
 
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
@@ -103,8 +103,10 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           {(links?.length || 0) > 0 && (
             <div className="flex flex-row md:flex-col">
               {links?.map((link) => (
-                <div className="mb-1 mr-2 md:mr-0"> 
-                  <PillLink to={link?.url || ''} color={ageGroup?.color} attachmentIcon={true}>{link?.description}</PillLink>
+                <div className="mb-1 mr-2 md:mr-0">
+                  <PillLink to={link?.url || ''} color={ageGroup?.color} attachmentIcon={true}>
+                    {link?.description}
+                  </PillLink>
                 </div>
               ))}
             </div>
@@ -122,7 +124,9 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           <h2 className="uppercase my-5 sm:text-4xl md:text-xxlw">{t('uusimmat-toteutusvinkit')}</h2>
           <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         </div>
-        <h2 className="uppercase text-center mb-10 mt-20 sm:text-4xl md:text-xxlw">{`${t('muut')} ${activitygroup_term?.plural}`}</h2>
+        <h2 className="uppercase text-center mb-10 mt-20 sm:text-4xl md:text-xxlw">{`${t('muut')} ${
+          activitygroup_term?.plural
+        }`}</h2>
         <ActivityGroupList groups={otherGroups.nodes} />
         <BlockArea blocks={content_area} />
       </div>

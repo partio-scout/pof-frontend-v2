@@ -37,23 +37,29 @@ const itemClasses = 'bg-gray-light flex p-4 rounded-xl w-full mx-auto';
 const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
   const { t } = useTranslation();
-  
-  useEffect(() => { window.scrollTo(0, 0) }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="mt-8">
       <div className="flex flex-wrap lg:space-x-2 space-y-2 lg:space-y-0">
-        <div className="w-full lg:max-w-1/3 space-y-4 mb-2 mr-2 md:mb-0 md:mr-0 flex-grow">
+        <div className="w-full lg:max-w-1/3 space-y-4 mb-2 mr-2 md:mb-0 md:mr-0 grow">
           <div className={itemClasses}>
             {data.mandatory ? (
               <>
                 <SquareIcon icon={ExclamationIcon} alt="Pakollinen aktiviteetti" backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">{t('pakollinen-aktiviteetti')}</h4>
+                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">
+                  {t('pakollinen-aktiviteetti')}
+                </h4>
               </>
             ) : (
               <>
                 <SquareIcon icon={PlusIcon} alt="Valinnainen aktiviteetti" backgroundColor={iconBackground} />
-                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">{t('valinnainen-aktiviteetti')}</h4>
+                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">
+                  {t('valinnainen-aktiviteetti')}
+                </h4>
               </>
             )}
           </div>
@@ -61,7 +67,9 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             <div className={itemClasses}>
               <SquareIcon icon={AnchorIcon} alt="Meripartio-aktiviteetti" backgroundColor={iconBackground} />
               <div>
-                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">{t('meripartio-aktiviteetti')}</h4>
+                <h4 className="ml-4 text-blue text-xl uppercase sm:text-lt md:text-lw">
+                  {t('meripartio-aktiviteetti')}
+                </h4>
               </div>
             </div>
           )}
@@ -82,7 +90,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             </div>
           </div>
         </div>
-        <div className="w-full lg:max-w-1/3 space-y-4 mb-2 md:mb-0 flex-grow">
+        <div className="w-full lg:max-w-1/3 space-y-4 mb-2 md:mb-0 grow">
           <div className={itemClasses}>
             <div>
               <h4 className="text-blue block w-full text-xl uppercase sm:text-lt md:text-lw">{t('paikka')}</h4>
@@ -113,7 +121,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
             </div>
           </div>
         </div>
-        <div className="w-full lg:max-w-1/3 space-y-4 flex-grow">
+        <div className="w-full lg:max-w-1/3 space-y-4 grow">
           <div className={itemClasses}>
             <SquareIcon icon={ParentIcon} alt={t('kasvatustavoitteet')} backgroundColor={iconBackground} />
             <div>

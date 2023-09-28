@@ -29,7 +29,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
   const metadata = useMetadata(activity.locale || 'fi');
-  
+
   return (
     <Layout
       showBreadCrumbs
@@ -57,7 +57,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
         description={activity.ingress || ''}
         path={path}
         locale={activity.locale as Locale}
-        imageUrl={prependApiUrl(activity.main_image?.url || metadata.image || '' )}
+        imageUrl={prependApiUrl(activity.main_image?.url || metadata.image || '')}
       />
       <h2 className="pt-4 sm:text-4xl md:text-xxlw">{activity.title}</h2>
       <ActivityContentSection data={activity} />

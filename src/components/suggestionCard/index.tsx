@@ -25,7 +25,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
 
   return (
     <Card link={link} padded={false}>
-      <div className="p-3 flex-grow">
+      <div className="p-3 grow">
         <div className="mb-1">
           {author && <div className="text-xs font-semibold">{author}</div>}
           <div className="text-xxs">{new Date(published_at).toLocaleDateString('fi')}</div>
@@ -54,7 +54,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
         <div className="mb-1 break-words uppercase">
           <h4 className="sm:text-lt md:text-lw">{title}</h4>
         </div>
-        <div className="flex-grow mb-4">
+        <div className="grow mb-4">
           <ClampLines text={removeHtml(content!)} id={`suggestion-card-${id}-text`} lines={7} buttons={false} />
         </div>
         {(likesExist || commentsExist) && (
