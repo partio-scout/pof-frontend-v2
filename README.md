@@ -3,9 +3,9 @@ Partio-ohjelma frontend
 ## 1. Project purpose
 Website for Partio-scout Finland
 ## 2. Architecture
-- Gatsby app hosted in Gatsby cloud
-  - Staging environment: `https://pof-backend-testing.azurewebsites.net/admin/`
-  - Production environment: `https://pof-backend-production.azurewebsites.net/admin/`
+- Gatsby app hosted in Netlify
+  - Staging environment: `https://stage.partio-ohjelma.fi`
+  - Production environment: `https://partio-ohjelma.fi`
 - Strapi as a CMS
 - Written with ReactJs
 - Backend hosted in Azure
@@ -49,16 +49,16 @@ Test your changes and if everything is fine, merge staging branch to `main`
 ### 4.1. Access
 -  `https://stage.partio-ohjelma.fi/`
 ### 4.2. Deployment
-Merge a branch to staging, Gatsby cloud automatically deploys new changes to staging.
+Merge a branch to staging, Netlify automatically deploys new changes to stage.partio-ohjelma.fi.
 ### 4.3. Verifying that a deployment was successful
 Check the build logs in Github actions and go to staging site, test if everything is working okay.
 ### 4.4. Logs
-Deployment logs can be found from Gatsby cloud and Github.
+Deployment logs can be found from Netlify and Github.
 ## 5. Production environment
 ### 5.1. Access
 -  `https://partio-ohjelma.fi/`
 ### 5.2. Deployment
-Merge staging branch to main, Gatsby cloud automatically deploys changes to production.
+Merge staging branch to main, Netlify automatically deploys changes to production.
 ### 5.3. Verifying that a deployment was successful
 // TODO
 #### 5.3.1. Automated test cases
