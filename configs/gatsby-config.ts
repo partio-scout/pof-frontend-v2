@@ -25,62 +25,102 @@ const config: GatsbyConfig = {
         skipFileDownloads: true,
         collectionTypes: [
           {
-            singularName: "activity",
+            singularName: 'activity',
             pluginOptions: {
               i18n: {
-                locale: "all",
+                locale: 'all',
               },
             },
           },
           {
-            singularName: "age-group",
+            singularName: 'age-group',
             pluginOptions: {
               i18n: {
-                locale: "all", 
+                locale: 'all',
               },
             },
           },
           {
-            singularName: "duration",
+            singularName: 'duration',
             pluginOptions: {
               i18n: {
-                locale: "all",
+                locale: 'all',
               },
             },
           },
           {
-            singularName: "location",
+            singularName: 'location',
             pluginOptions: {
               i18n: {
-                locale: "all",
+                locale: 'all',
               },
             },
           },
           {
-            singularName: "activity-group",
+            singularName: 'activity-group',
             pluginOptions: {
               i18n: {
-                locale: "all",
+                locale: 'all',
               },
             },
           },
         ],
         singleTypes: [
-          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "fi" } } },
-          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sv" } } },
-          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "en" } } },
-          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sme" } } },
-          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "smn" } } },
-          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "fi" } } },
-          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sv" } } },
-          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "en" } } },
-          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sme" } } },
-          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "smn" } } },
-          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "fi" } } },
-          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "sv" } } },
-          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "en" } } },
-          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "sme" } } },
-          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "smn" } } },
+          {
+            singularName: 'front-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'fi' } },
+          },
+          {
+            singularName: 'front-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'sv' } },
+          },
+          {
+            singularName: 'front-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'en' } },
+          },
+          {
+            singularName: 'front-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'sme' } },
+          },
+          {
+            singularName: 'front-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'smn' } },
+          },
+          {
+            singularName: 'not-found-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'fi' } },
+          },
+          {
+            singularName: 'not-found-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'sv' } },
+          },
+          {
+            singularName: 'not-found-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'en' } },
+          },
+          {
+            singularName: 'not-found-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'sme' } },
+          },
+          {
+            singularName: 'not-found-page',
+            populate: { blocks: { populate: '*' } },
+            pluginOptions: { i18n: { locale: 'smn' } },
+          },
+          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'fi' } } },
+          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'sv' } } },
+          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'en' } } },
+          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'sme' } } },
+          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'smn' } } },
         ],
       },
     },
