@@ -22,34 +22,65 @@ const config: GatsbyConfig = {
       options: {
         apiURL: process.env.GATSBY_API_URL,
         queryLimit: -1,
+        skipFileDownloads: true,
         collectionTypes: [
-          { name: 'activity', api: { qs: { _locale: 'all' } } },
-          { name: 'age-group', api: { qs: { _locale: 'all' } } },
-          { name: 'duration', api: { qs: { _locale: 'all' } } },
-          { name: 'location', api: { qs: { _locale: 'all' } } },
-          { name: 'activity-group', api: { qs: { _locale: 'all' } } },
           {
-            name: 'content-page',
-            api: { qs: { _locale: 'all' } },
+            singularName: "activity",
+            pluginOptions: {
+              i18n: {
+                locale: "all",
+              },
+            },
           },
-          { name: 'suggestion', api: { qs: { _locale: 'all' } } },
+          {
+            singularName: "age-group",
+            pluginOptions: {
+              i18n: {
+                locale: "all", 
+              },
+            },
+          },
+          {
+            singularName: "duration",
+            pluginOptions: {
+              i18n: {
+                locale: "all",
+              },
+            },
+          },
+          {
+            singularName: "location",
+            pluginOptions: {
+              i18n: {
+                locale: "all",
+              },
+            },
+          },
+          {
+            singularName: "activity-group",
+            pluginOptions: {
+              i18n: {
+                locale: "all",
+              },
+            },
+          },
         ],
         singleTypes: [
-          { name: 'front-page', api: { qs: { _locale: 'fi' } } },
-          { name: 'front-page', api: { qs: { _locale: 'sv' } } },
-          { name: 'front-page', api: { qs: { _locale: 'en' } } },
-          { name: 'front-page', api: { qs: { _locale: 'smn' } } },
-          { name: 'front-page', api: { qs: { _locale: 'sme' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'fi' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'sv' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'en' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'smn' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'sme' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'fi' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'sv' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'en' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'smn' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'sme' } } },
+          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "fi" } } },
+          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sv" } } },
+          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "en" } } },
+          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sme" } } },
+          {singularName: "front-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "smn" } } },
+          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "fi" } } },
+          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sv" } } },
+          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "en" } } },
+          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "sme" } } },
+          {singularName: "not-found-page", populate: { blocks: { populate: "*" }}, pluginOptions: { i18n: { locale: "smn" } } },
+          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "fi" } } },
+          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "sv" } } },
+          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "en" } } },
+          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "sme" } } },
+          {singularName: "cookie-page", pluginOptions: { i18n: { locale: "smn" } } },
         ],
       },
     },

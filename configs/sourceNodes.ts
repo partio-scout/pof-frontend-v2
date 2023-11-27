@@ -232,7 +232,8 @@ const loadTranslations = async () => {
   const promises = locales.map(async (locale) => {
     let translations;
     try {
-      const response = await axios.get<Object>(apiUrl + '/settings/translations/' + locale);
+      const response = await axios.get<Object>(apiUrl + 'api/setting?populate=*&locale=' + locale);
+
       translations = response.data;
     } catch (error: any) {
       if (error.isAxiosError && (error as AxiosError).response?.status === 404) {
