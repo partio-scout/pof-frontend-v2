@@ -99,12 +99,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-  query ActivityGroupQuery($id: Int, $localizations: [Int], $type: String) {
-    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
-      nodes {
-        ...SitePageLocaleFragment
-      }
-    }
+  query ActivityGroupQuery($id: Int) {
     ageGroup: strapiAgeGroup(strapiId: { eq: $id }) {
       locale
       localizations {

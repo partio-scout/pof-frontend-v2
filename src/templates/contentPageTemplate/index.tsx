@@ -63,12 +63,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-  query getContentPage($id: Int!, $localizations: [Int], $type: String) {
-    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
-      nodes {
-        ...SitePageLocaleFragment
-      }
-    }
+  query getContentPage($id: Int!) {
     contentPage: strapiContentPage(strapiId: { eq: $id }) {
       locale
       localizations {

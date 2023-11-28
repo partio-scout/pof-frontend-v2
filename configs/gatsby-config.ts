@@ -26,6 +26,30 @@ const config: GatsbyConfig = {
         collectionTypes: [
           {
             singularName: 'activity',
+            // queryParams: {
+            //   populate: '*',
+            // },
+            queryParams: {
+              populate: {
+                activity_term: '*',
+                duration: '*',
+                activity_group: '*',
+                preparation_duration: '*',
+                links: '*',
+                files: '*',
+                images: '*',
+                group_sizes: '*',
+                skill_areas: '*',
+                equimpent: '*',
+                educational_objectives: '*',
+                leader_skills: '*',
+                suggestions: '*',
+                locations: '*',
+                localizations: {
+                  populate: '*',
+                },
+              },
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
@@ -34,6 +58,9 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'age-group',
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
@@ -42,6 +69,9 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'duration',
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
@@ -50,6 +80,9 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'location',
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
@@ -58,6 +91,9 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'activity-group',
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: {
               i18n: {
                 locale: 'all',
@@ -68,59 +104,109 @@ const config: GatsbyConfig = {
         singleTypes: [
           {
             singularName: 'front-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'fi' } },
           },
           {
             singularName: 'front-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'sv' } },
           },
           {
             singularName: 'front-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'en' } },
           },
           {
             singularName: 'front-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'sme' } },
           },
           {
             singularName: 'front-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'smn' } },
           },
           {
             singularName: 'not-found-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'fi' } },
           },
           {
             singularName: 'not-found-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'sv' } },
           },
           {
             singularName: 'not-found-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'en' } },
           },
           {
             singularName: 'not-found-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'sme' } },
           },
           {
             singularName: 'not-found-page',
-            populate: { blocks: { populate: '*' } },
+            queryParams: {
+              populate: '*',
+            },
             pluginOptions: { i18n: { locale: 'smn' } },
           },
-          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'fi' } } },
-          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'sv' } } },
-          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'en' } } },
-          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'sme' } } },
-          { singularName: 'cookie-page', pluginOptions: { i18n: { locale: 'smn' } } },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'fi' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'sv' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'en' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'sme' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'smn' } },
+          },
         ],
       },
     },

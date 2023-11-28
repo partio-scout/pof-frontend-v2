@@ -73,7 +73,14 @@ export const query = graphql`
   query getActivity($id: Int!, $localizations: [Int], $type: String) {
     localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
       nodes {
-        ...SitePageLocaleFragment
+        SitePage {
+          path
+          context {
+            type
+            locale
+            localizations
+          }
+        }
       }
     }
     activity: strapiActivity(strapiId: { eq: $id }) {
