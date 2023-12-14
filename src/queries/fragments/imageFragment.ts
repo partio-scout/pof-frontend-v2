@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
 
 export const imageFragment = graphql`
-  fragment ImageFragment on StrapiImage {
+  fragment ImageFragment on STRAPI__MEDIA {
     id
     name
     alternativeText
@@ -16,11 +16,12 @@ export const imageFragment = graphql`
     mime
     size
     url
-    provider
-    created_at
-    updated_at
+    # provider
+    createdAt
+    updatedAt
   }
-  fragment ImageFormatFragment on StrapiImageFormat {
+
+  fragment ImageFormatFragmentLarge on STRAPI__MEDIAFormatsLarge {
     ext
     url
     hash
@@ -31,18 +32,51 @@ export const imageFragment = graphql`
     height
   }
 
-  fragment ImageFormatsFragment on StrapiImageFormats {
+  fragment ImageFormatFragmentMedium on STRAPI__MEDIAFormatsMedium {
+    ext
+    url
+    hash
+    mime
+    name
+    size
+    width
+    height
+  }
+
+  fragment ImageFormatFragmentSmall on STRAPI__MEDIAFormatsSmall {
+    ext
+    url
+    hash
+    mime
+    name
+    size
+    width
+    height
+  }
+
+  fragment ImageFormatFragmentThumbnail on STRAPI__MEDIAFormatsThumbnail {
+    ext
+    url
+    hash
+    mime
+    name
+    size
+    width
+    height
+  }
+
+  fragment ImageFormatsFragment on STRAPI__MEDIAFormats {
     large {
-      ...ImageFormatFragment
-    }
-    small {
-      ...ImageFormatFragment
+      ...ImageFormatFragmentLarge
     }
     medium {
-      ...ImageFormatFragment
+      ...ImageFormatFragmentMedium
+    }
+    small {
+      ...ImageFormatFragmentSmall
     }
     thumbnail {
-      ...ImageFormatFragment
+      ...ImageFormatFragmentThumbnail
     }
   }
 `;

@@ -99,53 +99,80 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-  query ActivityGroupQuery($id: Int) {
-    ageGroup: strapiAgeGroup(strapiId: { eq: $id }) {
+  query ActivityGroupQuery($strapi_id: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { strapi_id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
+    ageGroup: strapiAgeGroup(strapi_id: { eq: $strapi_id }) {
       locale
       localizations {
-        locale
-        id
+        data {
+          id
+          attributes {
+            locale
+          }
+        }
       }
       title
-      updated_at
-      created_at
-      published_at
+      updatedAt
+      createdAt
+      publishedAt
       id
-      strapiId
-      content
+      strapi_id
+      content {
+        data {
+          content
+        }
+      }
       ingress
       links {
         description
         id
         url
-        icon {
-          ...ImageFragment
-        }
+        #icon {
+        #  ...ImageFragment
+        #}
       }
       logo {
         ...ImageFragment
       }
       maximum_age
       minimum_age
-      subactivitygroup_term {
-        locale
-        name
-        plural
-        singular
-      }
+      # subactivitygroup_term {
+      #  locale
+      #  name
+      #  plural
+      #  singular
+      #}
       main_image {
         ...ImageFragment
       }
       title
-      upper_content_area
-      lower_content_area
+      upper_content_area {
+        ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
+          id
+          strapi_id
+        }
+        ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+          id
+          strapi_id
+        }
+      }
+      lower_content_area {
+        ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+          id
+          strapi_id
+        }
+      }
       color
     }
-    activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
+    activityGroups: allStrapiActivityGroup(filter: { age_group: { strapi_id: { eq: $strapi_id } } }) {
       nodes {
-        fields {
-          path
-        }
+        # fields {
+        #  path
+        #}
         logo {
           url
           formats {
@@ -166,7 +193,7 @@ export const query = graphql`
         }
         sort_order
         title
-        strapiId
+        strapi_id
       }
     }
   }

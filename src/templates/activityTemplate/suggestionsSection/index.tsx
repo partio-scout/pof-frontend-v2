@@ -60,7 +60,7 @@ const query = graphql`
       nodes {
         name
         id
-        strapiId
+        strapi_id
         locale
       }
     }
@@ -68,7 +68,7 @@ const query = graphql`
       nodes {
         name
         id
-        strapiId
+        strapi_id
         locale
       }
     }
@@ -214,14 +214,14 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const onDurationChange = (duration: StrapiDuration) => {
     setNewSuggestion({
       ...newSuggestion,
-      duration: duration.strapiId!,
+      duration: duration.strapi_id!,
     });
   };
 
   const onLocationChange = (locations: StrapiLocation[]) => {
     setNewSuggestion({
       ...newSuggestion,
-      locations: locations.map((l) => l.strapiId!),
+      locations: locations.map((l) => l.strapi_id!),
     });
   };
 

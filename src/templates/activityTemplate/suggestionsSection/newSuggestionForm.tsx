@@ -54,7 +54,7 @@ const NewSuggestionForm = ({
               getItemTitle={(duration) => duration.name!}
               getItemId={(duration) => duration.id}
               hideAllToggle
-              getItemSelected={(duration) => selectedDuration?.strapiId === duration.strapiId}
+              getItemSelected={(duration) => selectedDuration?.strapi_id === duration.strapi_id}
               preselectedItems={[]}
               onToggle={(duration) => {
                 if (selectedDuration === duration) {

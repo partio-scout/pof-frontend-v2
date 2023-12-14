@@ -4,16 +4,20 @@ query MyQuery {
     nodes {
       id
       title
-      strapiId
+      strapi_id
       locale
       activity_groups {
         id
         title
-        age_group
+        strapi_id
       }
       localizations {
-        locale
-        id
+        data {
+          id
+          attributes {
+            locale
+          }
+        }
       }
     }
   }

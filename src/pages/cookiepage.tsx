@@ -55,7 +55,7 @@ export const query = graphql`
   {
     pages: allStrapiCookiePage {
       nodes {
-        content
+        # content
         ingress
         title
         locale

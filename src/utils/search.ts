@@ -41,9 +41,9 @@ export const findUrlForContent = (id: number, type: ContentType, navigation: Par
 
 export interface HitModel {
   id?: string;
-  strapiId?: number;
+  strapi_id?: number;
   activity?: {
-    strapiId?: number;
+    strapi_id?: number;
     id?: string;
   };
 }
@@ -53,9 +53,9 @@ export const findHitUrl = (hit: HitModel, type: ContentType, navigation: Partial
     case ContentType.suggestion: {
       // If contentType is `suggestion`, find its parent activity's path,
       // and set the suggestion id as query parameter
-      const id = hit.activity?.strapiId || hit.activity?.id;
+      const id = hit.activity?.strapi_id || hit.activity?.id;
       const linkUrl = findUrlForContent(id! as number, ContentType.activity, navigation);
-      return linkUrl + '?tip=' + (hit.strapiId || hit.id);
+      return linkUrl + '?tip=' + (hit.strapi_id || hit.id);
     }
     default: {
       return findUrlForContent(parseInt(hit.id!), type, navigation);

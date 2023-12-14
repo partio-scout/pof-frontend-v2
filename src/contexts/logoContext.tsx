@@ -16,17 +16,19 @@ export const useLogoContext = () => {
   return context;
 };
 
-const logoQuery = {};
-//   graphql`
-//   {
-//     allActivityLogo {
-//       nodes {
-//         logo
-//         id
-//       }
-//     }
-//   }
-// `;
+const logoQuery = graphql`
+  {
+    allActivityLogo {
+      nodes {
+        logo {
+          url
+        }
+        id
+      }
+    }
+  }
+`;
+
 export const LogoContextProvider = ({ children }: { children: React.ReactNode }): React.ReactElement => {
   const { allActivityLogo } = useStaticQuery<{ allActivityLogo: { nodes: Activity_Logo[] } }>(logoQuery);
 

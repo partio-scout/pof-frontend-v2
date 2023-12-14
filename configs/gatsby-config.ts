@@ -10,9 +10,9 @@ const config: GatsbyConfig = {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
-  flags: {
-    PRESERVE_WEBPACK_CACHE: true,
-  },
+  // flags: {
+  //   PRESERVE_WEBPACK_CACHE: true,
+  // },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
@@ -26,29 +26,8 @@ const config: GatsbyConfig = {
         collectionTypes: [
           {
             singularName: 'activity',
-            // queryParams: {
-            //   populate: '*',
-            // },
             queryParams: {
-              populate: {
-                activity_term: '*',
-                duration: '*',
-                activity_group: '*',
-                preparation_duration: '*',
-                links: '*',
-                files: '*',
-                images: '*',
-                group_sizes: '*',
-                skill_areas: '*',
-                equimpent: '*',
-                educational_objectives: '*',
-                leader_skills: '*',
-                suggestions: '*',
-                locations: '*',
-                localizations: {
-                  populate: '*',
-                },
-              },
+              populate: '*',
             },
             pluginOptions: {
               i18n: {
@@ -105,35 +84,204 @@ const config: GatsbyConfig = {
           {
             singularName: 'front-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'fi' } },
           },
           {
             singularName: 'front-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                hero_image: '*',
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'sv' } },
           },
           {
             singularName: 'front-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                hero_image: '*',
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'en' } },
           },
           {
             singularName: 'front-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                hero_image: '*',
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'sme' } },
           },
           {
             singularName: 'front-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                hero_image: '*',
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'smn' } },
           },

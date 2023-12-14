@@ -124,7 +124,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       const ageGroupNav: ProgramNavItem = {
         title: ageGroup.title!,
         type: 'AgeGroup',
-        id: ageGroup.strapiId!,
+        id: ageGroup.strapi_id!,
         path: ageGroupPath,
         color: ageGroup.color!,
         subitems: [],
@@ -141,7 +141,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       for (const activityGroup of ageGroup.activity_groups || []) {
         if (!activityGroup?.id) continue;
 
-        const properActivityGroup = activityGroups[locale].find((x) => x.strapiId === activityGroup.id);
+        const properActivityGroup = activityGroups[locale].find((x) => x.strapi_id === activityGroup.id);
 
         if (!properActivityGroup) continue;
 
@@ -150,7 +150,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
         const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
           type: 'ActivityGroup',
-          id: properActivityGroup.strapiId!,
+          id: properActivityGroup.strapi_id!,
           path: activityGroupPath,
           subitems: [],
         };
@@ -164,7 +164,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
         for (const activity of properActivityGroup.activities || []) {
           if (!activity?.id) continue;
 
-          const properActivity = activities[locale].find((x) => x.strapiId === activity.id);
+          const properActivity = activities[locale].find((x) => x.strapi_id === activity.id);
 
           if (!properActivity) continue;
 
@@ -173,7 +173,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
           const activityNav: ProgramNavItem = {
             title: properActivity.title!,
             type: 'Activity',
-            id: properActivity.strapiId!,
+            id: properActivity.strapi_id!,
             path: activityPath,
           };
 
@@ -184,7 +184,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
           });
 
           createNode({
-            id: 'activity-logo-' + properActivity.strapiId!,
+            id: 'activity-logo-' + properActivity.strapi_id!,
             internal: {
               type: 'Activity_Logo',
               contentDigest: createContentDigest(properActivity.activity_group?.logo?.formats?.thumbnail?.url || ''),
@@ -232,7 +232,7 @@ const loadTranslations = async () => {
   const promises = locales.map(async (locale) => {
     let translations;
     try {
-      const response = await axios.get<Object>(apiUrl + 'api/setting?populate=*&locale=' + locale);
+      const response = await axios.get<Object>(apiUrl + '/api/setting?populate=*&locale=' + locale);
 
       translations = response.data;
     } catch (error: any) {

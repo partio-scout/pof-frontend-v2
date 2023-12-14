@@ -137,29 +137,42 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
 export default activityGroupTemplate;
 
 export const query = graphql`
-  query Query($id: Int, $ageGroupId: Int) {
-    activityGroup: strapiActivityGroup(strapiId: { eq: $id }) {
+  query Query($strapi_id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
+    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+      nodes {
+        ...SitePageLocaleFragment
+      }
+    }
+    activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
       locale
       localizations {
-        locale
-        id
+        data {
+          id
+          attributes {
+            locale
+          }
+        }
       }
       title
-      updated_at
-      created_at
-      published_at
+      updatedAt
+      createdAt
+      publishedAt
       id
-      strapiId
+      strapi_id
       ingress
-      content
+      content {
+        data {
+          content
+        }
+      }
       mandatory
       sort_order
       logo {
         ...ImageFragment
       }
-      main_image {
-        ...ImageFragment
-      }
+      #main_image {
+      #  ...ImageFragment
+      #}
       activities {
         id
         title
@@ -178,37 +191,39 @@ export const query = graphql`
         plural
         singular
       }
-      subactivitygroup_term {
-        name
-        plural
-        singular
-      }
+      #subactivitygroup_term {
+      #  name
+      #  plural
+      #  singular
+      #}
       age_group {
         id
         title
       }
-      links {
-        description
-        url
-      }
+      #links {
+      #  description
+      #  url
+      #}
       mandatory_activities_description
       optional_activities_description
       mandatory_activities_title
       optional_activities_title
     }
-    ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
-      strapiId
+    ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
+      strapi_id
       title
       main_image {
         url
       }
       color
     }
-    otherGroups: allStrapiActivityGroup(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } }) {
+    otherGroups: allStrapiActivityGroup(
+      filter: { strapi_id: { ne: $strapi_id }, age_group: { strapi_id: { eq: $ageGroupId } } }
+    ) {
       nodes {
-        fields {
-          path
-        }
+        #fields {
+        #  path
+        #}
         logo {
           url
           formats {
@@ -227,45 +242,45 @@ export const query = graphql`
           id
         }
         title
-        strapiId
+        strapi_id
       }
     }
-    suggestions: allStrapiSuggestion(
-      filter: { activity: { activity_group: { eq: $id } } }
-      sort: { fields: published_at, order: DESC }
-      limit: 4
-    ) {
+    #suggestions: allStrapiSuggestion(
+    #  filter: { activity: { activity_group: { eq: $strapi_id } } }
+    #  sort: { fields: publishedAt, order: DESC }
+    #  limit: 4
+    #) {
+    #  nodes {
+    #    author
+    #    content
+    #    publishedAt
+    #    title
+    #    strapi_id
+    #    locale
+    #    like_count
+    #    id
+    #    activity {
+    #      title
+    #      id
+    #    }
+    #    locations {
+    #      slug
+    #      name
+    #      icon {
+    #        url
+    #      }
+    #    }
+    #    duration {
+    #      name
+    #      slug
+    #    }
+    #  }
+    #}
+    activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
       nodes {
-        author
-        content
-        published_at
-        title
-        strapiId
-        locale
-        like_count
-        id
-        activity {
-          title
-          id
-        }
-        locations {
-          slug
-          name
-          icon {
-            url
-          }
-        }
-        duration {
-          name
-          slug
-        }
-      }
-    }
-    activities: allStrapiActivity(filter: { activity_group: { id: { eq: $id } } }) {
-      nodes {
-        fields {
-          path
-        }
+        #fields {
+        #  path
+        #}
         title
         activity_group {
           title

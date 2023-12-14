@@ -20,19 +20,20 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
   const { t } = useTranslation();
   const navigation = useNavigation(currentLocale());
 
-  const { title, ingress, main_image, published_at, id } = page;
+  const { title, ingress, main_image, publishedAt, id } = page;
 
   const url = findHeaderItemByTypeAndId('ContentPage', id, navigation)?.url;
 
-  const imageUrl = prependApiUrl(main_image?.formats?.small?.url);
+  // const imageUrl = prependApiUrl(main_image?.formats?.small?.url);
 
-  return url ? (
+  // return url ? (
+  return (
     <div className="flex flex-col rounded-lg m-3 max-w-card h-491  overflow-hidden">
-      {imageUrl && (
+      {/* {imageUrl && (
         <div>
           <img src={imageUrl} className="w-full h-64 object-cover" alt={title || ''} />
         </div>
-      )}
+      )} */}
       <div className="flex flex-col justify-around bg-gray-light w-full grow">
         <div className="grow p-2">
           <h4 className="bold font-tondu tracking-wider text-blue sm:text-lt md:text-lw">{title}</h4>
@@ -40,7 +41,7 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
         </div>
         <div className="flex justify-between items-center pl-2">
           <span className="font-sourceSansPro pl-2 pb-2 text-gray-dark">
-            {new Date(published_at).toLocaleDateString('fi')}
+            {new Date(publishedAt).toLocaleDateString('fi')}
           </span>
           <Link
             to={url}
@@ -51,7 +52,8 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
         </div>
       </div>
     </div>
-  ) : null;
+    // ) : null;
+  );
 };
 
 export interface ContentPageBlockType extends BlockType {

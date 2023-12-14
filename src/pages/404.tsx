@@ -57,7 +57,17 @@ export const query = graphql`
   {
     pages: allStrapiNotFoundPage {
       nodes {
-        content
+        content {
+          ... on STRAPI__COMPONENT_BLOCKS_LINK_BLOCK {
+            id
+          }
+          ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
+            id
+          }
+          ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
+            id
+          }
+        }
         ingress
         title
         locale

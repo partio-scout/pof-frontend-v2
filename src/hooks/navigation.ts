@@ -9,6 +9,9 @@ import {
 } from '../../graphql-types';
 import { HeaderItem, HeaderItemFirstLevel } from '../components/header';
 
+//allContentNavigation = contentPage
+//allProgramNavigation = AgeGroup / ActivityGroup
+
 const navigationQuery = graphql`
   query Navigations {
     allContentNavigation {
