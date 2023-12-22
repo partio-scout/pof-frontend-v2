@@ -170,9 +170,9 @@ export const query = graphql`
       logo {
         ...ImageFragment
       }
-      #main_image {
-      #  ...ImageFragment
-      #}
+      main_image {
+        ...ImageFragment
+      }
       activities {
         id
         title
@@ -191,19 +191,14 @@ export const query = graphql`
         plural
         singular
       }
-      #subactivitygroup_term {
-      #  name
-      #  plural
-      #  singular
-      #}
       age_group {
         id
         title
       }
-      #links {
-      #  description
-      #  url
-      #}
+      links {
+        description
+        url
+      }
       mandatory_activities_description
       optional_activities_description
       mandatory_activities_title
@@ -245,37 +240,37 @@ export const query = graphql`
         strapi_id
       }
     }
-    #suggestions: allStrapiSuggestion(
-    #  filter: { activity: { activity_group: { eq: $strapi_id } } }
-    #  sort: { fields: publishedAt, order: DESC }
-    #  limit: 4
-    #) {
-    #  nodes {
-    #    author
-    #    content
-    #    publishedAt
-    #    title
-    #    strapi_id
-    #    locale
-    #    like_count
-    #    id
-    #    activity {
-    #      title
-    #      id
-    #    }
-    #    locations {
-    #      slug
-    #      name
-    #      icon {
-    #        url
-    #      }
-    #    }
-    #    duration {
-    #      name
-    #      slug
-    #    }
-    #  }
-    #}
+    suggestions: allStrapiSuggestion(
+      # filter: { activity: { activity_group: { eq: $strapi_id } } }
+      sort: { fields: publishedAt, order: DESC }
+      limit: 4
+    ) {
+      nodes {
+        author
+        content
+        publishedAt
+        title
+        strapi_id
+        locale
+        like_count
+        id
+        #activity {
+        #  title
+        #  id
+        #}
+        #locations {
+        #  slug
+        #  name
+        #  icon {
+        #    url
+        #  }
+        #}
+        #duration {
+        #  name
+        #  slug
+        #}
+      }
+    }
     activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
       nodes {
         #fields {

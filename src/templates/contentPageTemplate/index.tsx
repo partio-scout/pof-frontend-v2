@@ -85,11 +85,16 @@ export const query = graphql`
       publishedAt
       id
       strapi_id
-      #content {
-      #  data {
-      #    content
-      #  }
-      #}
+      content {
+        ...ActivityBlockFields
+        ...AgeGroupBlockFields
+        #...ContentPageBlockFields
+        #...HeroBlockFields
+        #...ImageBlockFields
+        #...LinkBlockFields
+        #...TextBlockFields
+        #...VideoBlockFields
+      }
       main_text {
         data {
           main_text

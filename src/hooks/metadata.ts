@@ -10,9 +10,9 @@ const metadataQuery = graphql`
         ingress
         locale
         strapi_id
-        #hero_image {
-        #  ...ImageFragment
-        #}
+        hero_image {
+          ...ImageFragment
+        }
       }
     }
   }

@@ -16,7 +16,6 @@ export const imageFragment = graphql`
     mime
     size
     url
-    # provider
     createdAt
     updatedAt
   }

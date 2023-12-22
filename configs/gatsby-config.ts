@@ -10,9 +10,6 @@ const config: GatsbyConfig = {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
-  // flags: {
-  //   PRESERVE_WEBPACK_CACHE: true,
-  // },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
@@ -99,6 +96,63 @@ const config: GatsbyConfig = {
                 localizations: {
                   populate: '*',
                 },
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
               },
             },
             pluginOptions: {
@@ -116,11 +170,6 @@ const config: GatsbyConfig = {
                 hero_image: '*',
                 content: {
                   on: {
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
                     'blocks.activity-block': {
                       populate: {
                         block_width: '*',
@@ -129,7 +178,11 @@ const config: GatsbyConfig = {
                         },
                       },
                     },
-
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.content-page-block': {
                       populate: {
                         block_width: '*',
@@ -142,6 +195,31 @@ const config: GatsbyConfig = {
                             },
                           },
                         },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
                       },
                     },
                   },
@@ -183,11 +261,6 @@ const config: GatsbyConfig = {
                 hero_image: '*',
                 content: {
                   on: {
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
                     'blocks.activity-block': {
                       populate: {
                         block_width: '*',
@@ -196,7 +269,11 @@ const config: GatsbyConfig = {
                         },
                       },
                     },
-
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.content-page-block': {
                       populate: {
                         block_width: '*',
@@ -209,6 +286,31 @@ const config: GatsbyConfig = {
                             },
                           },
                         },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
                       },
                     },
                   },
@@ -250,11 +352,6 @@ const config: GatsbyConfig = {
                 hero_image: '*',
                 content: {
                   on: {
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
                     'blocks.activity-block': {
                       populate: {
                         block_width: '*',
@@ -263,7 +360,11 @@ const config: GatsbyConfig = {
                         },
                       },
                     },
-
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.content-page-block': {
                       populate: {
                         block_width: '*',
@@ -276,6 +377,31 @@ const config: GatsbyConfig = {
                             },
                           },
                         },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
                       },
                     },
                   },
@@ -317,11 +443,6 @@ const config: GatsbyConfig = {
                 hero_image: '*',
                 content: {
                   on: {
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
                     'blocks.activity-block': {
                       populate: {
                         block_width: '*',
@@ -330,7 +451,11 @@ const config: GatsbyConfig = {
                         },
                       },
                     },
-
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.content-page-block': {
                       populate: {
                         block_width: '*',
@@ -343,6 +468,31 @@ const config: GatsbyConfig = {
                             },
                           },
                         },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
                       },
                     },
                   },
@@ -384,11 +534,6 @@ const config: GatsbyConfig = {
                 hero_image: '*',
                 content: {
                   on: {
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
                     'blocks.activity-block': {
                       populate: {
                         block_width: '*',
@@ -397,7 +542,11 @@ const config: GatsbyConfig = {
                         },
                       },
                     },
-
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.content-page-block': {
                       populate: {
                         block_width: '*',
@@ -410,6 +559,31 @@ const config: GatsbyConfig = {
                             },
                           },
                         },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
                       },
                     },
                   },
@@ -450,7 +624,7 @@ const config: GatsbyConfig = {
               populate: {
                 content: {
                   on: {
-                    'blocks.link-block': {
+                    'blocks.activity-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -460,8 +634,32 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -481,7 +679,7 @@ const config: GatsbyConfig = {
               populate: {
                 content: {
                   on: {
-                    'blocks.link-block': {
+                    'blocks.activity-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -491,8 +689,32 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -512,7 +734,7 @@ const config: GatsbyConfig = {
               populate: {
                 content: {
                   on: {
-                    'blocks.link-block': {
+                    'blocks.activity-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -522,8 +744,32 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -543,7 +789,7 @@ const config: GatsbyConfig = {
               populate: {
                 content: {
                   on: {
-                    'blocks.link-block': {
+                    'blocks.activity-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -553,8 +799,32 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -574,7 +844,7 @@ const config: GatsbyConfig = {
               populate: {
                 content: {
                   on: {
-                    'blocks.link-block': {
+                    'blocks.activity-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -584,8 +854,32 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
                     'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
                       populate: {
                         block_width: '*',
                       },

@@ -58,15 +58,14 @@ export const query = graphql`
     pages: allStrapiNotFoundPage {
       nodes {
         content {
-          ... on STRAPI__COMPONENT_BLOCKS_LINK_BLOCK {
-            id
-          }
-          ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
-            id
-          }
-          ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
-            id
-          }
+          #...ActivityBlockFields
+          #...AgeGroupBlockFields
+          #...ContentPageBlockFields
+          ...HeroBlockFields
+          #...ImageBlockFields
+          ...LinkBlockFields
+          #...TextBlockFields
+          #...VideoBlockFields
         }
         ingress
         title

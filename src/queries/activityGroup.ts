@@ -1,9 +1,6 @@
 export const getActivityGroup = `
-#query getActivityGroup($id: Int!) {
-#  strapiActivityGroup(strapi_id: {eq: $id}) {
-
-query getActivityGroup($title: String!) {
-  strapiActivityGroup(title: {eq: $title}) {
+query getActivityGroup($id: Int!) {
+  strapiActivityGroup(strapi_id: {eq: $id}) {
     localizations {
         data {
           id

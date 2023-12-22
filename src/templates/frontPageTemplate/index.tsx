@@ -14,46 +14,14 @@ export const query = graphql`
   query FrontPageQuery($locale: String!) {
     frontPage: strapiFrontPage(locale: { eq: $locale }) {
       content {
-        ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
-          strapi_id
-          strapi_component
-          title
-          ingress {
-            data {
-              ingress
-            }
-          }
-          #  block_width {
-          #    name
-          #  }
-        }
-        ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
-          strapi_id
-          strapi_component
-          # activities {
-          #  title
-          #}
-          block_width {
-            name
-          }
-        }
-        ... on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
-          strapi_id
-          strapi_component
-          content_pages {
-            id
-            title
-            ingress
-            publishedAt
-            updatedAt
-            # main_image {
-            #  formats
-            #}
-          }
-          block_width {
-            name
-          }
-        }
+        ...ActivityBlockFields
+        ...AgeGroupBlockFields
+        ...ContentPageBlockFields
+        ...HeroBlockFields
+        ...ImageBlockFields
+        ...LinkBlockFields
+        ...TextBlockFields
+        ...VideoBlockFields
       }
       locale
       title

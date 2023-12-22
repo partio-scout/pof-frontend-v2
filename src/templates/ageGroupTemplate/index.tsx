@@ -151,20 +151,24 @@ export const query = graphql`
       }
       title
       upper_content_area {
-        ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
-          id
-          strapi_id
-        }
-        ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-          id
-          strapi_id
-        }
+        #...ActivityBlockFields
+        #...AgeGroupBlockFields
+        #...ContentPageBlockFields
+        #...HeroBlockFields
+        #...ImageBlockFields
+        #...LinkBlockFields
+        ...TextBlockFields
+        ...VideoBlockFields
       }
       lower_content_area {
-        ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-          id
-          strapi_id
-        }
+        #...ActivityBlockFields
+        #...AgeGroupBlockFields
+        #...ContentPageBlockFields
+        #...HeroBlockFields
+        #...ImageBlockFields
+        #...LinkBlockFields
+        ...TextBlockFields
+        #...VideoBlockFields
       }
       color
     }

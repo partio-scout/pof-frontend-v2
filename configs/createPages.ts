@@ -130,8 +130,7 @@ async function handleActivityGroup(
       locale?: string;
     };
   }>(graphql, getActivityGroup, {
-    title: activityGroup?.title,
-    id: activityGroup?.id,
+    id: activityGroup?.strapi_id,
   });
 
   const activityGroupData = data?.strapiActivityGroup;
