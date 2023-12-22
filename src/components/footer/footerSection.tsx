@@ -1,10 +1,10 @@
 import React from 'react';
-import { StrapiFrontPageFooter_Sections } from '../../../graphql-types';
+import { Strapi__Component_Footer_Footer_Section } from '../../../graphql-types';
 import FooterLinkGroup from './footerLinkGroup';
 import { addLineBreaks } from './utils';
 
 interface FooterSectionProps {
-  data: StrapiFrontPageFooter_Sections;
+  data: Strapi__Component_Footer_Footer_Section;
 }
 
 function FooterSection({ data }: FooterSectionProps) {

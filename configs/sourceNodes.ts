@@ -3,13 +3,13 @@ import axios, { AxiosError } from 'axios';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import Path from 'path';
 import {
-  StrapiAgeGroup,
-  StrapiActivityGroup,
-  StrapiActivity,
+  Strapi_Age_Group,
+  Strapi_Activity_Group,
+  Strapi_Activity,
   Maybe,
-  StrapiFrontPage,
-  StrapiFrontPageNavigation,
-  StrapiFrontPageNavigationSubnavigation,
+  Strapi_Front_Page,
+  Strapi__Component_Navigation_Navigation,
+  Strapi__Component_Navigation_Subnavigation,
 } from '../graphql-types';
 import { parseRouteName, parseAgeGroupRouteName } from './utils';
 import { locales } from '../src/types/locale';
@@ -31,7 +31,7 @@ interface ProgramNavItem extends ContentNavigationItem {
 }
 
 const mapNavigationItems = (
-  items?: Maybe<Maybe<StrapiFrontPageNavigationSubnavigation>[]>,
+  items?: Maybe<Maybe<Strapi__Component_Navigation_Subnavigation>[]>,
   rootPath?: string,
 ): ContentNavigationItem[] => {
   return (
@@ -41,7 +41,7 @@ const mapNavigationItems = (
       return {
         title: item?.title!,
         type: 'ContentPage',
-        id: item?.page?.id!,
+        id: Number(item?.page?.id!),
         path,
         subitems: mapNavigationItems(item?.subnavigation, path),
       };
@@ -49,11 +49,12 @@ const mapNavigationItems = (
   );
 };
 
-const firstLevelNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigation, 'id' | 'title'>>) =>
-  navigationItem?.id && navigationItem.title;
+const firstLevelNavigationItemFilter = (
+  navigationItem: Maybe<Pick<Strapi__Component_Navigation_Navigation, 'id' | 'title'>>,
+) => navigationItem?.id && navigationItem.title;
 
 const subNavigationItemFilter = (
-  navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>,
+  navigationItem: Maybe<Pick<Strapi__Component_Navigation_Subnavigation, 'id' | 'title' | 'page'>>,
 ) => navigationItem?.id && navigationItem.title && navigationItem.page?.id;
 
 /**
@@ -67,7 +68,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
   for (const node of nodes) {
     const { createNode } = actions;
 
-    const frontPage = node as unknown as StrapiFrontPage;
+    const frontPage = node as unknown as Strapi_Front_Page;
 
     const navigationData: ContentNavigationItemFirstLevel[] =
       frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem) => ({
@@ -107,11 +108,11 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       return prev;
     }, {} as Record<string, TYPE[]>);
 
-  const ageGroups = Object.entries(getNodesByLocale<StrapiAgeGroup>('StrapiAgeGroup'));
+  const ageGroups = Object.entries(getNodesByLocale<Strapi_Age_Group>('StrapiAgeGroup'));
 
-  const activityGroups = getNodesByLocale<StrapiActivityGroup>('StrapiActivityGroup');
+  const activityGroups = getNodesByLocale<Strapi_Activity_Group>('StrapiActivityGroup');
 
-  const activities = getNodesByLocale<StrapiActivity>('StrapiActivity');
+  const activities = getNodesByLocale<Strapi_Activity>('StrapiActivity');
 
   const localeNavigations = ageGroups.map(([locale, ageGroups]) => {
     console.log('Creating ageGroup navigation for locale', locale);
@@ -141,7 +142,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       for (const activityGroup of ageGroup.activity_groups || []) {
         if (!activityGroup?.id) continue;
 
-        const properActivityGroup = activityGroups[locale].find((x) => x.strapi_id === activityGroup.id);
+        const properActivityGroup = activityGroups[locale].find((x) => x.strapi_id === activityGroup.strapi_id);
 
         if (!properActivityGroup) continue;
 
@@ -164,7 +165,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
         for (const activity of properActivityGroup.activities || []) {
           if (!activity?.id) continue;
 
-          const properActivity = activities[locale].find((x) => x.strapi_id === activity.id);
+          const properActivity = activities[locale].find((x) => x.strapi_id === activity.strapi_id);
 
           if (!properActivity) continue;
 

@@ -4,7 +4,7 @@ import HeroTitleSection from '../../components/heroTitleSection';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps, graphql } from 'gatsby';
-import { StrapiActivity, StrapiActivityGroup, SitePage } from '../../../graphql-types';
+import { Strapi_Activity, Strapi_Activity_Group, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
 import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import Metadata from '../../components/metadata';
@@ -13,12 +13,12 @@ import { Locale } from '../../types/locale';
 import { currentLocale } from '../../utils/helpers';
 
 interface ActivityPageTemplateProps {
-  data: { activity: StrapiActivity; activityGroup: StrapiActivityGroup };
+  data: { activity: Strapi_Activity; activityGroup: Strapi_Activity_Group };
 }
 
 interface ActivityQueryType {
-  activity: StrapiActivity;
-  activityGroup: StrapiActivityGroup;
+  activity: Strapi_Activity;
+  activityGroup: Strapi_Activity_Group;
   localeData: { nodes: SitePage[] };
 }
 

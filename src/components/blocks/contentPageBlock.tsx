@@ -1,14 +1,14 @@
 import { Link } from 'gatsby';
 import React from 'react';
 import { BlockProps, BlockType } from '.';
-import { StrapiContentPage } from '../../../graphql-types';
+import { Strapi_Content_Page } from '../../../graphql-types';
 import useNavigation from '../../hooks/navigation';
 import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { useTranslation } from 'react-i18next';
 import { currentLocale } from '../../utils/helpers';
 
-type ContentPageFromBlock = StrapiContentPage & {
+type ContentPageFromBlock = Strapi_Content_Page & {
   id: number;
 };
 

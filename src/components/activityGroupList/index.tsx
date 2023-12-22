@@ -1,10 +1,10 @@
 import React from 'react';
-import { StrapiActivityGroup } from '../../../graphql-types';
+import { Strapi_Activity_Group } from '../../../graphql-types';
 import CombinedLink from '../../components/combinedLink';
 import { prependApiUrl } from '../../utils/helpers';
 
 interface ActivityGroupListProps {
-  groups: StrapiActivityGroup[];
+  groups: Strapi_Activity_Group[];
 }
 
 function ActivityGroupList({ groups }: ActivityGroupListProps) {
@@ -22,7 +22,7 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
       });
     }
     return prev;
-  }, [] as { category: string; sort_order: number; groups: StrapiActivityGroup[] }[]);
+  }, [] as { category: string; sort_order: number; groups: Strapi_Activity_Group[] }[]);
 
   categories = categories.sort((categoryA, categoryB) => (categoryA.sort_order < categoryB.sort_order ? -1 : 1));
 

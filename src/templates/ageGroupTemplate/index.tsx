@@ -2,7 +2,7 @@ import React from 'react';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
-import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
+import { Strapi_Activity_Group, Strapi_Age_Group, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
@@ -14,12 +14,12 @@ import { useTranslation } from 'react-i18next';
 import { Locale } from '../../types/locale';
 
 interface AgeGroupPageTemplateProps {
-  data: StrapiAgeGroup;
+  data: Strapi_Age_Group;
 }
 
 interface QueryType {
-  ageGroup: StrapiAgeGroup;
-  activityGroups: { nodes: StrapiActivityGroup[] };
+  ageGroup: Strapi_Age_Group;
+  activityGroups: { nodes: Strapi_Activity_Group[] };
   localeData: { nodes: SitePage[] };
 }
 

@@ -1,9 +1,9 @@
 import React from 'react';
-import { StrapiFrontPageFooter_SectionsLink_GroupsLinks } from '../../../graphql-types';
+import { Strapi__Component_Footer_Link } from '../../../graphql-types';
 import CombinedLink from '../combinedLink';
 import { addLineBreaks } from './utils';
 
-function FooterLink({ description, email, phone_number, url, title }: StrapiFrontPageFooter_SectionsLink_GroupsLinks) {
+function FooterLink({ description, email, phone_number, url, title }: Strapi__Component_Footer_Link) {
   const linkClasses = 'hover:text-hardBlue font-bold';
   let link;
   if (url)

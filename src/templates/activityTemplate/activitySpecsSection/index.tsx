@@ -11,7 +11,7 @@ import sun from '../../../images/Sun.svg';
 import AnchorIcon from '../../../images/anchor.inline.svg';
 import parent from '../../../images/Parent.svg';
 import ParentIcon from '../../../images/parent.inline.svg';
-import { StrapiActivity } from '../../../../graphql-types';
+import { Strapi_Activity } from '../../../../graphql-types';
 import RichText from '../../../components/RichText';
 import { prependApiUrl } from '../../../utils/helpers';
 import { hexToRgba } from '../../../utils/color';
@@ -19,7 +19,7 @@ import SquareIcon from '../squareIcon';
 import { useTranslation } from 'react-i18next';
 
 interface ActivitySpecsProps {
-  data: StrapiActivity;
+  data: Strapi_Activity;
 }
 
 interface locationIconsTypes {

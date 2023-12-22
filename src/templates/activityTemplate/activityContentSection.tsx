@@ -1,12 +1,12 @@
 import React from 'react';
 import BulletImage from './bulletImage';
-import { StrapiActivity } from '../../../graphql-types';
+import { Strapi_Activity } from '../../../graphql-types';
 import RichText from '../../components/RichText';
 import { hexToRgba } from '../../utils/color';
 import { useTranslation } from 'react-i18next';
 
 interface AcitivityContentSectionProps {
-  data: StrapiActivity;
+  data: Strapi_Activity;
 }
 
 const ActivityContentSection = ({ data }: AcitivityContentSectionProps) => {

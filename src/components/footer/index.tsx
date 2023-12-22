@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql, useStaticQuery } from 'gatsby';
-import { StrapiFrontPage } from '../../../graphql-types';
+import { Strapi_Front_Page } from '../../../graphql-types';
 import FooterSection from './footerSection';
 import LogoIcon from '../../images/logo.inline.svg';
 import { currentLocale } from '../../utils/helpers';
@@ -38,7 +38,7 @@ const footerQuery = graphql`
 `;
 
 function Footer() {
-  const { allStrapiFrontPage } = useStaticQuery<{ allStrapiFrontPage: { nodes: StrapiFrontPage[] } }>(footerQuery);
+  const { allStrapiFrontPage } = useStaticQuery<{ allStrapiFrontPage: { nodes: Strapi_Front_Page[] } }>(footerQuery);
 
   const locale = currentLocale();
 

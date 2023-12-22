@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import { BlockProps, BlockType } from '.';
-import { StrapiAgeGroup } from '../../../graphql-types';
+import { Strapi_Age_Group } from '../../../graphql-types';
 import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import useNavigation from '../../hooks/navigation';
@@ -21,37 +21,31 @@ export interface AgeGroupBlockType extends BlockType {
 const query = graphql`
   {
     allStrapiAgeGroup(sort: { fields: minimum_age }) {
-      edges {
-        node {
-          strapi_id
-          logo {
-            formats {
-              thumbnail {
-                url
-              }
+      nodes {
+        strapi_id
+        logo {
+          formats {
+            thumbnail {
+              url
             }
           }
-          minimum_age
-          color
-          locale
-          title
         }
+        minimum_age
+        color
+        locale
+        title
       }
     }
   }
 `;
 
 function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
-  const queryResult = useStaticQuery<{ allStrapiAgeGroup: { edges: StrapiAgeGroup[] } }>(query);
+  const queryResult = useStaticQuery<{ allStrapiAgeGroup: { nodes: Strapi_Age_Group[] } }>(query);
   const navigation = useNavigation(currentLocale());
 
-  const { edges: ageGroups } = queryResult.allStrapiAgeGroup;
-  console.log('TEST P ageGroups: ', ageGroups);
-  console.log('TEST P currentLocale(): ', currentLocale());
+  const { nodes: ageGroups } = queryResult.allStrapiAgeGroup;
+  const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale?.trim() === currentLocale().trim());
 
-  const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale === currentLocale().toString());
-
-  console.log('TEST P currentLocaleAgeGroups: ', currentLocaleAgeGroups);
   return (
     <div className="">
       <div className="flex flex-wrap mb-14">

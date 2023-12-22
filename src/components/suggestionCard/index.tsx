@@ -1,5 +1,5 @@
 import React from 'react';
-import { StrapiSuggestion } from '../../../graphql-types';
+import { Strapi_Suggestion } from '../../../graphql-types';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import { prependApiUrl, removeHtml } from '../../utils/helpers';
@@ -8,7 +8,7 @@ import Card from '../card';
 import ClampLines from 'react-clamp-lines';
 import { useTranslation } from 'react-i18next';
 
-export type SuggestionWithUrl = StrapiSuggestion & { url?: string; logo?: string };
+export type SuggestionWithUrl = Strapi_Suggestion & { url?: string; logo?: string };
 
 interface SuggestionCardProps {
   suggestion: SuggestionWithUrl;

@@ -70,6 +70,9 @@ const useNavigation = (currentLocale: string) => {
   }>(navigationQuery);
   const { t } = useTranslation();
 
+  console.log('TEST allContentNavigation: ', allContentNavigation);
+  console.log('TEST allProgramNavigation: ', allProgramNavigation);
+
   const itemFilter =
     (requirePath: boolean) =>
     (item: Maybe<Program_NavigationItems>): boolean => {

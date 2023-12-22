@@ -27,7 +27,9 @@ const config: GatsbyConfig = {
           {
             singularName: 'activity',
             queryParams: {
-              populate: '*',
+              localizations: {
+                populate: '*',
+              },
             },
             pluginOptions: {
               i18n: {
@@ -38,7 +40,9 @@ const config: GatsbyConfig = {
           {
             singularName: 'age-group',
             queryParams: {
-              populate: '*',
+              localizations: {
+                populate: '*',
+              },
             },
             pluginOptions: {
               i18n: {
@@ -49,7 +53,9 @@ const config: GatsbyConfig = {
           {
             singularName: 'duration',
             queryParams: {
-              populate: '*',
+              localizations: {
+                populate: '*',
+              },
             },
             pluginOptions: {
               i18n: {
@@ -60,7 +66,9 @@ const config: GatsbyConfig = {
           {
             singularName: 'location',
             queryParams: {
-              populate: '*',
+              localizations: {
+                populate: '*',
+              },
             },
             pluginOptions: {
               i18n: {
@@ -71,7 +79,27 @@ const config: GatsbyConfig = {
           {
             singularName: 'activity-group',
             queryParams: {
-              populate: '*',
+              localizations: {
+                populate: '*',
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'content-page',
+            queryParams: {
+              populate: {
+                main_text: {
+                  populate: '*',
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
             },
             pluginOptions: {
               i18n: {
@@ -96,6 +124,9 @@ const config: GatsbyConfig = {
                     'blocks.activity-block': {
                       populate: {
                         block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
                       },
                     },
 
@@ -150,6 +181,38 @@ const config: GatsbyConfig = {
             queryParams: {
               populate: {
                 hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
                 footer_sections: {
                   populate: {
                     link_groups: {
@@ -185,6 +248,38 @@ const config: GatsbyConfig = {
             queryParams: {
               populate: {
                 hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
                 footer_sections: {
                   populate: {
                     link_groups: {
@@ -220,6 +315,38 @@ const config: GatsbyConfig = {
             queryParams: {
               populate: {
                 hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
                 footer_sections: {
                   populate: {
                     link_groups: {
@@ -255,6 +382,38 @@ const config: GatsbyConfig = {
             queryParams: {
               populate: {
                 hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
                 footer_sections: {
                   populate: {
                     link_groups: {
@@ -288,35 +447,155 @@ const config: GatsbyConfig = {
           {
             singularName: 'not-found-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                content: {
+                  on: {
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'fi' } },
           },
           {
             singularName: 'not-found-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                content: {
+                  on: {
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'sv' } },
           },
           {
             singularName: 'not-found-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                content: {
+                  on: {
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'en' } },
           },
           {
             singularName: 'not-found-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                content: {
+                  on: {
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'sme' } },
           },
           {
             singularName: 'not-found-page',
             queryParams: {
-              populate: '*',
+              populate: {
+                content: {
+                  on: {
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
             },
             pluginOptions: { i18n: { locale: 'smn' } },
           },

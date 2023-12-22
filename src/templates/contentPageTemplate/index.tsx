@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../layouts/default';
-import { StrapiContentPage, SitePage } from '../../../graphql-types';
+import { Strapi_Content_Page, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
 import { prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import RichText from '../../components/RichText';
@@ -10,11 +10,11 @@ import { Locale } from '../../types/locale';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
 interface ContentPageTemplateProps {
-  data: StrapiContentPage;
+  data: Strapi_Content_Page;
 }
 
 interface ContentPageQueryType {
-  contentPage: StrapiContentPage;
+  contentPage: Strapi_Content_Page;
   localeData: { nodes: SitePage[] };
 }
 
@@ -71,14 +71,14 @@ export const query = graphql`
     }
     contentPage: strapiContentPage(strapi_id: { eq: $id }) {
       locale
-      #localizations {
-      #  data {
-      #    id
-      #    attributes {
-      #      locale
-      #    }
-      #  }
-      #}
+      localizations {
+        data {
+          id
+          attributes {
+            locale
+          }
+        }
+      }
       title
       updatedAt
       createdAt
@@ -91,7 +91,9 @@ export const query = graphql`
       #  }
       #}
       main_text {
-        data
+        data {
+          main_text
+        }
       }
       #main_image {
       #  url

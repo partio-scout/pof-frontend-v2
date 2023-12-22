@@ -3,7 +3,7 @@ import { graphql, PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
 import Hero from '../../components/hero';
 import BlockArea from '../../components/blockArea';
-import { StrapiFrontPage } from '../../../graphql-types';
+import { Strapi_Front_Page } from '../../../graphql-types';
 import { Locale } from '../../types/locale';
 
 interface FrontPageTemplateProps {
@@ -30,9 +30,9 @@ export const query = graphql`
         ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
           strapi_id
           strapi_component
-          activities {
-            title
-          }
+          # activities {
+          #  title
+          #}
           block_width {
             name
           }
@@ -69,7 +69,7 @@ export const query = graphql`
 
 interface FrontPageQueryType {
   frontPage: Pick<
-    StrapiFrontPage,
+    Strapi_Front_Page,
     'content' | 'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
   >;
 }

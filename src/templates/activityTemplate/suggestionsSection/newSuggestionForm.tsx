@@ -6,7 +6,7 @@ import DeleteIcon from '../../../images/delete.inline.svg';
 import { useTranslation } from 'react-i18next';
 import { CommonSuggestionFormProps } from './index';
 import DropdownSelect from '../../../components/dropdownSelect';
-import { StrapiDuration, StrapiLocation } from '../../../../graphql-types';
+import { Strapi_Duration, Strapi_Location } from '../../../../graphql-types';
 
 const inputStyle = 'w-full block rounded-2xl text-blue p-2 focus:outline-none';
 
@@ -17,8 +17,8 @@ interface NewSuggestionFormProps extends CommonSuggestionFormProps {
   removeSelectedFile: () => void;
   onDurationChange: (duration: NewSuggestionFormProps['durations'][0]) => void;
   onLocationChange: (locations: NewSuggestionFormProps['locations']) => void;
-  durations: StrapiDuration[];
-  locations: StrapiLocation[];
+  durations: Strapi_Duration[];
+  locations: Strapi_Location[];
 }
 
 const NewSuggestionForm = ({

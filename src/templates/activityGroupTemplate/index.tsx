@@ -1,10 +1,10 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
 import {
-  StrapiActivity,
-  StrapiActivityGroup,
-  StrapiAgeGroup,
-  StrapiSuggestion,
+  Strapi_Activity,
+  Strapi_Activity_Group,
+  Strapi_Age_Group,
+  Strapi_Suggestion,
   SitePage,
 } from '../../../graphql-types';
 import HeroTitleSection from '../../components/heroTitleSection';
@@ -26,15 +26,15 @@ import { SuggestionWithUrl } from '../../components/suggestionCard';
 import { Locale } from '../../types/locale';
 import RichText from '../../components/RichText';
 interface ActivityGroupPageTemplateProps {
-  data: StrapiActivityGroup;
+  data: Strapi_Activity_Group;
 }
 
 interface QueryType {
-  activityGroup: StrapiActivityGroup;
-  ageGroup: StrapiAgeGroup | null;
-  otherGroups: { nodes: StrapiActivityGroup[] };
-  suggestions: { nodes: StrapiSuggestion[] };
-  activities: { nodes: StrapiActivity[] };
+  activityGroup: Strapi_Activity_Group;
+  ageGroup: Strapi_Age_Group | null;
+  otherGroups: { nodes: Strapi_Activity_Group[] };
+  suggestions: { nodes: Strapi_Suggestion[] };
+  activities: { nodes: Strapi_Activity[] };
   localeData: { nodes: SitePage[] };
 }
 
