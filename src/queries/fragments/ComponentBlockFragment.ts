@@ -1,7 +1,7 @@
 import { graphql } from 'gatsby';
 
 export const ActivityBlockFields = graphql`
-  fragment ActivityBlockFields on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
+  fragment ActivityBlockFields on StrapiComponentBlocksActivityBlock {
     strapi_id
     strapi_component
     activities {
@@ -14,7 +14,7 @@ export const ActivityBlockFields = graphql`
 `;
 
 export const AgeGroupBlockFields = graphql`
-  fragment AgeGroupBlockFields on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
+  fragment AgeGroupBlockFields on StrapiComponentBlocksAgeGroupBlock {
     strapi_id
     strapi_component
     title
@@ -30,7 +30,7 @@ export const AgeGroupBlockFields = graphql`
 `;
 
 export const ContentPageBlockFields = graphql`
-  fragment ContentPageBlockFields on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
+  fragment ContentPageBlockFields on StrapiComponentBlocksContentPageBlock {
     strapi_id
     strapi_component
     content_pages {
@@ -50,7 +50,7 @@ export const ContentPageBlockFields = graphql`
 `;
 
 export const HeroBlockFields = graphql`
-  fragment HeroBlockFields on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
+  fragment HeroBlockFields on StrapiComponentBlocksHeroBlock {
     id
     title
     text
@@ -60,13 +60,13 @@ export const HeroBlockFields = graphql`
 `;
 
 export const ImageBlockFields = graphql`
-  fragment ImageBlockFields on STRAPI__COMPONENT_BLOCKS_IMAGE_BLOCK {
+  fragment ImageBlockFields on StrapiComponentBlocksImageBlock {
     id
   }
 `;
 
 export const LinkBlockFields = graphql`
-  fragment LinkBlockFields on STRAPI__COMPONENT_BLOCKS_LINK_BLOCK {
+  fragment LinkBlockFields on StrapiComponentBlocksLinkBlock {
     id
     url
     linkBlockText: text
@@ -74,7 +74,7 @@ export const LinkBlockFields = graphql`
 `;
 
 export const TextBlockFields = graphql`
-  fragment TextBlockFields on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+  fragment TextBlockFields on StrapiComponentBlocksTextBlock {
     id
     title
     textBlockText: text {
@@ -86,7 +86,7 @@ export const TextBlockFields = graphql`
 `;
 
 export const VideoBlockFields = graphql`
-  fragment VideoBlockFields on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
+  fragment VideoBlockFields on StrapiComponentBlocksVideoBlock {
     id
     video_url
   }

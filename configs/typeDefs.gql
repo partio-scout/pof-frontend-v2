@@ -1,6 +1,11 @@
 # THIS FILE CONTAINS TYPE DEFINITIONS FOR STRAPI DATA.
 # IF YOU MAKE CHANGES TO STRAPI MODELS, MAKE THEM HERE ALSO IF YOU WANT THEM TO BE IN THE GRAPHQL SCHEMA. 
 
+
+type Query {
+  strapiFrontPage: StrapiFrontPage
+}
+
 type SitePage implements Node {
   context: SitePageContext
 }
@@ -546,7 +551,7 @@ type StrapiContentPageLocalizations @dontInfer {
 }
 
 type StrapiNotFoundPage implements Node @dontInfer {
-  content: JSON
+  content: [StrapiComponentBlocksArray]
   title: String
   ingress: String
   locale: String
@@ -608,7 +613,7 @@ type StrapiCookiePage implements Node @dontInfer {
 }
 
 type StrapiFrontPage implements Node @dontInfer {
-  content: JSON
+  content: [StrapiComponentBlocksArray]
   title: String
   hero_link_text: String
   hero_link_url: String
@@ -680,6 +685,136 @@ type StrapiFrontPageNavigationSubnavigationPage @dontInfer {
     locale: String
   ): Date
   main_image: StrapiFrontPageNavigationSubnavigationPageMain_image
+}
+
+union StrapiComponentBlocksArray = StrapiComponentBlocksActivityBlock | StrapiComponentBlocksAgeGroupBlock | StrapiComponentBlocksContentPageBlock | StrapiComponentBlocksHeroBlock | StrapiComponentBlocksImageBlock | StrapiComponentBlocksLinkBlock | StrapiComponentBlocksTextBlock | StrapiComponentBlocksVideoBlock 
+
+type StrapiComponentBlocksActivityBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ block_width: StrapiBlockWidth
+ activities: [StrapiActivity]
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksAgeGroupBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ title: String
+ ingress: StrapiComponentBlocksAgeGroupBlockIngress
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksAgeGroupBlockIngress {
+ data: StrapiComponentBlocksAgeGroupBlockIngressTextnode
+}
+
+type StrapiComponentBlocksAgeGroupBlockIngressTextnode implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ ingress: String
+}
+
+type StrapiComponentBlocksContentPageBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ block_width: StrapiBlockWidth
+ content_pages: [StrapiContentPage]
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksLinkBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ text: String
+ url: String
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksImageBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksHeroBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ title: String
+ text: String
+ link_text: String
+ link_url: String
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksTextBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ title: String
+ text: StrapiComponentBlocksTextBlockText
+ strapi_id: Int
+ block_width: StrapiBlockWidth
+}
+
+type StrapiComponentBlocksTextBlockText {
+ data: StrapiComponentBlocksTextBlockTextTextnode
+}
+
+type StrapiComponentBlocksTextBlockTextTextnode implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ text: String
+}
+
+type StrapiBlockWidth implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ name: String
+ createdAt: Date
+ updatedAt: Date
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksVideoBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ strapi_id: Int
+ video_url: String
+ block_width: StrapiBlockWidth
 }
 type StrapiFrontPageNavigationSubnavigationPageMain_image @dontInfer {
   id: Int
