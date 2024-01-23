@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Strapi_Activity } from '../../../graphql-types';
+import { StrapiActivity } from '../../../graphql-types';
 import ActivityCard from '../activityCard';
 import PlusIcon from '../../images/plus-round.inline.svg';
 import { fetchActivities } from '../../services/activity';
@@ -10,7 +10,7 @@ import { currentLocale } from '../../utils/helpers';
 import clsx from 'clsx';
 
 interface ActivityCardListProps {
-  activities: Strapi_Activity[];
+  activities: StrapiActivity[];
   /**
    * How many activities to show initially (and hide the rest)
    */
@@ -31,7 +31,7 @@ const ActivityCardList = ({
   showActivityAndAgeGroup,
 }: ActivityCardListProps) => {
   const [allVisible, setAllVisible] = useState(false);
-  const [showableActivities, setShowableActivities] = useState<Strapi_Activity[]>([]);
+  const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
   const navigation = useNavigation(currentLocale());
   const locale = currentLocale();
 

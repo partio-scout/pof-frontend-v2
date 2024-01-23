@@ -4,9 +4,9 @@ export const getContentPage = `
       localizations {
         data {
           id
-         attributes {
-            locale
-         }
+         #attributes {
+         #   locale
+         #}
         }
       }
       locale

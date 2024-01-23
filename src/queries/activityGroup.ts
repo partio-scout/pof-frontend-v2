@@ -4,10 +4,10 @@ query getActivityGroup($id: Int!) {
     localizations {
         data {
           id
-          attributes {
-            locale
-            publishedAt
-          }
+          #attributes {
+          #  locale
+          #  publishedAt
+          #}
         }
       }
     locale

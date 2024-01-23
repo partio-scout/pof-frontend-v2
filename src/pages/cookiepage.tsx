@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../layouts/default';
-import { Strapi_Cookie_Page } from '../../graphql-types';
+import { StrapiCookiePage } from '../../graphql-types';
 import { currentLocale } from '../utils/helpers';
 
 const loadDeclarationScript = (callback: any) => {
@@ -18,7 +18,7 @@ const loadDeclarationScript = (callback: any) => {
   if (existingScript && callback) callback();
 };
 
-const CookiePageComponent = ({ page }: { page?: Strapi_Cookie_Page }) => {
+const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
   const { title, ingress } = page || {};
 
   return (
@@ -34,7 +34,7 @@ const CookiePageComponent = ({ page }: { page?: Strapi_Cookie_Page }) => {
   );
 };
 
-const CookiePage = ({ data }: PageProps<{ pages: { nodes: Strapi_Cookie_Page[] } }>) => {
+const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }>) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {

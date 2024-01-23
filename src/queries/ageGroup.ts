@@ -14,9 +14,9 @@ query MyQuery {
       localizations {
         data {
           id
-          attributes {
-            locale
-          }
+          #attributes {
+          #  locale
+          #}
         }
       }
     }

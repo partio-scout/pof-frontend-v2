@@ -2,7 +2,7 @@ import React from 'react';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
-import { Strapi_Activity_Group, Strapi_Age_Group, SitePage } from '../../../graphql-types';
+import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
 import ActivityGroupList from '../../components/activityGroupList';
@@ -14,12 +14,12 @@ import { useTranslation } from 'react-i18next';
 import { Locale } from '../../types/locale';
 
 interface AgeGroupPageTemplateProps {
-  data: Strapi_Age_Group;
+  data: StrapiAgeGroup;
 }
 
 interface QueryType {
-  ageGroup: Strapi_Age_Group;
-  activityGroups: { nodes: Strapi_Activity_Group[] };
+  ageGroup: StrapiAgeGroup;
+  activityGroups: { nodes: StrapiActivityGroup[] };
   localeData: { nodes: SitePage[] };
 }
 
@@ -110,9 +110,9 @@ export const query = graphql`
       localizations {
         data {
           id
-          attributes {
-            locale
-          }
+          #attributes {
+          #  locale
+          #}
         }
       }
       title
@@ -121,11 +121,11 @@ export const query = graphql`
       publishedAt
       id
       strapi_id
-      content {
-        data {
-          content
-        }
-      }
+      #content {
+      #  data {
+      #    content
+      #  }
+      #}
       ingress
       links {
         description
@@ -135,9 +135,9 @@ export const query = graphql`
         #  ...ImageFragment
         #}
       }
-      logo {
-        ...ImageFragment
-      }
+      #logo {
+      #  ...ImageFragment
+      #}
       maximum_age
       minimum_age
       # subactivitygroup_term {
@@ -146,33 +146,33 @@ export const query = graphql`
       #  plural
       #  singular
       #}
-      main_image {
-        ...ImageFragment
-      }
+      #main_image {
+      #  ...ImageFragment
+      #}
       title
-      upper_content_area {
-        #...ActivityBlockFields
-        #...AgeGroupBlockFields
-        #...ContentPageBlockFields
-        #...HeroBlockFields
-        #...ImageBlockFields
-        #...LinkBlockFields
-        ...TextBlockFields
-        ...VideoBlockFields
-      }
-      lower_content_area {
-        #...ActivityBlockFields
-        #...AgeGroupBlockFields
-        #...ContentPageBlockFields
-        #...HeroBlockFields
-        #...ImageBlockFields
-        #...LinkBlockFields
-        ...TextBlockFields
-        #...VideoBlockFields
-      }
+      #upper_content_area {
+      #...ActivityBlockFields
+      #...AgeGroupBlockFields
+      #...ContentPageBlockFields
+      #...HeroBlockFields
+      #...ImageBlockFields
+      #...LinkBlockFields
+      #...TextBlockFields
+      #...VideoBlockFields
+      #}
+      #lower_content_area {
+      #...ActivityBlockFields
+      #...AgeGroupBlockFields
+      #...ContentPageBlockFields
+      #...HeroBlockFields
+      #...ImageBlockFields
+      #...LinkBlockFields
+      #...TextBlockFields
+      #...VideoBlockFields
+      #}
       color
     }
-    activityGroups: allStrapiActivityGroup(filter: { age_group: { strapi_id: { eq: $strapi_id } } }) {
+    activityGroups: allStrapiActivityGroup { #(filter: { age_group: { strapi_id: { eq: $strapi_id } } })
       nodes {
         # fields {
         #  path

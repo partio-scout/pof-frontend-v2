@@ -1,8 +1,8 @@
 import React from 'react';
-import { Strapi_Activity } from '../../../graphql-types';
+import { StrapiActivity } from '../../../graphql-types';
 
 interface AdditionalInfoSection {
-  data: Strapi_Activity;
+  data: StrapiActivity;
 }
 
 const AdditionalInfoSection = ({ data }: AdditionalInfoSection) => (

@@ -1,11 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Strapi_Activity } from '../../../graphql-types';
+import { StrapiActivity } from '../../../graphql-types';
 import ActivityCardList from '../../components/activityCardList';
 import { useTranslation } from 'react-i18next';
 
 interface ActivitiesProps {
-  activities: Strapi_Activity[];
+  activities: StrapiActivity[];
   mandatoryTitle?: string | null;
   mandatoryDescription?: string | null;
   optionalTitle?: string | null;

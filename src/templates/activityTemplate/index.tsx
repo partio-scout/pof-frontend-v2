@@ -4,7 +4,7 @@ import HeroTitleSection from '../../components/heroTitleSection';
 import ActivityContentSection from './activityContentSection';
 import ActivitySpecsSection from './activitySpecsSection';
 import { PageProps, graphql } from 'gatsby';
-import { Strapi_Activity, Strapi_Activity_Group, SitePage } from '../../../graphql-types';
+import { StrapiActivity, StrapiActivityGroup, SitePage } from '../../../graphql-types';
 import SuggestionsSection from './suggestionsSection/';
 import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import Metadata from '../../components/metadata';
@@ -13,12 +13,12 @@ import { Locale } from '../../types/locale';
 import { currentLocale } from '../../utils/helpers';
 
 interface ActivityPageTemplateProps {
-  data: { activity: Strapi_Activity; activityGroup: Strapi_Activity_Group };
+  data: { activity: StrapiActivity; activityGroup: StrapiActivityGroup };
 }
 
 interface ActivityQueryType {
-  activity: Strapi_Activity;
-  activityGroup: Strapi_Activity_Group;
+  activity: StrapiActivity;
+  activityGroup: StrapiActivityGroup;
   localeData: { nodes: SitePage[] };
 }
 
@@ -78,123 +78,123 @@ export const query = graphql`
     }
     activity: strapiActivity(strapi_id: { eq: $strapi_id }) {
       locale
-      localizations {
-        data {
-          id
-          attributes {
-            locale
-          }
-        }
-      }
+      #localizations {
+      # data {
+      #  id
+      #attributes {
+      #  locale
+      #}
+      #}
+      #}
       title
       updatedAt
       createdAt
       publishedAt
       id
       strapi_id
-      content {
-        data {
-          content
-        }
-      }
-      is_marine_activity
-      duration {
-        locale
-        name
-        slug
-        id
-      }
-      educational_objectives {
-        id
-        locale
-        name
-        slug
-      }
-      files {
-        url
-        size
-        name
-        mime
-        id
-      }
-      group_sizes {
-        slug
-        name
-        locale
-        id
-      }
-      images {
-        ...ImageFragment
-      }
+      #content {
+      #  data {
+      #    content
+      #  }
+      #}
+      #is_marine_activity
+      #duration {
+      #  locale
+      #  name
+      #  slug
+      #  id
+      #}
+      #educational_objectives {
+      #  id
+      #  locale
+      #  name
+      #  slug
+      #}
+      #files {
+      #  url
+      #  size
+      #  name
+      #  mime
+      #  id
+      #}
+      #group_sizes {
+      #  slug
+      #  name
+      #  locale
+      #  id
+      #}
+      #images {
+      #  ...ImageFragment
+      #}
       ingress
-      leader_skills {
-        id
-        locale
-        name
-        slug
-      }
-      leader_tasks
-      locations {
-        id
-        locale
-        icon {
-          url
-        }
-        name
-        slug
-      }
-      logo {
-        width
-        url
-        size
-        name
-        mime
-        id
-        height
-      }
+      #leader_skills {
+      #  id
+      #  locale
+      #  name
+      #  slug
+      #}
+      #leader_tasks
+      #locations {
+      #  id
+      #  locale
+      #  icon {
+      #    url
+      #  }
+      #  name
+      #  slug
+      #}
+      #logo {
+      #  width
+      #  url
+      #  size
+      #  name
+      #  mime
+      #  id
+      #  height
+      #}
       mandatory
-      preparation_duration {
-        slug
-        name
-        locale
-        id
-      }
-      skill_areas {
-        slug
-        name
-        locale
-        id
-      }
-      suggestions {
-        author
-        content
-        from_web
-        id
-        like_count
-        locale
-        title
-        publishedAt
-        #links {
-        #  url
-        #  id
-        #  description
-        #}
-        #files {
-        #  url
-        #  size
-        #  name
-        #  mime
-        #  id
-        #}
-      }
-      age_group {
-        color
-        title
-        main_image {
-          ...ImageFragment
-        }
-      }
+      #preparation_duration {
+      #  slug
+      #  name
+      #  locale
+      #  id
+      #}
+      #skill_areas {
+      #  slug
+      #  name
+      #  locale
+      #  id
+      #}
+      #suggestions {
+      #  author
+      #  content
+      #  from_web
+      #  id
+      #  like_count
+      #  locale
+      #  title
+      #  publishedAt
+      #links {
+      #  url
+      #  id
+      #  description
+      #}
+      #files {
+      #  url
+      #  size
+      #  name
+      #  mime
+      #  id
+      #}
     }
+    #age_group {
+    # color
+    #  title
+    #main_image {
+    #  ...ImageFragment
+    #}
+    #}
+    #}
     activityGroup: strapiActivityGroup(activities: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
       title
       logo {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Strapi_Activity } from '../../../graphql-types';
+import { StrapiActivity } from '../../../graphql-types';
 import { hexToRgba } from '../../utils/color';
 import ExclamationIcon from '../../images/exclamation-round-filled.inline.svg';
 import PlusIcon from '../../images/plus-round.inline.svg';
@@ -12,7 +12,7 @@ import Card from '../card';
 import { useTranslation } from 'react-i18next';
 
 interface ActivityCardProps {
-  activity: Strapi_Activity;
+  activity: StrapiActivity;
   link?: string;
   showActivityAndAgeGroup?: boolean;
 }

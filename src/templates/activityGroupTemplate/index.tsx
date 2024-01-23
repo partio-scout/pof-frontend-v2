@@ -1,10 +1,10 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
 import {
-  Strapi_Activity,
-  Strapi_Activity_Group,
-  Strapi_Age_Group,
-  Strapi_Suggestion,
+  StrapiActivity,
+  StrapiActivityGroup,
+  StrapiAgeGroup,
+  StrapiSuggestion,
   SitePage,
 } from '../../../graphql-types';
 import HeroTitleSection from '../../components/heroTitleSection';
@@ -26,15 +26,15 @@ import { SuggestionWithUrl } from '../../components/suggestionCard';
 import { Locale } from '../../types/locale';
 import RichText from '../../components/RichText';
 interface ActivityGroupPageTemplateProps {
-  data: Strapi_Activity_Group;
+  data: StrapiActivityGroup;
 }
 
 interface QueryType {
-  activityGroup: Strapi_Activity_Group;
-  ageGroup: Strapi_Age_Group | null;
-  otherGroups: { nodes: Strapi_Activity_Group[] };
-  suggestions: { nodes: Strapi_Suggestion[] };
-  activities: { nodes: Strapi_Activity[] };
+  activityGroup: StrapiActivityGroup;
+  ageGroup: StrapiAgeGroup | null;
+  otherGroups: { nodes: StrapiActivityGroup[] };
+  suggestions: { nodes: StrapiSuggestion[] };
+  activities: { nodes: StrapiActivity[] };
   localeData: { nodes: SitePage[] };
 }
 
@@ -137,7 +137,12 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
 export default activityGroupTemplate;
 
 export const query = graphql`
-  query Query($strapi_id: Int, $ageGroupId: Int, $localizations: [Int], $type: String) {
+  query Query(
+    $strapi_id: Int
+    #$ageGroupId: Int,
+    $localizations: [Int]
+    $type: String
+  ) {
     localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
       nodes {
         ...SitePageLocaleFragment
@@ -145,14 +150,14 @@ export const query = graphql`
     }
     activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
       locale
-      localizations {
-        data {
-          id
-          attributes {
-            locale
-          }
-        }
-      }
+      #localizations {
+      #  data {
+      #    id
+      #attributes {
+      #  locale
+      #}
+      #  }
+      #}
       title
       updatedAt
       createdAt
@@ -160,19 +165,19 @@ export const query = graphql`
       id
       strapi_id
       ingress
-      content {
-        data {
-          content
-        }
-      }
+      #content {
+      #  data {
+      #    content
+      #  }
+      #}
       mandatory
       sort_order
-      logo {
-        ...ImageFragment
-      }
-      main_image {
-        ...ImageFragment
-      }
+      #logo {
+      #  ...ImageFragment
+      #}
+      #main_image {
+      #  ...ImageFragment
+      #}
       activities {
         id
         title
@@ -212,9 +217,8 @@ export const query = graphql`
       }
       color
     }
-    otherGroups: allStrapiActivityGroup(
-      filter: { strapi_id: { ne: $strapi_id }, age_group: { strapi_id: { eq: $ageGroupId } } }
-    ) {
+    otherGroups: allStrapiActivityGroup {
+      #(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } })
       nodes {
         #fields {
         #  path
@@ -271,40 +275,41 @@ export const query = graphql`
         #}
       }
     }
-    activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
+    activities: allStrapiActivity {
+      #(filter: { activity_group: { id: { eq: $id } } })
       nodes {
         #fields {
         #  path
         #}
         title
-        activity_group {
-          title
-          logo {
-            formats {
-              thumbnail {
-                url
-              }
-            }
-          }
-        }
-        age_group {
-          color
-          title
-        }
-        suggestions {
-          title
-        }
-        duration {
-          name
-          slug
-        }
-        locations {
-          slug
-          name
-          icon {
-            url
-          }
-        }
+        #activity_group {
+        #  title
+        #  logo {
+        #    formats {
+        #      thumbnail {
+        #        url
+        #      }
+        #    }
+        #  }
+        #}
+        #age_group {
+        #  color
+        #  title
+        #}
+        #suggestions {
+        #  title
+        #}
+        #duration {
+        #  name
+        #  slug
+        #}
+        #locations {
+        #  slug
+        #  name
+        #  icon {
+        #    url
+        #  }
+        #}
         mandatory
       }
     }

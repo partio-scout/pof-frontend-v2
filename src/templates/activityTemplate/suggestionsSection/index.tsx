@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { Strapi_Activity, Strapi_Duration, Strapi_Location } from '../../../../graphql-types';
+import { StrapiActivity, StrapiDuration, StrapiLocation } from '../../../../graphql-types';
 import { fetchSuggestions, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 
 interface SuggestionsSectionProps {
   activityId: number;
-  data: Strapi_Activity;
+  data: StrapiActivity;
 }
 
 export interface CommonSuggestionFormProps {
@@ -92,8 +92,8 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const { t } = useTranslation();
   const locale = currentLocale();
   const queryResult = useStaticQuery<{
-    allStrapiDuration: { nodes: Strapi_Duration[] };
-    allStrapiLocation: { nodes: Strapi_Location[] };
+    allStrapiDuration: { nodes: StrapiDuration[] };
+    allStrapiLocation: { nodes: StrapiLocation[] };
   }>(query);
 
   useEffect(() => {
@@ -211,14 +211,14 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
     setNewReply(initialReply);
   };
 
-  const onDurationChange = (duration: Strapi_Duration) => {
+  const onDurationChange = (duration: StrapiDuration) => {
     setNewSuggestion({
       ...newSuggestion,
       duration: duration.strapi_id!,
     });
   };
 
-  const onLocationChange = (locations: Strapi_Location[]) => {
+  const onLocationChange = (locations: StrapiLocation[]) => {
     setNewSuggestion({
       ...newSuggestion,
       locations: locations.map((l) => l.strapi_id!),

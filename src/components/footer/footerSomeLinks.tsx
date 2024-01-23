@@ -1,5 +1,5 @@
 import React from 'react';
-import { Strapi__Component_Footer_Some_Links } from '../../../graphql-types';
+import { StrapiFrontPageFooter_SectionsLink_GroupsSome_Links } from '../../../graphql-types';
 import FacebookIcon from '../../images/facebook.inline.svg';
 import TwitterIcon from '../../images/twitter.inline.svg';
 import InstagramIcon from '../../images/instagram.inline.svg';
@@ -11,7 +11,7 @@ function FooterSomeLinks({
   twitter_url,
   instagram_url,
   youtube_url,
-}: Strapi__Component_Footer_Some_Links) {
+}: StrapiFrontPageFooter_SectionsLink_GroupsSome_Links) {
   return (
     <div className="flex flex-col">
       {facebook_url && <FooterSomeLink url={facebook_url} name="Facebook" icon={FacebookIcon} />}

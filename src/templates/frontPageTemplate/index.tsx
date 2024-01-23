@@ -3,7 +3,7 @@ import { graphql, PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
 import Hero from '../../components/hero';
 import BlockArea from '../../components/blockArea';
-import { Strapi_Front_Page } from '../../../graphql-types';
+import { StrapiFrontPage } from '../../../graphql-types';
 import { Locale } from '../../types/locale';
 
 interface FrontPageTemplateProps {
@@ -13,31 +13,31 @@ interface FrontPageTemplateProps {
 export const query = graphql`
   query FrontPageQuery($locale: String!) {
     frontPage: strapiFrontPage(locale: { eq: $locale }) {
-      content {
-        ...ActivityBlockFields
-        ...AgeGroupBlockFields
-        ...ContentPageBlockFields
-        ...HeroBlockFields
-        ...ImageBlockFields
-        ...LinkBlockFields
-        ...TextBlockFields
-        ...VideoBlockFields
-      }
+      #content {
+      #  ...ActivityBlockFields
+      #  ...AgeGroupBlockFields
+      #  ...ContentPageBlockFields
+      #  ...HeroBlockFields
+      #  ...ImageBlockFields
+      #  ...LinkBlockFields
+      #  ...TextBlockFields
+      #  ...VideoBlockFields
+      #}
       locale
       title
       ingress
       hero_link_text
       hero_link_url
-      hero_image {
-        ...ImageFragment
-      }
+      #hero_image {
+      #  ...ImageFragment
+      #}
     }
   }
 `;
 
 interface FrontPageQueryType {
   frontPage: Pick<
-    Strapi_Front_Page,
+    StrapiFrontPage,
     'content' | 'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
   >;
 }

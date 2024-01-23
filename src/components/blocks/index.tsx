@@ -1,5 +1,5 @@
 import React from 'react';
-import { Strapi_Activity, StrapiImage } from '../../../graphql-types';
+import { StrapiActivity, StrapiImage } from '../../../graphql-types';
 import { prependApiUrl } from '../../utils/helpers';
 import RichText from '../RichText';
 import ActivityCardList from '../activityCardList';
@@ -39,7 +39,7 @@ export interface HighlightBlockType extends BlockType {
 }
 
 export interface ActivityBlockType extends BlockType {
-  activities?: Array<Strapi_Activity>;
+  activities?: Array<StrapiActivity>;
 }
 
 export const getBlockWidth = (widthString: string | undefined) => {

@@ -3,13 +3,13 @@ import axios, { AxiosError } from 'axios';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import Path from 'path';
 import {
-  Strapi_Age_Group,
-  Strapi_Activity_Group,
-  Strapi_Activity,
+  StrapiAgeGroup,
+  StrapiActivityGroup,
+  StrapiActivity,
   Maybe,
-  Strapi_Front_Page,
-  Strapi__Component_Navigation_Navigation,
-  Strapi__Component_Navigation_Subnavigation,
+  StrapiFrontPage,
+  StrapiFrontPageNavigation,
+  StrapiFrontPageNavigationSubnavigation,
 } from '../graphql-types';
 import { parseRouteName, parseAgeGroupRouteName } from './utils';
 import { locales } from '../src/types/locale';
@@ -31,7 +31,7 @@ interface ProgramNavItem extends ContentNavigationItem {
 }
 
 const mapNavigationItems = (
-  items?: Maybe<Maybe<Strapi__Component_Navigation_Subnavigation>[]>,
+  items?: Maybe<Maybe<StrapiFrontPageNavigationSubnavigation>[]>,
   rootPath?: string,
 ): ContentNavigationItem[] => {
   return (
@@ -50,11 +50,11 @@ const mapNavigationItems = (
 };
 
 const firstLevelNavigationItemFilter = (
-  navigationItem: Maybe<Pick<Strapi__Component_Navigation_Navigation, 'id' | 'title'>>,
+  navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title'>>,
 ) => navigationItem?.id && navigationItem.title;
 
 const subNavigationItemFilter = (
-  navigationItem: Maybe<Pick<Strapi__Component_Navigation_Subnavigation, 'id' | 'title' | 'page'>>,
+  navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>,
 ) => navigationItem?.id && navigationItem.title && navigationItem.page?.id;
 
 /**
@@ -68,7 +68,7 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
   for (const node of nodes) {
     const { createNode } = actions;
 
-    const frontPage = node as unknown as Strapi_Front_Page;
+    const frontPage = node as unknown as StrapiFrontPage;
 
     const navigationData: ContentNavigationItemFirstLevel[] =
       frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem) => ({
@@ -108,11 +108,11 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       return prev;
     }, {} as Record<string, TYPE[]>);
 
-  const ageGroups = Object.entries(getNodesByLocale<Strapi_Age_Group>('StrapiAgeGroup'));
+  const ageGroups = Object.entries(getNodesByLocale<StrapiAgeGroup>('StrapiAgeGroup'));
 
-  const activityGroups = getNodesByLocale<Strapi_Activity_Group>('StrapiActivityGroup');
+  const activityGroups = getNodesByLocale<StrapiActivityGroup>('StrapiActivityGroup');
 
-  const activities = getNodesByLocale<Strapi_Activity>('StrapiActivity');
+  const activities = getNodesByLocale<StrapiActivity>('StrapiActivity');
 
   const localeNavigations = ageGroups.map(([locale, ageGroups]) => {
     console.log('Creating ageGroup navigation for locale', locale);

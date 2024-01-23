@@ -3,12 +3,12 @@ import { graphql, Link, PageProps } from 'gatsby';
 import Layout from '../layouts/default';
 import { useSearchContext } from '../contexts/searchContext';
 import { useTranslation } from 'react-i18next';
-import { Strapi_Not_Found_Page } from '../../graphql-types';
+import { StrapiNotFoundPage } from '../../graphql-types';
 import { currentLocale } from '../utils/helpers';
 import LibuoyIcon from '../images/lifebuoy.inline.svg';
 import BlockArea from '../components/blockArea';
 
-const NotFoundComponent = ({ page }: { page?: Strapi_Not_Found_Page }) => {
+const NotFoundComponent = ({ page }: { page?: StrapiNotFoundPage }) => {
   const { t } = useTranslation();
   const { dispatch } = useSearchContext();
 
@@ -39,7 +39,7 @@ const NotFoundComponent = ({ page }: { page?: Strapi_Not_Found_Page }) => {
 };
 
 // markup
-const NotFoundPage = ({ data }: PageProps<{ pages: { nodes: Strapi_Not_Found_Page[] } }>) => {
+const NotFoundPage = ({ data }: PageProps<{ pages: { nodes: StrapiNotFoundPage[] } }>) => {
   const locale = currentLocale();
 
   const pageData = data.pages.nodes.find((page) => page.locale === locale);
@@ -57,28 +57,29 @@ export const query = graphql`
   {
     pages: allStrapiNotFoundPage {
       nodes {
-        content {
-          #...ActivityBlockFields
-          #...AgeGroupBlockFields
-          #...ContentPageBlockFields
-          ...HeroBlockFields
-          #...ImageBlockFields
-          ...LinkBlockFields
-          #...TextBlockFields
-          #...VideoBlockFields
-        }
+        #content {
+        #...ActivityBlockFields
+        #...AgeGroupBlockFields
+        #...ContentPageBlockFields
+        #...HeroBlockFields
+        #...ImageBlockFields
+        #...LinkBlockFields
+        #...TextBlockFields
+        #...VideoBlockFields
+        #}
         ingress
         title
         locale
-        localizations {
-          data {
-            attributes {
-              ingress
-              title
-              locale
-            }
-          }
-        }
+        #localizations {
+        #data {
+        # id
+        #attributes {
+        #  ingress
+        #  title
+        #  locale
+        #}
+        #}
+        #}
       }
     }
   }

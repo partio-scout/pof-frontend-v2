@@ -1,6 +1,6 @@
 import React from 'react';
 import Layout from '../../layouts/default';
-import { Strapi_Content_Page, SitePage } from '../../../graphql-types';
+import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
 import { prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import RichText from '../../components/RichText';
@@ -10,11 +10,11 @@ import { Locale } from '../../types/locale';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
 interface ContentPageTemplateProps {
-  data: Strapi_Content_Page;
+  data: StrapiContentPage;
 }
 
 interface ContentPageQueryType {
-  contentPage: Strapi_Content_Page;
+  contentPage: StrapiContentPage;
   localeData: { nodes: SitePage[] };
 }
 
@@ -71,35 +71,35 @@ export const query = graphql`
     }
     contentPage: strapiContentPage(strapi_id: { eq: $id }) {
       locale
-      localizations {
-        data {
-          id
-          attributes {
-            locale
-          }
-        }
-      }
+      #localizations {
+      #  data {
+      #    id
+      #attributes {
+      #  locale
+      #}
+      #  }
+      #}
       title
       updatedAt
       createdAt
       publishedAt
       id
       strapi_id
-      content {
-        ...ActivityBlockFields
-        ...AgeGroupBlockFields
-        #...ContentPageBlockFields
-        #...HeroBlockFields
-        #...ImageBlockFields
-        #...LinkBlockFields
-        #...TextBlockFields
-        #...VideoBlockFields
-      }
-      main_text {
-        data {
-          main_text
-        }
-      }
+      #content {
+      #...ActivityBlockFields
+      #...AgeGroupBlockFields
+      #...ContentPageBlockFields
+      #...HeroBlockFields
+      #...ImageBlockFields
+      #...LinkBlockFields
+      #...TextBlockFields
+      #...VideoBlockFields
+      #}
+      #main_text {
+      #  data {
+      #    main_text
+      #  }
+      #}
       #main_image {
       #  url
       #}
