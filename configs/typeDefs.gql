@@ -1,5 +1,30 @@
 # THIS FILE CONTAINS TYPE DEFINITIONS FOR STRAPI DATA.
 # IF YOU MAKE CHANGES TO STRAPI MODELS, MAKE THEM HERE ALSO IF YOU WANT THEM TO BE IN THE GRAPHQL SCHEMA. 
+
+
+type Query {
+  strapiFrontPage: StrapiFrontPage
+}
+
+type SitePage implements Node {
+  context: SitePageContext
+}
+
+type SitePageContext @dontInfer {
+  type: String
+  localizations: [Int]
+  locale: String
+  id: Int!
+  strapi_id: Int
+  ageGroupId: Int
+}
+
+type ActivityLogo implements Node @dontInfer {
+  logo: StrapiImage
+  id: Int!
+  strapi_id: Int
+}
+
 type StrapiAgeGroup implements Node @dontInfer {
   upper_content_area: JSON
   lower_content_area: JSON
@@ -13,19 +38,19 @@ type StrapiAgeGroup implements Node @dontInfer {
   wp_guid: String
   subactivitygroup_term: StrapiAgeGroupSubactivitygroup_term
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -34,8 +59,8 @@ type StrapiAgeGroup implements Node @dontInfer {
   color: String
   links: [StrapiAgeGroupLinks]
   activity_groups: [StrapiAgeGroupActivity_groups]
-  localizations: [StrapiAgeGroupLocalizations]
-  strapiId: Int
+  localizations: StrapiAgeGroupLocalizationsData
+  strapi_id: Int
   fields: StrapiAgeGroupFields
   id: ID!
   parent: Node
@@ -48,13 +73,13 @@ type StrapiAgeGroupSubactivitygroup_term @dontInfer {
   singular: String
   plural: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -79,25 +104,26 @@ type StrapiAgeGroupActivity_groups @dontInfer {
   subactivitygroup_term: Int
   activitygroup_term: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
   age_group: Int
+  strapi_id: Int
   activity_group_category: Int
   sort_order: Int
   mandatory_activities_title: String
@@ -125,24 +151,26 @@ type StrapiAgeGroupActivity_groupsContent_area @dontInfer {
 type StrapiAgeGroupActivity_groupsContent_areaBlock_width @dontInfer {
   id: Int
   name: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
 }
-
+type StrapiAgeGroupLocalizationsData @dontInfer {
+  data: [StrapiAgeGroupLocalizations]
+}
 type StrapiAgeGroupLocalizations @dontInfer {
   id: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -165,19 +193,19 @@ type StrapiActivityGroup implements Node @dontInfer  {
   subactivitygroup_term: StrapiActivityGroupSubactivitygroup_term
   activitygroup_term: StrapiActivityGroupActivitygroup_term
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -194,7 +222,7 @@ type StrapiActivityGroup implements Node @dontInfer  {
   files: [StrapiActivityGroupFiles]
   activities: [StrapiActivityGroupActivities]
   localizations: [StrapiActivityGroupLocalizations]
-  strapiId: Int
+  strapi_id: Int
   fields: StrapiActivityGroupFields
   id: ID!
   parent: Node
@@ -207,13 +235,13 @@ type StrapiActivityGroupSubactivity_term @dontInfer {
   singular: String
   plural: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -226,13 +254,13 @@ type StrapiActivityGroupSubactivitygroup_term @dontInfer {
   singular: String
   plural: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -245,13 +273,13 @@ type StrapiActivityGroupActivitygroup_term @dontInfer {
   singular: String
   plural: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -268,19 +296,19 @@ type StrapiActivityGroupAge_group @dontInfer {
   wp_guid: String
   subactivitygroup_term: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -309,13 +337,13 @@ type StrapiActivityGroupAge_groupUpper_content_area @dontInfer {
 type StrapiActivityGroupAge_groupUpper_content_areaBlock_width @dontInfer {
   id: Int
   name: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -333,13 +361,13 @@ type StrapiActivityGroupAge_groupLower_content_area @dontInfer {
 type StrapiActivityGroupAge_groupLower_content_areaBlock_width @dontInfer {
   id: Int
   name: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -351,13 +379,13 @@ type StrapiActivityGroupActivity_group_category @dontInfer {
   id: Int
   name: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -380,13 +408,13 @@ type StrapiActivityGroupFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -405,19 +433,19 @@ type StrapiActivityGroupActivities @dontInfer {
   activity_term: Int
   duration: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -430,6 +458,7 @@ type StrapiActivityGroupActivities @dontInfer {
   logo: StrapiImage
   files: [StrapiActivityGroupActivitiesFiles]
   images: [StrapiImage]
+  strapi_id: Int
 }
 type StrapiActivityGroupActivitiesLinks @dontInfer {
   id: Int
@@ -446,13 +475,13 @@ type StrapiActivityGroupActivitiesFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -461,10 +490,11 @@ type StrapiActivityGroupActivitiesFiles @dontInfer {
   localFile: File
 }
 
+
 type StrapiActivityGroupLocalizations @dontInfer {
   id: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -482,19 +512,19 @@ type StrapiContentPage implements Node @dontInfer {
   meta_description: String
   meta_title: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -502,7 +532,7 @@ type StrapiContentPage implements Node @dontInfer {
   ): Date
   main_image: StrapiImage
   localizations: [StrapiContentPageLocalizations]
-  strapiId: Int
+  strapi_id: Int
   id: ID!
   parent: Node
   children: [Node!]!
@@ -512,7 +542,7 @@ type StrapiContentPage implements Node @dontInfer {
 type StrapiContentPageLocalizations @dontInfer {
   id: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -521,30 +551,30 @@ type StrapiContentPageLocalizations @dontInfer {
 }
 
 type StrapiNotFoundPage implements Node @dontInfer {
-  content: JSON
+  content: [StrapiComponentBlocksArray]
   title: String
   ingress: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
   localizations: [StrapiFrontPageLocalizations]
-  strapiId: Int
+  strapi_id: Int
   id: ID!
   parent: Node
   children: [Node!]!
@@ -556,26 +586,26 @@ type StrapiCookiePage implements Node @dontInfer {
   title: String
   ingress: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
   localizations: [StrapiFrontPageLocalizations]
-  strapiId: Int
+  strapi_id: Int
   id: ID!
   parent: Node
   children: [Node!]!
@@ -583,7 +613,7 @@ type StrapiCookiePage implements Node @dontInfer {
 }
 
 type StrapiFrontPage implements Node @dontInfer {
-  content: JSON
+  content: [StrapiComponentBlocksArray]
   title: String
   hero_link_text: String
   hero_link_url: String
@@ -591,19 +621,19 @@ type StrapiFrontPage implements Node @dontInfer {
   ingress: String
   meta_description: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -612,7 +642,7 @@ type StrapiFrontPage implements Node @dontInfer {
   navigation: [StrapiFrontPageNavigation]
   footer_sections: [StrapiFrontPageFooter_sections]
   localizations: [StrapiFrontPageLocalizations]
-  strapiId: Int
+  strapi_id: Int
   id: ID!
   parent: Node
   children: [Node!]!
@@ -636,25 +666,155 @@ type StrapiFrontPageNavigationSubnavigationPage @dontInfer {
   ingress: String
   main_text: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
   main_image: StrapiFrontPageNavigationSubnavigationPageMain_image
+}
+
+union StrapiComponentBlocksArray = StrapiComponentBlocksActivityBlock | StrapiComponentBlocksAgeGroupBlock | StrapiComponentBlocksContentPageBlock | StrapiComponentBlocksHeroBlock | StrapiComponentBlocksImageBlock | StrapiComponentBlocksLinkBlock | StrapiComponentBlocksTextBlock | StrapiComponentBlocksVideoBlock 
+
+type StrapiComponentBlocksActivityBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ block_width: StrapiBlockWidth
+ activities: [StrapiActivity]
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksAgeGroupBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ title: String
+ ingress: StrapiComponentBlocksAgeGroupBlockIngress
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksAgeGroupBlockIngress {
+ data: StrapiComponentBlocksAgeGroupBlockIngressTextnode
+}
+
+type StrapiComponentBlocksAgeGroupBlockIngressTextnode implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ ingress: String
+}
+
+type StrapiComponentBlocksContentPageBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ block_width: StrapiBlockWidth
+ content_pages: [StrapiContentPage]
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksLinkBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ text: String
+ url: String
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksImageBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksHeroBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ title: String
+ text: String
+ link_text: String
+ link_url: String
+ block_width: StrapiBlockWidth
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksTextBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ title: String
+ text: StrapiComponentBlocksTextBlockText
+ strapi_id: Int
+ block_width: StrapiBlockWidth
+}
+
+type StrapiComponentBlocksTextBlockText {
+ data: StrapiComponentBlocksTextBlockTextTextnode
+}
+
+type StrapiComponentBlocksTextBlockTextTextnode implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ text: String
+}
+
+type StrapiBlockWidth implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ name: String
+ createdAt: Date
+ updatedAt: Date
+ strapi_id: Int
+}
+
+type StrapiComponentBlocksVideoBlock implements Node {
+ id: ID!
+ parent: Node
+ children: [Node!]!
+ internal: Internal!
+ strapi_component: String
+ strapi_id: Int
+ video_url: String
+ block_width: StrapiBlockWidth
 }
 type StrapiFrontPageNavigationSubnavigationPageMain_image @dontInfer {
   id: Int
@@ -670,13 +830,13 @@ type StrapiFrontPageNavigationSubnavigationPageMain_image @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -718,19 +878,19 @@ type StrapiFrontPageNavigationSubnavigationSubnavigationPage @dontInfer {
   title: String
   main_text: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -765,7 +925,7 @@ type StrapiFrontPageFooter_sectionsLink_groupsSome_links @dontInfer {
 type StrapiFrontPageLocalizations @dontInfer {
   id: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -786,19 +946,19 @@ type StrapiActivity implements Node @dontInfer {
   duration: StrapiActivityDuration
   locale: String
   is_marine_activity: Boolean
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -816,7 +976,7 @@ type StrapiActivity implements Node @dontInfer {
   suggestions: [StrapiActivitySuggestions]
   locations: [StrapiActivityLocations]
   localizations: [StrapiActivityLocalizations]
-  strapiId: Int
+  strapi_id: Int
   fields: StrapiActivityFields
   id: ID!
   parent: Node
@@ -829,13 +989,13 @@ type StrapiActivityActivity_term @dontInfer {
   singular: String
   plural: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -847,13 +1007,13 @@ type StrapiActivityDuration @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -871,19 +1031,19 @@ type StrapiActivityActivity_group @dontInfer {
   subactivitygroup_term: Int
   activitygroup_term: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -918,13 +1078,13 @@ type StrapiActivityActivity_groupContent_area @dontInfer {
 type StrapiActivityActivity_groupContent_areaBlock_width @dontInfer {
   id: Int
   name: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -945,13 +1105,13 @@ type StrapiActivityActivity_groupMain_image @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1019,13 +1179,13 @@ type StrapiActivityActivity_groupLogo @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1088,13 +1248,13 @@ type StrapiActivityActivity_groupFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1112,19 +1272,19 @@ type StrapiActivityAge_group @dontInfer {
   wp_guid: String
   subactivitygroup_term: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1153,13 +1313,13 @@ type StrapiActivityAge_groupUpper_content_area @dontInfer {
 type StrapiActivityAge_groupUpper_content_areaBlock_width @dontInfer {
   id: Int
   name: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1177,13 +1337,13 @@ type StrapiActivityAge_groupLower_content_area @dontInfer {
 type StrapiActivityAge_groupLower_content_areaBlock_width @dontInfer {
   id: Int
   name: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1204,13 +1364,13 @@ type StrapiActivityAge_groupMain_image @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1276,13 +1436,13 @@ type StrapiActivityAge_groupLogo @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1341,13 +1501,13 @@ type StrapiActivityPreparation_duration @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1368,13 +1528,13 @@ type StrapiActivityFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1387,13 +1547,13 @@ type StrapiActivityGroup_sizes @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1412,13 +1572,13 @@ type StrapiActivityGroup_sizesIcon @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1431,13 +1591,13 @@ type StrapiActivitySkill_areas @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1449,13 +1609,13 @@ type StrapiActivityEducational_objectives @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1467,13 +1627,13 @@ type StrapiActivityLeader_skills @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1488,19 +1648,19 @@ type StrapiActivitySuggestions @dontInfer {
   wp_guid: String
   author: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1530,13 +1690,13 @@ type StrapiActivitySuggestionsFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1595,13 +1755,13 @@ type StrapiActivityLocations @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1622,13 +1782,13 @@ type StrapiActivityLocationsIcon @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1639,7 +1799,7 @@ type StrapiActivityLocationsIcon @dontInfer {
 type StrapiActivityLocalizations @dontInfer {
   id: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1663,8 +1823,8 @@ type StrapiImage @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
-  updated_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  createdAt(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  updatedAt(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
   localFile: File
 }
 type StrapiImageFormats @dontInfer {
@@ -1694,19 +1854,19 @@ type StrapiSuggestion implements Node @dontInfer {
   wp_guid: String
   author: String
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1720,7 +1880,7 @@ type StrapiSuggestion implements Node @dontInfer {
   files: [StrapiSuggestionFiles]
   comments: [StrapiSuggestionComments]
   locations: [StrapiSuggestionLocations]
-  strapiId: Int
+  strapi_id: Int
 }
 type StrapiSuggestionActivity @dontInfer {
   id: Int
@@ -1733,19 +1893,19 @@ type StrapiSuggestionActivity @dontInfer {
   activity_term: Int
   duration: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1775,13 +1935,13 @@ type StrapiSuggestionActivityLogo @dontInfer {
   size: Int
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1814,13 +1974,13 @@ type StrapiSuggestionActivityImages @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1879,13 +2039,13 @@ type StrapiSuggestionDuration @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1909,13 +2069,13 @@ type StrapiSuggestionFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1974,19 +2134,19 @@ type StrapiSuggestionComments @dontInfer {
   text: String
   author: String
   suggestion: Int
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -1998,13 +2158,13 @@ type StrapiSuggestionLocations @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2025,13 +2185,13 @@ type StrapiSuggestionLocationsIcon @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2047,13 +2207,13 @@ type StrapiLocation implements Node @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2062,7 +2222,7 @@ type StrapiLocation implements Node @dontInfer {
   icon: StrapiLocationIcon
   activities: [StrapiLocationActivities]
   localizations: [StrapiLocationLocalizations]
-  strapiId: Int
+  strapi_id: Int
 }
 type StrapiLocationIcon @dontInfer {
   id: Int
@@ -2077,13 +2237,13 @@ type StrapiLocationIcon @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2102,19 +2262,19 @@ type StrapiLocationActivities @dontInfer {
   activity_term: Int
   duration: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2145,13 +2305,13 @@ type StrapiLocationActivitiesLogo @dontInfer {
   size: Int
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2181,13 +2341,13 @@ type StrapiLocationActivitiesFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2207,13 +2367,13 @@ type StrapiLocationActivitiesImages @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2279,13 +2439,13 @@ type StrapiDuration implements Node @dontInfer {
   name: String
   slug: String
   locale: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2294,7 +2454,7 @@ type StrapiDuration implements Node @dontInfer {
   activities: [StrapiDurationActivities]
   preparation_activities: [StrapiDurationPreparation_activities]
   localizations: [StrapiDurationLocalizations]
-  strapiId: Int
+  strapi_id: Int
 }
 type StrapiDurationActivities @dontInfer {
   id: Int
@@ -2307,19 +2467,19 @@ type StrapiDurationActivities @dontInfer {
   activity_term: Int
   duration: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2350,13 +2510,13 @@ type StrapiDurationActivitiesLogo @dontInfer {
   size: Int
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2386,13 +2546,13 @@ type StrapiDurationActivitiesFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2412,13 +2572,13 @@ type StrapiDurationActivitiesImages @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2483,19 +2643,19 @@ type StrapiDurationPreparation_activities @dontInfer {
   activity_term: Int
   duration: Int
   locale: String
-  published_at(
+  publishedAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2526,13 +2686,13 @@ type StrapiDurationPreparation_activitiesLogo @dontInfer {
   size: Int
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2562,13 +2722,13 @@ type StrapiDurationPreparation_activitiesFiles @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2588,13 +2748,13 @@ type StrapiDurationPreparation_activitiesImages @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(
+  createdAt(
     formatString: String
     fromNow: Boolean
     difference: String
     locale: String
   ): Date
-  updated_at(
+  updatedAt(
     formatString: String
     fromNow: Boolean
     difference: String
@@ -2732,8 +2892,8 @@ type StrapiImage @dontInfer {
   size: Float
   url: String
   provider: String
-  created_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
-  updated_at(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  createdAt(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
+  updatedAt(formatString: String, fromNow: Boolean, difference: String, locale: String): Date
   localFile: File
 }
 type StrapiImageFormats @dontInfer {

@@ -51,7 +51,7 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
                   <CombinedLink
                     to={group.fields?.path || ''}
                     className="flex flex-col h-32 max-w-32 m-2 transform transition-transform duration-100 hover:scale-110 text-center items-center font-bold"
-                    key={group.strapiId}
+                    key={group.strapi_id}
                   >
                     <img
                       src={prependApiUrl(group?.logo?.formats?.thumbnail?.url || group.logo?.url) || ''}

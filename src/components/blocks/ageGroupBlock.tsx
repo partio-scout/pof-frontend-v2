@@ -11,14 +11,18 @@ import { currentLocale } from '../../utils/helpers';
 
 export interface AgeGroupBlockType extends BlockType {
   title?: string;
-  ingress?: string;
+  ingress?: {
+    data?: {
+      ingress?: string;
+    };
+  };
 }
 
 const query = graphql`
   {
     allStrapiAgeGroup(sort: { fields: minimum_age }) {
       nodes {
-        strapiId
+        strapi_id
         logo {
           formats {
             thumbnail {
@@ -40,22 +44,21 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
   const navigation = useNavigation(currentLocale());
 
   const { nodes: ageGroups } = queryResult.allStrapiAgeGroup;
-
-  const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale === currentLocale());
+  const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale?.trim() === currentLocale().trim());
 
   return (
     <div className="">
       <div className="flex flex-wrap mb-14">
         <h2 className="w-full lg:w-2/5 sm:text-4xl md:text-xxlw">{block.title}</h2>
-        <RichText className="w-full lg:w-3/5" html={block.ingress} />
+        <RichText className="w-full lg:w-3/5" html={block.ingress?.data?.ingress} />
       </div>
       <div className="flex flex-wrap -mx-2 justify-center">
         {currentLocaleAgeGroups.map((group) => (
           <div
             className="m-2 text-center uppercase font-bold transform transition-transform duration-100 hover:-translate-y-0.5 w-44"
-            key={group.strapiId}
+            key={group.strapi_id}
           >
-            <Link to={findHeaderItemByTypeAndId('AgeGroup', group.strapiId || 0, navigation)?.url || ''}>
+            <Link to={findHeaderItemByTypeAndId('AgeGroup', group.strapi_id || 0, navigation)?.url || ''}>
               <div
                 className="no-hover-focus:bg-gray-light flex justify-center items-center h-44 w-44 rounded-2xl mb-3"
                 style={{ backgroundColor: hexToRgba(group.color || '', 0.2) }}

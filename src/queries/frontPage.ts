@@ -3,7 +3,7 @@ export const getAllFrontPages = `
   allStrapiFrontPage {
     nodes {
       locale
-      strapiId
+      strapi_id
       navigation {
         id
         title

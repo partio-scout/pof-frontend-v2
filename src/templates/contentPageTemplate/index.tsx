@@ -36,7 +36,7 @@ const MainContent = ({ data }: ContentPageTemplateProps) => (
 );
 
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
-  const { strapiId, content, locale } = data.contentPage;
+  const { strapi_id, content, locale } = data.contentPage;
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const metadata = useMetadata(locale || 'fi');
 
@@ -45,7 +45,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
       showBreadCrumbs
       localeLinks={localeLinks}
       locale={locale as Locale}
-      pageHeader={<ContentPageNav pageId={strapiId!} path={path} currentLocale={currentLocale()} />}
+      pageHeader={<ContentPageNav pageId={strapi_id!} path={path} currentLocale={currentLocale()} />}
     >
       <Metadata
         title={data.contentPage.title || ''}
@@ -69,23 +69,40 @@ export const query = graphql`
         ...SitePageLocaleFragment
       }
     }
-    contentPage: strapiContentPage(strapiId: { eq: $id }) {
+    contentPage: strapiContentPage(strapi_id: { eq: $id }) {
       locale
-      localizations {
-        locale
-        id
-      }
+      #localizations {
+      #  data {
+      #    id
+      #attributes {
+      #  locale
+      #}
+      #  }
+      #}
       title
-      updated_at
-      created_at
-      published_at
+      updatedAt
+      createdAt
+      publishedAt
       id
-      strapiId
-      content
-      main_text
-      main_image {
-        url
-      }
+      strapi_id
+      #content {
+      #...ActivityBlockFields
+      #...AgeGroupBlockFields
+      #...ContentPageBlockFields
+      #...HeroBlockFields
+      #...ImageBlockFields
+      #...LinkBlockFields
+      #...TextBlockFields
+      #...VideoBlockFields
+      #}
+      #main_text {
+      #  data {
+      #    main_text
+      #  }
+      #}
+      #main_image {
+      #  url
+      #}
       ingress
     }
   }

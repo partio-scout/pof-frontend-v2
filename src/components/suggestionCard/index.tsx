@@ -16,7 +16,7 @@ interface SuggestionCardProps {
 }
 
 const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
-  const { author, activity, id, content, like_count, comments, title, published_at, duration, locations, logo } =
+  const { author, activity, id, content, like_count, comments, title, publishedAt, duration, locations, logo } =
     suggestion;
 
   const { t } = useTranslation();
@@ -28,7 +28,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
       <div className="p-3 grow">
         <div className="mb-1">
           {author && <div className="text-xs font-semibold">{author}</div>}
-          <div className="text-xxs">{new Date(published_at).toLocaleDateString('fi')}</div>
+          <div className="text-xxs">{new Date(publishedAt).toLocaleDateString('fi')}</div>
         </div>
         {(duration || (locations?.length || 0) > 0) && (
           <div className="flex mb-2 flex-wrap">

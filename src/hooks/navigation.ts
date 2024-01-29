@@ -9,6 +9,9 @@ import {
 } from '../../graphql-types';
 import { HeaderItem, HeaderItemFirstLevel } from '../components/header';
 
+//allContentNavigation = contentPage
+//allProgramNavigation = AgeGroup / ActivityGroup
+
 const navigationQuery = graphql`
   query Navigations {
     allContentNavigation {
@@ -66,6 +69,9 @@ const useNavigation = (currentLocale: string) => {
     allProgramNavigation: { nodes: Program_Navigation[] };
   }>(navigationQuery);
   const { t } = useTranslation();
+
+  console.log('TEST allContentNavigation: ', allContentNavigation);
+  console.log('TEST allProgramNavigation: ', allProgramNavigation);
 
   const itemFilter =
     (requirePath: boolean) =>

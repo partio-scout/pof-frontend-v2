@@ -29,7 +29,7 @@ export interface SuggestionFromRest {
   wp_guid: string;
   author: string;
   locale: string;
-  published_at: string;
+  publishedAt: string;
   created_at: string;
   updated_at: string;
   from_web: boolean;
@@ -94,7 +94,7 @@ interface Activity {
   activity_term: number;
   duration: number;
   locale: string;
-  published_at: string;
+  publishedAt: string;
   created_at: string;
   updated_at: string;
   activity_group: number;
@@ -318,7 +318,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
                 )}
                 <div>
                   <h4 className="text-blue text-lt md:text-lw m">{suggestion!.title}</h4>
-                  <span>{parseDate(suggestion!.published_at)}</span>
+                  <span>{parseDate(suggestion!.publishedAt)}</span>
                   <span className="text-blue font-semibold ml-2 inline-block">
                     {suggestion!.author !== '' ? suggestion!.author : 'Anonyymi'}
                   </span>

@@ -10,9 +10,6 @@ const config: GatsbyConfig = {
     title: 'Partio-Ohjelma',
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
-  flags: {
-    PRESERVE_WEBPACK_CACHE: true,
-  },
   plugins: [
     'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
@@ -22,34 +19,915 @@ const config: GatsbyConfig = {
       options: {
         apiURL: process.env.GATSBY_API_URL,
         queryLimit: -1,
+        skipFileDownloads: true,
         collectionTypes: [
-          { name: 'activity', api: { qs: { _locale: 'all' } } },
-          { name: 'age-group', api: { qs: { _locale: 'all' } } },
-          { name: 'duration', api: { qs: { _locale: 'all' } } },
-          { name: 'location', api: { qs: { _locale: 'all' } } },
-          { name: 'activity-group', api: { qs: { _locale: 'all' } } },
           {
-            name: 'content-page',
-            api: { qs: { _locale: 'all' } },
+            singularName: 'activity',
+            queryParams: {
+              localizations: {
+                populate: '*',
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
           },
-          { name: 'suggestion', api: { qs: { _locale: 'all' } } },
+          {
+            singularName: 'age-group',
+            queryParams: {
+              localizations: {
+                populate: '*',
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'duration',
+            queryParams: {
+              localizations: {
+                populate: '*',
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'location',
+            queryParams: {
+              localizations: {
+                populate: '*',
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'activity-group',
+            queryParams: {
+              localizations: {
+                populate: '*',
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
+          {
+            singularName: 'content-page',
+            queryParams: {
+              populate: {
+                main_text: {
+                  populate: '*',
+                },
+                localizations: {
+                  populate: '*',
+                },
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            },
+          },
         ],
         singleTypes: [
-          { name: 'front-page', api: { qs: { _locale: 'fi' } } },
-          { name: 'front-page', api: { qs: { _locale: 'sv' } } },
-          { name: 'front-page', api: { qs: { _locale: 'en' } } },
-          { name: 'front-page', api: { qs: { _locale: 'smn' } } },
-          { name: 'front-page', api: { qs: { _locale: 'sme' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'fi' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'sv' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'en' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'smn' } } },
-          { name: 'not-found-page', api: { qs: { _locale: 'sme' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'fi' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'sv' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'en' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'smn' } } },
-          { name: 'cookie-page', api: { qs: { _locale: 'sme' } } },
+          {
+            singularName: 'front-page',
+            queryParams: {
+              populate: {
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'fi' } },
+          },
+          {
+            singularName: 'front-page',
+            queryParams: {
+              populate: {
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'sv' } },
+          },
+          {
+            singularName: 'front-page',
+            queryParams: {
+              populate: {
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'en' } },
+          },
+          {
+            singularName: 'front-page',
+            queryParams: {
+              populate: {
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'sme' } },
+          },
+          {
+            singularName: 'front-page',
+            queryParams: {
+              populate: {
+                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                footer_sections: {
+                  populate: {
+                    link_groups: {
+                      populate: {
+                        links: '*',
+                        some_links: '*',
+                      },
+                    },
+                  },
+                },
+                navigation: {
+                  populate: {
+                    subnavigation: {
+                      populate: {
+                        page: '*',
+                        subnavigation: {
+                          populate: {
+                            page: {
+                              populate: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'smn' } },
+          },
+          {
+            singularName: 'not-found-page',
+            queryParams: {
+              populate: {
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'fi' } },
+          },
+          {
+            singularName: 'not-found-page',
+            queryParams: {
+              populate: {
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'sv' } },
+          },
+          {
+            singularName: 'not-found-page',
+            queryParams: {
+              populate: {
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'en' } },
+          },
+          {
+            singularName: 'not-found-page',
+            queryParams: {
+              populate: {
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'sme' } },
+          },
+          {
+            singularName: 'not-found-page',
+            queryParams: {
+              populate: {
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+              },
+            },
+            pluginOptions: { i18n: { locale: 'smn' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'fi' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'sv' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'en' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'sme' } },
+          },
+          {
+            singularName: 'cookie-page',
+            queryParams: {
+              populate: '*',
+            },
+            pluginOptions: { i18n: { locale: 'smn' } },
+          },
         ],
       },
     },

@@ -1,12 +1,16 @@
 export const getContentPage = `
-  query getContentPage($id: Int!) {
-    strapiContentPage(strapiId: { eq: $id }) {
+  query getContentPage($title: String!) {
+    strapiContentPage(title: { eq: $title }) {
       localizations {
-        locale
-        id
+        data {
+          id
+         #attributes {
+         #   locale
+         #}
+        }
       }
       locale
-      strapiId
+      strapi_id
     }
   }
 `;
