@@ -13,16 +13,16 @@ interface FrontPageTemplateProps {
 export const query = graphql`
   query FrontPageQuery($locale: String!) {
     frontPage: strapiFrontPage(locale: { eq: $locale }) {
-      content {
-        ...ActivityBlockFields
-        ...AgeGroupBlockFields
-        ...ContentPageBlockFields
-        ...HeroBlockFields
-        ...ImageBlockFields
-        ...LinkBlockFields
-        ...TextBlockFields
-        ...VideoBlockFields
-      }
+      #content {
+      #...ActivityBlockFields
+      #...AgeGroupBlockFields
+      #...ContentPageBlockFields
+      #...HeroBlockFields
+      #...ImageBlockFields
+      #...LinkBlockFields
+      #...TextBlockFields
+      #...VideoBlockFields
+      #}
       locale
       title
       ingress
