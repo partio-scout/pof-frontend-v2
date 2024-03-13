@@ -3,7 +3,6 @@ import { graphql, PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
 import Hero from '../../components/hero';
 import BlockArea from '../../components/blockArea';
-import { StrapiFrontPage } from '../../../graphql-types';
 import { Locale } from '../../types/locale';
 
 interface FrontPageTemplateProps {
@@ -11,7 +10,7 @@ interface FrontPageTemplateProps {
 }
 
 export const query = graphql`
-  query FrontPageQuery($locale: String!) {
+  query IndexPage($locale: String!) {
     frontPage: strapiFrontPage(locale: { eq: $locale }) {
       content
       locale

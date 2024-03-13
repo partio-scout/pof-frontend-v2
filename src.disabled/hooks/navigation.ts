@@ -1,12 +1,5 @@
-import { graphql, useStaticQuery, Node } from 'gatsby';
+import { graphql, useStaticQuery } from 'gatsby';
 import { useTranslation } from 'react-i18next';
-import {
-  Content_Navigation,
-  Content_NavigationItemsSubitems,
-  Maybe,
-  Program_Navigation,
-  Program_NavigationItems,
-} from '../../graphql-types';
 import { HeaderItem, HeaderItemFirstLevel } from '../components/header';
 
 const navigationQuery = graphql`

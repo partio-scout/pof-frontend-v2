@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../layouts/default';
-import { StrapiCookiePage } from '../../graphql-types';
 import { currentLocale } from '../utils/helpers';
 
 const loadDeclarationScript = (callback: any) => {
@@ -34,7 +33,7 @@ const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
   );
 };
 
-const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }>) => {
+const CookiePage = ({ data }: PageProps<Queries.TypegenPageQuery>) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -52,7 +51,7 @@ const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }
 export default CookiePage;
 
 export const query = graphql`
-  {
+  query CookiePage {
     pages: allStrapiCookiePage {
       nodes {
         content

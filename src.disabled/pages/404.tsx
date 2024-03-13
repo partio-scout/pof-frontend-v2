@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { graphql, Link, PageProps } from 'gatsby';
+import { graphql, PageProps } from 'gatsby';
 import Layout from '../layouts/default';
 import { useSearchContext } from '../contexts/searchContext';
 import { useTranslation } from 'react-i18next';
-import { StrapiNotFoundPage } from '../../graphql-types';
 import { currentLocale } from '../utils/helpers';
 import LibuoyIcon from '../images/lifebuoy.inline.svg';
 import BlockArea from '../components/blockArea';
@@ -54,7 +53,7 @@ const NotFoundPage = ({ data }: PageProps<{ pages: { nodes: StrapiNotFoundPage[]
 export default NotFoundPage;
 
 export const query = graphql`
-  {
+  query NotFoundPage {
     pages: allStrapiNotFoundPage {
       nodes {
         content

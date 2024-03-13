@@ -1,6 +1,5 @@
 import React from 'react';
 import Layout from '../../layouts/default';
-import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea from '../../components/blockArea';
 import { prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import RichText from '../../components/RichText';
@@ -63,7 +62,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-  query getContentPage($id: Int!, $localizations: [Int], $type: String) {
+  query ContentPageTemplate($id: Int!, $localizations: [Int], $type: String) {
     localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
       nodes {
         ...SitePageLocaleFragment

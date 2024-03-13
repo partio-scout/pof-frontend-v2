@@ -2,7 +2,6 @@ import React from 'react';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Layout from '../../layouts/default';
 import { graphql, PageProps } from 'gatsby';
-import { StrapiActivityGroup, StrapiAgeGroup, SitePage } from '../../../graphql-types';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
 import ActivityGroupList from '../../components/activityGroupList';

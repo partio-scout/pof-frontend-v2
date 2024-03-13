@@ -2,8 +2,8 @@ const plugin = require('tailwindcss/plugin');
 const flattenColorPalette = require('tailwindcss/lib/util/flattenColorPalette').default;
 
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  darkMode: false, // or 'media' or 'class'
+  content: ['./src/pages/**/*.{js,jsx,ts,tsx}'],
+  darkMode: 'media',
   theme: {
     extend: {
       height: {

@@ -2,7 +2,6 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
-import { StrapiActivity, StrapiDuration, StrapiLocation } from '../../../../graphql-types';
 import { fetchSuggestions, sendNewSuggestion, sendNewReply } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -55,7 +54,7 @@ const initialReply: InitialReply = {
 };
 
 const query = graphql`
-  {
+  query SuggestionsSection {
     allStrapiDuration {
       nodes {
         name

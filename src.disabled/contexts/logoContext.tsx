@@ -1,6 +1,5 @@
 import { graphql, useStaticQuery } from 'gatsby';
 import React, { createContext, useContext } from 'react';
-import { Activity_Logo } from '../../graphql-types';
 
 interface LogoContextState {
   activityLogos: { [key: string]: string };
@@ -27,13 +26,16 @@ const logoQuery = graphql`
   }
 `;
 export const LogoContextProvider = ({ children }: { children: React.ReactNode }): React.ReactElement => {
-  const { allActivityLogo } = useStaticQuery<{ allActivityLogo: { nodes: Activity_Logo[] } }>(logoQuery);
+  const { allActivityLogo } = useStaticQuery(logoQuery);
 
-  const activityLogos = allActivityLogo.nodes.reduce((logos, logo) => {
-    const id = logo.id.replace('activity-logo-', '');
-    logos[id] = logo.logo!;
-    return logos;
-  }, {} as { [key: string]: string });
+  const activityLogos = allActivityLogo.nodes.reduce(
+    (logos, logo) => {
+      const id = logo.id.replace('activity-logo-', '');
+      logos[id] = logo.logo!;
+      return logos;
+    },
+    {} as { [key: string]: string },
+  );
 
   const state: LogoContextState = {
     activityLogos: activityLogos,

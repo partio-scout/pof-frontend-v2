@@ -1,12 +1,5 @@
 import { PageProps, graphql } from 'gatsby';
 import React from 'react';
-import {
-  StrapiActivity,
-  StrapiActivityGroup,
-  StrapiAgeGroup,
-  StrapiSuggestion,
-  SitePage,
-} from '../../../graphql-types';
 import HeroTitleSection from '../../components/heroTitleSection';
 import Metadata from '../../components/metadata';
 import Layout from '../../layouts/default';

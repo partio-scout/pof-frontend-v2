@@ -1,5 +1,4 @@
 import { useStaticQuery, graphql } from 'gatsby';
-import { StrapiFrontPage, StrapiImage } from '../../graphql-types';
 
 const metadataQuery = graphql`
   {
@@ -27,11 +26,7 @@ interface Metadata {
 }
 
 const useMetadata = (currentLocale: string): Metadata => {
-  const { allStrapiFrontPage } = useStaticQuery<{
-    allStrapiFrontPage: {
-      nodes: Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapiId' | 'hero_image'>[];
-    };
-  }>(metadataQuery);
+  const { allStrapiFrontPage } = useStaticQuery(metadataQuery);
 
   const correctMetadata = allStrapiFrontPage.nodes.find((node) => node.locale === currentLocale);
 

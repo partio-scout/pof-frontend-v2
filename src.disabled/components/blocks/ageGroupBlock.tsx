@@ -1,7 +1,6 @@
 import React from 'react';
 import { graphql, Link, useStaticQuery } from 'gatsby';
 import { BlockProps, BlockType } from '.';
-import { StrapiAgeGroup } from '../../../graphql-types';
 import { prependApiUrl } from '../../utils/helpers';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import useNavigation from '../../hooks/navigation';
@@ -15,7 +14,7 @@ export interface AgeGroupBlockType extends BlockType {
 }
 
 const query = graphql`
-  {
+  query AgeGroupBlock {
     allStrapiAgeGroup(sort: { fields: minimum_age }) {
       nodes {
         strapiId
@@ -36,7 +35,7 @@ const query = graphql`
 `;
 
 function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
-  const queryResult = useStaticQuery<{ allStrapiAgeGroup: { nodes: StrapiAgeGroup[] } }>(query);
+  const queryResult = useStaticQuery(query);
   const navigation = useNavigation(currentLocale());
 
   const { nodes: ageGroups } = queryResult.allStrapiAgeGroup;
