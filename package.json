@@ -82,4 +82,5 @@
       "pre-commit": "yarn lint-staged"
     }
   }
+  "packageManager": "yarn@4.1.1"
 }
