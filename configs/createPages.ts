@@ -1,15 +1,5 @@
 import { Actions, CreatePagesArgs } from 'gatsby';
 import path from 'path';
-import {
-  StrapiAgeGroup,
-  StrapiActivity,
-  StrapiFrontPage,
-  StrapiFrontPageNavigation,
-  StrapiFrontPageNavigationSubnavigation,
-  StrapiContentPage,
-  StrapiActivityGroupLocalizations,
-  StrapiAgeGroupActivity_Groups,
-} from '../graphql-types';
 import { getActivityGroup } from '../src/queries/activityGroup';
 import { getAllAgeGroups } from '../src/queries/ageGroup';
 import { getAllFrontPages } from '../src/queries/frontPage';

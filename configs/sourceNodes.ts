@@ -2,15 +2,6 @@ import { Node, SourceNodesArgs } from 'gatsby';
 import axios, { AxiosError } from 'axios';
 import { writeFileSync, existsSync, mkdirSync } from 'fs';
 import Path from 'path';
-import {
-  StrapiAgeGroup,
-  StrapiActivityGroup,
-  StrapiActivity,
-  Maybe,
-  StrapiFrontPage,
-  StrapiFrontPageNavigation,
-  StrapiFrontPageNavigationSubnavigation,
-} from '../graphql-types';
 import { parseRouteName, parseAgeGroupRouteName } from './utils';
 import { locales } from '../src/types/locale';
 
@@ -99,13 +90,16 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
   const { createNode, createNodeField } = actions;
 
   const getNodesByLocale = <TYPE extends { locale?: Maybe<string> }>(type: string) =>
-    getNodesByType(type).reduce((prev, curr) => {
-      const data = curr as unknown as TYPE;
+    getNodesByType(type).reduce(
+      (prev, curr) => {
+        const data = curr as unknown as TYPE;
 
-      prev[data.locale!] = [...(prev[data.locale!] || []), data];
+        prev[data.locale!] = [...(prev[data.locale!] || []), data];
 
-      return prev;
-    }, {} as Record<string, TYPE[]>);
+        return prev;
+      },
+      {} as Record<string, TYPE[]>,
+    );
 
   const ageGroups = Object.entries(getNodesByLocale<StrapiAgeGroup>('StrapiAgeGroup'));
 
@@ -225,44 +219,43 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 /**
  * Fetch and write translations for i18next into: `/.cache/translations`
  */
-const loadTranslations = async () => {
-  const apiUrl = process.env.GATSBY_API_URL;
-  const translationsPath = './.cache/translations';
+// const loadTranslations = async () => {
+//   const apiUrl = process.env.GATSBY_API_URL;
+//   const translationsPath = './.cache/translations';
 
-  const promises = locales.map(async (locale) => {
-    let translations;
-    try {
-      const response = await axios.get<Object>(apiUrl + '/settings/translations/' + locale);
-      translations = response.data;
-    } catch (error: any) {
-      if (error.isAxiosError && (error as AxiosError).response?.status === 404) {
-        console.warn("Couldn't load translations for locale", locale, 'error: Not found');
-      } else {
-        console.error("Couldn't load translations for locale", locale, 'error:', error);
-      }
-      translations = {};
-    }
+//   const promises = locales.map(async (locale) => {
+//     let translations;
+//     try {
+//       const response = await axios.get<Object>(apiUrl + '/settings/translations/' + locale);
+//       translations = response.data;
+//     } catch (error: any) {
+//       if (error.isAxiosError && (error as AxiosError).response?.status === 404) {
+//         console.warn("Couldn't load translations for locale", locale, 'error: Not found');
+//       } else {
+//         console.error("Couldn't load translations for locale", locale, 'error:', error);
+//       }
+//       translations = {};
+//     }
 
-    try {
-      const filePath = Path.join(translationsPath, `${locale}.json`);
+//     try {
+//       const filePath = Path.join(translationsPath, `${locale}.json`);
 
-      if (!existsSync(translationsPath)) {
-        mkdirSync(translationsPath, { recursive: true });
-      }
+//       if (!existsSync(translationsPath)) {
+//         mkdirSync(translationsPath, { recursive: true });
+//       }
 
-      writeFileSync(filePath, JSON.stringify(translations));
-    } catch (error) {
-      console.error("Couldn't write translations for locale", locale, 'error:', error);
-    }
-  });
+//       writeFileSync(filePath, JSON.stringify(translations));
+//     } catch (error) {
+//       console.error("Couldn't write translations for locale", locale, 'error:', error);
+//     }
+//   });
 
-  return Promise.all(promises);
-};
+//   return Promise.all(promises);
+// };
 
 const sourceNodes = async (args: SourceNodesArgs) => {
   createContentNavigationNodes(args);
   createProgramNavigationNodes(args);
-  await loadTranslations();
 };
 
 export default sourceNodes;
