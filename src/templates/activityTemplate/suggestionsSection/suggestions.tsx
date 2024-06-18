@@ -30,8 +30,8 @@ export interface SuggestionFromRest {
   author: string;
   locale: string;
   publishedAt: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   from_web: boolean;
   like_count: number;
   pinned?: any;
@@ -48,8 +48,8 @@ interface Location {
   name: string;
   slug: string;
   locale: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   icon: Icon;
 }
 
@@ -69,8 +69,8 @@ interface Icon {
   previewUrl?: any;
   provider: string;
   provider_metadata?: any;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Duration {
@@ -78,8 +78,8 @@ interface Duration {
   name: string;
   slug: string;
   locale: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface Activity {
@@ -95,8 +95,8 @@ interface Activity {
   duration: number;
   locale: string;
   publishedAt: string;
-  created_at: string;
-  updated_at: string;
+  createdAt: string;
+  updatedAt: string;
   activity_group: number;
   age_group: number;
   preparation_duration: number;
@@ -286,13 +286,13 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
   const debounceVote = debounce((suggestionId) => handleVote(suggestionId), 500);
 
   /**
-   * Sort Suggestions by `pinned` and then by `updated_at`
+   * Sort Suggestions by `pinned` and then by `updatedAt`
    */
   const suggestionSortFunction = (a: SuggestionFromRest, b: SuggestionFromRest): -1 | 0 | 1 => {
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
-    if (a.updated_at === b.updated_at) return 0;
-    return a.updated_at > b.updated_at ? -1 : 1;
+    if (a.updatedAt === b.updatedAt) return 0;
+    return a.updatedAt > b.updatedAt ? -1 : 1;
   };
 
   const showPills = (suggestion: SuggestionFromRest): boolean => {

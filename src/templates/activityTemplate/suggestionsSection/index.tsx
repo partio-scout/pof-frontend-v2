@@ -61,7 +61,10 @@ const query = graphql`
         name
         id
         strapi_id
-        locale
+        localizations {
+          id
+          locale
+        }
       }
     }
     allStrapiLocation {
@@ -69,7 +72,10 @@ const query = graphql`
         name
         id
         strapi_id
-        locale
+        localizations {
+          id
+          locale
+        }
       }
     }
   }

@@ -1,7 +1,7 @@
 // import { graphql } from 'gatsby';
 
 // export const ActivityBlockFields = graphql`
-//   fragment ActivityBlockFields on Strapi__Component_Blocks_Activity_Block {
+//   fragment ActivityBlockFields on StrapiComponentBlocksActivityBlock {
 //     strapi_id
 //     strapi_component
 //     activities {
@@ -14,7 +14,7 @@
 // `;
 
 // export const AgeGroupBlockFields = graphql`
-//   fragment AgeGroupBlockFields on Strapi__Component_Blocks_Age_Group_Block {
+//   fragment AgeGroupBlockFields on StrapiComponentBlocksAgeGroupBlock {
 //     strapi_id
 //     strapi_component
 //     title
@@ -30,7 +30,7 @@
 // `;
 
 // export const ContentPageBlockFields = graphql`
-//   fragment ContentPageBlockFields on Strapi__Component_Blocks_Content_Page_Block; {
+//   fragment ContentPageBlockFields on StrapiComponentBlocksContentPageBlock; {
 //     strapi_id
 //     strapi_component
 //     content_pages {
@@ -50,7 +50,7 @@
 // `;
 
 // export const HeroBlockFields = graphql`
-//   fragment HeroBlockFields on Strapi__Component_Blocks_Hero_Block {
+//   fragment HeroBlockFields on StrapiComponentBlocksHeroBlock {
 //     id
 //     title
 //     text
@@ -60,21 +60,22 @@
 // `;
 
 // export const ImageBlockFields = graphql`
-//   fragment ImageBlockFields on Strapi__Component_Blocks_Image_Block {
+//   fragment ImageBlockFields on StrapiComponentBlocksImageBlock {
 //     id
 //   }
 // `;
 
 // export const LinkBlockFields = graphql`
-//   fragment LinkBlockFields on Strapi__Component_Blocks_Link_Block {
+//   fragment LinkBlockFields on StrapiComponentBlocksLinkBlock {
 //     id
 //     url
 //     linkBlockText: text
+
 //   }
 // `;
 
 // export const TextBlockFields = graphql`
-//   fragment TextBlockFields on Strapi__Component_Blocks_Text_Block {
+//   fragment TextBlockFields on StrapiComponentBlocksTextBlock {
 //     id
 //     title
 //     textBlockText: text {
@@ -86,7 +87,7 @@
 // `;
 
 // export const VideoBlockFields = graphql`
-//   fragment VideoBlockFields on Strapi__Component_Blocks_Video_Block {
+//   fragment VideoBlockFields on StrapiComponentBlocksVideoBlock {
 //     id
 //     video_url
 //   }

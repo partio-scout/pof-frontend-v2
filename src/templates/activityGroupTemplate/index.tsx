@@ -137,181 +137,134 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
 export default activityGroupTemplate;
 
 export const query = graphql`
-  query Query(
-    $strapi_id: Int
-    #$ageGroupId: Int,
-    $localizations: [Int]
-    $type: String
-  ) {
-    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
-      nodes {
-        ...SitePageLocaleFragment
-      }
+query Query(
+  $strapi_id: Int,
+  $localizations: [Int],
+  $type: String
+) {
+  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+    nodes {
+      ...SitePageLocaleFragment
     }
-    activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
-      locale
-      #localizations {
-      #  data {
-      #    id
-      #attributes {
-      #  locale
-      #}
-      #  }
-      #}
-      title
-      updatedAt
-      createdAt
-      publishedAt
+  }
+  activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
+    locale
+    localizations {
       id
-      strapi_id
-      ingress
-      #content {
-      #  data {
-      #    content
-      #  }
-      #}
-      mandatory
+      locale
+    }
+    title
+    updatedAt
+    createdAt
+    publishedAt
+    id
+    strapi_id
+    ingress
+    content
+    mandatory
+    sort_order
+    activities {
+      id
+      title
+    }
+    activity_group_category {
+      name
       sort_order
+    }
+    activitygroup_term {
+      name
+      plural
+      singular
+    }
+    subactivity_term {
+      name
+      plural
+      singular
+    }
+    age_group {
+      id
+      title
+    }
+    links {
+      description
+      url
+    }
+    mandatory_activities_description
+    optional_activities_description
+    mandatory_activities_title
+    optional_activities_title
+    #logo {
+    #  ...ImageFragment
+    #}
+    #main_image {
+    #  ...ImageFragment
+    #}
+  }
+  ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
+    strapi_id
+    title
+    #main_image {
+    #  ...ImageFragment
+    #}
+    color
+  }
+  otherGroups: allStrapiActivityGroup {
+    #(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } })
+    nodes {
       #logo {
       #  ...ImageFragment
       #}
-      #main_image {
-      #  ...ImageFragment
-      #}
-      activities {
-        id
-        title
-      }
       activity_group_category {
         name
-        sort_order
-      }
-      activitygroup_term {
-        name
-        plural
-        singular
-      }
-      subactivity_term {
-        name
-        plural
-        singular
-      }
-      age_group {
         id
-        title
       }
-      links {
-        description
-        url
-      }
-      mandatory_activities_description
-      optional_activities_description
-      mandatory_activities_title
-      optional_activities_title
-    }
-    ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
-      strapi_id
       title
-      main_image {
-        url
-      }
-      color
+      strapi_id
     }
-    otherGroups: allStrapiActivityGroup {
-      #(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } })
-      nodes {
-        #fields {
-        #  path
-        #}
-        logo {
-          url
-          formats {
-            thumbnail {
-              width
-              url
-              size
-              name
-              mime
-              height
-            }
-          }
-        }
-        activity_group_category {
-          name
-          id
-        }
+  }
+  suggestions: allStrapiSuggestion(
+    sort: { fields: publishedAt, order: DESC }
+    limit: 4
+  ) {
+    nodes {
+      author
+      content
+      publishedAt
+      title
+      strapi_id
+      locale
+      like_count
+      id
+      activity {
         title
-        strapi_id
-      }
-    }
-    suggestions: allStrapiSuggestion(
-      # filter: { activity: { activity_group: { eq: $strapi_id } } }
-      sort: { fields: publishedAt, order: DESC }
-      limit: 4
-    ) {
-      nodes {
-        author
-        content
-        publishedAt
-        title
-        strapi_id
-        locale
-        like_count
         id
-        #activity {
-        #  title
-        #  id
-        #}
-        #locations {
-        #  slug
-        #  name
-        #  icon {
-        #    url
-        #  }
-        #}
-        #duration {
-        #  name
-        #  slug
-        #}
-      }
-    }
-    activities: allStrapiActivity {
-      #(filter: { activity_group: { id: { eq: $id } } })
-      nodes {
-        #fields {
-        #  path
-        #}
-        title
-        #activity_group {
-        #  title
-        #  logo {
-        #    formats {
-        #      thumbnail {
-        #        url
-        #      }
-        #    }
-        #  }
-        #}
-        #age_group {
-        #  color
-        #  title
-        #}
-        #suggestions {
-        #  title
-        #}
-        #duration {
-        #  name
-        #  slug
-        #}
-        #locations {
-        #  slug
-        #  name
-        #  icon {
-        #    url
-        #  }
-        #}
-        mandatory
       }
     }
   }
+  activities: allStrapiActivity(filter: {  }) {
+    nodes {
+      title
+      activity_group {
+        title
+        #logo {
+        #  ...ImageFragment
+        #}
+      }
+      age_group {
+        color
+        title
+      }
+      duration {
+        name
+        slug
+      }
+      locations {
+        slug
+        name
+      }
+      mandatory
+    }
+  }
+}
+
 `;

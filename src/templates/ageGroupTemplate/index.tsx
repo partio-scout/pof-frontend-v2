@@ -99,106 +99,69 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-  query ActivityGroupQuery($strapi_id: Int, $localizations: [Int], $type: String) {
-    localeData: allSitePage(filter: { context: { strapi_id: { in: $localizations }, type: { eq: $type } } }) {
-      nodes {
-        ...SitePageLocaleFragment
-      }
-    }
-    ageGroup: strapiAgeGroup(strapi_id: { eq: $strapi_id }) {
-      locale
-      localizations {
-        data {
-          id
-          #attributes {
-          #  locale
-          #}
-        }
-      }
-      title
-      updatedAt
-      createdAt
-      publishedAt
-      id
-      strapi_id
-      #content {
-      #  data {
-      #    content
-      #  }
-      #}
-      ingress
-      links {
-        description
-        id
-        url
-        #icon {
-        #  ...ImageFragment
-        #}
-      }
-      #logo {
-      #  ...ImageFragment
-      #}
-      maximum_age
-      minimum_age
-      # subactivitygroup_term {
-      #  locale
-      #  name
-      #  plural
-      #  singular
-      #}
-      #main_image {
-      #  ...ImageFragment
-      #}
-      title
-      #upper_content_area {
-      #...ActivityBlockFields
-      #...AgeGroupBlockFields
-      #...ContentPageBlockFields
-      #...HeroBlockFields
-      #...ImageBlockFields
-      #...LinkBlockFields
-      #...TextBlockFields
-      #...VideoBlockFields
-      #}
-      #lower_content_area {
-      #...ActivityBlockFields
-      #...AgeGroupBlockFields
-      #...ContentPageBlockFields
-      #...HeroBlockFields
-      #...ImageBlockFields
-      #...LinkBlockFields
-      #...TextBlockFields
-      #...VideoBlockFields
-      #}
-      color
-    }
-    activityGroups: allStrapiActivityGroup { #(filter: { age_group: { strapi_id: { eq: $strapi_id } } })
-      nodes {
-        # fields {
-        #  path
-        #}
-        logo {
-          url
-          formats {
-            thumbnail {
-              width
-              url
-              size
-              name
-              mime
-              height
-            }
-          }
-        }
-        activity_group_category {
-          name
-          id
-          sort_order
-        }
-        sort_order
-        title
-        strapi_id
-      }
+query ActivityGroupQuery($strapi_id: Int, $localizations: [Int], $type: String) {
+  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+    nodes {
+      ...SitePageLocaleFragment
     }
   }
+  ageGroup: strapiAgeGroup(strapi_id: { eq: $strapi_id }) {
+    locale
+    localizations {
+      locale
+      id
+    }
+    title
+    updatedAt
+    createdAt
+    publishedAt
+    id
+    strapi_id
+    content
+    ingress
+    links {
+      description
+      id
+      url
+      #icon {
+      #  ...ImageFragment
+      #}
+    }
+    #logo {
+    #  ...ImageFragment
+    #}
+    maximum_age
+    minimum_age
+    #main_image {
+    #  ...ImageFragment
+    #}
+    title
+    color
+  }
+  activityGroups: allStrapiActivityGroup { #(filter: { age_group: { strapi_id: { eq: $strapi_id } } }) {
+    nodes {
+      logo {
+        url
+        formats {
+          thumbnail {
+            width
+            url
+            size
+            name
+            mime
+            height
+          }
+        }
+      }
+      activity_group_category {
+        name
+        id
+        sort_order
+      }
+      sort_order
+      title
+      strapi_id
+    }
+  }
+}
 `;

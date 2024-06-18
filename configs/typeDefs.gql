@@ -59,7 +59,7 @@ type StrapiAgeGroup implements Node @dontInfer {
   color: String
   links: [StrapiAgeGroupLinks]
   activity_groups: [StrapiAgeGroupActivity_groups]
-  localizations: StrapiAgeGroupLocalizationsData
+  localizations: [StrapiAgeGroupLocalizations]
   strapi_id: Int
   fields: StrapiAgeGroupFields
   id: ID!

@@ -57,7 +57,6 @@ export const query = graphql`
       nodes {
         ingress
         title
-        locale
       }
     }
   }

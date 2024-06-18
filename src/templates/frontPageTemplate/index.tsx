@@ -11,34 +11,22 @@ interface FrontPageTemplateProps {
 }
 
 export const query = graphql`
-  query FrontPageQuery($locale: String!) {
-    frontPage: strapiFrontPage(locale: { eq: $locale }) {
-      #content {
-      #...ActivityBlockFields
-      #...AgeGroupBlockFields
-      #...ContentPageBlockFields
-      #...HeroBlockFields
-      #...ImageBlockFields
-      #...LinkBlockFields
-      #...TextBlockFields
-      #...VideoBlockFields
-      #}
-      locale
-      title
-      ingress
-      hero_link_text
-      hero_link_url
-      #hero_image {
-      #  ...ImageFragment
-      #}
-    }
+query FrontPageQuery($locale: String) {
+  frontPage: strapiFrontPage(locale: { eq: $locale }) {
+    locale
+    title
+    ingress
+    hero_link_text
+    hero_link_url
   }
+}
+
 `;
 
 interface FrontPageQueryType {
   frontPage: Pick<
     StrapiFrontPage,
-    'content' | 'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
+    'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
   >;
 }
 

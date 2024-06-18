@@ -63,47 +63,29 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-  query getContentPage($id: Int!, $localizations: [Int], $type: String) {
-    localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
-      nodes {
-        ...SitePageLocaleFragment
-      }
-    }
-    contentPage: strapiContentPage(strapi_id: { eq: $id }) {
-      locale
-      #localizations {
-      #  data {
-      #    id
-      #attributes {
-      #  locale
-      #}
-      #  }
-      #}
-      title
-      updatedAt
-      createdAt
-      publishedAt
-      id
-      strapi_id
-      #content {
-      #...ActivityBlockFields
-      #...AgeGroupBlockFields
-      #...ContentPageBlockFields
-      #...HeroBlockFields
-      #...ImageBlockFields
-      #...LinkBlockFields
-      #...TextBlockFields
-      #...VideoBlockFields
-      #}
-      #main_text {
-      #  data {
-      #    main_text
-      #  }
-      #}
-      #main_image {
-      #  url
-      #}
-      ingress
+query getContentPage($strapi_id: Int, $localizations: [Int], $type: String) {
+  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+    nodes {
+      ...SitePageLocaleFragment
     }
   }
+  contentPage: strapiContentPage(strapi_id: { eq: $strapi_id }) {
+    locale
+    localizations {
+      locale
+      id
+    }
+    title
+    #updatedAt
+    #createdAt
+    #publishedAt
+    id
+    strapi_id
+    main_text
+    #main_image {
+    #  url
+    #}
+    ingress
+  }
+}
 `;

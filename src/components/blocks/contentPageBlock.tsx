@@ -20,7 +20,7 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
   const { t } = useTranslation();
   const navigation = useNavigation(currentLocale());
 
-  const { title, ingress, main_image, publishedAt, id } = page;
+  const { title, ingress, publishedAt, id } = page;
 
   const url = findHeaderItemByTypeAndId('ContentPage', id, navigation)?.url;
 

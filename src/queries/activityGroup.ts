@@ -1,15 +1,10 @@
 export const getActivityGroup = `
-query getActivityGroup($id: Int!) {
+query getActivityGroup($id: Int) {
   strapiActivityGroup(strapi_id: {eq: $id}) {
     localizations {
-        data {
-          id
-          #attributes {
-          #  locale
-          #  publishedAt
-          #}
-        }
-      }
+      id
+      locale
+    }
     locale
     activities {
       id

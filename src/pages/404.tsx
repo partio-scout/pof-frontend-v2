@@ -57,29 +57,8 @@ export const query = graphql`
   {
     pages: allStrapiNotFoundPage {
       nodes {
-        #content {
-        #...ActivityBlockFields
-        #...AgeGroupBlockFields
-        #...ContentPageBlockFields
-        #...HeroBlockFields
-        #...ImageBlockFields
-        #...LinkBlockFields
-        #...TextBlockFields
-        #...VideoBlockFields
-        #}
         ingress
         title
-        locale
-        #localizations {
-        #data {
-        # id
-        #attributes {
-        #  ingress
-        #  title
-        #  locale
-        #}
-        #}
-        #}
       }
     }
   }
