@@ -26,13 +26,13 @@ query FrontPageQuery($locale: String) {
 interface FrontPageQueryType {
   frontPage: Pick<
     StrapiFrontPage,
-    'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
+   'data' | 'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
   >;
 }
 
 const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
   const {
-    frontPage: { content, title, hero_link_text, hero_link_url, hero_image, locale },
+    frontPage: { data: content, title, hero_link_text, hero_link_url, hero_image, locale },
   } = data;
 
   return (

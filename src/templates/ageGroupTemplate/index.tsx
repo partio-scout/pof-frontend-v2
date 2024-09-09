@@ -27,7 +27,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
   const {
     title,
     ingress,
-    content,
+    data: content,
     main_image,
     maximum_age,
     minimum_age,
@@ -117,7 +117,7 @@ query ActivityGroupQuery($strapi_id: Int, $localizations: [Int], $type: String) 
     publishedAt
     id
     strapi_id
-    content
+    content: data
     ingress
     links {
       description

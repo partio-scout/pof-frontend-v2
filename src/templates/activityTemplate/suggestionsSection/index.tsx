@@ -55,7 +55,7 @@ const initialReply: InitialReply = {
 };
 
 const query = graphql`
-  {
+query GetSuggestions {
     allStrapiDuration {
       nodes {
         name

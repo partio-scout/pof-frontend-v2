@@ -2,7 +2,7 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { StrapiFrontPage, StrapiImage } from '../../graphql-types';
 
 const metadataQuery = graphql`
-  {
+  query MetadataQuery {
     allStrapiFrontPage {
       nodes {
         title

@@ -52,7 +52,7 @@ const CookiePage = ({ data }: PageProps<{ pages: { nodes: StrapiCookiePage[] } }
 export default CookiePage;
 
 export const query = graphql`
-  {
+query GetCookiePage {
     pages: allStrapiCookiePage {
       nodes {
         ingress

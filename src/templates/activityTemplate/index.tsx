@@ -88,7 +88,7 @@ query getActivity($strapi_id: Int, $localizations: [Int], $type: String) {
     publishedAt
     id
     strapi_id
-    content
+    #data
     is_marine_activity
     duration {
       locale
@@ -108,7 +108,7 @@ query getActivity($strapi_id: Int, $localizations: [Int], $type: String) {
     }
     suggestions {
       author
-      content
+      #data
       from_web
       id
       like_count

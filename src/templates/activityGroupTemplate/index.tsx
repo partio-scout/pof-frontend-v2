@@ -160,7 +160,7 @@ query Query(
     id
     strapi_id
     ingress
-    content
+    content: data
     mandatory
     sort_order
     activities {
@@ -185,10 +185,10 @@ query Query(
       id
       title
     }
-    links {
-      description
-      url
-    }
+    #links {
+    #  description
+    #  url
+    #}
     mandatory_activities_description
     optional_activities_description
     mandatory_activities_title

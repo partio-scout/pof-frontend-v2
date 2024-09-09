@@ -81,7 +81,7 @@ query getContentPage($strapi_id: Int, $localizations: [Int], $type: String) {
     #publishedAt
     id
     strapi_id
-    main_text
+    main_text: data
     #main_image {
     #  url
     #}

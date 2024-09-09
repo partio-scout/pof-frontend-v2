@@ -54,7 +54,7 @@ const NotFoundPage = ({ data }: PageProps<{ pages: { nodes: StrapiNotFoundPage[]
 export default NotFoundPage;
 
 export const query = graphql`
-  {
+  query GetNotFoundPage {
     pages: allStrapiNotFoundPage {
       nodes {
         ingress

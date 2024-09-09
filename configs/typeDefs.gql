@@ -32,7 +32,7 @@ type StrapiAgeGroup implements Node @dontInfer {
   logo: StrapiImage
   title: String
   ingress: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   minimum_age: Int
   maximum_age: Int
   wp_guid: String
@@ -97,7 +97,7 @@ type StrapiAgeGroupActivity_groups @dontInfer {
   id: Int
   title: String
   ingress: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   wp_guid: String
   mandatory: Boolean
   subactivity_term: Int
@@ -165,7 +165,7 @@ type StrapiAgeGroupActivity_groupsContent_areaBlock_width @dontInfer {
   ): Date
 }
 type StrapiAgeGroupLocalizationsData @dontInfer {
-  data: [StrapiAgeGroupLocalizations]
+  content: [StrapiAgeGroupLocalizations]
 }
 type StrapiAgeGroupLocalizations @dontInfer {
   id: Int
@@ -186,7 +186,7 @@ type StrapiActivityGroup implements Node @dontInfer  {
   logo: StrapiImage
   title: String
   ingress: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   wp_guid: String
   mandatory: Boolean
   subactivity_term: StrapiActivityGroupSubactivity_term
@@ -290,7 +290,7 @@ type StrapiActivityGroupAge_group @dontInfer {
   id: Int
   title: String
   ingress: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   minimum_age: Int
   maximum_age: Int
   wp_guid: String
@@ -425,7 +425,7 @@ type StrapiActivityGroupFiles @dontInfer {
 type StrapiActivityGroupActivities @dontInfer {
   id: Int
   title: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   mandatory: Boolean
   ingress: String
   wp_guid: String
@@ -505,10 +505,9 @@ type StrapiActivityGroupFields @dontInfer {
   path: String
 }
 type StrapiContentPage implements Node @dontInfer {
-  content: JSON
+  content: StrapiComponentBlocksTextBlock
   title: String
   ingress: String
-  main_text: String
   meta_description: String
   meta_title: String
   locale: String
@@ -537,6 +536,7 @@ type StrapiContentPage implements Node @dontInfer {
   parent: Node
   children: [Node!]!
   internal: Internal!
+  slug: String
 }
 
 type StrapiContentPageLocalizations @dontInfer {
@@ -582,7 +582,7 @@ type StrapiNotFoundPage implements Node @dontInfer {
 }
 
 type StrapiCookiePage implements Node @dontInfer {
-  content: JSON
+  content: StrapiComponentBlocksTextBlock
   title: String
   ingress: String
   locale: String
@@ -620,6 +620,7 @@ type StrapiFrontPage implements Node @dontInfer {
   hero_image: StrapiImage
   ingress: String
   meta_description: String
+  meta_title: String
   locale: String
   publishedAt(
     formatString: String
@@ -687,135 +688,144 @@ type StrapiFrontPageNavigationSubnavigationPage @dontInfer {
   main_image: StrapiFrontPageNavigationSubnavigationPageMain_image
 }
 
-union StrapiComponentBlocksArray = StrapiComponentBlocksActivityBlock | StrapiComponentBlocksAgeGroupBlock | StrapiComponentBlocksContentPageBlock | StrapiComponentBlocksHeroBlock | StrapiComponentBlocksImageBlock | StrapiComponentBlocksLinkBlock | StrapiComponentBlocksTextBlock | StrapiComponentBlocksVideoBlock 
-
 type StrapiComponentBlocksActivityBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- block_width: StrapiBlockWidth
- activities: [StrapiActivity]
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  block_width: StrapiBlockWidth
+  activities: [StrapiActivity]
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksAgeGroupBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- title: String
- ingress: StrapiComponentBlocksAgeGroupBlockIngress
- block_width: StrapiBlockWidth
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  title: String
+  ingress: StrapiComponentBlocksAgeGroupBlockIngress
+  block_width: StrapiBlockWidth
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksAgeGroupBlockIngress {
- data: StrapiComponentBlocksAgeGroupBlockIngressTextnode
+  content: StrapiComponentBlocksAgeGroupBlockIngressTextnode
 }
 
 type StrapiComponentBlocksAgeGroupBlockIngressTextnode implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- ingress: String
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  ingress: String
 }
 
 type StrapiComponentBlocksContentPageBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- block_width: StrapiBlockWidth
- content_pages: [StrapiContentPage]
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  block_width: StrapiBlockWidth
+  content_pages: [StrapiContentPage]
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksLinkBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- text: String
- url: String
- block_width: StrapiBlockWidth
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  text: String
+  url: String
+  block_width: StrapiBlockWidth
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksImageBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- block_width: StrapiBlockWidth
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  block_width: StrapiBlockWidth
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksHeroBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- title: String
- text: String
- link_text: String
- link_url: String
- block_width: StrapiBlockWidth
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  title: String
+  text: String
+  link_text: String
+  link_url: String
+  block_width: StrapiBlockWidth
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksTextBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- title: String
- text: StrapiComponentBlocksTextBlockText
- strapi_id: Int
- block_width: StrapiBlockWidth
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  title: String
+  content: StrapiComponentBlocksTextBlockText
+  strapi_id: Int
+  block_width: StrapiBlockWidth
 }
 
 type StrapiComponentBlocksTextBlockText {
- data: StrapiComponentBlocksTextBlockTextTextnode
+  content: StrapiComponentBlocksTextBlockTextTextnode
 }
 
 type StrapiComponentBlocksTextBlockTextTextnode implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- text: String
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  text: String
 }
 
 type StrapiBlockWidth implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- name: String
- createdAt: Date
- updatedAt: Date
- strapi_id: Int
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  name: String
+  createdAt: Date
+  updatedAt: Date
+  strapi_id: Int
 }
 
 type StrapiComponentBlocksVideoBlock implements Node {
- id: ID!
- parent: Node
- children: [Node!]!
- internal: Internal!
- strapi_component: String
- strapi_id: Int
- video_url: String
- block_width: StrapiBlockWidth
+  id: ID!
+  parent: Node
+  children: [Node!]!
+  internal: Internal!
+  strapi_component: String
+  strapi_id: Int
+  video_url: String
+  block_width: StrapiBlockWidth
 }
+
+union StrapiComponentBlocksArray = 
+  StrapiComponentBlocksActivityBlock 
+  | StrapiComponentBlocksAgeGroupBlock 
+  | StrapiComponentBlocksContentPageBlock 
+  | StrapiComponentBlocksHeroBlock 
+  | StrapiComponentBlocksImageBlock 
+  | StrapiComponentBlocksLinkBlock 
+  | StrapiComponentBlocksTextBlock 
+  | StrapiComponentBlocksVideoBlock
+
 type StrapiFrontPageNavigationSubnavigationPageMain_image @dontInfer {
   id: Int
   name: String
@@ -937,7 +947,7 @@ type StrapiActivity implements Node @dontInfer {
   logo: StrapiImage
   title: String
   main_image: StrapiImage
-  content: String
+  content: StrapiComponentBlocksTextBlock
   mandatory: Boolean
   ingress: String
   wp_guid: String
@@ -1014,7 +1024,7 @@ type StrapiActivityDuration @dontInfer {
     locale: String
   ): Date
   updatedAt(
-    formatString: String
+    formSatString: String
     fromNow: Boolean
     difference: String
     locale: String
@@ -1024,7 +1034,7 @@ type StrapiActivityActivity_group @dontInfer {
   id: Int
   title: String
   ingress: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   wp_guid: String
   mandatory: Boolean
   subactivity_term: Int
@@ -1266,7 +1276,7 @@ type StrapiActivityAge_group @dontInfer {
   id: Int
   title: String
   ingress: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   minimum_age: Int
   maximum_age: Int
   wp_guid: String
@@ -1643,7 +1653,7 @@ type StrapiActivityLeader_skills @dontInfer {
 type StrapiActivitySuggestions @dontInfer {
   id: Int
   title: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   activity: Int
   wp_guid: String
   author: String
@@ -2459,7 +2469,7 @@ type StrapiDuration implements Node @dontInfer {
 type StrapiDurationActivities @dontInfer {
   id: Int
   title: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   mandatory: Boolean
   ingress: String
   wp_guid: String
@@ -2635,7 +2645,7 @@ type StrapiDurationActivitiesImagesFormatsThumbnail @dontInfer {
 type StrapiDurationPreparation_activities @dontInfer {
   id: Int
   title: String
-  content: String
+  content: StrapiComponentBlocksTextBlock
   mandatory: Boolean
   ingress: String
   wp_guid: String

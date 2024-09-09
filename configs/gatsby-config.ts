@@ -33,6 +33,8 @@ const config: GatsbyConfig = {
                 locations: '*',
                 suggestions: '*',
                 logo: '*',
+                data: '*',
+                links: '*',
               },
             },
             pluginOptions: {
@@ -41,7 +43,6 @@ const config: GatsbyConfig = {
               },
             },
           },
-
           {
             singularName: 'age-group',
             queryParams: {
@@ -133,10 +134,12 @@ const config: GatsbyConfig = {
             singularName: 'content-page',
             queryParams: {
               populate: {
+                data: {
+                  populate: '*',
+                },
                 main_text: {
                   populate: '*',
                 },
-
                 hero_image: '*',
                 localizations: {
                   populate: '*',
@@ -350,7 +353,7 @@ const config: GatsbyConfig = {
             singularName: 'not-found-page',
             queryParams: {
               populate: {
-                content: {
+                data: {
                   on: {
                     'blocks.*': {
                       populate: {
@@ -370,7 +373,7 @@ const config: GatsbyConfig = {
             singularName: 'not-found-page',
             queryParams: {
               populate: {
-                content: {
+                data: {
                   on: {
                     'blocks.activity-block': {
                       populate: {
@@ -382,7 +385,7 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-                    'blocks.content-page-block': {
+                    'blocks.data-page-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -425,7 +428,7 @@ const config: GatsbyConfig = {
             singularName: 'not-found-page',
             queryParams: {
               populate: {
-                content: {
+                data: {
                   on: {
                     'blocks.activity-block': {
                       populate: {
@@ -437,7 +440,7 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-                    'blocks.content-page-block': {
+                    'blocks.data-page-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -480,7 +483,7 @@ const config: GatsbyConfig = {
             singularName: 'not-found-page',
             queryParams: {
               populate: {
-                content: {
+                data: {
                   on: {
                     'blocks.activity-block': {
                       populate: {
@@ -492,7 +495,7 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-                    'blocks.content-page-block': {
+                    'blocks.data-page-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -535,7 +538,7 @@ const config: GatsbyConfig = {
             singularName: 'not-found-page',
             queryParams: {
               populate: {
-                content: {
+                data: {
                   on: {
                     'blocks.activity-block': {
                       populate: {
@@ -547,7 +550,7 @@ const config: GatsbyConfig = {
                         block_width: '*',
                       },
                     },
-                    'blocks.content-page-block': {
+                    'blocks.data-page-block': {
                       populate: {
                         block_width: '*',
                       },
@@ -622,7 +625,6 @@ const config: GatsbyConfig = {
             pluginOptions: { i18n: { locale: 'smn' } },
           },
         ],
-
       },
     },
     `gatsby-plugin-graphql-codegen`,
@@ -634,6 +636,8 @@ const config: GatsbyConfig = {
         },
       },
     },
+    `gatsby-plugin-sharp`, 
+    `gatsby-transformer-sharp`,
     `gatsby-plugin-sitemap`,
     `gatsby-plugin-use-query-params`,
     {

@@ -17,7 +17,7 @@ export const useLogoContext = () => {
 };
 
 const logoQuery = graphql`
-  {
+  query LogoQuery {
     allActivityLogo {
       nodes {
         logo {

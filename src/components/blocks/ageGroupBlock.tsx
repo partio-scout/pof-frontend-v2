@@ -19,7 +19,7 @@ export interface AgeGroupBlockType extends BlockType {
 }
 
 const query = graphql`
-  {
+  query GetAgeGroups {
     allStrapiAgeGroup(sort: { fields: minimum_age }) {
       nodes {
         strapi_id

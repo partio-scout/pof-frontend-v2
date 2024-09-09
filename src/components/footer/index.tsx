@@ -6,7 +6,7 @@ import LogoIcon from '../../images/logo.inline.svg';
 import { currentLocale } from '../../utils/helpers';
 
 const footerQuery = graphql`
-  {
+  query FooterQuery {
     allStrapiFrontPage {
       nodes {
         locale
