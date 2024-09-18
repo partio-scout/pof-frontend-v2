@@ -32,7 +32,7 @@ type StrapiAgeGroup implements Node @dontInfer {
   logo: StrapiImage
   title: String
   ingress: String
-  content: StrapiComponentBlocksTextBlock
+  content: JSON
   minimum_age: Int
   maximum_age: Int
   wp_guid: String
@@ -186,7 +186,7 @@ type StrapiActivityGroup implements Node @dontInfer  {
   logo: StrapiImage
   title: String
   ingress: String
-  content: StrapiComponentBlocksTextBlock
+  content: JSON
   wp_guid: String
   mandatory: Boolean
   subactivity_term: StrapiActivityGroupSubactivity_term
@@ -505,7 +505,6 @@ type StrapiActivityGroupFields @dontInfer {
   path: String
 }
 type StrapiContentPage implements Node @dontInfer {
-  content: StrapiComponentBlocksTextBlock
   title: String
   ingress: String
   meta_description: String
@@ -529,7 +528,9 @@ type StrapiContentPage implements Node @dontInfer {
     difference: String
     locale: String
   ): Date
+  main_text: StrapiContentData
   main_image: StrapiImage
+  content_data: [StrapiComponentBlocksArray]
   localizations: [StrapiContentPageLocalizations]
   strapi_id: Int
   id: ID!
@@ -537,6 +538,10 @@ type StrapiContentPage implements Node @dontInfer {
   children: [Node!]!
   internal: Internal!
   slug: String
+}
+
+type StrapiContentData @dontInfer {
+  data: JSON
 }
 
 type StrapiContentPageLocalizations @dontInfer {
@@ -713,6 +718,7 @@ type StrapiComponentBlocksAgeGroupBlock implements Node {
 
 type StrapiComponentBlocksAgeGroupBlockIngress {
   content: StrapiComponentBlocksAgeGroupBlockIngressTextnode
+  strapi_component: String
 }
 
 type StrapiComponentBlocksAgeGroupBlockIngressTextnode implements Node {
@@ -721,6 +727,7 @@ type StrapiComponentBlocksAgeGroupBlockIngressTextnode implements Node {
   children: [Node!]!
   internal: Internal!
   ingress: String
+  strapi_component: String
 }
 
 type StrapiComponentBlocksContentPageBlock implements Node {
@@ -947,7 +954,7 @@ type StrapiActivity implements Node @dontInfer {
   logo: StrapiImage
   title: String
   main_image: StrapiImage
-  content: StrapiComponentBlocksTextBlock
+  content: JSON
   mandatory: Boolean
   ingress: String
   wp_guid: String
@@ -1859,7 +1866,7 @@ type StrapiSuggestion implements Node @dontInfer {
   children: [Node!]!
   internal: Internal!
   title: String
-  content: String
+  content: JSON
   activity: StrapiSuggestionActivity
   wp_guid: String
   author: String
@@ -1895,7 +1902,7 @@ type StrapiSuggestion implements Node @dontInfer {
 type StrapiSuggestionActivity @dontInfer {
   id: Int
   title: String
-  content: String
+  content: JSON
   mandatory: Boolean
   ingress: String
   wp_guid: String
@@ -2264,7 +2271,7 @@ type StrapiLocationIcon @dontInfer {
 type StrapiLocationActivities @dontInfer {
   id: Int
   title: String
-  content: String
+  content: JSON
   mandatory: Boolean
   ingress: String
   wp_guid: String
@@ -2875,14 +2882,6 @@ type Content_NavigationItemsSubitemsSubitems @dontInfer {
   type: String
   id: Int
   path: String
-}
-type StrapiAgeGroup implements Node @dontInfer {
-  main_image: StrapiImage
-  logo: StrapiImage
-}
-type StrapiActivityGroup implements Node @dontInfer {
-  main_image: StrapiImage
-  logo: StrapiImage
 }
 type StrapiActivity implements Node @dontInfer {
   images: [StrapiImage]

@@ -1,12 +1,9 @@
 export const getContentPage = `
-query getContentPage($id: Int) {
-    strapiContentPage(strapi_id: { eq: $id }) {
-      localizations {
-        id
-        locale
-      }
-      locale
-      strapi_id
-    }
+query getContentPage($id: String) {
+  strapiContentPage(id: { eq: $id }) {
+    id
+    locale
+    strapi_id
   }
+}
 `;

@@ -11,7 +11,6 @@ const config: GatsbyConfig = {
     siteUrl: `https://www.partio-ohjelma.fi`,
   },
   plugins: [
-    'gatsby-plugin-react-helmet',
     'gatsby-plugin-postcss',
     'gatsby-plugin-netlify',
     {
@@ -21,7 +20,6 @@ const config: GatsbyConfig = {
         queryLimit: -1,
         skipFileDownloads: true,
         collectionTypes: [
-
           {
             singularName: 'activity',
             queryParams: {
@@ -29,12 +27,15 @@ const config: GatsbyConfig = {
                 localizations: '*',
                 activity_group: '*',
                 age_group: '*',
-                duration: '*',
+                duration: {
+                  populate: '*'
+                },
                 locations: '*',
                 suggestions: '*',
                 logo: '*',
-                data: '*',
-                links: '*',
+                name: '*',
+                description: '*',
+                content: '*',
               },
             },
             pluginOptions: {
@@ -48,28 +49,31 @@ const config: GatsbyConfig = {
             queryParams: {
               populate: {
                 activity_groups:  {
-                  populate: '*',
+                  populate: {
+                    activity_group: '*',
+                  },
                 },
                 localizations: '*',
-                main_image:  {
-                  populate: '*',
-                },
-                logo:  {
-                  populate: '*',
-                },
-                icon:  {
-                  populate: '*',
-                },
+                main_image:  '*',
+                logo:  '*',
+                icon:  '*',
                 activities:  {
-                  populate: '*',
+                  populate: {
+                    activity_group: '*',
+                  },
                 },
                 subactivitygroup_term: {
                   populate: '*',
                 },
-                links: {
+                links: '*',
+                lower_content_area: {
                   populate: '*',
                 },
-                
+                upper_content_area: {
+                  populate: '*',
+                },
+                content: '*',
+                ingress: '*',
               },
             },
             pluginOptions: {
@@ -77,14 +81,11 @@ const config: GatsbyConfig = {
                 locale: 'all',
               },
             },
-          },
-                    
+          },           
           {
             singularName: 'duration',
             queryParams: {
-              populate: {
-                localizations: '*',
-              },
+              populate: '*'
             },
             pluginOptions: {
               i18n: {
@@ -96,10 +97,7 @@ const config: GatsbyConfig = {
           {
             singularName: 'location',
             queryParams: {
-              populate: {
-                localizations: '*',
-                icon: '*',
-              },
+              populate: '*'
             },
             pluginOptions: {
               i18n: {
@@ -113,14 +111,23 @@ const config: GatsbyConfig = {
             queryParams: {
               populate: {
                 localizations: '*',
-                activities: '*',
+                activities: {
+                  populate: '*',
+                },
                 age_group: '*',
                 logo: '*',
-                activity_group_category: '*',
-                activitygroup_term: '*',
+                activity_group_category: {
+                  populate: '*',
+                  sort_order: '*',
+                },
+                activitygroup_term: {
+                  populate: '*',
+                },
                 subactivity_term: '*',
                 fields: '*',
-                links: '*',
+                links: {
+                  populate: '*',
+                },
               },
             },
             pluginOptions: {
@@ -134,17 +141,86 @@ const config: GatsbyConfig = {
             singularName: 'content-page',
             queryParams: {
               populate: {
-                data: {
-                  populate: '*',
+                title: '*',
+                ingress: '*',
+                main_image: {
+                  populate: {
+                    formats: '*',
+                  },
+                },
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                        link_text: {
+                          populate: '*',
+                        },
+                        link_url: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                        age_group: '*',
+                        content: {
+                          populate: '*',
+                        },
+                        ingress: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
                 },
                 main_text: {
-                  populate: '*',
+                  data: '*',
                 },
-                hero_image: '*',
-                localizations: {
-                  populate: '*',
-                },
-              },
+                meta_description: '*',
+                meta_title: '*',
+              }
             },
             pluginOptions: {
               i18n: {
@@ -155,30 +231,112 @@ const config: GatsbyConfig = {
           {
             singularName: 'suggestion',
             queryParams: {
-              populate: {
-                hero_image: '*',
-                localizations: {
-                  populate: '*',
-                },
-                links: {
-                  populate: '*',
-                },
-                files: {
-                  populate: '*',
-                },
-                activity: {
-                  populate: '*',
-                },
+              populate: '*',
+              locations: {
+                populate: '*',
+              },
+              activity: {
+                populate: '*',
+              },
+              duration: {
+                populate: '*',
               },
             },
+            pluginOptions: {
+              i18n: {
+                locale: 'all',
+              },
+            }
           }
         ],
         singleTypes: [
           {
             singularName: 'front-page',
             queryParams: {
+              locale: 'all',
               populate: {
-                hero_image: '*',
+                locale: '*',
+                strapi_id: '*',
+                ingress: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                        link_text: {
+                          populate: '*',
+                        },
+                        link_url: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                        age_group: '*',
+                        content: {
+                          populate: '*',
+                        },
+                        ingress: '*',
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+                hero_image: {
+                  populate: '*',
+                },
+                hero_link_text: {
+                  populate: '*',
+                },
+                hero_link_url: {
+                  populate: '*',
+                },
                 footer_sections: {
                   populate: {
                     link_groups: {
@@ -209,11 +367,90 @@ const config: GatsbyConfig = {
             },
             pluginOptions: { i18n: { locale: 'fi' } },
           },
+
           {
             singularName: 'front-page',
             queryParams: {
+              locale: 'sv',
               populate: {
-                hero_image: '*',
+                content: {
+                  on: {
+                    'blocks.activity-block': {
+                      populate: {
+                        block_width: '*',
+                        activities: {
+                          populate: '*',
+                        },
+                        link_text: {
+                          populate: '*',
+                        },
+                        link_url: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.age-group-block': {
+                      populate: {
+                        block_width: '*',
+                        age_group: '*',
+                        content: {
+                          populate: '*',
+                        },
+                      },
+                    },
+                    'blocks.content-page-block': {
+                      populate: {
+                        block_width: '*',
+                        content_pages: {
+                          populate: {
+                            main_image: {
+                              populate: {
+                                formats: '*',
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
+                    'blocks.hero-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.image-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.link-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.text-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                    'blocks.video-block': {
+                      populate: {
+                        block_width: '*',
+                      },
+                    },
+                  },
+                },
+                localizations: {
+                  populate: '*',
+                },
+                hero_image: {
+                  populate: '*',
+                },
+                hero_link_text: {
+                  populate: '*',
+                },
+                hero_link_url: {
+                  populate: '*',
+                },
                 footer_sections: {
                   populate: {
                     link_groups: {
@@ -242,8 +479,9 @@ const config: GatsbyConfig = {
                 },
               },
             },
-            pluginOptions: { i18n: { locale: 'en' } },
+            pluginOptions: { i18n: { locale: 'sv' } },
           },
+          /*
           {
             singularName: 'front-page',
             queryParams: {
@@ -349,246 +587,8 @@ const config: GatsbyConfig = {
             },
             pluginOptions: { i18n: { locale: 'sme' } },
           },
-          {
-            singularName: 'not-found-page',
-            queryParams: {
-              populate: {
-                data: {
-                  on: {
-                    'blocks.*': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                  },
-                },
-                localizations: {
-                  populate: '*',
-                },
-              },
-            },
-            pluginOptions: { i18n: { locale: 'fi' } },
-          },
-          {
-            singularName: 'not-found-page',
-            queryParams: {
-              populate: {
-                data: {
-                  on: {
-                    'blocks.activity-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.data-page-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.hero-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.image-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.link-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.text-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.video-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                  },
-                },
-                localizations: {
-                  populate: '*',
-                },
-              },
-            },
-            pluginOptions: { i18n: { locale: 'sv' } },
-          },
-          {
-            singularName: 'not-found-page',
-            queryParams: {
-              populate: {
-                data: {
-                  on: {
-                    'blocks.activity-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.data-page-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.hero-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.image-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.link-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.text-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.video-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                  },
-                },
-                localizations: {
-                  populate: '*',
-                },
-              },
-            },
-            pluginOptions: { i18n: { locale: 'en' } },
-          },
-          {
-            singularName: 'not-found-page',
-            queryParams: {
-              populate: {
-                data: {
-                  on: {
-                    'blocks.activity-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.data-page-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.hero-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.image-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.link-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.text-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.video-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                  },
-                },
-                localizations: {
-                  populate: '*',
-                },
-              },
-            },
-            pluginOptions: { i18n: { locale: 'sme' } },
-          },
-          {
-            singularName: 'not-found-page',
-            queryParams: {
-              populate: {
-                data: {
-                  on: {
-                    'blocks.activity-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.age-group-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.data-page-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.hero-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.image-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.link-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.text-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                    'blocks.video-block': {
-                      populate: {
-                        block_width: '*',
-                      },
-                    },
-                  },
-                },
-                localizations: {
-                  populate: '*',
-                },
-              },
-            },
-            pluginOptions: { i18n: { locale: 'smn' } },
-          },
+          */
+
           {
             singularName: 'cookie-page',
             queryParams: {
@@ -639,6 +639,7 @@ const config: GatsbyConfig = {
     `gatsby-plugin-sharp`, 
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sitemap`,
+    `gatsby-plugin-image`,
     `gatsby-plugin-use-query-params`,
     {
       resolve: `gatsby-plugin-google-gtag`,

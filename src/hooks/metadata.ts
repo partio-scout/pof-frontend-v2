@@ -2,17 +2,71 @@ import { useStaticQuery, graphql } from 'gatsby';
 import { StrapiFrontPage, StrapiImage } from '../../graphql-types';
 
 const metadataQuery = graphql`
-  query MetadataQuery {
+  query MetaDataQuery {
     allStrapiFrontPage {
       nodes {
         title
         meta_description
-        ingress
         locale
         strapi_id
-        #hero_image {
-        #  ...ImageFragment
-        #}
+        hero_image {
+          id
+          name
+          alternativeText
+          caption
+          width
+          height
+          formats {
+            large {
+              ext
+              url
+              hash
+              mime
+              name
+              size
+              width
+              height
+            }
+            medium {
+              ext
+              url
+              hash
+              mime
+              name
+              size
+              width
+              height
+            }
+            small {
+              ext
+              url
+              hash
+              mime
+              name
+              size
+              width
+              height
+            }
+            thumbnail {
+              ext
+              url
+              hash
+              mime
+              name
+              size
+              width
+              height
+            }
+          }
+          hash
+          ext
+          mime
+          size
+          url
+          provider
+          createdAt
+          updatedAt
+        }
       }
     }
   }
@@ -38,7 +92,7 @@ const useMetadata = (currentLocale: string): Metadata => {
   const metadata: Metadata = {
     title: correctMetadata?.title || 'Partio-ohjelma',
     locale: correctMetadata?.locale || 'fi',
-    meta_description: correctMetadata?.meta_description || correctMetadata?.ingress || '',
+    meta_description: correctMetadata?.meta_description || correctMetadata?.ingress?.data || '',
     siteUrl: 'https://partio-ohjelma.fi',
     image: correctMetadata?.hero_image?.url || '',
   };

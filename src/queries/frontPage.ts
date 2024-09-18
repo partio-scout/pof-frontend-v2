@@ -1,5 +1,5 @@
 export const getAllFrontPages = `
-query {
+query allFrontPages {
   allStrapiFrontPage {
     nodes {
       locale

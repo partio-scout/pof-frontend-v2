@@ -13,28 +13,120 @@ interface FrontPageTemplateProps {
 export const query = graphql`
 query FrontPageQuery($locale: String) {
   frontPage: strapiFrontPage(locale: { eq: $locale }) {
+    content {
+      __typename
+      ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
+        strapi_id
+        strapi_component
+        activities {
+          title
+        }
+        block_width {
+          name
+        }
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
+        strapi_id
+        strapi_component
+        title
+        block_width {
+          name
+        }
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
+        id
+        strapi_component
+        content_pages {
+          title
+          strapi_id
+          meta_description
+          locale
+          publishedAt
+          ingress
+          main_image {
+            alternativeText
+            caption
+            formats {
+              large {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+              medium {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+              small {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+              thumbnail {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+            }
+            height
+            name
+            size
+            strapi_id
+            url
+          }
+        }
+      }
+    }
     locale
     title
-    ingress
+    hero_image {
+      url
+    }
+    locale
+    title
     hero_link_text
     hero_link_url
+    id
   }
 }
-
 `;
 
 interface FrontPageQueryType {
   frontPage: Pick<
     StrapiFrontPage,
-   'data' | 'locale' | 'title' | 'ingress' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
+   'content' | 'locale' | 'title' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
   >;
 }
 
 const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
+  console.log('data', data);
+
+  
   const {
-    frontPage: { data: content, title, hero_link_text, hero_link_url, hero_image, locale },
+    frontPage: { content, title, hero_link_text, hero_link_url, hero_image, locale },
   } = data;
 
+  
   return (
     <Layout
       locale={locale as Locale}

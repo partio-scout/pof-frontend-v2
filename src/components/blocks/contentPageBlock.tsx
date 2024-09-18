@@ -10,6 +10,7 @@ import { currentLocale } from '../../utils/helpers';
 
 type ContentPageFromBlock = StrapiContentPage & {
   id: number;
+  strapi_id: number;
 };
 
 interface ContentPageCardProps {
@@ -20,24 +21,24 @@ const ContentPageCard = ({ page }: ContentPageCardProps) => {
   const { t } = useTranslation();
   const navigation = useNavigation(currentLocale());
 
-  const { title, ingress, publishedAt, id } = page;
+  const { title, ingress, publishedAt, id, main_image, strapi_id } = page;
 
-  const url = findHeaderItemByTypeAndId('ContentPage', id, navigation)?.url;
+  const url = findHeaderItemByTypeAndId('ContentPage', strapi_id, navigation)?.url;
 
-  // const imageUrl = prependApiUrl(main_image?.formats?.small?.url);
+  const imageUrl = prependApiUrl(main_image?.formats?.small?.url);
 
   // return url ? (
   return (
     <div className="flex flex-col rounded-lg m-3 max-w-card h-491  overflow-hidden">
-      {/* {imageUrl && (
+      {imageUrl && (
         <div>
           <img src={imageUrl} className="w-full h-64 object-cover" alt={title || ''} />
         </div>
-      )} */}
+      )}
       <div className="flex flex-col justify-around bg-gray-light w-full grow">
         <div className="grow p-2">
           <h4 className="bold font-tondu tracking-wider text-blue sm:text-lt md:text-lw">{title}</h4>
-          <p className="text-blue md:text-base">{ingress}</p>
+          <p className="text-blue md:text-base">{ingress?.data}</p>
         </div>
         <div className="flex justify-between items-center pl-2">
           <span className="font-sourceSansPro pl-2 pb-2 text-gray-dark">

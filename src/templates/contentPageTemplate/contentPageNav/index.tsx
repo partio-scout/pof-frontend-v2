@@ -6,7 +6,7 @@ import { findHeaderItemByTypeAndId } from '../../../utils/navigation';
 import ContentPageDesktopNav from './desktop';
 import ContentPageMobileNav from './mobile';
 
-const createSubNavigation = (id: number, path: string, navigation: HeaderItem[]): HeaderItem[] => {
+const createSubNavigation = (strapi_id: number, path: string, navigation: HeaderItem[]): HeaderItem[] => {
   const breadcrumbs = findBreadcrumbPath(path, navigation as HeaderItem[]) as HeaderItem[];
 
   let firstNavigationItem;
@@ -15,7 +15,7 @@ const createSubNavigation = (id: number, path: string, navigation: HeaderItem[])
   if (breadcrumbs[breadcrumbs.length - 2]?.type === 'ContentPage') {
     firstNavigationItem = findHeaderItemByTypeAndId('ContentPage', breadcrumbs[breadcrumbs.length - 2].id, navigation);
   } else {
-    firstNavigationItem = findHeaderItemByTypeAndId('ContentPage', id, navigation);
+    firstNavigationItem = findHeaderItemByTypeAndId('ContentPage', strapi_id, navigation);
   }
 
   if (!firstNavigationItem) return [];

@@ -23,11 +23,14 @@ interface QueryType {
   localeData: { nodes: SitePage[] };
 }
 
+
+
 const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
+
   const {
     title,
     ingress,
-    data: content,
+    content,
     main_image,
     maximum_age,
     minimum_age,
@@ -37,13 +40,18 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     lower_content_area,
     upper_content_area,
     color,
-    locale,
+    locale
   } = data.ageGroup;
+
 
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
   const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
-  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
+
+  console.log('subTitle', subTitle);
+  console.log('data', data.localeData);
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData?.nodes);
+  console.log('localeLinks', localeLinks);
   const metadata = useMetadata(locale || 'fi');
 
   return (
@@ -64,7 +72,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     >
       <Metadata
         title={title || ''}
-        description={ingress || content || ''}
+        description={ingress || content.data?.content || ''}
         path={path}
         locale={locale as Locale}
         imageUrl={metadata.image || prependApiUrl(main_image?.url) || ''}
@@ -73,13 +81,13 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
             <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress}</div>
-            <RichText html={content} />
+            <RichText html={content.data?.content} />
           </div>
           {(links?.length || 0) > 0 && (
             <div className="flex flex-col sm:flex-row md:flex-col">
               {links?.map((link) => (
                 <div key={link?.url} className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={link?.url || ''} icon={link?.icon?.url!} color={color}>
+                  <PillLink to={link?.url || ''} icon={link?.url!} color={color}>
                     {link && link.description}
                   </PillLink>
                 </div>
@@ -99,46 +107,190 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-query ActivityGroupQuery($strapi_id: Int, $localizations: [Int], $type: String) {
-  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+query AgeGroupQuery($locale: String, $type: String, $strapi_id: Int, $id: String) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
     nodes {
       ...SitePageLocaleFragment
     }
   }
   ageGroup: strapiAgeGroup(strapi_id: { eq: $strapi_id }) {
     locale
-    localizations {
-      locale
-      id
-    }
     title
     updatedAt
     createdAt
     publishedAt
     id
     strapi_id
-    content: data
+    content {
+      data {
+        content
+      }
+    }
     ingress
     links {
       description
       id
       url
-      #icon {
-      #  ...ImageFragment
-      #}
     }
-    #logo {
-    #  ...ImageFragment
-    #}
+    logo {
+      id
+      name
+      alternativeText
+      caption
+      width
+      height
+      formats {
+        large {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        medium {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        small {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        thumbnail {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+      }
+      hash
+      ext
+      mime
+      size
+      url
+      createdAt
+      updatedAt
+    }
     maximum_age
     minimum_age
-    #main_image {
-    #  ...ImageFragment
-    #}
+    activity_groups {
+      subactivity_term {
+        locale
+        name
+        plural
+        singular
+      }
+    }
+    main_image {
+      id
+      name
+      alternativeText
+      caption
+      width
+      height
+      formats {
+        large {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        medium {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        small {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        thumbnail {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+      }
+      hash
+      ext
+      mime
+      size
+      url
+      createdAt
+      updatedAt
+    }
     title
+    upper_content_area {
+      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+        id
+        strapi_id
+        text
+        title
+        strapi_component
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
+        id
+        video_url
+        strapi_id
+        strapi_component
+      }
+    }
+    title
+    lower_content_area {
+      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+        id
+        strapi_id
+        text
+        title
+        strapi_component
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
+        id
+        video_url
+        strapi_id
+        strapi_component
+      }
+    }
     color
   }
-  activityGroups: allStrapiActivityGroup { #(filter: { age_group: { strapi_id: { eq: $strapi_id } } }) {
+  activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
     nodes {
       logo {
         url
@@ -156,7 +308,6 @@ query ActivityGroupQuery($strapi_id: Int, $localizations: [Int], $type: String) 
       activity_group_category {
         name
         id
-        sort_order
       }
       sort_order
       title

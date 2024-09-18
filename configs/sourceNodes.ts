@@ -14,6 +14,7 @@ import {
 import { parseRouteName, parseAgeGroupRouteName } from './utils';
 import { locales } from '../src/types/locale';
 
+
 interface ContentNavigationItemFirstLevel {
   title: string;
   subitems?: ContentNavigationItem[];
@@ -41,7 +42,7 @@ const mapNavigationItems = (
       return {
         title: item?.title!,
         type: 'ContentPage',
-        id: Number(item?.page?.id!),
+        id: item?.page?.id!,
         path,
         subitems: mapNavigationItems(item?.subnavigation, path),
       };
@@ -49,9 +50,8 @@ const mapNavigationItems = (
   );
 };
 
-const firstLevelNavigationItemFilter = (
-  navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title'>>,
-) => navigationItem?.id && navigationItem.title;
+const firstLevelNavigationItemFilter = (navigationItem: Maybe<Pick<StrapiFrontPageNavigation, 'id' | 'title'>>) =>
+  navigationItem?.id && navigationItem.title;
 
 const subNavigationItemFilter = (
   navigationItem: Maybe<Pick<StrapiFrontPageNavigationSubnavigation, 'id' | 'title' | 'page'>>,
@@ -61,17 +61,28 @@ const subNavigationItemFilter = (
  * Reads navigation data from StrapiFrontPage nodes and write them as Navigation nodes.
  * NOTE: The Navigation nodes only contain navigation for content pages and NOT for program data (ageGroups, activityGroups and activities).
  */
-function createContentNavigationNodes(args: SourceNodesArgs) {
-  const { getNodesByType, actions, createContentDigest } = args;
-  const nodes = getNodesByType('StrapiFrontPage');
+async function createContentNavigationNodes(args: SourceNodesArgs) {
+  const { actions, createContentDigest } = args;
+  const apiUrl = process.env.GATSBY_API_URL;
 
-  for (const node of nodes) {
+  // Fetch data from Strapi (e.g., FrontPage)
+  const fetchFrontPageData = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/front-page?populate[navigation][populate][subnavigation][populate][page]=%2A&populate[navigation][populate][subnavigation][populate][subnavigation][populate][page][populate]=%2A&locale=all'); // Adjust the endpoint as per your Strapi API
+      return response.data.data; // Assuming Strapi v4 format
+    } catch (error) {
+      console.error('Error fetching front page data from Strapi:', error);
+      return [];
+    }
+  };
+
+  const frontPages = await fetchFrontPageData();
+
+  for (const frontPage of frontPages) {
     const { createNode } = actions;
 
-    const frontPage = node as unknown as StrapiFrontPage;
-
     const navigationData: ContentNavigationItemFirstLevel[] =
-      frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem) => ({
+      frontPage.navigation?.filter(firstLevelNavigationItemFilter).map((navigationItem: any) => ({
         title: navigationItem?.title!,
         subitems: mapNavigationItems(navigationItem?.subnavigation, `/${parseRouteName(navigationItem?.title!)}`),
       })) || [];
@@ -95,37 +106,88 @@ function createContentNavigationNodes(args: SourceNodesArgs) {
   }
 }
 
-function createProgramNavigationNodes(args: SourceNodesArgs) {
-  const { getNodesByType, actions, createContentDigest } = args;
+async function createProgramNavigationNodes(args: SourceNodesArgs) {
+  const { actions, createContentDigest, createNodeId } = args;
   const { createNode, createNodeField } = actions;
 
-  const getNodesByLocale = <TYPE extends { locale?: Maybe<string> }>(type: string) =>
-    getNodesByType(type).reduce((prev, curr) => {
-      const data = curr as unknown as TYPE;
+  const apiUrl = process.env.GATSBY_API_URL;
 
-      prev[data.locale!] = [...(prev[data.locale!] || []), data];
+  const fetchAgeGroupData = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/age-groups?populate=*&activity_groups=*&locale=all'); // Adjust the endpoint as per your Strapi API
+      return response.data.data; // Assuming Strapi v4 format
+    } catch (error) {
+      console.error('Error fetching age group data from Strapi:', error);
+      return [];
+    }
+  };
 
-      return prev;
-    }, {} as Record<string, TYPE[]>);
+  const ageGroups = await fetchAgeGroupData();
 
-  const ageGroups = Object.entries(getNodesByLocale<StrapiAgeGroup>('StrapiAgeGroup'));
+  // foreach ageGroup and set key to locale and value to ageGroups
+  const ageGroupsByLocale = ageGroups.reduce((acc: Map<string, StrapiAgeGroup[]>, ageGroup: StrapiAgeGroup) => {
+    const locale = ageGroup.locale || 'fi';
+    if (!acc.has(locale)) {
+      acc.set(locale, []);
+    }
+    acc.get(locale)?.push(ageGroup);
+    return acc;
+  }, new Map<string, StrapiAgeGroup[]>());
 
-  const activityGroups = getNodesByLocale<StrapiActivityGroup>('StrapiActivityGroup');
+  const fetchActivityGroupData = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/activity-groups?populate=*&locale=all'); // Adjust the endpoint as per your Strapi API
+      return response.data.data; // Assuming Strapi v4 format
+    } catch (error) {
+      console.error('Error fetching activity group data from Strapi:', error);
+      return [];
+    }
+  };
 
-  const activities = getNodesByLocale<StrapiActivity>('StrapiActivity');
+  const activityGroups = await fetchActivityGroupData() as StrapiActivityGroup[];
+  
+  const fetchActivitiesData = async () => {
+    try {
+      const response = await axios.get(apiUrl + '/api/activities?populate=*&locale=all'); // Adjust the endpoint as per your Strapi API
+      return response.data.data; // Assuming Strapi v4 format
+    } catch (error) {
+      console.error('Error fetching activities data from Strapi:', error);
+      return [];
+    }
+  };
 
-  const localeNavigations = ageGroups.map(([locale, ageGroups]) => {
-    console.log('Creating ageGroup navigation for locale', locale);
+  const activities = await fetchActivitiesData() as StrapiActivity[];
 
+
+  let localeNavigations = [];
+
+  ageGroupsByLocale.forEach((ageGroups, locale) => {
     const items: ProgramNavItem[] = [];
 
     for (const ageGroup of ageGroups) {
+
       const ageGroupPath = '/' + parseAgeGroupRouteName(ageGroup.title!);
+
+      const ageGroupNode = {
+        id: createNodeId(`StrapiAgeGroup-${ageGroup.id}`),
+        title: ageGroup.title!,
+        color: ageGroup.color!,
+        minimum_age: ageGroup.minimum_age,
+        maximum_age: ageGroup.maximum_age,
+        locale: ageGroup.locale!,
+        internal: {
+          type: 'AgeGroup',
+          contentDigest: createContentDigest(ageGroup),
+        },
+      };
+      
+      createNode(ageGroupNode);
 
       const ageGroupNav: ProgramNavItem = {
         title: ageGroup.title!,
         type: 'AgeGroup',
-        id: ageGroup.strapi_id!,
+        id: ageGroup.id!,
+        strapi_id: ageGroup.strapi_id!,
         path: ageGroupPath,
         color: ageGroup.color!,
         subitems: [],
@@ -134,7 +196,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       };
 
       createNodeField({
-        node: ageGroup as unknown as Node,
+        node: ageGroupNode as unknown as Node,
         name: 'path',
         value: ageGroupPath,
       });
@@ -142,7 +204,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
       for (const activityGroup of ageGroup.activity_groups || []) {
         if (!activityGroup?.id) continue;
 
-        const properActivityGroup = activityGroups[locale].find((x) => x.strapi_id === activityGroup.strapi_id);
+        const properActivityGroup = activityGroups.find((x) => x.id === activityGroup.id);
 
         if (!properActivityGroup) continue;
 
@@ -151,13 +213,25 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
         const activityGroupNav: ProgramNavItem = {
           title: properActivityGroup.title!,
           type: 'ActivityGroup',
-          id: properActivityGroup.strapi_id!,
+          id: properActivityGroup.id,
+          strapi_id: properActivityGroup.strapi_id,
           path: activityGroupPath,
+          locale: properActivityGroup.locale!,
           subitems: [],
         };
 
+        const activityGroupNode = {
+          id: createNodeId(`StrapiActivityGroup-${properActivityGroup.strapi_id}`),
+          title: properActivityGroup.title!,
+          internal: {
+            type: 'StrapiActivityGroup',
+            contentDigest: createContentDigest(properActivityGroup),
+          },
+        };
+        createNode(activityGroupNode);
+
         createNodeField({
-          node: properActivityGroup as unknown as Node,
+          node: activityGroupNode as unknown as Node,
           name: 'path',
           value: activityGroupPath,
         });
@@ -165,7 +239,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
         for (const activity of properActivityGroup.activities || []) {
           if (!activity?.id) continue;
 
-          const properActivity = activities[locale].find((x) => x.strapi_id === activity.strapi_id);
+          const properActivity = activities.find((x) => x.strapi_id === activity.strapi_id);
 
           if (!properActivity) continue;
 
@@ -174,12 +248,25 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
           const activityNav: ProgramNavItem = {
             title: properActivity.title!,
             type: 'Activity',
-            id: properActivity.strapi_id!,
+            id: properActivity.id!,
+            strapi_id: properActivity.strapi_id,
             path: activityPath,
           };
 
+          
+          const activityNode = {
+            id: createNodeId(`StrapiActivity-${properActivity.strapi_id}`),
+            title: properActivity.title!,
+            locale: properActivity.locale!,
+            internal: {
+              type: 'StrapiActivity',
+              contentDigest: createContentDigest(properActivity),
+            },
+          };
+          createNode(activityNode);
+
           createNodeField({
-            node: properActivity as unknown as Node,
+            node: activityNode as unknown as Node,
             name: 'path',
             value: activityPath,
           });
@@ -201,7 +288,7 @@ function createProgramNavigationNodes(args: SourceNodesArgs) {
 
       items?.push(ageGroupNav);
     }
-    return { locale, navigation: items };
+    localeNavigations.push({ locale, navigation: items });
   });
 
   for (const localeNavigation of localeNavigations) {
@@ -233,8 +320,7 @@ const loadTranslations = async () => {
   const promises = locales.map(async (locale) => {
     let translations;
     try {
-      const response = await axios.get<Object>(apiUrl + '/api/setting?populate=*&locale=' + locale);
-
+      const response = await axios.get<Object>(apiUrl + '/api/setting?locale=' + locale);
       translations = response.data;
     } catch (error: any) {
       if (error.isAxiosError && (error as AxiosError).response?.status === 404) {
@@ -252,7 +338,9 @@ const loadTranslations = async () => {
         mkdirSync(translationsPath, { recursive: true });
       }
 
-      writeFileSync(filePath, JSON.stringify(translations));
+      const translationArray = translations.data?.translations ?? {};
+
+      writeFileSync(filePath, JSON.stringify(translationArray));
     } catch (error) {
       console.error("Couldn't write translations for locale", locale, 'error:', error);
     }

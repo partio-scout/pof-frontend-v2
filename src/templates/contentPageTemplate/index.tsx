@@ -25,20 +25,26 @@ const MainContent = ({ data }: ContentPageTemplateProps) => (
       <RichText html={data.main_text} />
     </div>
     {data.main_image && (
-      <img
-        className="w-full md:w-1/2"
-        src={prependApiUrl(data.main_image?.url)}
-        alt={data.main_image?.alternativeText || ''}
-        title={data.main_image.caption || ''}
-      ></img>
+      <div className="w-full md:w-1/2">
+
+        <img
+          src={prependApiUrl(data.main_image?.url)}
+          alt={data.main_image?.alternativeText || ''}
+          title={data.main_image.caption || ''}
+        ></img>
+      </div>
+
     )}
   </div>
 );
 
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
-  const { strapi_id, content, locale } = data.contentPage;
+  const { strapi_id, content, locale, main_text } = data.contentPage;
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const metadata = useMetadata(locale || 'fi');
+
+  console.log('data', data);
+  data.contentPage.main_text = main_text;
 
   return (
     <Layout
@@ -63,29 +69,99 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-query getContentPage($strapi_id: Int, $localizations: [Int], $type: String) {
-  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+query getContentPage($locale: String, $type: String, $id: String) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
     nodes {
       ...SitePageLocaleFragment
     }
   }
-  contentPage: strapiContentPage(strapi_id: { eq: $strapi_id }) {
+  contentPage: strapiContentPage(id: { eq: $id }) {
     locale
-    localizations {
-      locale
-      id
-    }
     title
-    #updatedAt
-    #createdAt
-    #publishedAt
+    updatedAt
+    createdAt
+    publishedAt
     id
     strapi_id
-    main_text: data
-    #main_image {
-    #  url
-    #}
+    main_text: main_text_data
+    main_image {
+      url
+    }
     ingress
+    content {
+      __typename
+      ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
+        strapi_id
+        strapi_component
+        title
+        block_width {
+          name
+        }
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
+        id
+        strapi_component
+        content_pages {
+          title
+          strapi_id
+          meta_description
+          locale
+          publishedAt
+          ingress
+          main_image {
+            alternativeText
+            caption
+            formats {
+              large {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+              medium {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+              small {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+              thumbnail {
+                ext
+                url
+                hash
+                mime
+                name
+                size
+                width
+                height
+              }
+            }
+            height
+            name
+            size
+            strapi_id
+            url
+          }
+        }
+      }
+    }
   }
 }
 `;

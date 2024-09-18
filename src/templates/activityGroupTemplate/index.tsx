@@ -138,21 +138,19 @@ export default activityGroupTemplate;
 
 export const query = graphql`
 query Query(
+  $id: String,
   $strapi_id: Int,
-  $localizations: [Int],
-  $type: String
+  $locale: String,
+  $type: String,
+  $ageGroupId: String,
 ) {
-  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
     nodes {
       ...SitePageLocaleFragment
     }
   }
   activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
     locale
-    localizations {
-      id
-      locale
-    }
     title
     updatedAt
     createdAt
@@ -160,7 +158,6 @@ query Query(
     id
     strapi_id
     ingress
-    content: data
     mandatory
     sort_order
     activities {
@@ -169,7 +166,7 @@ query Query(
     }
     activity_group_category {
       name
-      sort_order
+      #sort_order
     }
     activitygroup_term {
       name
@@ -185,36 +182,145 @@ query Query(
       id
       title
     }
-    #links {
-    #  description
-    #  url
-    #}
-    mandatory_activities_description
-    optional_activities_description
-    mandatory_activities_title
-    optional_activities_title
-    #logo {
-    #  ...ImageFragment
-    #}
-    #main_image {
-    #  ...ImageFragment
-    #}
+    logo {
+      alternativeText
+      caption
+      createdAt
+      hash
+      height
+      id
+      formats {
+        medium {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        large {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        small {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        thumbnail {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+      }
+      mime
+      name
+      size
+      url
+      updatedAt
+      width
+      strapi_id
+    }
+    locale
   }
-  ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
+  ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
     strapi_id
     title
-    #main_image {
-    #  ...ImageFragment
-    #}
+    main_image {
+      alternativeText
+      caption
+      createdAt
+      hash
+      height
+      id
+      formats {
+        medium {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        large {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        small {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        thumbnail {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+      }
+      mime
+      name
+      size
+      url
+      updatedAt
+      width
+      strapi_id
+    }
     color
+    locale
   }
-  otherGroups: allStrapiActivityGroup {
-    #(filter: { strapiId: { ne: $id }, age_group: { id: { eq: $ageGroupId } } })
+  otherGroups: allStrapiActivityGroup(filter: { id: { eq: $id }, strapi_id: { ne: $strapi_id }, age_group: { id: { eq: $ageGroupId } } }) {
     nodes {
-      #logo {
-      #  ...ImageFragment
-      #}
+      logo {
+        url
+        formats {
+          thumbnail {
+            width
+            url
+            size
+            name
+            mime
+            height
+          }
+        }
+      }
       activity_group_category {
+        #sort_order
         name
         id
       }
@@ -223,6 +329,7 @@ query Query(
     }
   }
   suggestions: allStrapiSuggestion(
+    filter: {strapi_id: { eq: $strapi_id } }
     sort: { fields: publishedAt, order: DESC }
     limit: 4
   ) {
@@ -235,32 +342,33 @@ query Query(
       locale
       like_count
       id
-      activity {
-        title
-        id
-      }
     }
   }
-  activities: allStrapiActivity(filter: {  }) {
+  activities: allStrapiActivity(filter: { activity_group: { id: { eq: $id } } }) {
     nodes {
+      id
+      strapi_id
       title
       activity_group {
         title
-        #logo {
-        #  ...ImageFragment
-        #}
+        logo {
+          formats {
+            thumbnail {
+              url
+            }
+          }
+        }
       }
       age_group {
         color
         title
       }
-      duration {
-        name
-        slug
-      }
       locations {
         slug
         name
+        icon {
+          url
+        }
       }
       mandatory
     }

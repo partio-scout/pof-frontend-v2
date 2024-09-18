@@ -1,5 +1,5 @@
 export const getAllAgeGroups = `
-query {
+query allAgeGroups {
   allStrapiAgeGroup {
     nodes {
       id
@@ -10,10 +10,6 @@ query {
         id
         title
         strapi_id
-      }
-      localizations {
-        id
-        locale
       }
       main_image {
         url

@@ -22,6 +22,7 @@ export const findHeaderItemByTypeAndId = (
   id: number | string,
   navigation: Partial<HeaderItem>[],
 ): HeaderItem | null => {
+  console.log('findHeaderItemByTypeAndId', type, id, navigation);
   for (const item of navigation) {
     const match = checkHeaderItemForTypeAndId(type, id, item);
     if (match !== null) {

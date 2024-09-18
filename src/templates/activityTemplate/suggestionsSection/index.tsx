@@ -61,10 +61,7 @@ query GetSuggestions {
         name
         id
         strapi_id
-        localizations {
-          id
-          locale
-        }
+        locale
       }
     }
     allStrapiLocation {
@@ -72,10 +69,7 @@ query GetSuggestions {
         name
         id
         strapi_id
-        localizations {
-          id
-          locale
-        }
+        locale
       }
     }
   }

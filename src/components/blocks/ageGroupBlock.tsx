@@ -12,14 +12,13 @@ import { currentLocale } from '../../utils/helpers';
 export interface AgeGroupBlockType extends BlockType {
   title?: string;
   ingress?: {
-    data?: {
-      ingress?: string;
-    };
+    data?: string;
   };
+  content?: string;
 }
 
 const query = graphql`
-  query GetAgeGroups {
+  query AgeGroupBlockQuery {
     allStrapiAgeGroup(sort: { fields: minimum_age }) {
       nodes {
         strapi_id
@@ -34,6 +33,17 @@ const query = graphql`
         color
         locale
         title
+        links {
+          url
+          internal {
+            content
+          }
+        }
+        content {
+          data {
+            content
+          }
+        }
       }
     }
   }
@@ -46,11 +56,12 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
   const { nodes: ageGroups } = queryResult.allStrapiAgeGroup;
   const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale?.trim() === currentLocale().trim());
 
+  console.log('navigation', navigation);
   return (
     <div className="">
       <div className="flex flex-wrap mb-14">
         <h2 className="w-full lg:w-2/5 sm:text-4xl md:text-xxlw">{block.title}</h2>
-        <RichText className="w-full lg:w-3/5" html={block.ingress?.data?.ingress} />
+        <RichText className="w-full lg:w-3/5" html={block.content} />
       </div>
       <div className="flex flex-wrap -mx-2 justify-center">
         {currentLocaleAgeGroups.map((group) => (

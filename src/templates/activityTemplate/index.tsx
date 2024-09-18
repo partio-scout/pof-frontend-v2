@@ -30,6 +30,8 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
   }`;
   const metadata = useMetadata(activity.locale || 'fi');
 
+  console.log('activity', activity);
+
   return (
     <Layout
       showBreadCrumbs
@@ -62,7 +64,9 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
       <h2 className="pt-4 sm:text-4xl md:text-xxlw">{activity.title}</h2>
       <ActivityContentSection data={activity} />
       <ActivitySpecsSection data={activity} />
-      <SuggestionsSection data={activity} activityId={activity.strapi_id!} />
+      {
+        activity.id && (<SuggestionsSection data={activity} activityId={activity.id} />)
+      }
     </Layout>
   );
 };
@@ -70,32 +74,26 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
 export default ActivityPageTemplate;
 
 export const query = graphql`
-query getActivity($strapi_id: Int, $localizations: [Int], $type: String) {
-  localeData: allSitePage(filter: { context: { id: { in: $localizations }, type: { eq: $type } } }) {
+query getActivity($id: String, $locale: String, $type: String) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
     nodes {
       ...SitePageLocaleFragment
     }
   }
-  activity: strapiActivity(strapi_id: { eq: $strapi_id }) {
+  activity: strapiActivity(id: { eq: $id }) {
     locale
-    localizations {
-      locale
-      id
-    }
     title
     updatedAt
     createdAt
     publishedAt
     id
     strapi_id
-    #data
-    is_marine_activity
-    duration {
-      locale
-      name
-      slug
-      id
+    content {
+      data {
+        content
+      }
     }
+    is_marine_activity
     ingress
     logo {
       width
@@ -106,37 +104,69 @@ query getActivity($strapi_id: Int, $localizations: [Int], $type: String) {
       id
       height
     }
-    suggestions {
-      author
-      #data
-      from_web
-      id
-      like_count
-      locale
-      title
-      publishedAt
-      links {
-        url
-        id
-        description
-      }
-      files {
-        url
-        size
-        name
-        mime
-        id
-      }
-    }
     age_group {
       color
       title
-      #main_image {
-      #  ...ImageFragment
-      #}
+      main_image {
+        alternativeText
+        caption
+        createdAt
+        hash
+        height
+        id
+        formats {
+          medium {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+          large {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+          small {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+          thumbnail {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+        }
+        mime
+        name
+        size
+        url
+        updatedAt
+        width
+        strapi_id
+      }
     }
   }
-  activityGroup: strapiActivityGroup(activities: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
+  activityGroup: strapiActivityGroup(activities: { elemMatch: { id: { eq: $id } } }) {
     title
     logo {
       url
