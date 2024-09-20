@@ -38,6 +38,7 @@ const ActivitySpecs = ({ data }: ActivitySpecsProps) => {
   const iconBackground = hexToRgba(data.age_group?.color || '#eee', 0.2);
   const { t } = useTranslation();
 
+  console.log('data', data);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);

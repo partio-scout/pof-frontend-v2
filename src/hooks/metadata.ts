@@ -92,7 +92,7 @@ const useMetadata = (currentLocale: string): Metadata => {
   const metadata: Metadata = {
     title: correctMetadata?.title || 'Partio-ohjelma',
     locale: correctMetadata?.locale || 'fi',
-    meta_description: correctMetadata?.meta_description || correctMetadata?.ingress?.data || '',
+    meta_description: correctMetadata?.meta_description || correctMetadata?.ingress || '',
     siteUrl: 'https://partio-ohjelma.fi',
     image: correctMetadata?.hero_image?.url || '',
   };

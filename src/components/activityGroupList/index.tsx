@@ -1,13 +1,26 @@
 import React from 'react';
-import { StrapiActivityGroup } from '../../../graphql-types';
+import { SitePage, StrapiActivityGroup } from '../../../graphql-types';
 import CombinedLink from '../../components/combinedLink';
 import { prependApiUrl } from '../../utils/helpers';
 
 interface ActivityGroupListProps {
   groups: StrapiActivityGroup[];
+  links:  SitePage[] | null;
 }
 
-function ActivityGroupList({ groups }: ActivityGroupListProps) {
+function ActivityGroupList({ groups, links }: ActivityGroupListProps) {
+  const findUrlFromLinks = (id: number) => {
+    if (links) {
+      const link = links.find((l) => l.context?.strapi_id === id);
+      if (link) {
+        return link.path || '';
+      }
+    }
+    return '';
+  }
+  console.log('groups', groups);
+  console.log('links', links);
+
   let categories = groups.reduce((prev, curr) => {
     const category = curr.activity_group_category;
 
@@ -49,7 +62,7 @@ function ActivityGroupList({ groups }: ActivityGroupListProps) {
                 .sort((a, b) => ((a.sort_order || 0) > (b.sort_order || 0) ? 1 : -1))
                 .map((group) => (
                   <CombinedLink
-                    to={group.fields?.path || ''}
+                    to={findUrlFromLinks(group.strapi_id as number) || ''}
                     className="flex flex-col h-32 max-w-32 m-2 transform transition-transform duration-100 hover:scale-110 text-center items-center font-bold"
                     key={group.strapi_id}
                   >

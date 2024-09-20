@@ -3,7 +3,7 @@ import Suggestions from './suggestions';
 import NewSuggestionForm from './newSuggestionForm';
 import ConfirmationModal from './confirmationModal';
 import { StrapiActivity, StrapiDuration, StrapiLocation } from '../../../../graphql-types';
-import { fetchSuggestions, sendNewSuggestion, sendNewReply } from '../../../services/activity';
+import { sendNewSuggestion, sendNewReply, fetchComments } from '../../../services/activity';
 import toast from 'react-hot-toast';
 import { graphql, useStaticQuery } from 'gatsby';
 import { currentLocale } from '../../../utils/helpers';
@@ -80,7 +80,7 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   const [newSuggestion, setNewSuggestion] = useState(initialSuggestion);
   const [suggestionTermsChecked, setSuggestionTermsChecked] = useState(false);
   const [newReply, setNewReply] = useState(initialReply);
-  const [suggestions, setSuggestions] = useState<Array<any> | null>(null);
+  const [suggestions, setSuggestions] = useState<Array<any>>(null);
   const [replyTermsChecked, setReplyTermsChecked] = useState(false);
   const [modalData, setModalData] = useState({
     modalText: '',
@@ -97,15 +97,19 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   }>(query);
 
   useEffect(() => {
-    fetchSuggestions(activityId, locale)
+    const suggestionIds = data.map((s: any) => s.strapi_id);
+
+    console.log('suggestionIds', suggestionIds);
+    fetchComments(suggestionIds)
       .then((res) => {
-        setSuggestions(res.data);
+        setSuggestions(res.data?.data);
       })
       .catch((err) => {
         console.error(err);
         toast.error(t('toteutusvinkki-haku-epaonnistui'));
       });
   }, [data]);
+
 
   const suggestionValid = (obj: InitialSuggestion) =>
     obj.title && obj.content && obj.title !== '' && obj.content !== '';

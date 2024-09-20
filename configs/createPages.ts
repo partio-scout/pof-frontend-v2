@@ -125,6 +125,7 @@ async function handleActivityGroup(
   const { data } = await graphqlWithErrors<{
     strapiActivityGroup: {
       activities: Pick<StrapiActivity, 'id' | 'title' | 'locale' | 'strapi_id'>[];
+      age_group: Pick<StrapiAgeGroup, 'id' | 'strapi_id' | 'title'>;
       locale?: string;
     };
   }>(graphql, getActivityGroup, {
@@ -144,11 +145,11 @@ async function handleActivityGroup(
     path: activityGroupPath,
     component: path.resolve(`src/templates/activityGroupTemplate/index.tsx`),
     context: {
-      type: 'activityGroup',
+      type: 'ActivityGroup',
       locale: activityGroup?.locale,
       id: activityGroup?.id,
       strapi_id: activityGroup?.strapi_id,
-      ageGroupId: activityGroup?.age_group,
+      ageGroupId: activityGroupData?.age_group.strapi_id,
     },
   };
 
@@ -184,7 +185,8 @@ async function handleAgeGroup(
     path: ageGroupPath,
     component: path.resolve(`src/templates/ageGroupTemplate/index.tsx`),
     context: {
-      type: 'ageGroup',
+      // Type is filter for the page urls
+      type: 'AgeGroup',
       locale: ageGroup?.locale,
       id: ageGroup.id,
       strapi_id: ageGroup.strapi_id,
@@ -354,7 +356,7 @@ async function createContentPage(
     path: pagePath,
     component: path.resolve(`src/templates/contentPageTemplate/index.tsx`),
     context: {
-      type: 'contentPage',
+      type: 'ContentPage',
       locale: pageDataResponse.data?.strapiContentPage.locale,
       id: pageDataResponse?.data?.strapiContentPage.id,
       strapi_id: pageDataResponse?.data?.strapiContentPage.strapi_id,

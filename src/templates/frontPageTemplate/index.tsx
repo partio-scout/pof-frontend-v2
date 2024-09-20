@@ -19,6 +19,7 @@ query FrontPageQuery($locale: String) {
         strapi_id
         strapi_component
         activities {
+          strapi_id
           title
         }
         block_width {
@@ -119,14 +120,10 @@ interface FrontPageQueryType {
 }
 
 const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
-  console.log('data', data);
-
-  
   const {
     frontPage: { content, title, hero_link_text, hero_link_url, hero_image, locale },
   } = data;
 
-  
   return (
     <Layout
       locale={locale as Locale}

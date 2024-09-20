@@ -21,7 +21,31 @@ const logoQuery = graphql`
     allActivityLogo {
       nodes {
         logo {
+          id
+          name
+          alternativeText
+          caption
+          width
+          height
+          formats {
+            thumbnail {
+              ext
+              url
+              hash
+              mime
+              name
+              size
+              width
+              height
+            }
+          }
+          hash
+          ext
+          mime
+          size
           url
+          createdAt
+          updatedAt
         }
         id
       }

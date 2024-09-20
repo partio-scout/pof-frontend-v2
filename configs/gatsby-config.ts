@@ -24,18 +24,25 @@ const config: GatsbyConfig = {
             singularName: 'activity',
             queryParams: {
               populate: {
-                localizations: '*',
                 activity_group: '*',
                 age_group: '*',
-                duration: {
-                  populate: '*'
-                },
+                educational_objectives: '*',
+                leader_skills: '*',
+                files: '*',
+                preparation_duration: '*',
+                group_sizes: '*',
+                skill_areas: '*',
+                duration: '*',
                 locations: '*',
-                suggestions: '*',
+                suggestions: {
+                  populate: '*',
+                },
                 logo: '*',
+                main_image: '*',
                 name: '*',
                 description: '*',
                 content: '*',
+                images: '*',
               },
             },
             pluginOptions: {
@@ -53,18 +60,20 @@ const config: GatsbyConfig = {
                     activity_group: '*',
                   },
                 },
-                localizations: '*',
                 main_image:  '*',
                 logo:  '*',
                 icon:  '*',
                 activities:  {
-                  populate: {
-                    activity_group: '*',
+                  populate: '*',
+                  activity_group: {
+                    populate: '*',
+                    logo: '*',
+                    subactivitygroup_term: {
+                      populate: '*',
+                    },
                   },
                 },
-                subactivitygroup_term: {
-                  populate: '*',
-                },
+
                 links: '*',
                 lower_content_area: {
                   populate: '*',
@@ -110,21 +119,27 @@ const config: GatsbyConfig = {
             singularName: 'activity-group',
             queryParams: {
               populate: {
-                localizations: '*',
                 activities: {
                   populate: '*',
                 },
-                age_group: '*',
+                age_group: {
+                  populate: '*',
+                },
                 logo: '*',
+                main_image: '*',
                 activity_group_category: {
                   populate: '*',
-                  sort_order: '*',
+                },    
+                subactivity_term: {
+                  populate: '*',
                 },
                 activitygroup_term: {
                   populate: '*',
                 },
-                subactivity_term: '*',
-                fields: '*',
+
+                subactivitygroup_term: {
+                  populate: '*',
+                },
                 links: {
                   populate: '*',
                 },
@@ -325,9 +340,6 @@ const config: GatsbyConfig = {
                     },
                   },
                 },
-                localizations: {
-                  populate: '*',
-                },
                 hero_image: {
                   populate: '*',
                 },
@@ -438,9 +450,6 @@ const config: GatsbyConfig = {
                       },
                     },
                   },
-                },
-                localizations: {
-                  populate: '*',
                 },
                 hero_image: {
                   populate: '*',

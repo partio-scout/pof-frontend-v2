@@ -12,7 +12,6 @@ type SitePage implements Node {
 
 type SitePageContext @dontInfer {
   type: String
-  localizations: [Int]
   locale: String
   id: Int!
   strapi_id: Int
@@ -26,8 +25,8 @@ type ActivityLogo implements Node @dontInfer {
 }
 
 type StrapiAgeGroup implements Node @dontInfer {
-  upper_content_area: JSON
-  lower_content_area: JSON
+  upper_content_area: [StrapiComponentBlocksArray]
+  lower_content_area: [StrapiComponentBlocksArray]
   main_image: StrapiImage
   logo: StrapiImage
   title: String
@@ -59,13 +58,32 @@ type StrapiAgeGroup implements Node @dontInfer {
   color: String
   links: [StrapiAgeGroupLinks]
   activity_groups: [StrapiAgeGroupActivity_groups]
-  localizations: [StrapiAgeGroupLocalizations]
   strapi_id: Int
   fields: StrapiAgeGroupFields
   id: ID!
   parent: Node
   children: [Node!]!
   internal: Internal!
+}
+
+type StrapiAgeGroupActivitygroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  createdAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updatedAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
 }
 type StrapiAgeGroupSubactivitygroup_term @dontInfer {
   id: Int
@@ -101,8 +119,8 @@ type StrapiAgeGroupActivity_groups @dontInfer {
   wp_guid: String
   mandatory: Boolean
   subactivity_term: Int
-  subactivitygroup_term: Int
-  activitygroup_term: Int
+  subactivitygroup_term: StrapiAgeGroupSubactivitygroup_term
+  activitygroup_term: StrapiAgeGroupActivitygroup_term
   locale: String
   publishedAt(
     formatString: String
@@ -124,7 +142,7 @@ type StrapiAgeGroupActivity_groups @dontInfer {
   ): Date
   age_group: Int
   strapi_id: Int
-  activity_group_category: Int
+  activity_group_category: StrapiActivityGroupActivity_group_category
   sort_order: Int
   mandatory_activities_title: String
   mandatory_activities_description: String
@@ -164,19 +182,7 @@ type StrapiAgeGroupActivity_groupsContent_areaBlock_width @dontInfer {
     locale: String
   ): Date
 }
-type StrapiAgeGroupLocalizationsData @dontInfer {
-  content: [StrapiAgeGroupLocalizations]
-}
-type StrapiAgeGroupLocalizations @dontInfer {
-  id: Int
-  locale: String
-  publishedAt(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-}
+
 type StrapiAgeGroupFields @dontInfer  {
   path: String
 }
@@ -221,7 +227,6 @@ type StrapiActivityGroup implements Node @dontInfer  {
   links: [StrapiActivityGroupLinks]
   files: [StrapiActivityGroupFiles]
   activities: [StrapiActivityGroupActivities]
-  localizations: [StrapiActivityGroupLocalizations]
   strapi_id: Int
   fields: StrapiActivityGroupFields
   id: ID!
@@ -294,6 +299,7 @@ type StrapiActivityGroupAge_group @dontInfer {
   minimum_age: Int
   maximum_age: Int
   wp_guid: String
+  activitygroup_term: StrapiActivityGroupAgegroup_term
   subactivitygroup_term: Int
   locale: String
   publishedAt(
@@ -361,6 +367,26 @@ type StrapiActivityGroupAge_groupLower_content_area @dontInfer {
 type StrapiActivityGroupAge_groupLower_content_areaBlock_width @dontInfer {
   id: Int
   name: String
+  createdAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updatedAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+
+type StrapiActivityGroupAgegroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
   createdAt(
     formatString: String
     fromNow: Boolean
@@ -490,17 +516,6 @@ type StrapiActivityGroupActivitiesFiles @dontInfer {
   localFile: File
 }
 
-
-type StrapiActivityGroupLocalizations @dontInfer {
-  id: Int
-  locale: String
-  publishedAt(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-}
 type StrapiActivityGroupFields @dontInfer {
   path: String
 }
@@ -531,7 +546,6 @@ type StrapiContentPage implements Node @dontInfer {
   main_text: StrapiContentData
   main_image: StrapiImage
   content_data: [StrapiComponentBlocksArray]
-  localizations: [StrapiContentPageLocalizations]
   strapi_id: Int
   id: ID!
   parent: Node
@@ -542,17 +556,6 @@ type StrapiContentPage implements Node @dontInfer {
 
 type StrapiContentData @dontInfer {
   data: JSON
-}
-
-type StrapiContentPageLocalizations @dontInfer {
-  id: Int
-  locale: String
-  publishedAt(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
 }
 
 type StrapiNotFoundPage implements Node @dontInfer {
@@ -578,7 +581,6 @@ type StrapiNotFoundPage implements Node @dontInfer {
     difference: String
     locale: String
   ): Date
-  localizations: [StrapiFrontPageLocalizations]
   strapi_id: Int
   id: ID!
   parent: Node
@@ -609,7 +611,6 @@ type StrapiCookiePage implements Node @dontInfer {
     difference: String
     locale: String
   ): Date
-  localizations: [StrapiFrontPageLocalizations]
   strapi_id: Int
   id: ID!
   parent: Node
@@ -647,7 +648,6 @@ type StrapiFrontPage implements Node @dontInfer {
   ): Date
   navigation: [StrapiFrontPageNavigation]
   footer_sections: [StrapiFrontPageFooter_sections]
-  localizations: [StrapiFrontPageLocalizations]
   strapi_id: Int
   id: ID!
   parent: Node
@@ -939,16 +939,7 @@ type StrapiFrontPageFooter_sectionsLink_groupsSome_links @dontInfer {
   instagram_url: String
   youtube_url: String
 }
-type StrapiFrontPageLocalizations @dontInfer {
-  id: Int
-  locale: String
-  publishedAt(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-}
+
 type StrapiActivity implements Node @dontInfer {
   images: [StrapiImage]
   logo: StrapiImage
@@ -992,7 +983,6 @@ type StrapiActivity implements Node @dontInfer {
   leader_skills: [StrapiActivityLeader_skills]
   suggestions: [StrapiActivitySuggestions]
   locations: [StrapiActivityLocations]
-  localizations: [StrapiActivityLocalizations]
   strapi_id: Int
   fields: StrapiActivityFields
   id: ID!
@@ -1045,8 +1035,8 @@ type StrapiActivityActivity_group @dontInfer {
   wp_guid: String
   mandatory: Boolean
   subactivity_term: Int
-  subactivitygroup_term: Int
-  activitygroup_term: Int
+  subactivitygroup_term: StrapiActivitySubctivitygroup_term
+  activitygroup_term: StrapiActivityActivitygroup_term
   locale: String
   publishedAt(
     formatString: String
@@ -1067,7 +1057,7 @@ type StrapiActivityActivity_group @dontInfer {
     locale: String
   ): Date
   age_group: Int
-  activity_group_category: Int
+  activity_group_category: StrapiActivityGroupActivity_group_category
   sort_order: Int
   mandatory_activities_title: String
   mandatory_activities_description: String
@@ -1078,6 +1068,45 @@ type StrapiActivityActivity_group @dontInfer {
   main_image: StrapiActivityActivity_groupMain_image
   logo: StrapiActivityActivity_groupLogo
   files: [StrapiActivityActivity_groupFiles]
+}
+
+type StrapiActivityActivitygroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  createdAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updatedAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+}
+type StrapiActivitySubctivitygroup_term @dontInfer {
+  id: Int
+  name: String
+  singular: String
+  plural: String
+  locale: String
+  createdAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
+  updatedAt(
+    formatString: String
+    fromNow: Boolean
+    difference: String
+    locale: String
+  ): Date
 }
 type StrapiActivityActivity_groupLinks @dontInfer {
   id: Int
@@ -1813,16 +1842,6 @@ type StrapiActivityLocationsIcon @dontInfer {
   ): Date
   localFile: File
 }
-type StrapiActivityLocalizations @dontInfer {
-  id: Int
-  locale: String
-  publishedAt(
-    formatString: String
-    fromNow: Boolean
-    difference: String
-    locale: String
-  ): Date
-}
 type StrapiActivityFields @dontInfer {
   path: String
 }
@@ -2238,7 +2257,6 @@ type StrapiLocation implements Node @dontInfer {
   ): Date
   icon: StrapiLocationIcon
   activities: [StrapiLocationActivities]
-  localizations: [StrapiLocationLocalizations]
   strapi_id: Int
 }
 type StrapiLocationIcon @dontInfer {
@@ -2444,10 +2462,7 @@ type StrapiLocationActivitiesImagesFormatsThumbnail @dontInfer {
   width: Int
   height: Int
 }
-type StrapiLocationLocalizations @dontInfer {
-  id: Int
-  locale: String
-}
+
 type StrapiDuration implements Node @dontInfer {
   id: ID!
   parent: Node
@@ -2470,7 +2485,6 @@ type StrapiDuration implements Node @dontInfer {
   ): Date
   activities: [StrapiDurationActivities]
   preparation_activities: [StrapiDurationPreparation_activities]
-  localizations: [StrapiDurationLocalizations]
   strapi_id: Int
 }
 type StrapiDurationActivities @dontInfer {
@@ -2825,10 +2839,7 @@ type StrapiDurationPreparation_activitiesImagesFormatsThumbnail @dontInfer {
   width: Int
   height: Int
 }
-type StrapiDurationLocalizations @dontInfer {
-  id: Int
-  locale: String
-}
+
 type Program_Navigation implements Node @dontInfer {
   id: ID!
   parent: Node

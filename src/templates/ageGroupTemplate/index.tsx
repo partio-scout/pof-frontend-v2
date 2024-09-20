@@ -23,8 +23,6 @@ interface QueryType {
   localeData: { nodes: SitePage[] };
 }
 
-
-
 const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
 
   const {
@@ -48,10 +46,8 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
   const activityGroups = data.activityGroups.nodes;
   const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
 
-  console.log('subTitle', subTitle);
-  console.log('data', data.localeData);
   const localeLinks = sitePageDataToLocaleLinks(data.localeData?.nodes);
-  console.log('localeLinks', localeLinks);
+
   const metadata = useMetadata(locale || 'fi');
 
   return (
@@ -97,7 +93,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
         </div>
         <BlockArea blocks={upper_content_area} />
         <h2 className="uppercase text-center my-6 sm:text-4xl md:text-xxlw">{subactivitygroup_term?.plural}</h2>
-        <ActivityGroupList groups={activityGroups} />
+        <ActivityGroupList groups={activityGroups} links={data.localeData?.nodes} />
         <BlockArea blocks={lower_content_area} />
       </div>
     </Layout>
@@ -107,8 +103,8 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-query AgeGroupQuery($locale: String, $type: String, $strapi_id: Int, $id: String) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
+query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
     nodes {
       ...SitePageLocaleFragment
     }
@@ -191,14 +187,6 @@ query AgeGroupQuery($locale: String, $type: String, $strapi_id: Int, $id: String
     }
     maximum_age
     minimum_age
-    activity_groups {
-      subactivity_term {
-        locale
-        name
-        plural
-        singular
-      }
-    }
     main_image {
       id
       name

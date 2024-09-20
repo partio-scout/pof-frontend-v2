@@ -33,17 +33,16 @@ const ActivityCardList = ({
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
   const navigation = useNavigation(currentLocale());
-  const locale = currentLocale();
 
   const { t } = useTranslation();
 
   useEffect(() => {
     if (augmentData) {
-      fetchActivities(
-        activities.map((activity) => activity.id),
-        locale,
-      )
-        .then((res) => setShowableActivities(res.data))
+      const activityIds = activities.map((activity) => activity.strapi_id);
+      fetchActivities(activityIds)
+        .then((res) => {
+          setShowableActivities(res.data?.data);
+        })
         .catch((err) => {
           console.error(err);
           setShowableActivities(activities);
@@ -58,7 +57,7 @@ const ActivityCardList = ({
     : showableActivities;
 
   // Ensure that all activities have link-paths. If an activity was fetched directly from Strapi, it doesn't have a path.
-  const activitiesWithLinks = visibleActivities.map((activity) => {
+  const activitiesWithLinks = visibleActivities?.map((activity) => {
     if (activity.fields?.path) return activity;
 
     const headerItem = findHeaderItemByTypeAndId('Activity', activity.id, navigation);
@@ -75,7 +74,7 @@ const ActivityCardList = ({
     <>
       <div className="flex">
         <div
-          className={clsx('flex-1 grid grid-cols-1 gap-3', {
+          className={clsx('flex grid grid-cols-1 gap-3', {
             'xl:grid-cols-4': activitiesWithLinks.length > 3,
             'lg:grid-cols-3': activitiesWithLinks.length > 2,
             'sm:grid-cols-2': activitiesWithLinks.length > 1,

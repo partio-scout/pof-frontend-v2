@@ -13,7 +13,7 @@ import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
+import { createSlug, prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
@@ -67,6 +67,8 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
   const subTitle = age_group?.title
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
     : '';
+
+    console.log('suggestions', suggestions);
 
   const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
     ...suggestion,
@@ -124,10 +126,14 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           <h2 className="uppercase my-5 sm:text-4xl md:text-xxlw">{t('uusimmat-toteutusvinkit')}</h2>
           <Suggestions suggestions={suggestionsWithUrls as SuggestionWithUrl[]} />
         </div>
-        <h2 className="uppercase text-center mb-10 mt-20 sm:text-4xl md:text-xxlw">{`${t('muut')} ${
-          activitygroup_term?.plural
-        }`}</h2>
-        <ActivityGroupList groups={otherGroups.nodes} />
+        {
+          activitygroup_term?.plural && (
+            <h2 className="uppercase text-center mb-10 mt-20 sm:text-4xl md:text-xxlw">{`${t('muut')} ${
+              activitygroup_term?.plural
+            }`}</h2>
+          )
+        }
+        <ActivityGroupList groups={otherGroups.nodes} links={data.localeData?.nodes} />
         <BlockArea blocks={content_area} />
       </div>
     </Layout>
@@ -138,13 +144,11 @@ export default activityGroupTemplate;
 
 export const query = graphql`
 query Query(
-  $id: String,
   $strapi_id: Int,
   $locale: String,
-  $type: String,
-  $ageGroupId: String,
+  $ageGroupId: Int,
 ) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale } } }) {
     nodes {
       ...SitePageLocaleFragment
     }
@@ -239,9 +243,66 @@ query Query(
       width
       strapi_id
     }
+    main_image {
+      alternativeText
+      caption
+      createdAt
+      hash
+      height
+      id
+      formats {
+        medium {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        large {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        small {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+        thumbnail {
+          ext
+          url
+          hash
+          mime
+          name
+          size
+          width
+          height
+        }
+      }
+      mime
+      name
+      size
+      url
+      updatedAt
+      width
+      strapi_id
+    }
     locale
   }
-  ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { id: { eq: $id } } }) {
+  ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
     strapi_id
     title
     main_image {
@@ -304,7 +365,7 @@ query Query(
     color
     locale
   }
-  otherGroups: allStrapiActivityGroup(filter: { id: { eq: $id }, strapi_id: { ne: $strapi_id }, age_group: { id: { eq: $ageGroupId } } }) {
+  otherGroups: allStrapiActivityGroup(filter: { age_group: { strapi_id: { eq: $ageGroupId } } }) {
     nodes {
       logo {
         url
@@ -320,16 +381,16 @@ query Query(
         }
       }
       activity_group_category {
-        #sort_order
         name
         id
       }
+      sort_order
       title
       strapi_id
     }
   }
   suggestions: allStrapiSuggestion(
-    filter: {strapi_id: { eq: $strapi_id } }
+    filter: {activity: {activity_group: {strapi_id: {eq: $strapi_id}}}}
     sort: { fields: publishedAt, order: DESC }
     limit: 4
   ) {
@@ -342,9 +403,13 @@ query Query(
       locale
       like_count
       id
+      activity {
+        id
+        strapi_id
+      }
     }
   }
-  activities: allStrapiActivity(filter: { activity_group: { id: { eq: $id } } }) {
+  activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
     nodes {
       id
       strapi_id
@@ -362,6 +427,13 @@ query Query(
       age_group {
         color
         title
+      }
+      suggestions {
+        title
+      }
+      duration {
+        name
+        slug
       }
       locations {
         slug

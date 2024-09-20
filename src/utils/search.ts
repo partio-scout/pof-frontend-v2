@@ -55,10 +55,10 @@ export const findHitUrl = (hit: HitModel, type: ContentType, navigation: Partial
       // and set the suggestion id as query parameter
       const id = hit.activity?.strapi_id || hit.activity?.id;
       const linkUrl = findUrlForContent(id! as number, ContentType.activity, navigation);
-      return linkUrl + '?tip=' + (hit.strapi_id || hit.id);
+      return linkUrl + '?tip=' + (hit?.strapi_id || hit?.id);
     }
     default: {
-      return findUrlForContent(parseInt(hit.id!), type, navigation);
+      return findUrlForContent(parseInt(hit?.id!), type, navigation);
     }
   }
 };

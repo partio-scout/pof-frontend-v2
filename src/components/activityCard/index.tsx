@@ -1,15 +1,21 @@
 import React from 'react';
 import { StrapiActivity } from '../../../graphql-types';
+
+import { useTranslation } from 'react-i18next';
+import {createSlug } from '../../utils/helpers';
+import {prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
+import useNavigation from '../../hooks/navigation';
+import { ContentType } from '../../types/content';
+
 import { hexToRgba } from '../../utils/color';
 import ExclamationIcon from '../../images/exclamation-round-filled.inline.svg';
 import PlusIcon from '../../images/plus-round.inline.svg';
 import Anchor from '../../images/anchor.inline.svg';
 import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
-import { prependApiUrl } from '../../utils/helpers';
 import Pill from '../pill';
 import Card from '../card';
-import { useTranslation } from 'react-i18next';
+import { findHitUrl } from '../../utils/search';
 
 interface ActivityCardProps {
   activity: StrapiActivity;
@@ -18,14 +24,26 @@ interface ActivityCardProps {
 }
 
 const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
-  const { age_group, activity_group, mandatory, suggestions, duration, locations, fields, is_marine_activity } =
+  const { age_group, activity_group, mandatory, suggestions, duration, locations, is_marine_activity, title } =
     activity;
   const { t } = useTranslation();
 
   const iconUrl = prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!);
 
+  let slug: string | undefined;
+
+  if (!link) {  
+    const ageGroupSlug = createSlug(age_group?.title || '');
+    const activityGroupSlug = createSlug(activity_group?.title || '');
+
+    if (ageGroupSlug && activityGroupSlug) {
+      slug = '/' + ageGroupSlug + '/' + activityGroupSlug + '/' + createSlug(title || '');
+    }
+  }
+
+
   return (
-    <Card link={link || fields?.path} borderColor={hexToRgba(age_group?.color!, 0.3)}>
+    <Card link={link || slug} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
           {iconUrl && (

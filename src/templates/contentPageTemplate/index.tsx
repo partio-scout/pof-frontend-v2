@@ -39,12 +39,9 @@ const MainContent = ({ data }: ContentPageTemplateProps) => (
 );
 
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
-  const { strapi_id, content, locale, main_text } = data.contentPage;
+  const { strapi_id, content, locale } = data.contentPage;
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const metadata = useMetadata(locale || 'fi');
-
-  console.log('data', data);
-  data.contentPage.main_text = main_text;
 
   return (
     <Layout

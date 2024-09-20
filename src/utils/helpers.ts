@@ -18,7 +18,7 @@ export const prependApiUrl = (url?: Maybe<string>) => {
 
   if (url.startsWith('/uploads')) {
     // FIXME: Hardcoded URL
-    return 'http://localhost:1337' + url;
+    return process.env.GATSBY_API_URL + url;
   }
 
   return url;
@@ -48,3 +48,29 @@ export const removeHtml = (input: string) => {
 
 export const sitePageDataToLocaleLinks = (sitePages: SitePage[]): LocaleLink[] =>
   sitePages.map((page) => ({ path: page.path, locale: page.context?.locale as Locale }));
+
+export const createSlug = (text: string) => {
+  // Convert the text to lower case
+  text = text.toLowerCase();
+
+  // Replace non-ASCII characters with their ASCII equivalents
+  const map = {
+      'ä': 'ae', 'ö': 'oe', 'ü': 'ue', 'å': 'aa',
+      'ø': 'oe', 'ß': 'ss', 'æ': 'ae',
+      'œ': 'oe', 'ç': 'c', 'ñ': 'n',
+      ' ': '-',  // Spaces replaced with hyphen
+  };
+
+  // Use the map to replace characters
+  text = text.replace(/[\W\[\] ]/g, function(char) {
+      return map[char] || char;
+  });
+
+  // Remove any remaining unwanted characters
+  text = text.replace(/[^a-z0-9\-]/g, '');
+
+  // Replace multiple hyphens with a single hyphen and trim hyphens from the start and end
+  text = text.replace(/-+/g, '-').replace(/^-|-$/g, '');
+
+  return text;
+}

@@ -10,6 +10,7 @@ query allAgeGroups {
         id
         title
         strapi_id
+        locale
       }
       main_image {
         url

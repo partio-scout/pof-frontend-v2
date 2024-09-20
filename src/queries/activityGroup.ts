@@ -8,6 +8,11 @@ query getActivityGroup($id: String) {
       locale
       strapi_id
     }
+    age_group {
+      id
+      strapi_id
+      title
+    }
   }
 }
 `;

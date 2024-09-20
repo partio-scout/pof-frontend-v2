@@ -25,7 +25,7 @@ const ActivityContentSection = ({ data }: AcitivityContentSectionProps) => {
         <BulletImage type={'description'} backgroundColor={iconBackground} />
         <div className="ml-4">
           <h4 className="text-blue tracking-wider sm:text-lt md:text-lw">{t('kuvaus')}</h4>
-          <RichText html={data.content} />
+          <RichText html={data.content?.data?.content} />
         </div>
       </div>
     </div>

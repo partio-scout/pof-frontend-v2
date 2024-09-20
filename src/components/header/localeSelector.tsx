@@ -27,6 +27,7 @@ const mergeDefaultWithLocaleLinks = (
   
   const siteLocales = [...localeLinks.map((link) => link?.locale), currentLanguage];
   const filteredDefaults = defaultLinks.filter((link) => !siteLocales.includes(link.locale));
+
   return [...localeLinks, ...filteredDefaults].sort((a, b) => a.locale.localeCompare(b.locale));
 };
 
@@ -49,7 +50,6 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
   };
   const combinedLocaleLinks = mergeDefaultWithLocaleLinks(defaultLinks, localeLinks, locale);
 
-  console.log('combinedLocaleLinks', combinedLocaleLinks);
   return !state.searchActive ? (
     <div
       className="py-4 border-lightBlue border-l w-20 sm:w-32 cursor-pointer"
