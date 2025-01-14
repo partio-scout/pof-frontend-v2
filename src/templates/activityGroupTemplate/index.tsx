@@ -68,8 +68,6 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     ? `${age_group.title}${activity_group_category?.name ? ' - ' + activity_group_category.name : ''}`
     : '';
 
-    console.log('suggestions', suggestions);
-
   const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
     ...suggestion,
     url: findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
@@ -160,7 +158,6 @@ query Query(
     createdAt
     publishedAt
     id
-    strapi_id
     ingress
     mandatory
     sort_order
@@ -241,7 +238,6 @@ query Query(
       url
       updatedAt
       width
-      strapi_id
     }
     main_image {
       alternativeText
@@ -298,7 +294,6 @@ query Query(
       url
       updatedAt
       width
-      strapi_id
     }
     locale
   }
@@ -360,7 +355,6 @@ query Query(
       url
       updatedAt
       width
-      strapi_id
     }
     color
     locale
@@ -390,13 +384,12 @@ query Query(
     }
   }
   suggestions: allStrapiSuggestion(
-    filter: {activity: {activity_group: {strapi_id: {eq: $strapi_id}}}}
+    filter: { activity: { activity_group: { eq: $strapi_id } } }
     sort: { fields: publishedAt, order: DESC }
     limit: 4
   ) {
     nodes {
       author
-      content
       publishedAt
       title
       strapi_id
@@ -405,16 +398,16 @@ query Query(
       id
       activity {
         id
-        strapi_id
       }
     }
   }
   activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
     nodes {
       id
-      strapi_id
       title
       activity_group {
+        id
+        strapi_id
         title
         logo {
           formats {
@@ -438,9 +431,6 @@ query Query(
       locations {
         slug
         name
-        icon {
-          url
-        }
       }
       mandatory
     }

@@ -174,7 +174,6 @@ query getActivity($strapi_id: Int, $locale: String, $type: String) {
       url
       updatedAt
       width
-      strapi_id
     }
     is_marine_activity
     ingress
@@ -188,9 +187,6 @@ query getActivity($strapi_id: Int, $locale: String, $type: String) {
     locations {
       id
       locale
-      icon {
-        url
-      }
       name
       slug
     }
@@ -277,7 +273,6 @@ query getActivity($strapi_id: Int, $locale: String, $type: String) {
         url
         updatedAt
         width
-        strapi_id
       }
     }
   }

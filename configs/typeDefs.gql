@@ -545,7 +545,7 @@ type StrapiContentPage implements Node @dontInfer {
   ): Date
   main_text: StrapiContentData
   main_image: StrapiImage
-  content_data: [StrapiComponentBlocksArray]
+  content: [JSON]
   strapi_id: Int
   id: ID!
   parent: Node
@@ -559,7 +559,7 @@ type StrapiContentData @dontInfer {
 }
 
 type StrapiNotFoundPage implements Node @dontInfer {
-  content: [StrapiComponentBlocksArray]
+  content: [JSON]
   title: String
   ingress: String
   locale: String
@@ -619,7 +619,7 @@ type StrapiCookiePage implements Node @dontInfer {
 }
 
 type StrapiFrontPage implements Node @dontInfer {
-  content: [StrapiComponentBlocksArray]
+  content: [JSON]
   title: String
   hero_link_text: String
   hero_link_url: String

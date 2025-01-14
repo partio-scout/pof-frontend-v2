@@ -245,37 +245,6 @@ query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
       updatedAt
     }
     title
-    upper_content_area {
-      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-        id
-        strapi_id
-        text
-        title
-        strapi_component
-      }
-      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
-        id
-        video_url
-        strapi_id
-        strapi_component
-      }
-    }
-    title
-    lower_content_area {
-      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-        id
-        strapi_id
-        text
-        title
-        strapi_component
-      }
-      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
-        id
-        video_url
-        strapi_id
-        strapi_component
-      }
-    }
     color
   }
   activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {

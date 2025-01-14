@@ -80,85 +80,12 @@ query getContentPage($locale: String, $type: String, $id: String) {
     publishedAt
     id
     strapi_id
-    main_text: main_text_data
+    main_text
     main_image {
       url
     }
     ingress
-    content {
-      __typename
-      ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
-        strapi_id
-        strapi_component
-        title
-        block_width {
-          name
-        }
-      }
-      ... on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
-        id
-        strapi_component
-        content_pages {
-          title
-          strapi_id
-          meta_description
-          locale
-          publishedAt
-          ingress
-          main_image {
-            alternativeText
-            caption
-            formats {
-              large {
-                ext
-                url
-                hash
-                mime
-                name
-                size
-                width
-                height
-              }
-              medium {
-                ext
-                url
-                hash
-                mime
-                name
-                size
-                width
-                height
-              }
-              small {
-                ext
-                url
-                hash
-                mime
-                name
-                size
-                width
-                height
-              }
-              thumbnail {
-                ext
-                url
-                hash
-                mime
-                name
-                size
-                width
-                height
-              }
-            }
-            height
-            name
-            size
-            strapi_id
-            url
-          }
-        }
-      }
-    }
+    content 
   }
 }
 `;
