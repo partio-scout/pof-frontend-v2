@@ -519,6 +519,7 @@ type StrapiActivityGroupActivitiesFiles @dontInfer {
 type StrapiActivityGroupFields @dontInfer {
   path: String
 }
+
 type StrapiContentPage implements Node @dontInfer {
   title: String
   ingress: String
@@ -543,9 +544,9 @@ type StrapiContentPage implements Node @dontInfer {
     difference: String
     locale: String
   ): Date
-  main_text: StrapiContentData
+  main_text: String
   main_image: StrapiImage
-  content: [JSON]
+  content: [StrapiComponentBlocksArray]
   strapi_id: Int
   id: ID!
   parent: Node
@@ -559,7 +560,7 @@ type StrapiContentData @dontInfer {
 }
 
 type StrapiNotFoundPage implements Node @dontInfer {
-  content: [JSON]
+  content: [StrapiComponentBlocksArray]
   title: String
   ingress: String
   locale: String
@@ -619,7 +620,7 @@ type StrapiCookiePage implements Node @dontInfer {
 }
 
 type StrapiFrontPage implements Node @dontInfer {
-  content: [JSON]
+  content: [StrapiComponentBlocksArray]
   title: String
   hero_link_text: String
   hero_link_url: String
@@ -726,7 +727,7 @@ type StrapiComponentBlocksAgeGroupBlockIngressTextnode implements Node {
   parent: Node
   children: [Node!]!
   internal: Internal!
-  ingress: String
+  ingress: StrapiContentData
   strapi_component: String
 }
 

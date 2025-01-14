@@ -76,7 +76,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
-            <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress}</div>
+            <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress.data}</div>
             <RichText html={content.data?.content} />
           </div>
           {(links?.length || 0) > 0 && (
@@ -104,12 +104,14 @@ export default AgeGroupTemplate;
 
 export const query = graphql`
 query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
+  localeData: allSitePage(
+    filter: {context: {locale: {eq: $locale}, type: {eq: "ActivityGroup"}}}
+  ) {
     nodes {
       ...SitePageLocaleFragment
     }
   }
-  ageGroup: strapiAgeGroup(strapi_id: { eq: $strapi_id }) {
+  ageGroup: strapiAgeGroup(strapi_id: {eq: $strapi_id}) {
     locale
     title
     updatedAt
@@ -245,9 +247,40 @@ query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
       updatedAt
     }
     title
+    upper_content_area {
+      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+        id
+        strapi_id
+        title
+        strapi_component
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
+        id
+        video_url
+        strapi_id
+        strapi_component
+      }
+    }
+    title
+    lower_content_area {
+      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+        id
+        strapi_id
+        title
+        strapi_component
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
+        id
+        title
+        strapi_id
+        strapi_component
+        link_url
+        link_text
+      }
+    }
     color
   }
-  activityGroups: allStrapiActivityGroup(filter: { age_group: { id: { eq: $id } } }) {
+  activityGroups: allStrapiActivityGroup(filter: {age_group: {id: {eq: $id}}}) {
     nodes {
       logo {
         url
@@ -272,4 +305,5 @@ query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
     }
   }
 }
+
 `;

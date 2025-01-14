@@ -43,6 +43,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const metadata = useMetadata(locale || 'fi');
 
+  console.log('content', data.contentPage);
   return (
     <Layout
       showBreadCrumbs
@@ -52,7 +53,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
     >
       <Metadata
         title={data.contentPage.title || ''}
-        description={data.contentPage.ingress || ''}
+        description={data.contentPage.ingress?.data || ''}
         path={path}
         locale={currentLocale()}
         imageUrl={prependApiUrl(data.contentPage.main_image?.url) || metadata.image || ''}
@@ -80,12 +81,39 @@ query getContentPage($locale: String, $type: String, $id: String) {
     publishedAt
     id
     strapi_id
-    main_text
     main_image {
       url
     }
-    ingress
-    content 
+    ingress {
+      data
+    }
+    content {
+      ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
+        id
+        strapi_id
+        strapi_component
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
+        id
+        title
+        strapi_id
+        strapi_component
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
+        id
+        title
+        strapi_id
+        strapi_component
+        link_url
+        link_text
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
+        id
+        title
+        strapi_id
+        strapi_component
+      }
+    }
   }
 }
 `;

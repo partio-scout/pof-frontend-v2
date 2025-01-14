@@ -73,13 +73,136 @@ const config: GatsbyConfig = {
                     },
                   },
                 },
-
                 links: '*',
                 lower_content_area: {
-                  populate: '*',
+                  'blocks.activity-block': {
+                    populate: {
+                      block_width: '*',
+                      activities: {
+                        populate: '*',
+                      },
+                      link_text: {
+                        populate: '*',
+                      },
+                      link_url: {
+                        populate: '*',
+                      },
+                    },
+                  },
+                  'blocks.age-group-block': {
+                    populate: {
+                      block_width: '*',
+                      age_group: '*',
+                      content: {
+                        populate: '*',
+                      },
+                      ingress: '*',
+                    },
+                  },
+                  'blocks.content-page-block': {
+                    populate: {
+                      block_width: '*',
+                      content_pages: {
+                        populate: {
+                          main_image: {
+                            populate: {
+                              formats: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  'blocks.hero-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.image-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.link-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.text-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.video-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
                 },
                 upper_content_area: {
-                  populate: '*',
+                  'blocks.activity-block': {
+                    populate: {
+                      block_width: '*',
+                      activities: {
+                        populate: '*',
+                      },
+                      link_text: {
+                        populate: '*',
+                      },
+                      link_url: {
+                        populate: '*',
+                      },
+                    },
+                  },
+                  'blocks.age-group-block': {
+                    populate: {
+                      block_width: '*',
+                      age_group: '*',
+                      content: {
+                        populate: '*',
+                      },
+                      ingress: '*',
+                    },
+                  },
+                  'blocks.content-page-block': {
+                    populate: {
+                      block_width: '*',
+                      content_pages: {
+                        populate: {
+                          main_image: {
+                            populate: {
+                              formats: '*',
+                            },
+                          },
+                        },
+                      },
+                    },
+                  },
+                  'blocks.hero-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.image-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.link-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.text-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
+                  'blocks.video-block': {
+                    populate: {
+                      block_width: '*',
+                    },
+                  },
                 },
                 content: '*',
                 ingress: '*',
@@ -163,6 +286,9 @@ const config: GatsbyConfig = {
                     formats: '*',
                   },
                 },
+                main_text: {
+                  populate: '*',
+                },
                 content: {
                   on: {
                     'blocks.activity-block': {
@@ -229,9 +355,6 @@ const config: GatsbyConfig = {
                       },
                     },
                   },
-                },
-                main_text: {
-                  data: '*',
                 },
                 meta_description: '*',
                 meta_title: '*',

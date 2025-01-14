@@ -99,7 +99,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
       />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row py-5">
-          <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress}</div>
+          <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress.data}</div>
           {(links?.length || 0) > 0 && (
             <div className="flex flex-row md:flex-col">
               {links?.map((link) => (
@@ -384,7 +384,7 @@ query Query(
     }
   }
   suggestions: allStrapiSuggestion(
-    filter: { activity: { activity_group: { eq: $strapi_id } } }
+    filter: {activity: {activity_group: {strapi_id: {eq: $strapi_id}}}}
     sort: { fields: publishedAt, order: DESC }
     limit: 4
   ) {
