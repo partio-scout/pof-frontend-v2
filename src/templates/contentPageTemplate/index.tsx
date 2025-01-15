@@ -43,7 +43,6 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const metadata = useMetadata(locale || 'fi');
 
-  console.log('content', data.contentPage);
   return (
     <Layout
       showBreadCrumbs
@@ -84,6 +83,7 @@ query getContentPage($locale: String, $type: String, $id: String) {
     main_image {
       url
     }
+    main_text: main_text_data
     ingress {
       data
     }
@@ -99,20 +99,7 @@ query getContentPage($locale: String, $type: String, $id: String) {
         strapi_id
         strapi_component
       }
-      ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
-        id
-        title
-        strapi_id
-        strapi_component
-        link_url
-        link_text
-      }
-      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-        id
-        title
-        strapi_id
-        strapi_component
-      }
+
     }
   }
 }

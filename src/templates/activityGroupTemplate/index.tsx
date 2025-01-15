@@ -399,6 +399,7 @@ query Query(
       activity {
         id
       }
+      content
     }
   }
   activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
