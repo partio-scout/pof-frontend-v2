@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import NewReplyForm from './newReplyForm';
-import { CommonSuggestionFormProps, Error } from './index';
-import { useQueryParam, StringParam, NumberParam } from 'use-query-params';
+import { CommonSuggestionFormProps } from './index';
+import { useQueryParam, NumberParam } from 'use-query-params';
 import { parseDate, parseLinkUrl, prependApiUrl, removeHtml } from '../../../utils/helpers';
 import AttachmentIcon from '../../../images/attachment.inline.svg';
 import LinkIcon from '../../../images/link.inline.svg';
@@ -12,7 +12,6 @@ import { sendSuggestionLike, sendSuggestionUnlike } from '../../../services/acti
 import { v4 as uuidv4 } from 'uuid';
 import toast from 'react-hot-toast';
 import clsx from 'clsx';
-import { linkSync } from 'fs';
 import { hexToRgba } from '../../../utils/color';
 import Pill from '../../../components/pill';
 import { useTranslation } from 'react-i18next';
@@ -34,6 +33,7 @@ export interface SuggestionFromRest {
   updatedAt: string;
   from_web: boolean;
   like_count: number;
+  likes: string[];
   pinned?: any;
   duration: Duration;
   links: any[];
@@ -162,7 +162,6 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
   // Query param `tip` is used to scroll to a distinct suggestion when coming from search
   const [focusedSuggestion] = useQueryParam('tip', NumberParam);
   const [expandedIndex, setExpandedIndex] = useState({});
-  const [votes, setVotes] = useState<{ [key: number]: any }>({});
   const [updatedSuggestions, setUpdatedSuggestions] = useState<Array<SuggestionFromRest> | null>(null);
   const { t } = useTranslation();
 
@@ -182,11 +181,6 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
   }, [suggestions]);
 
   useEffect(() => {
-    const votes = getVotesFromLocalStorage();
-    setVotes(votes);
-  }, []);
-
-  useEffect(() => {
     if (expandedIndex !== null) {
       const ele = document.getElementById(String(expandedIndex));
       if (ele) {
@@ -204,15 +198,6 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     }
   };
 
-  const getVotesFromLocalStorage = () => {
-    const voted = JSON.parse(localStorage.getItem('voted')!);
-    if (typeof voted === 'object' && voted !== null && voted !== undefined) {
-      return voted;
-    } else {
-      return {};
-    }
-  };
-
   const getUserId = () => {
     const idFromLocalStorage = JSON.parse(localStorage.getItem('userId') || '""');
     if (idFromLocalStorage && idFromLocalStorage != '') {
@@ -224,75 +209,54 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     }
   };
 
-  const updateSingleSuggestion = (
-    suggestionId: number,
-    updateObject: {
-      like_count: number;
-    },
-  ) =>
-    updatedSuggestions!.map((s) => {
-      if (s.id === suggestionId) {
-        return { ...s, like_count: updateObject.like_count };
+  const isLikedByUser = (suggestion: SuggestionFromRest) => {
+    const likes = suggestion?.likes;
+    return likes && likes.includes(getUserId())
+  }
+
+  const updateSuggestions = (suggestion: SuggestionFromRest) => {
+    if (!updatedSuggestions) return;
+    const updatedSuggestionsCopy = updatedSuggestions.map((s) => {
+      if (s.id === suggestion.id) {
+        return suggestion;
       }
       return s;
     });
-
-  const handleVote = (suggestionId: number) => {
-    const voted = getVotesFromLocalStorage();
-    let updatedVotes;
-    if (voted && voted[suggestionId] === true) {
-      sendSuggestionUnlike(suggestionId, getUserId())
-        .then((res) => {
-          updatedVotes = {
-            ...voted,
-            [suggestionId]: false,
-          };
-          //Store votes to localstorage
-          localStorage.setItem('voted', JSON.stringify(updatedVotes));
-          setVotes(updatedVotes);
-          const newSuggestions = updateSingleSuggestion(suggestionId, res.data);
-          //Store like_count to updatedSuggestions for UI to reflect changes
-          setUpdatedSuggestions(newSuggestions);
-        })
-        .catch(() => {
-          toast.error('Tykkäyksen päivitys epäonnistui');
-        });
-    } else {
-      sendSuggestionLike(suggestionId, getUserId())
-        .then((res) => {
-          updatedVotes = {
-            ...voted,
-            [suggestionId]: true,
-          };
-          localStorage.setItem('voted', JSON.stringify(updatedVotes));
-          setVotes(updatedVotes);
-          const newSuggestions = updateSingleSuggestion(suggestionId, res.data);
-          setUpdatedSuggestions(newSuggestions);
-        })
-        .catch(() => {
-          toast.error('Tykkäyksen lähetys epäonnistui');
-        });
-    }
+    setUpdatedSuggestions(updatedSuggestionsCopy);
   };
 
-  const getVotedStyles = (suggestionId: number) => {
-    if (votes && votes[suggestionId]) {
-      return votedStyles;
+  const handleVote = (suggestion: SuggestionFromRest) => {
+    const isLiked = isLikedByUser(suggestion);
+
+    if (isLiked) {
+      sendSuggestionUnlike(suggestion.id, getUserId())
+          .then((res) => {
+            updateSuggestions(res.data as SuggestionFromRest);
+          })
+          .catch(() => {
+            toast.error('Tykkäyksen päivitys epäonnistui');
+          });
     } else {
-      return unVotedStyles;
+      sendSuggestionLike(suggestion.id, getUserId())
+          .then((res) => {
+            updateSuggestions(res.data as SuggestionFromRest);
+          })
+          .catch(() => {
+            toast.error('Tykkäyksen lähetys epäonnistui');
+          });
     }
   };
+  
+  const getVotedStyles = (suggestion: SuggestionFromRest) => 
+    isLikedByUser(suggestion) ? votedStyles : unVotedStyles;
 
-  const debounceVote = debounce((suggestionId) => handleVote(suggestionId), 500);
+  const debounceVote = debounce((suggestion: SuggestionFromRest) => handleVote(suggestion), 500);
 
-  /**
-   * Sort Suggestions by `pinned` and then by `updatedAt`
-   */
   const suggestionSortFunction = (a: SuggestionFromRest, b: SuggestionFromRest): -1 | 0 | 1 => {
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
-    if (a.updatedAt === b.updatedAt) return 0;
-    return a.updatedAt > b.updatedAt ? -1 : 1;
+    if (a.publishedAt === b.publishedAt) return 0;
+    return a.publishedAt > b.publishedAt ? -1 : 1;
   };
 
   const showPills = (suggestion: SuggestionFromRest): boolean => {
@@ -378,7 +342,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
               </div>
 
               <div className="float-right">
-                <span className={getVotedStyles(suggestion.id)} onClick={() => debounceVote(suggestion.id)}>
+                <span className={getVotedStyles(suggestion)} onClick={() => debounceVote(suggestion)}>
                   <LikeIcon className="fill-current inline-block mr-1" />
                   {t('huuto_other', { count: suggestion!.like_count })}
                 </span>

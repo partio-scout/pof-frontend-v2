@@ -1,5 +1,6 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { InitialReply } from '../templates/activityTemplate/suggestionsSection/index';
+import { SuggestionFromRest } from '../templates/activityTemplate/suggestionsSection/suggestions';
 
 const trimUrl = (url?: string): string => {
   return url?.replace(/\/+$/, '') || '';
@@ -35,13 +36,13 @@ export const sendNewSuggestion = (
 export const sendNewReply = (newReply: InitialReply, suggestionId: number) =>
   axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/comment`, newReply);
 
-export const sendSuggestionLike = (suggestionId: number, userId: string) => {
+export const sendSuggestionLike = (suggestionId: number, userId: string): Promise<AxiosResponse<SuggestionFromRest | string>> => {
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/like`, {
     user: userId,
   });
 };
 
-export const sendSuggestionUnlike = (suggestionId: number, userId: string) => {
+export const sendSuggestionUnlike = (suggestionId: number, userId: string): Promise<AxiosResponse<SuggestionFromRest | string>> => {
   return axios.post(`${trimUrl(process.env.GATSBY_API_URL)}/suggestions/${suggestionId}/unlike`, {
     user: userId,
   });
