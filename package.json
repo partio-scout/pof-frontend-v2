@@ -20,6 +20,7 @@
     "@babel/helper-simple-access": "^7.25.9",
     "@babel/helper-split-export-declaration": "^7.24.7",
     "@tailwindcss/line-clamp": "0.2.1",
+    "@types/lodash.debounce": "^4.0.9",
     "@types/uuid": "8.3.1",
     "@typescript-eslint/eslint-plugin": "4.26.1",
     "@typescript-eslint/parser": "4.26.1",
