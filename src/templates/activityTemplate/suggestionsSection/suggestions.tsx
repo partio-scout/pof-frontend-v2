@@ -218,7 +218,11 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
     if (!updatedSuggestions) return;
     const updatedSuggestionsCopy = updatedSuggestions.map((s) => {
       if (s.id === suggestion.id) {
-        return suggestion;
+        return {
+          ...s,
+          likes: suggestion.likes,
+          like_count: suggestion.like_count,
+        };
       }
       return s;
     });
@@ -246,7 +250,7 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
           });
     }
   };
-  
+
   const getVotedStyles = (suggestion: SuggestionFromRest) => 
     isLikedByUser(suggestion) ? votedStyles : unVotedStyles;
 
@@ -255,8 +259,8 @@ const Suggestions = ({ suggestions, resetFormState, ageGroupColor, ...rest }: Su
   const suggestionSortFunction = (a: SuggestionFromRest, b: SuggestionFromRest): -1 | 0 | 1 => {
     if (a.pinned && !b.pinned) return -1;
     if (!a.pinned && b.pinned) return 1;
-    if (a.publishedAt === b.publishedAt) return 0;
-    return a.publishedAt > b.publishedAt ? -1 : 1;
+    if (a.updatedAt === b.updatedAt) return 0;
+    return a.updatedAt > b.updatedAt ? -1 : 1;
   };
 
   const showPills = (suggestion: SuggestionFromRest): boolean => {
