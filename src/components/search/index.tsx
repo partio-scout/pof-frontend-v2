@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useQueryParam, encodeJson, decodeJson } from 'use-query-params';
+import { encodeJson } from 'use-query-params';
+import { useQueryParamString } from 'react-use-query-param-string';
 import clsx from 'clsx';
 import { InstantSearch, Index, Configure } from 'react-instantsearch-dom';
 import { client } from '../../utils/algolia';
@@ -17,25 +18,18 @@ const environment = process.env.GATSBY_ALGOLIA_ENVIRONMENT;
 
 const DEBOUNCE_TIME = 400;
 
-const NullJsonParam = {
-  encode: (obj: any | null | undefined) => {
-    if (!obj) return undefined;
-    return encodeJson(obj);
-  },
-  decode: (str: string | (string | null)[] | null | undefined) => {
-    if (!str) return undefined;
-    return decodeJson(str);
-  },
-};
-
 const Search = (): React.ReactElement | null => {
   const { state, dispatch } = useSearchContext();
   const [debouncedSetState, setDebouncedSetState] = useState<any | null>(null);
-
-  const [searchStateQS, setSearchStateQS] = useQueryParam('search', NullJsonParam);
+  const [searchText, setSearchText, initialized] = useQueryParamString('search', '');
   const locale = currentLocale();
   const { t } = useTranslation();
   const searchScrollPosition = 'searchscrollposition';
+
+  const encodeSearchState = (obj: any | null | undefined) => {
+    if (!obj) return undefined;
+    return encodeJson(obj);
+  }
 
   useEffect(() => {
     const scrollpos = sessionStorage.getItem(searchScrollPosition);
@@ -51,7 +45,8 @@ const Search = (): React.ReactElement | null => {
     setDebouncedSetState(
       setTimeout(() => {
         sessionStorage.setItem(searchScrollPosition, window.scrollY.toString());
-        setSearchStateQS(updatedSearchState, 'replaceIn');
+        const nextSearchText = encodeSearchState(state.searchState) as string;
+        setSearchText(nextSearchText);
       }, DEBOUNCE_TIME),
     );
     dispatch({ type: 'set-search-state', payload: updatedSearchState });
@@ -64,12 +59,13 @@ const Search = (): React.ReactElement | null => {
   };
 
   useEffect(() => {
-    setSearchStateQS(state.searchActive ? state.searchState : null, 'replaceIn');
+    const nextSearchText = state.searchActive ? encodeSearchState(state.searchState) as string : '';
+    setSearchText(nextSearchText);
   }, [state.searchActive]);
 
   useEffect(() => {
-    if (searchStateQS) {
-      dispatch({ type: 'set-search-state', payload: searchStateQS });
+    if (searchText && initialized) {
+      dispatch({ type: 'set-search-state', payload: { query: searchText } });
       dispatch({ type: 'set-search-active', payload: true });
     }
     document.addEventListener('keydown', handleEsc);
