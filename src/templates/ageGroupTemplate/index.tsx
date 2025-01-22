@@ -41,6 +41,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     locale
   } = data.ageGroup;
 
+  console.log('links', data.ageGroup)
 
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
@@ -83,7 +84,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             <div className="flex flex-col sm:flex-row md:flex-col">
               {links?.map((link) => (
                 <div key={link?.url} className="mb-1 mr-2 md:mr-0">
-                  <PillLink to={link?.url || ''} icon={link?.url!} color={color}>
+                  <PillLink to={link?.url || ''} icon={link?.icon?.url!} color={color}>
                     {link && link.description}
                   </PillLink>
                 </div>
@@ -129,6 +130,61 @@ query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
       description
       id
       url
+            icon {
+        alternativeText
+        caption
+        formats {
+          large {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+          medium {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+          small {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+          thumbnail {
+            ext
+            url
+            hash
+            mime
+            name
+            size
+            width
+            height
+          }
+        }
+        name
+        mime
+        id
+        height
+        size
+        strapi_id
+        updatedAt
+        url
+        width
+      }
     }
     logo {
       id
@@ -254,12 +310,6 @@ query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
         title
         strapi_component
       }
-      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
-        id
-        video_url
-        strapi_id
-        strapi_component
-      }
     }
     title
     lower_content_area {
@@ -268,14 +318,6 @@ query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
         strapi_id
         title
         strapi_component
-      }
-      ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
-        id
-        title
-        strapi_id
-        strapi_component
-        link_url
-        link_text
       }
     }
     color

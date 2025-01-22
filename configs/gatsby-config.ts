@@ -73,7 +73,9 @@ const config: GatsbyConfig = {
                     },
                   },
                 },
-                links: '*',
+                links: {
+                  populate: '*'
+                },
                 lower_content_area: {
                   'blocks.activity-block': {
                     populate: {
