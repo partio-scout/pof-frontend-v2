@@ -41,8 +41,6 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     locale
   } = data.ageGroup;
 
-  console.log('links', data.ageGroup)
-
   const { t } = useTranslation();
   const activityGroups = data.activityGroups.nodes;
   const subTitle = t('vuotiaat', { minAge: minimum_age, maxAge: maximum_age });
@@ -104,12 +102,19 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
 export default AgeGroupTemplate;
 
 export const query = graphql`
-query AgeGroupQuery($locale: String, $strapi_id: Int, $id: String) {
-  localeData: allSitePage(
-    filter: {context: {locale: {eq: $locale}, type: {eq: "ActivityGroup"}}}
+query AgeGroupQuery(
+  $strapi_id: Int,
+  $id: String,
+  $wp_guid: String,
+) {
+  localeData: allSitePage (
+    filter: { context: { wp_guid: { eq: $wp_guid } } }
   ) {
     nodes {
-      ...SitePageLocaleFragment
+      path
+      context {
+				locale
+      }
     }
   }
   ageGroup: strapiAgeGroup(strapi_id: {eq: $strapi_id}) {

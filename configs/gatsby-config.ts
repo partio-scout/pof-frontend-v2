@@ -208,6 +208,7 @@ const config: GatsbyConfig = {
                 },
                 content: '*',
                 ingress: '*',
+                wp_guid: '*',
               },
             },
             pluginOptions: {

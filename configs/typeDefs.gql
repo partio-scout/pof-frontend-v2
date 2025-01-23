@@ -16,6 +16,7 @@ type SitePageContext @dontInfer {
   id: Int!
   strapi_id: Int
   ageGroupId: Int
+  wp_guid: String
 }
 
 type ActivityLogo implements Node @dontInfer {

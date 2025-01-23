@@ -168,7 +168,7 @@ async function handleActivityGroup(
 }
 
 async function handleAgeGroup(
-  ageGroup: Pick<StrapiAgeGroup, 'id' | 'strapi_id' | 'title' | 'activity_groups' | 'locale'>,
+  ageGroup: Pick<StrapiAgeGroup, 'id' | 'strapi_id' | 'title' | 'activity_groups' | 'locale' | 'wp_guid'>,
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
@@ -190,6 +190,7 @@ async function handleAgeGroup(
       locale: ageGroup?.locale,
       id: ageGroup.id,
       strapi_id: ageGroup.strapi_id,
+      wp_guid: ageGroup.wp_guid,
     },
   };
 
