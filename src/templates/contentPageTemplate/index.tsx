@@ -99,7 +99,6 @@ query getContentPage($locale: String, $type: String, $id: String) {
         strapi_id
         strapi_component
       }
-
     }
   }
 }

@@ -70,7 +70,7 @@ function mergePageCreationResults(...results: PageCreationResults[]): PageCreati
 }
 
 async function handleActivity(
-  activity: Pick<StrapiActivity, 'id' | 'title' | 'locale' | 'strapi_id'>,
+  activity: Pick<StrapiActivity, 'id' | 'title' | 'locale' | 'strapi_id' | 'wp_guid'>,
   activityGroupPath: string,
   createPage: Actions['createPage'],
 ): Promise<PageCreationResults> {
@@ -90,6 +90,7 @@ async function handleActivity(
       locale: activity.locale,
       id: activity.id,
       strapi_id: activity.strapi_id,
+      wp_guid: activity.wp_guid,
     },
   };
 
@@ -111,7 +112,7 @@ async function graphqlWithErrors<T>(graphql: CreatePagesArgs['graphql'], query: 
 }
 
 async function handleActivityGroup(
-  activityGroup: Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group' | 'strapi_id' | 'locale'>,
+  activityGroup: Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group' | 'strapi_id' | 'locale' | 'wp_guid'>,
   ageGroupPath: string,
   graphql: CreatePagesArgs['graphql'],
   createPage: Actions['createPage'],
@@ -124,7 +125,7 @@ async function handleActivityGroup(
 
   const { data } = await graphqlWithErrors<{
     strapiActivityGroup: {
-      activities: Pick<StrapiActivity, 'id' | 'title' | 'locale' | 'strapi_id'>[];
+      activities: Pick<StrapiActivity, 'id' | 'title' | 'locale' | 'strapi_id' | 'wp_guid'>[];
       age_group: Pick<StrapiAgeGroup, 'id' | 'strapi_id' | 'title'>;
       locale?: string;
     };
@@ -150,6 +151,7 @@ async function handleActivityGroup(
       id: activityGroup?.id,
       strapi_id: activityGroup?.strapi_id,
       ageGroupId: activityGroupData?.age_group.strapi_id,
+      wp_guid: activityGroup?.wp_guid
     },
   };
 
@@ -200,7 +202,7 @@ async function handleAgeGroup(
 
   const promises = (ageGroup.activity_groups || []).map(async (activityGroup) =>
     handleActivityGroup(
-      activityGroup as Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group'>,
+      activityGroup as Pick<StrapiAgeGroupActivity_Groups, 'id' | 'title' | 'age_group' | 'wp_guid'>,
       ageGroupPath,
       graphql,
       createPage,

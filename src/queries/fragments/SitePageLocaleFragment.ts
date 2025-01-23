@@ -7,6 +7,7 @@ export const SitePageLocaleFragment = graphql`
       strapi_id
       type
       locale
+      wp_guid
     }
   }
 `;

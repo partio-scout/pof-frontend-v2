@@ -161,6 +161,7 @@ query Query(
     ingress
     mandatory
     sort_order
+    wp_guid
     activities {
       id
       title
@@ -300,6 +301,7 @@ query Query(
   ageGroup: strapiAgeGroup(activity_groups: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
     strapi_id
     title
+    wp_guid
     main_image {
       alternativeText
       caption
@@ -358,6 +360,7 @@ query Query(
     }
     color
     locale
+    wp_guid
   }
   otherGroups: allStrapiActivityGroup(filter: { age_group: { strapi_id: { eq: $ageGroupId } } }) {
     nodes {
@@ -406,6 +409,7 @@ query Query(
     nodes {
       id
       title
+      wp_guid
       activity_group {
         id
         strapi_id

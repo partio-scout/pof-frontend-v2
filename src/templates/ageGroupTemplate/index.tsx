@@ -114,6 +114,7 @@ query AgeGroupQuery(
       path
       context {
 				locale
+        wp_guid
       }
     }
   }
@@ -125,6 +126,7 @@ query AgeGroupQuery(
     publishedAt
     id
     strapi_id
+    wp_guid
     content {
       data {
         content

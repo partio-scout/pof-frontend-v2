@@ -88,6 +88,7 @@ query getActivity($strapi_id: Int, $locale: String, $type: String) {
     publishedAt
     id
     strapi_id
+    wp_guid
     content {
 			data {
 			  id
@@ -278,6 +279,7 @@ query getActivity($strapi_id: Int, $locale: String, $type: String) {
   }
   activityGroup: strapiActivityGroup(activities: { elemMatch: { strapi_id: { eq: $strapi_id } } }) {
     title
+    wp_guid
     logo {
       url
       formats {
