@@ -21,6 +21,7 @@ interface QueryType {
   ageGroup: StrapiAgeGroup;
   activityGroups: { nodes: StrapiActivityGroup[] };
   localeData: { nodes: SitePage[] };
+  activityGroupUrls: { nodes: SitePage[] };
 }
 
 const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTemplateProps>) => {
@@ -92,7 +93,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
         </div>
         <BlockArea blocks={upper_content_area} />
         <h2 className="uppercase text-center my-6 sm:text-4xl md:text-xxlw">{subactivitygroup_term?.plural}</h2>
-        <ActivityGroupList groups={activityGroups} links={data.localeData?.nodes} />
+        <ActivityGroupList groups={activityGroups} links={data.activityGroupUrls?.nodes} />
         <BlockArea blocks={lower_content_area} />
       </div>
     </Layout>
@@ -106,14 +107,21 @@ query AgeGroupQuery(
   $strapi_id: Int,
   $id: String
   $locale: String
+  $wp_guid: String
 ) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
+  localeData: allSitePage (
+    filter: { context: { wp_guid: { eq: $wp_guid } } }
+  ) {
+    nodes {
+      ...SitePageLocaleFragment
+    }
+  }
+  activityGroupUrls: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
     nodes {
       path
       context {
         strapi_id
 				locale
-        wp_guid
       }
     }
   }

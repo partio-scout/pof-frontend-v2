@@ -36,6 +36,7 @@ interface QueryType {
   suggestions: { nodes: StrapiSuggestion[] };
   activities: { nodes: StrapiActivity[] };
   localeData: { nodes: SitePage[] };
+  activityGroupUrls: { nodes: SitePage[] };
 }
 
 const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
@@ -131,7 +132,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
             }`}</h2>
           )
         }
-        <ActivityGroupList groups={otherGroups.nodes} links={data.localeData?.nodes} />
+        <ActivityGroupList groups={otherGroups.nodes} links={data.activityGroupUrls?.nodes} />
         <BlockArea blocks={content_area} />
       </div>
     </Layout>
@@ -143,10 +144,18 @@ export default activityGroupTemplate;
 export const query = graphql`
 query Query(
   $strapi_id: Int,
+  $locale: String,
   $ageGroupId: Int,
-  $locale: String
+  $wp_guid: String,
 ) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "Activity" } } }) {
+  localeData: allSitePage (
+    filter: { context: { wp_guid: { eq: $wp_guid } } }
+  ) {
+    nodes {
+      ...SitePageLocaleFragment
+    }
+  }
+  activityGroupUrls: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
     nodes {
       path
       context {
