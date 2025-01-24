@@ -13,7 +13,7 @@ import Layout from '../../layouts/default';
 import Suggestions from './suggestions';
 import Activities from './activities';
 import ActivityGroupList from '../../components/activityGroupList';
-import { createSlug, prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
+import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import PillLink from '../../components/pillLink';
 import BlockArea from '../../components/blockArea';
 import { useTranslation } from 'react-i18next';
@@ -166,11 +166,7 @@ query Query(
   }
   activityGroupUrls: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
     nodes {
-      path
-      context {
-        
-				locale
-      }
+      ...SitePageLocaleFragment
     }
   }
   activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
