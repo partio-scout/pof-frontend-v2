@@ -144,14 +144,13 @@ export const query = graphql`
 query Query(
   $strapi_id: Int,
   $ageGroupId: Int,
-  $wp_guid: String,
+  $locale: String
 ) {
-  localeData: allSitePage (
-    filter: { context: { wp_guid: { eq: $wp_guid } } }
-  ) {
+  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "Activity" } } }) {
     nodes {
       path
       context {
+        strapi_id
 				locale
       }
     }
