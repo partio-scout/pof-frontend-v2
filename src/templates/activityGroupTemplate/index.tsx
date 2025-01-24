@@ -37,6 +37,7 @@ interface QueryType {
   activities: { nodes: StrapiActivity[] };
   localeData: { nodes: SitePage[] };
   activityGroupUrls: { nodes: SitePage[] };
+  activityUrls: { nodes: SitePage[] };
 }
 
 const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGroupPageTemplateProps>) => {
@@ -71,7 +72,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
 
   const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
     ...suggestion,
-    url: findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
+    url: data.activityUrls?.nodes.find((link) => link.context.wp_guid === suggestion.activity?.wp_guid).path + findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
     logo: logo?.formats?.thumbnail?.url,
   }));
 
@@ -120,6 +121,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           mandatoryDescription={mandatory_activities_description}
           optionalTitle={optional_activities_title}
           optionalDescription={optional_activities_description}
+          links={data.activityUrls?.nodes}
         />
         <div className="my-5">
           <h2 className="uppercase my-5 sm:text-4xl md:text-xxlw">{t('uusimmat-toteutusvinkit')}</h2>
@@ -155,11 +157,18 @@ query Query(
       ...SitePageLocaleFragment
     }
   }
+  activityUrls: allSitePage (
+    filter: {context: {locale: {eq: $locale}, type: {eq: "Activity"}}}
+  ) {
+    nodes {
+      ...SitePageLocaleFragment
+    }
+  }
   activityGroupUrls: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: "ActivityGroup" } } }) {
     nodes {
       path
       context {
-        strapi_id
+        
 				locale
       }
     }
@@ -178,6 +187,7 @@ query Query(
     activities {
       id
       title
+      strapi_id
     }
     activity_group_category {
       name
@@ -414,6 +424,7 @@ query Query(
       id
       activity {
         id
+        wp_guid
       }
       content
     }

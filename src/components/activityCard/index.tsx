@@ -23,27 +23,16 @@ interface ActivityCardProps {
   showActivityAndAgeGroup?: boolean;
 }
 
-const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
-  const { age_group, activity_group, mandatory, suggestions, duration, locations, is_marine_activity, title } =
+const ActivityCard = ({ activity, showActivityAndAgeGroup }: ActivityCardProps) => {
+  const { age_group, activity_group, mandatory, suggestions, duration, locations, is_marine_activity, title, link } =
     activity;
   const { t } = useTranslation();
 
   const iconUrl = prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!);
 
-  let slug: string | undefined;
-
-  if (!link) {  
-    const ageGroupSlug = createSlug(age_group?.title || '');
-    const activityGroupSlug = createSlug(activity_group?.title || '');
-
-    if (ageGroupSlug && activityGroupSlug) {
-      slug = '/' + ageGroupSlug + '/' + activityGroupSlug + '/' + createSlug(title || '');
-    }
-  }
-
 
   return (
-    <Card link={link || slug} borderColor={hexToRgba(age_group?.color!, 0.3)}>
+    <Card link={link} borderColor={hexToRgba(age_group?.color!, 0.3)}>
       {showActivityAndAgeGroup && (
         <div className="flex mb-2">
           {iconUrl && (

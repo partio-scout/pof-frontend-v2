@@ -99,7 +99,6 @@ const SuggestionsSection = ({ data, activityId }: SuggestionsSectionProps) => {
   useEffect(() => {
     const suggestionIds = data.map((s: any) => s.strapi_id);
 
-    console.log('suggestionIds', suggestionIds);
     fetchComments(suggestionIds)
       .then((res) => {
         setSuggestions(res.data?.data);

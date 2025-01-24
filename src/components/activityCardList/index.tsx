@@ -22,6 +22,7 @@ interface ActivityCardListProps {
    */
   augmentData?: boolean;
   showActivityAndAgeGroup?: boolean;
+  links: { path: string; context: { strapi_id: number } }[];
 }
 
 const ActivityCardList = ({
@@ -29,6 +30,7 @@ const ActivityCardList = ({
   showInitially,
   augmentData,
   showActivityAndAgeGroup,
+  links,
 }: ActivityCardListProps) => {
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
@@ -60,14 +62,16 @@ const ActivityCardList = ({
   const activitiesWithLinks = visibleActivities?.map((activity) => {
     if (activity.fields?.path) return activity;
 
-    const headerItem = findHeaderItemByTypeAndId('Activity', activity.id, navigation);
+    const headerItem = links.find((link) => link.context.wp_guid === activity.wp_guid);
 
     return {
       ...activity,
+      link: headerItem?.path,
       fields: {
-        path: headerItem?.url,
+        path: headerItem?.path,
       },
     };
+
   });
 
   return (

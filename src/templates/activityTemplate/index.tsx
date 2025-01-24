@@ -20,11 +20,11 @@ interface ActivityQueryType {
   activity: StrapiActivity;
   activityGroup: StrapiActivityGroup;
   localeData: { nodes: SitePage[] };
+  activityUrls: { nodes: SitePage[] };
 }
 
 const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
-  const { activity, activityGroup, localeData } = data;
-  console.log('localeData', localeData)
+  const { activity, activityGroup, localeData, activityUrls } = data;
   const localeLinks = sitePageDataToLocaleLinks(localeData.nodes);
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
@@ -81,10 +81,14 @@ query getActivity(
     filter: { context: { wp_guid: { eq: $wp_guid } } }
   ) {
     nodes {
-      path
-      context {
-				locale
-      }
+      ...SitePageLocaleFragment
+    }
+  }
+  activityUrls: allSitePage(
+    filter: { context: { type: { eq: "Activity" } } }
+  ) {
+    nodes {
+      ...SitePageLocaleFragment
     }
   }
   activity: strapiActivity(strapi_id: { eq: $strapi_id }) {

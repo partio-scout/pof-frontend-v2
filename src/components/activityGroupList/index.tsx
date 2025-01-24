@@ -18,8 +18,6 @@ function ActivityGroupList({ groups, links }: ActivityGroupListProps) {
     }
     return '';
   }
-  console.log('groups', groups);
-  console.log('links', links);
 
   let categories = groups.reduce((prev, curr) => {
     const category = curr.activity_group_category;

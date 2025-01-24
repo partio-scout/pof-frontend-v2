@@ -10,6 +10,7 @@ interface ActivitiesProps {
   mandatoryDescription?: string | null;
   optionalTitle?: string | null;
   optionalDescription?: string | null;
+  links: { path: string; context: { strapi_id: number } }[];
 }
 
 const Heading = ({ children }: { children: React.ReactNode }) => (
@@ -26,6 +27,7 @@ function Activities({
   mandatoryDescription,
   optionalTitle,
   optionalDescription,
+  links
 }: ActivitiesProps) {
   const mandatoryActivities = activities.filter((activity) => activity.mandatory);
   const optionalActivities = activities.filter((activity) => !activity.mandatory);
@@ -37,14 +39,14 @@ function Activities({
         <div className="py-5">
           <Heading>{mandatoryTitle || t('pakolliset-aktiviteetit')}</Heading>
           {mandatoryDescription && <Paragraph>{mandatoryDescription}</Paragraph>}
-          <ActivityCardList activities={mandatoryActivities} showInitially={12} />
+          <ActivityCardList activities={mandatoryActivities} showInitially={12} links={links} />
         </div>
       )}
       {optionalActivities.length > 0 && (
         <div className="py-5">
           <Heading>{optionalTitle || t('valinnaiset-aktiviteetit')}</Heading>
           {optionalDescription && <Paragraph>{optionalDescription}</Paragraph>}
-          <ActivityCardList activities={optionalActivities} showInitially={12} />
+          <ActivityCardList activities={optionalActivities} showInitially={12} links={links} />
         </div>
       )}
     </div>

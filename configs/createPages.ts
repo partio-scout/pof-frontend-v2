@@ -86,7 +86,7 @@ async function handleActivity(
     path: activityPath,
     component: path.resolve(`src/templates/activityTemplate/index.tsx`),
     context: {
-      type: 'activity',
+      type: 'Activity',
       locale: activity.locale,
       id: activity.id,
       strapi_id: activity.strapi_id,
