@@ -24,13 +24,12 @@ interface ActivityQueryType {
 
 const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
   const { activity, activityGroup, localeData } = data;
+  console.log('localeData', localeData)
   const localeLinks = sitePageDataToLocaleLinks(localeData.nodes);
   const subTitle = `${activityGroup?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
   const metadata = useMetadata(activity.locale || 'fi');
-
-  console.log('activity', activity);
 
   return (
     <Layout
@@ -74,10 +73,18 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
 export default ActivityPageTemplate;
 
 export const query = graphql`
-query getActivity($strapi_id: Int, $locale: String, $type: String) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
+query getActivity(
+  $strapi_id: Int,
+  $wp_guid: String,
+) {
+  localeData: allSitePage(
+    filter: { context: { wp_guid: { eq: $wp_guid } } }
+  ) {
     nodes {
-      ...SitePageLocaleFragment
+      path
+      context {
+				locale
+      }
     }
   }
   activity: strapiActivity(strapi_id: { eq: $strapi_id }) {
