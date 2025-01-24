@@ -1,6 +1,6 @@
 export const getActivityGroup = `
-query getActivityGroup($id: String) {
-  strapiActivityGroup(id: {eq: $id}) {
+query getActivityGroup($id: String, $locale: String) {
+  strapiActivityGroup(id: {eq: $id}, locale: {eq: $locale}) {
     locale
     wp_guid
     activities {
