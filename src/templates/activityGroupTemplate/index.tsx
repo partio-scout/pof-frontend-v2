@@ -143,12 +143,17 @@ export default activityGroupTemplate;
 export const query = graphql`
 query Query(
   $strapi_id: Int,
-  $locale: String,
   $ageGroupId: Int,
+  $wp_guid: String,
 ) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale } } }) {
+  localeData: allSitePage (
+    filter: { context: { wp_guid: { eq: $wp_guid } } }
+  ) {
     nodes {
-      ...SitePageLocaleFragment
+      path
+      context {
+				locale
+      }
     }
   }
   activityGroup: strapiActivityGroup(strapi_id: { eq: $strapi_id }) {
