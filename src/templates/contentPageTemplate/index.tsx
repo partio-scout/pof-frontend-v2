@@ -1,7 +1,7 @@
 import React from 'react';
 import Layout from '../../layouts/default';
 import { StrapiContentPage, SitePage } from '../../../graphql-types';
-import BlockArea from '../../components/blockArea';
+import BlockArea, { SitePageLocaleFragment } from '../../components/blockArea';
 import { prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import RichText from '../../components/RichText';
 import { graphql, PageProps } from 'gatsby';
@@ -16,10 +16,10 @@ interface ContentPageTemplateProps {
 interface ContentPageQueryType {
   contentPage: StrapiContentPage;
   localeData: { nodes: SitePage[] };
+  activityUrls: { nodes: SitePageLocaleFragment[]; }
 }
 
 const MainContent = ({ data }: ContentPageTemplateProps) => {
-  console.log('data contentpage', data)
   return (
     <div className="flex flex-wrap mt-14">
       <div className="w-full lg:w-1/2 grow pr-3">
@@ -44,7 +44,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
   const { strapi_id, content, locale } = data.contentPage;
   const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
   const metadata = useMetadata(locale || 'fi');
-
+  
   return (
     <Layout
       showBreadCrumbs
@@ -60,7 +60,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
         imageUrl={prependApiUrl(data.contentPage.main_image?.url) || metadata.image || ''}
       />
       <MainContent data={data.contentPage} />
-      <BlockArea blocks={content} />
+      <BlockArea blocks={content} links={data.activityUrls?.nodes} />
     </Layout>
   );
 };
@@ -74,6 +74,15 @@ query getContentPage($locale: String, $type: String, $id: String) {
       ...SitePageLocaleFragment
     }
   }
+
+  activityUrls: allSitePage (
+    filter: {context: {locale: {eq: $locale}, type: {eq: "Activity"}}}
+  ) {
+    nodes {
+      ...SitePageLocaleFragment
+    }
+  }
+
   contentPage: strapiContentPage(id: { eq: $id }) {
     locale
     title
