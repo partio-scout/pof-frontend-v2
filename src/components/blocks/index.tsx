@@ -4,6 +4,7 @@ import { prependApiUrl } from '../../utils/helpers';
 import RichText from '../RichText';
 import ActivityCardList from '../activityCardList';
 import BlueLink from '../BlueLink';
+import { SitePageLocaleFragment } from '../blockArea';
 
 export interface TextBlockType extends BlockType {
   title?: string;
@@ -64,6 +65,7 @@ export const getBlockWidth = (widthString: string | undefined) => {
 
 export interface BlockProps<BLOCK_TYPE> {
   block: BLOCK_TYPE;
+  links?: SitePageLocaleFragment[];
 }
 
 export const TextBlock = ({ block }: BlockProps<TextBlockType>) => (
@@ -110,5 +112,5 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
   </div>
 );
 
-export const ActivityBlock = ({ block }: BlockProps<ActivityBlockType>) =>
-  block.activities ? <ActivityCardList activities={block.activities} augmentData showActivityAndAgeGroup /> : null;
+export const ActivityBlock = ({ block, links }: BlockProps<ActivityBlockType>) =>
+  block.activities ? <ActivityCardList activities={block.activities} augmentData showActivityAndAgeGroup links={links} /> : null;

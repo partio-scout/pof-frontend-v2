@@ -8,6 +8,7 @@ import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { useTranslation } from 'react-i18next';
 import { currentLocale } from '../../utils/helpers';
 import clsx from 'clsx';
+import { SitePageLocaleFragment } from '../blockArea';
 
 interface ActivityCardListProps {
   activities: StrapiActivity[];
@@ -22,7 +23,7 @@ interface ActivityCardListProps {
    */
   augmentData?: boolean;
   showActivityAndAgeGroup?: boolean;
-  links: { path: string; context: { strapi_id: number } }[];
+  links: SitePageLocaleFragment[];
 }
 
 const ActivityCardList = ({

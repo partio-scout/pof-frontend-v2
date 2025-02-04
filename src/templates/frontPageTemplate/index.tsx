@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql, PageProps } from 'gatsby';
 import Layout from '../../layouts/default';
 import Hero from '../../components/hero';
-import BlockArea from '../../components/blockArea';
-import { StrapiFrontPage } from '../../../graphql-types';
+import BlockArea, { SitePageLocaleFragment } from '../../components/blockArea';
+import { SitePage, SitePageContext, StrapiFrontPage } from '../../../graphql-types';
 import { Locale } from '../../types/locale';
 
 interface FrontPageTemplateProps {
@@ -12,6 +12,13 @@ interface FrontPageTemplateProps {
 
 export const query = graphql`
 query FrontPageQuery($locale: String) {
+  activityUrls: allSitePage (
+    filter: {context: {locale: {eq: $locale}, type: {eq: "Activity"}}}
+  ) {
+    nodes {
+      ...SitePageLocaleFragment
+    }
+  }
   frontPage: strapiFrontPage(locale: { eq: $locale }) {
     locale
     title
@@ -97,11 +104,13 @@ interface FrontPageQueryType {
     StrapiFrontPage,
    'content' | 'locale' | 'title' | 'hero_image'
   >;
+  activityUrls: { nodes: SitePageLocaleFragment[] };
 }
 
 const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
   const {
     frontPage: { content, title, hero_image, locale },
+    activityUrls: { nodes: activityUrls },
   } = data;
 
   return (
@@ -109,7 +118,7 @@ const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProp
       locale={locale as Locale}
       pageHeader={<Hero title={title} imageUrl={hero_image?.url} />}
     >
-      <BlockArea blocks={content} />
+      <BlockArea blocks={content} links={activityUrls} />
     </Layout>
   );
 };
