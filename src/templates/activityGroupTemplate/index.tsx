@@ -76,6 +76,8 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     logo: logo?.formats?.thumbnail?.url,
   }));
 
+  const ingressDisplay = ingress && typeof ingress === 'string' ? ingress : ingress?.data;
+
   return (
     <Layout
       showBreadCrumbs
@@ -94,14 +96,14 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
     >
       <Metadata
         title={title || ''}
-        description={ingress || ''}
+        description={ingressDisplay}
         path={path}
         locale={locale as Locale}
         imageUrl={prependApiUrl(main_image?.url) || metadata.image || ''}
       />
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row py-5">
-          <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingress.data}</div>
+          <div className="flex-1 text-xl font-sourceSansPro tracking-wide pb-3 md:py-0 md:pr-3">{ingressDisplay}</div>
           {(links?.length || 0) > 0 && (
             <div className="flex flex-row md:flex-col">
               {links?.map((link) => (
