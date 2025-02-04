@@ -137,6 +137,9 @@ query getContentPage($locale: String, $type: String, $id: String) {
         }
         strapi_id
         strapi_component
+        block_width {
+          name
+        }
       }
       ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
         id
@@ -148,11 +151,18 @@ query getContentPage($locale: String, $type: String, $id: String) {
             text
           }
         }
+        block_width {
+          name
+        }
       }
       ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
         id
         strapi_id
+        strapi_component
         video_url
+        block_width {
+          name
+        }
       }
     }
 
