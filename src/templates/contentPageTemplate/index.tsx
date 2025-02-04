@@ -84,13 +84,13 @@ query getContentPage($locale: String, $type: String, $id: String) {
   }
 
   contentPage: strapiContentPage(id: { eq: $id }) {
-    locale
-    title
+    id
+    strapi_id
     updatedAt
     createdAt
     publishedAt
-    id
-    strapi_id
+    locale
+    title
     main_image {
       url
     }
@@ -98,7 +98,6 @@ query getContentPage($locale: String, $type: String, $id: String) {
     ingress {
       data
     }
-
 
     content {
       ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {

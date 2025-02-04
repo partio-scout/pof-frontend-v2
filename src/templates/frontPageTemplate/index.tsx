@@ -19,20 +19,16 @@ query FrontPageQuery($locale: String) {
       ...SitePageLocaleFragment
     }
   }
+  
   frontPage: strapiFrontPage(locale: { eq: $locale }) {
-    locale
-    title
-    hero_image {
-      url
-    }
-    locale
-    title
-    hero_image {
-      url
-    }
-    locale
-    title
     id
+    locale
+    title
+    hero_image {
+      url
+      alternativeText
+      caption
+    }
 
     content {
 
@@ -66,9 +62,9 @@ query FrontPageQuery($locale: String) {
       }
       ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
         id
-        title
         strapi_id
         strapi_component
+        title
         textBlockText: text {
 					data {
 						text
