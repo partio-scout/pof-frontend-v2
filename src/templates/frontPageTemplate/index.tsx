@@ -13,48 +13,81 @@ interface FrontPageTemplateProps {
 export const query = graphql`
 query FrontPageQuery($locale: String) {
   frontPage: strapiFrontPage(locale: { eq: $locale }) {
+    locale
+    title
+    hero_image {
+      url
+    }
+    locale
+    title
+    hero_image {
+      url
+    }
+    locale
+    title
+    id
+
     content {
+
       ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
         id
         strapi_id
         strapi_component
+        activities {
+          title
+          strapi_id
+          id
+          wp_guid
+        }
+        block_width {
+          name
+        }
       }
       ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
         id
         title
         strapi_id
         strapi_component
-      }
-      ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
-        id
-        title
-        strapi_id
-        strapi_component
-        link_url
-        link_text
+        ingress {
+					data {
+						ingress
+          }
+        }
+        block_width {
+					name
+        }
       }
       ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
         id
         title
         strapi_id
         strapi_component
+        textBlockText: text {
+					data {
+						text
+					}
+				}
       }
+      ... on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
+        id
+        strapi_component
+        strapi_id
+        content_pages {
+          title
+          ingress {
+            data
+          }
+          main_image {
+            url
+            alternativeText
+          }
+          publishedAt
+          id
+          strapi_id
+        }
+      }
+
     }
-    locale
-    title
-    hero_image {
-      url
-    }
-    locale
-    title
-    hero_image {
-      url
-    }
-    locale
-    title
-    hero_link_text
-    hero_link_url
-    id
   }
 }
 `;
@@ -62,19 +95,19 @@ query FrontPageQuery($locale: String) {
 interface FrontPageQueryType {
   frontPage: Pick<
     StrapiFrontPage,
-   'content' | 'locale' | 'title' | 'hero_image' | 'hero_link_text' | 'hero_link_url'
+   'content' | 'locale' | 'title' | 'hero_image'
   >;
 }
 
 const IndexPage = ({ data }: PageProps<FrontPageQueryType, FrontPageTemplateProps>) => {
   const {
-    frontPage: { content, title, hero_link_text, hero_link_url, hero_image, locale },
+    frontPage: { content, title, hero_image, locale },
   } = data;
 
   return (
     <Layout
       locale={locale as Locale}
-      pageHeader={<Hero title={title} linkText={hero_link_text} linkUrl={hero_link_url} imageUrl={hero_image?.url} />}
+      pageHeader={<Hero title={title} imageUrl={hero_image?.url} />}
     >
       <BlockArea blocks={content} />
     </Layout>

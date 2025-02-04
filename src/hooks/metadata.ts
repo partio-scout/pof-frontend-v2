@@ -6,7 +6,6 @@ const metadataQuery = graphql`
     allStrapiFrontPage {
       nodes {
         title
-        meta_description
         locale
         strapi_id
         hero_image {
@@ -74,7 +73,6 @@ const metadataQuery = graphql`
 
 interface Metadata {
   title: string;
-  meta_description: string;
   locale: string;
   siteUrl: string;
   image: string;
@@ -83,7 +81,7 @@ interface Metadata {
 const useMetadata = (currentLocale: string): Metadata => {
   const { allStrapiFrontPage } = useStaticQuery<{
     allStrapiFrontPage: {
-      nodes: Pick<StrapiFrontPage, 'title' | 'meta_description' | 'ingress' | 'locale' | 'strapi_id' | 'hero_image'>[];
+      nodes: Pick<StrapiFrontPage, 'title' | 'ingress' | 'locale' | 'strapi_id' | 'hero_image'>[];
     };
   }>(metadataQuery);
 
@@ -92,7 +90,6 @@ const useMetadata = (currentLocale: string): Metadata => {
   const metadata: Metadata = {
     title: correctMetadata?.title || 'Partio-ohjelma',
     locale: correctMetadata?.locale || 'fi',
-    meta_description: correctMetadata?.meta_description || correctMetadata?.ingress || '',
     siteUrl: 'https://partio-ohjelma.fi',
     image: correctMetadata?.hero_image?.url || '',
   };

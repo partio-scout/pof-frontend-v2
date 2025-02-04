@@ -19,12 +19,11 @@ const loadDeclarationScript = (callback: any) => {
 };
 
 const CookiePageComponent = ({ page }: { page?: StrapiCookiePage }) => {
-  const { title, ingress } = page || {};
+  const { title } = page || {};
 
   return (
     <div className="flex flex-col items-center my-10">
       <h1 className="uppercase sm:text-xxxlt md:text-xxxlw text-center">{title}</h1>
-      {ingress && <p className="my-4 md:text-base">{ingress}</p>}
       <script
         id="CookieDeclaration"
         src={`https://consent.cookiebot.com/${process.env.GATSBY_COOKIEBOT_ID}/cd.js`}
@@ -55,7 +54,6 @@ export const query = graphql`
 query GetCookiePage {
     pages: allStrapiCookiePage {
       nodes {
-        ingress
         title
       }
     }

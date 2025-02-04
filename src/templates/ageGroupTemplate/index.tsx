@@ -36,8 +36,6 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
     logo,
     links,
     subactivitygroup_term,
-    lower_content_area,
-    upper_content_area,
     color,
     locale
   } = data.ageGroup;
@@ -91,10 +89,8 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
             </div>
           )}
         </div>
-        <BlockArea blocks={upper_content_area} />
         <h2 className="uppercase text-center my-6 sm:text-4xl md:text-xxlw">{subactivitygroup_term?.plural}</h2>
         <ActivityGroupList groups={activityGroups} links={data.activityGroupUrls?.nodes} />
-        <BlockArea blocks={lower_content_area} />
       </div>
     </Layout>
   );
@@ -317,23 +313,7 @@ query AgeGroupQuery(
       updatedAt
     }
     title
-    upper_content_area {
-      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-        id
-        strapi_id
-        title
-        strapi_component
-      }
-    }
     title
-    lower_content_area {
-      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-        id
-        strapi_id
-        title
-        strapi_component
-      }
-    }
     color
   }
   activityGroups: allStrapiActivityGroup(filter: {age_group: {id: {eq: $id}}}) {

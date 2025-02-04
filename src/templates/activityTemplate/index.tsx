@@ -112,12 +112,6 @@ query getActivity(
       slug
       id
     }
-    educational_objectives {
-      id
-      locale
-      name
-      slug
-    }
     files {
       url
       size

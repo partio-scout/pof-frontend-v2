@@ -62,7 +62,7 @@ const ActivityCardList = ({
   const activitiesWithLinks = visibleActivities?.map((activity) => {
     if (activity.fields?.path) return activity;
 
-    const headerItem = links.find((link) => link.context.wp_guid === activity.wp_guid);
+    const headerItem = links?.find((link) => link.context.wp_guid === activity.wp_guid);
 
     return {
       ...activity,

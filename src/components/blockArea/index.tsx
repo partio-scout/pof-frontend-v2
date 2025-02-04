@@ -8,6 +8,7 @@ interface BlockAreaProps {
 }
 
 function BlockArea({ blocks }: BlockAreaProps) {
+  console.log('blocks', blocks)
   return blocks ? (
     <div className="flex flex-wrap justify-between -mx-4">
       {blocks.map((block: BlockType, i: number) => (

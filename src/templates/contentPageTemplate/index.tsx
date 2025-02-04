@@ -87,19 +87,58 @@ query getContentPage($locale: String, $type: String, $id: String) {
     ingress {
       data
     }
+
     content {
       ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {
         id
         strapi_id
         strapi_component
+        activities {
+          title
+          strapi_id
+          id
+        }
+        block_width {
+          name
+        }
       }
-      ... on STRAPI__COMPONENT_BLOCKS_AGE_GROUP_BLOCK {
+      ... on STRAPI__COMPONENT_BLOCKS_HERO_BLOCK {
+        id
+        link_text
+        link_url
+        text {
+          data
+        }
+        title
+        strapi_id
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_IMAGE_BLOCK {
+        id
+        strapi_id
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_LINK_BLOCK {
+        id
+        url
+        strapi_id
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
         id
         title
         strapi_id
         strapi_component
+        textBlockText: text {
+					data {
+						text
+					}
+				}
+      }
+      ... on STRAPI__COMPONENT_BLOCKS_VIDEO_BLOCK {
+        id
+        strapi_id
+        video_url
       }
     }
+
   }
 }
 `;
