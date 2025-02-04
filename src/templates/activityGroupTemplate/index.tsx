@@ -116,7 +116,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
             </div>
           )}
         </div>
-        <RichText html={content} />
+        <RichText html={typeof content === 'string' ? content : content?.data?.content} />
         <Activities
           activities={activities.nodes}
           mandatoryTitle={mandatory_activities_title}
@@ -182,6 +182,11 @@ query Query(
     mandatory
     sort_order
     wp_guid
+    content {
+      data {
+        content
+      }
+    }
     activities {
       id
       title
