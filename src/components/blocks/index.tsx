@@ -8,6 +8,11 @@ import BlueLink from '../BlueLink';
 export interface TextBlockType extends BlockType {
   title?: string;
   text?: string;
+  textBlockText?: {
+    data: {
+      text: string;
+    };
+  }
 }
 
 export interface ImageBlockType extends BlockType {
@@ -26,13 +31,13 @@ export interface BlockType {
 
 export interface LinkBlockType extends BlockType {
   url?: string;
-  text?: string;
+  text?: { data: string };
 }
 
 export interface HighlightBlockType extends BlockType {
   title?: string;
   url?: string;
-  text?: string;
+  text?: { data: string };
   background?: any;
   link_text?: string;
   link_url?: string;
@@ -65,8 +70,9 @@ export const TextBlock = ({ block }: BlockProps<TextBlockType>) => (
   <div className="flex-none inline-block w-full">
     {block.title && <h2 className="sm:text-4xl md:text-xxlw">{block.title.toUpperCase()}</h2>}
     {block.text && <RichText className="text-blue" html={block.text} />}
+    {block.textBlockText && <RichText className="text-blue" html={block.textBlockText.data?.text} />}
   </div>
-);
+)
 
 export const ImageBlock = ({ block }: BlockProps<ImageBlockType>) => (
   <div className="flex-none inline-block w-full">
@@ -82,7 +88,7 @@ export const ImageBlock = ({ block }: BlockProps<ImageBlockType>) => (
 );
 
 export const LinkBlock = ({ block }: BlockProps<LinkBlockType>) => (
-  <BlueLink to={block.url || ''}>{block.text}</BlueLink>
+  <BlueLink to={block.url || ''}>{block.text?.data}</BlueLink>
 );
 
 export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
@@ -98,7 +104,7 @@ export const HighLightBlock = ({ block }: BlockProps<HighlightBlockType>) => (
   >
     <div className="flex flex-col items-center justify-center">
       {block.title && <h2 className="mb-4 sm:text-4xl md:text-xxlw">{block.title.toUpperCase()}</h2>}
-      {block.text && <p className="text-blue mb-4 md:text-base">{block.text}</p>}
+      {block.text?.data && <p className="text-blue mb-4 md:text-base">{block.text?.data}</p>}
       {block.link_text && block.link_url && <BlueLink to={block.link_url}>{block.link_text}</BlueLink>}
     </div>
   </div>

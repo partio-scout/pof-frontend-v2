@@ -123,6 +123,7 @@ const config: GatsbyConfig = {
                   'blocks.image-block': {
                     populate: {
                       block_width: '*',
+                      image: '*',
                     },
                   },
                   'blocks.link-block': {
@@ -188,6 +189,7 @@ const config: GatsbyConfig = {
                   'blocks.image-block': {
                     populate: {
                       block_width: '*',
+                      image: '*',
                     },
                   },
                   'blocks.link-block': {
@@ -340,6 +342,7 @@ const config: GatsbyConfig = {
                     'blocks.image-block': {
                       populate: {
                         block_width: '*',
+                        image: '*',
                       },
                     },
                     'blocks.link-block': {
@@ -447,6 +450,7 @@ const config: GatsbyConfig = {
                     'blocks.image-block': {
                       populate: {
                         block_width: '*',
+                        image: '*',
                       },
                     },
                     'blocks.link-block': {
@@ -558,6 +562,7 @@ const config: GatsbyConfig = {
                     'blocks.image-block': {
                       populate: {
                         block_width: '*',
+                        image: '*',
                       },
                     },
                     'blocks.link-block': {

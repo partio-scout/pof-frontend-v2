@@ -763,6 +763,7 @@ type StrapiComponentBlocksImageBlock implements Node {
   strapi_component: String
   block_width: StrapiBlockWidth
   strapi_id: Int
+  image: StrapiImage
 }
 
 type StrapiComponentBlocksHeroBlock implements Node {
