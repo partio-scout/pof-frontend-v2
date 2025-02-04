@@ -59,7 +59,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
     >
       <div className="flex flex-row items-center justify-around">
         <img className="mx-1 my-0.5 w-4 inline-block" src={localeToImage[locale]} />
-        <span className="text-blue ml-0.5 font-tondu tracking-wider hidden sm:inline">{locale.toUpperCase()}</span>
+        <span className="text-blue ml-0.5 font-tondu tracking-wider hidden sm:inline">{locale?.toUpperCase()}</span>
         <img
           className="mx-1 my-0.5 w-8 h-8 hidden md:inline-block"
           src={currentDropDownOpen === menuAmount ? upArrow : downArrow}
@@ -75,7 +75,7 @@ const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, local
               key={obj.locale + index}
             >
               <img className="mx-1 my-0.5 w-4 inline-block" src={localeToImage[obj.locale]} />
-              <span className="block font-bold">{obj.locale.toUpperCase()}</span>
+              <span className="block font-bold">{obj.locale?.toUpperCase()}</span>
             </Link>
           ))}
         </div>
