@@ -28,7 +28,7 @@ const mergeDefaultWithLocaleLinks = (
   const siteLocales = [...localeLinks.map((link) => link?.locale), currentLanguage];
   const filteredDefaults = defaultLinks.filter((link) => !siteLocales.includes(link.locale));
 
-  return [...localeLinks, ...filteredDefaults].sort((a, b) => a.locale.localeCompare(b.locale));
+  return [...localeLinks, ...filteredDefaults].sort((a, b) => a.locale?.localeCompare(b.locale));
 };
 
 const LocaleSelector = ({ currentDropDownOpen, toggleDropDown, menuAmount, localeLinks }: LocaleSelectorProps) => {
