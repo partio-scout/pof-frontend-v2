@@ -42,7 +42,7 @@ const MainContent = ({ data }: ContentPageTemplateProps) => {
 
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
   const { strapi_id, content, locale } = data.contentPage;
-  const localeLinks = sitePageDataToLocaleLinks(data.localeData.nodes);
+  const localeLinks = sitePageDataToLocaleLinks(data.localeData?.nodes);
   const metadata = useMetadata(locale || 'fi');
   
   return (
@@ -68,13 +68,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-query getContentPage($locale: String, $type: String, $id: String) {
-  localeData: allSitePage(filter: { context: { locale: { eq: $locale }, type: { eq: $type } } }) {
-    nodes {
-      ...SitePageLocaleFragment
-    }
-  }
-
+query getContentPage($locale: String, $id: String) {
   activityUrls: allSitePage (
     filter: {context: {locale: {eq: $locale}, type: {eq: "Activity"}}}
   ) {

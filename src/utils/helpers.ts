@@ -46,8 +46,10 @@ export const removeHtml = (input: string) => {
   return input.replace(/(<([^>]+)>)/gi, '');
 };
 
-export const sitePageDataToLocaleLinks = (sitePages: SitePage[]): LocaleLink[] =>
-  sitePages.map((page) => ({ path: page.path, locale: page.context?.locale as Locale }));
+export const sitePageDataToLocaleLinks = (sitePages: SitePage[]): LocaleLink[] => {
+  if (!sitePages) return [];
+  return sitePages.map((page) => ({ path: page.path, locale: page.context?.locale as Locale }))
+}
 
 export const createSlug = (text: string) => {
   // Convert the text to lower case
