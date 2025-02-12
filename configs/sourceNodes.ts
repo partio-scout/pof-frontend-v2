@@ -151,9 +151,11 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
   let currentActivityGroupsPage = 0;
   let maxActivityGroupsPage = 1;
   while (true) {
-    const data = await fetchActivityGroupData(currentActivityGroupsPage + 1);
+    const activityGroupData = await fetchActivityGroupData(currentActivityGroupsPage + 1);
+    const data = activityGroupData.data || activityGroupData;
+
     maxActivityGroupsPage = data.meta?.pagination?.pageCount || 1;
-    activityGroups.push(...data.data);
+    activityGroups.push(...data);
     currentActivityGroupsPage++;
     if (currentActivityGroupsPage >= maxActivityGroupsPage) {
       break;
