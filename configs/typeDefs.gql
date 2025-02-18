@@ -554,6 +554,7 @@ type StrapiContentPage implements Node @dontInfer {
   children: [Node!]!
   internal: Internal!
   slug: String
+  localizations: [StrapiContentPage] @link(by: "id", from: "localizations")
 }
 
 type StrapiContentData @dontInfer {

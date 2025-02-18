@@ -364,6 +364,7 @@ const config: GatsbyConfig = {
                 },
                 meta_description: '*',
                 meta_title: '*',
+                localizations: '*',
               }
             },
             pluginOptions: {
