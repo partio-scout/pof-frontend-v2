@@ -41,7 +41,6 @@ const Header = ({ headerItems, showBreadCrumbs, localeLinks }: HeaderProps) => {
 
   const toggleHamburger = () => setHamburgerMenuOpen(!hamburgerMenuOpen);
 
-  console.log('showBreadCrumbs', showBreadCrumbs);
   return (
     <ClickAwayListener onClickAway={() => setCurrentDropDownOpen(null)}>
       <div className="select-none">
