@@ -3,7 +3,6 @@ import { StrapiActivity } from '../../../graphql-types';
 import ActivityCard from '../activityCard';
 import PlusIcon from '../../images/plus-round.inline.svg';
 import { fetchActivities } from '../../services/activity';
-import useNavigation from '../../hooks/navigation';
 import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { useTranslation } from 'react-i18next';
 import { currentLocale } from '../../utils/helpers';
@@ -35,7 +34,6 @@ const ActivityCardList = ({
 }: ActivityCardListProps) => {
   const [allVisible, setAllVisible] = useState(false);
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
-  const navigation = useNavigation(currentLocale());
 
   const { t } = useTranslation();
 

@@ -4,7 +4,6 @@ import { StrapiActivity } from '../../../graphql-types';
 import { useTranslation } from 'react-i18next';
 import {createSlug } from '../../utils/helpers';
 import {prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
-import useNavigation from '../../hooks/navigation';
 import { ContentType } from '../../types/content';
 
 import { hexToRgba } from '../../utils/color';
