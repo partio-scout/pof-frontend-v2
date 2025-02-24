@@ -363,6 +363,7 @@ async function createContentPage(
       locale: pageDataResponse.data?.strapiContentPage.locale,
       id: pageDataResponse?.data?.strapiContentPage.id,
       strapi_id: pageDataResponse?.data?.strapiContentPage.strapi_id,
+      localizations: pageDataResponse?.data?.strapiContentPage.localizations,
     },
   };
 

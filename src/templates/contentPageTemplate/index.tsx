@@ -92,6 +92,10 @@ query getContentPage($locale: String, $id: String) {
     ingress {
       data
     }
+    localizations {
+      title
+      locale
+    }
 
     content {
       ... on STRAPI__COMPONENT_BLOCKS_ACTIVITY_BLOCK {

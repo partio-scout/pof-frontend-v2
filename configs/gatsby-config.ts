@@ -17,11 +17,11 @@ const config: GatsbyConfig = {
       resolve: 'gatsby-source-strapi',
       options: {
         apiURL: process.env.GATSBY_API_URL,
-        queryLimit: -1,
         skipFileDownloads: true,
         collectionTypes: [
           {
             singularName: 'activity',
+            queryLimit: 50,
             queryParams: {
               populate: {
                 activity_group: '*',
@@ -53,6 +53,7 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'age-group',
+            queryLimit: 50,
             queryParams: {
               populate: {
                 activity_groups:  {
@@ -221,6 +222,7 @@ const config: GatsbyConfig = {
           },           
           {
             singularName: 'duration',
+            queryLimit: 50,
             queryParams: {
               populate: '*'
             },
@@ -233,6 +235,7 @@ const config: GatsbyConfig = {
           
           {
             singularName: 'location',
+            queryLimit: 50,
             queryParams: {
               populate: '*'
             },
@@ -245,6 +248,7 @@ const config: GatsbyConfig = {
           
           {
             singularName: 'activity-group',
+            queryLimit: 50,
             queryParams: {
               populate: {
                 activities: {
@@ -282,6 +286,7 @@ const config: GatsbyConfig = {
 
           {
             singularName: 'content-page',
+            queryLimit: 50,
             queryParams: {
               populate: {
                 title: '*',
@@ -364,6 +369,7 @@ const config: GatsbyConfig = {
                 },
                 meta_description: '*',
                 meta_title: '*',
+                localizations: '*',
               }
             },
             pluginOptions: {
@@ -374,6 +380,7 @@ const config: GatsbyConfig = {
           },
           {
             singularName: 'suggestion',
+            queryLimit: 50,
             queryParams: {
               populate: '*',
               locations: {
