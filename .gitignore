@@ -8,3 +8,6 @@ graphql-types.ts
 
 # IntelliJ IDEA
 .idea
+
+# Local Netlify folder
+.netlify
