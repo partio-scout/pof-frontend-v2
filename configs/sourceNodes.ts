@@ -68,7 +68,7 @@ async function createContentNavigationNodes(args: SourceNodesArgs) {
   // Fetch data from Strapi (e.g., FrontPage)
   const fetchFrontPageData = async () => {
     try {
-      const response = await axios.get(apiUrl + '/api/front-page?populate[navigation][populate][subnavigation][populate][page]=%2A&populate[navigation][populate][subnavigation][populate][subnavigation][populate][page][populate]=%2A&locale=all'); // Adjust the endpoint as per your Strapi API
+      const response = await axios.get(apiUrl + '/api/front-pages?populate[navigation][populate][subnavigation][populate][page]=%2A&populate[navigation][populate][subnavigation][populate][subnavigation][populate][page][populate]=%2A&locale=all'); // Adjust the endpoint as per your Strapi API
       return response.data.data; // Assuming Strapi v4 format
     } catch (error) {
       console.error('Error fetching front page data from Strapi:', error);
@@ -115,7 +115,7 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
 
   const fetchAgeGroupData = async (page: number) => {
     try {
-      const response = await axios.get(apiUrl + `/api/age-groups?populate[activity_groups][populate][activity_group]=%2A&populate[activity_groups][populate][logo]=%2A&populate[main_image]=%2A&populate[logo]=%2A&populate[icon]=%2A&populate[activities][populate]=%2A&populate[activities][activity_group]=%2A&populate[subactivitygroup_term][populate]=%2A&populate[links]=%2A&populate[lower_content_area][populate]=%2A&populate[upper_content_area][populate]=%2A&populate[content]=%2A&populate[ingress]=%2A&pagination[page]=${page}&pagination[pageSize]=100`); // Adjust the endpoint as per your Strapi API
+      const response = await axios.get(apiUrl + `/api/age-groups?populate[activity_groups][populate][activity_group]=%2A&populate[activity_groups][populate][logo]=%2A&populate[main_image]=%2A&populate[logo]=%2A&populate[icon]=%2A&populate[activities][populate]=%2A&populate[activities][activity_group]=%2A&populate[subactivitygroup_term][populate]=%2A&populate[links]=%2A&populate[lower_content_area][populate]=%2A&populate[upper_content_area][populate]=%2A&populate[content]=%2A&populate[ingress]=%2A&pagination[page]=${page}&pagination[pageSize]=100&locale=all`); // Adjust the endpoint as per your Strapi API
       return response.data; // Assuming Strapi v4 format
     } catch (error) {
       console.error('Error fetching age group data from Strapi:', error);
@@ -139,7 +139,7 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
 
   const fetchActivityGroupData = async (page: number) => {
     try {
-      const response = await axios.get(apiUrl + `/api/activity-groups?populate=activities&populate=logo&pagination[page]=${page}&pagination[pageSize]=100`); // Adjust the endpoint as per your Strapi API
+      const response = await axios.get(apiUrl + `/api/activity-groups?populate=activities&populate=logo&pagination[page]=${page}&pagination[pageSize]=100&locale=all`); // Adjust the endpoint as per your Strapi API
       return response.data; // Assuming Strapi v4 format
     } catch (error) {
       console.error('Error fetching activity group data from Strapi:', error);
@@ -165,7 +165,7 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
 
   const fetchActivitiesData = async (page: number) => {
     try {
-      const response = await axios.get(apiUrl + `/api/activities?populate[activity_group]=%2&populate[logo]=%2&&pagination[page]=${page}&pagination[pageSize]=100`); // Adjust the endpoint as per your Strapi API
+      const response = await axios.get(apiUrl + `/api/activities?populate[activity_group]=%2&populate[logo]=%2&&pagination[page]=${page}&pagination[pageSize]=100&locale=all`); // Adjust the endpoint as per your Strapi API
       return response.data; // Assuming Strapi v4 format
     } catch (error) {
       console.error('Error fetching activities data from Strapi:', error);
