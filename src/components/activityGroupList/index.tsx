@@ -61,7 +61,7 @@ function ActivityGroupList({ groups, links }: ActivityGroupListProps) {
                 .map((group) => (
                   <CombinedLink
                     to={findUrlFromLinks(group.strapi_id as number) || ''}
-                    className="flex flex-col h-32 max-w-32 m-2 transform transition-transform duration-100 hover:scale-110 text-center items-center font-bold"
+                    className="flex flex-col min-h-32 max-w-32 m-2 transform transition-transform duration-100 hover:scale-110 text-center items-center font-bold break-words hyphens-auto"
                     key={group.strapi_id}
                   >
                     <img
