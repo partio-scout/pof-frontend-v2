@@ -2,7 +2,7 @@ import React from 'react';
 import Layout from '../../layouts/default';
 import { StrapiContentPage, SitePage } from '../../../graphql-types';
 import BlockArea, { SitePageLocaleFragment } from '../../components/blockArea';
-import { prependApiUrl, currentLocale, sitePageDataToLocaleLinks } from '../../utils/helpers';
+import { prependApiUrl, currentLocale, findLocaleLinks } from '../../utils/helpers';
 import RichText from '../../components/RichText';
 import { graphql, PageProps } from 'gatsby';
 import ContentPageNav from './contentPageNav';
@@ -42,8 +42,11 @@ const MainContent = ({ data }: ContentPageTemplateProps) => {
 
 const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, ContentPageTemplateProps>) => {
   const { strapi_id, content, locale } = data.contentPage;
-  const localeLinks = sitePageDataToLocaleLinks(data.localeData?.nodes);
   const metadata = useMetadata(locale || 'fi');
+  const localeLinks = findLocaleLinks({
+    localizations: data.contentPage?.localizations,
+    localeData: data.localeData
+  });
   
   return (
     <Layout
@@ -77,6 +80,12 @@ query getContentPage($locale: String, $id: String) {
     }
   }
 
+  localeData: allSitePage(filter: {context: {type: {eq: "ContentPage"}}}) {
+    nodes {
+      ...SitePageLocaleFragment
+    }
+  }
+
   contentPage: strapiContentPage(id: { eq: $id }) {
     id
     strapi_id
@@ -95,6 +104,7 @@ query getContentPage($locale: String, $id: String) {
     localizations {
       title
       locale
+      id
     }
 
     content {

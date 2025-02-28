@@ -5,6 +5,8 @@ query getContentPage($id: String) {
     locale
     strapi_id
     localizations {
+      id
+      locale
       title
     }
   }
