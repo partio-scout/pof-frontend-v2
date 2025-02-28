@@ -76,3 +76,27 @@ export const createSlug = (text: string) => {
 
   return text;
 }
+
+/**
+ * Find the path for each localization instance
+ * @param localizations The localizations of the current page
+ * @param localeData The data of all pages
+ * @returns An array of objects containing the locale and path of each localization
+ */
+interface FindLocaleLinksProps {
+  localizations: {
+    title: string;
+    locale: string;
+  }[];
+  localeData: { nodes: SitePage[] };
+}
+export const findLocaleLinks = ({ localizations, localeData }: FindLocaleLinksProps): LocaleLink[] => {
+  if (!localizations) return [];
+  return localizations?.map(localization => {
+    const localeLink = localeData.nodes.find(node => node.context.strapi_id === localization.id);
+    return {
+      locale: localization.locale,
+      path: localeLink?.path
+    } as LocaleLink
+  })
+}
