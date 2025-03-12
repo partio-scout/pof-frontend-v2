@@ -26,7 +26,7 @@ jobs:
       - name: Build
         run: yarn build
         env:
-          STRAPI_API_URL: ${{ vars.API_URL }}
+          GATSBY_API_URL: ${{ vars.API_URL }}
           GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
           GATSBY_ALGOLIA_API_KEY: ${{ secrets.GATSBY_ALGOLIA_API_KEY }}
 
