@@ -25,6 +25,10 @@ jobs:
 
       - name: Build
         run: yarn build
+        env:
+          STRAPI_API_URL: ${{ secrets.API_URL }}
+          GATSBY_ALGOLIA_APP_ID: ${{ secrets.GATSBY_ALGOLIA_APP_ID }}
+          GATSBY_ALGOLIA_API_KEY: ${{ secrets.GATSBY_ALGOLIA_API_KEY }}
 
       - name: Deploy to Netlify
         id: netlify_deploy
