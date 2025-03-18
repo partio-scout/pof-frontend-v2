@@ -56,6 +56,8 @@ function AgeGroupBlock({ block }: BlockProps<AgeGroupBlockType>) {
   const { nodes: ageGroups } = queryResult.allStrapiAgeGroup;
   const currentLocaleAgeGroups = ageGroups.filter((group) => group.locale?.trim() === currentLocale().trim());
 
+  console.log('AgeGroupBlock', block, currentLocaleAgeGroups);
+
   return (
     <div className="">
       <div className="flex flex-wrap mb-14">
