@@ -102,7 +102,7 @@ async function createContentNavigationNodes(args: SourceNodesArgs) {
         name: 'custom-strapi-data-plugin',
       },
     );
-    console.log('Created navigation node', 'strapi-navigation-' + frontPage.locale);
+    console.log('Created content navigation node', 'strapi-navigation-' + frontPage.locale);
   }
 }
 
@@ -128,7 +128,6 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
   let maxAgeGroupsPage = 1;
   while (true) {
     const data = await fetchAgeGroupData(currentAgeGroupsPage + 1);
-    console.log('createProgramNavigationNodes -> data', data)
     maxAgeGroupsPage = data.meta?.pagination?.pageCount || 1;
     ageGroups.push(...data.data);
     currentAgeGroupsPage++;
@@ -344,6 +343,7 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
         name: 'custom-strapi-data-plugin',
       },
     );
+    console.log('Created program navigation node', 'strapi-navigation-' + localeNavigation.locale, localeNavigation.navigation);
   }
 }
 
