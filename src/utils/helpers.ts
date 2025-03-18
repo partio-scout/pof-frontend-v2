@@ -14,7 +14,7 @@ export const parseDate = (dateString: string) => {
  * @returns The url prepended with local Strapi url if necessary
  */
 export const prependApiUrl = (url?: Maybe<string>) => {
-  if (!url) return undefined;
+  if (!url || typeof url !== 'string') return undefined;
 
   if (url.startsWith('/uploads')) {
     // FIXME: Hardcoded URL
