@@ -428,6 +428,7 @@ query Query(
       activity {
         id
         wp_guid
+        title
       }
       content
     }
