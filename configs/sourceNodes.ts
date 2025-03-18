@@ -128,6 +128,7 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
   let maxAgeGroupsPage = 1;
   while (true) {
     const data = await fetchAgeGroupData(currentAgeGroupsPage + 1);
+    console.log('createProgramNavigationNodes -> data', data)
     maxAgeGroupsPage = data.meta?.pagination?.pageCount || 1;
     ageGroups.push(...data.data);
     currentAgeGroupsPage++;
