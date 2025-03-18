@@ -102,7 +102,6 @@ async function createContentNavigationNodes(args: SourceNodesArgs) {
         name: 'custom-strapi-data-plugin',
       },
     );
-    console.log('Created content navigation node', 'strapi-navigation-' + frontPage.locale);
   }
 }
 
@@ -343,7 +342,6 @@ async function createProgramNavigationNodes(args: SourceNodesArgs) {
         name: 'custom-strapi-data-plugin',
       },
     );
-    console.log('Created program navigation node', 'strapi-navigation-' + localeNavigation.locale, localeNavigation.navigation);
   }
 }
 
