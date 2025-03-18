@@ -387,8 +387,8 @@ const loadTranslations = async () => {
 };
 
 const sourceNodes = async (args: SourceNodesArgs) => {
-  createContentNavigationNodes(args);
-  createProgramNavigationNodes(args);
+  await createContentNavigationNodes(args);
+  await createProgramNavigationNodes(args);
   await loadTranslations();
 };
 
