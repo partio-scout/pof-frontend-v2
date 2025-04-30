@@ -436,6 +436,7 @@ query Query(
   activities: allStrapiActivity(filter: { activity_group: { strapi_id: { eq: $strapi_id } } }) {
     nodes {
       id
+      strapi_id
       title
       wp_guid
       activity_group {
