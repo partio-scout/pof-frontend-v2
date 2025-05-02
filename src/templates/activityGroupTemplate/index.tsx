@@ -465,6 +465,9 @@ query Query(
       locations {
         slug
         name
+        icon {
+          url
+        }
       }
       mandatory
     }
