@@ -57,18 +57,13 @@ const ActivityCardList = ({
     ? showableActivities.slice(0, !allVisible ? showInitially : undefined)
     : showableActivities;
 
-  // Ensure that all activities have link-paths. If an activity was fetched directly from Strapi, it doesn't have a path.
   const activitiesWithLinks = visibleActivities?.map((activity) => {
-    if (activity.fields?.path) return activity;
-
-    const headerItem = links?.find((link) => link.context.strapi_id === activity.strapi_id);
+    const id = typeof activity.strapi_id === 'undefined' ? activity.id : activity.strapi_id;
+    const headerItem = links?.find((link) => link.context.strapi_id === id);
 
     return {
       ...activity,
       link: headerItem?.path,
-      fields: {
-        path: headerItem?.path,
-      },
     };
 
   });
@@ -84,7 +79,7 @@ const ActivityCardList = ({
           })}
         >
           {activitiesWithLinks?.map((activity) => (
-            <ActivityCard activity={activity} key={activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
+            <ActivityCard activity={activity} key={activity.id + activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
           ))}
         </div>
       </div>
