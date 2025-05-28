@@ -74,7 +74,7 @@ const AgeGroupTemplate = ({ path, data }: PageProps<QueryType, AgeGroupPageTempl
       <div className="px-8 md:px-0">
         <div className="flex flex-col md:flex-row">
           <div className="flex flex-col flex-1 pb-3 md:py-0 md:pr-3">
-            <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress.data}</div>
+            <div className="text-xl font-sourceSansPro tracking-wide font-semibold mb-4">{ingress?.data}</div>
             <RichText html={content.data?.content} />
           </div>
           {(links?.length || 0) > 0 && (
