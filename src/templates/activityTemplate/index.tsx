@@ -195,6 +195,9 @@ query getActivity(
       locale
       name
       slug
+      icon {
+        url
+      }
     }
     logo {
       width

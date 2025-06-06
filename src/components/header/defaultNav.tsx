@@ -21,9 +21,9 @@ const DefaultNav = ({ headerItems, toggleDropDown, currentDropDownOpen, showBrea
         'border-b border-lightBlue': !showBreadCrumbs || state.searchActive,
       })}
     >
-      <a href="/" className="flex-shrink-0 overflow">
+      <Link to="/" className="flex-shrink-0 overflow">
         <img src={logo} className="overflow-hidden mx-4 my-1 w-26" alt={t('logo-title')} title={t('logo-title')} />
-      </a>
+      </Link>
       <div className="flex flex-1 space-x-4 cursor-default h-full justify-end z-50">
         {!state.searchActive && (
           <div className="flex space-x-4">
