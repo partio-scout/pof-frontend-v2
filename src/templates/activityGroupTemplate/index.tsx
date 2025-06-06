@@ -425,6 +425,7 @@ query Query(
         id
         wp_guid
         title
+        strapi_id
       }
       content
     }

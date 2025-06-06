@@ -15,7 +15,7 @@ export const fetchSuggestions = (activityId: number) => {
 
 export const fetchComments = (suggestionId: number[]) => {
   const filters = suggestionId.map((id) => `filters[id][$in]=${id}`).join('&');
-  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/api/suggestions?${filters}&locations[populate]=*&duration[populate]=*&populate=*`);
+  return axios.get(`${trimUrl(process.env.GATSBY_API_URL)}/api/suggestions?${filters}&populate[locations][populate][icon]=*&populate[activity][populate][logo]=*&populate=*`);
 };
 
 export const sendNewSuggestion = (

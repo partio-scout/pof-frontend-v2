@@ -10,7 +10,6 @@ import { prependApiUrl, sitePageDataToLocaleLinks } from '../../utils/helpers';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
 import { Locale } from '../../types/locale';
-import { currentLocale } from '../../utils/helpers';
 
 interface ActivityPageTemplateProps {
   data: { activity: StrapiActivity; activityGroup: StrapiActivityGroup };
