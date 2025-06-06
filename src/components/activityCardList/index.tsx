@@ -3,11 +3,10 @@ import { StrapiActivity } from '../../../graphql-types';
 import ActivityCard from '../activityCard';
 import PlusIcon from '../../images/plus-round.inline.svg';
 import { fetchActivities } from '../../services/activity';
-import { findHeaderItemByTypeAndId } from '../../utils/navigation';
 import { useTranslation } from 'react-i18next';
-import { currentLocale } from '../../utils/helpers';
 import clsx from 'clsx';
 import { SitePageLocaleFragment } from '../blockArea';
+import { currentLocale } from '../../utils/helpers';
 
 interface ActivityCardListProps {
   activities: StrapiActivity[];
@@ -36,11 +35,12 @@ const ActivityCardList = ({
   const [showableActivities, setShowableActivities] = useState<StrapiActivity[]>([]);
 
   const { t } = useTranslation();
+  const locale = currentLocale();
 
   useEffect(() => {
     if (augmentData) {
       const activityIds = activities.map((activity) => activity.strapi_id);
-      fetchActivities(activityIds)
+      fetchActivities(activityIds, locale)
         .then((res) => {
           setShowableActivities(res.data?.data);
         })
