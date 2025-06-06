@@ -20,7 +20,6 @@ const Hits = connectHits<HitsProvided<unknown> & { type: ContentType }, unknown>
     }
   }, [type, hits]);
 
-  console.log('suggestions', suggestions);
   return (
     <div className="grid lg:grid-cols-4 gap-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1">
       {(type === 'suggestion' ? suggestions : hits).map((hit) => (
