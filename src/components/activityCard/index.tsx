@@ -14,7 +14,6 @@ import CommentIcon from '../../images/comment.inline.svg';
 import TimeIcon from '../../images/time.inline.svg';
 import Pill from '../pill';
 import Card from '../card';
-import { findHitUrl } from '../../utils/search';
 
 interface ActivityCardProps {
   activity: StrapiActivity;
@@ -22,13 +21,12 @@ interface ActivityCardProps {
   showActivityAndAgeGroup?: boolean;
 }
 
-const ActivityCard = ({ activity, showActivityAndAgeGroup }: ActivityCardProps) => {
-  const { age_group, activity_group, mandatory, suggestions, duration, locations, is_marine_activity, title, link } =
+const ActivityCard = ({ activity, showActivityAndAgeGroup, link }: ActivityCardProps) => {
+  const { age_group, activity_group, mandatory, suggestions, duration, locations, is_marine_activity } =
     activity;
   const { t } = useTranslation();
 
   const iconUrl = prependApiUrl(activity_group?.logo?.formats?.thumbnail?.url!);
-
 
   return (
     <Card link={link} borderColor={hexToRgba(age_group?.color!, 0.3)}>

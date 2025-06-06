@@ -9,6 +9,7 @@ import ContentPageNav from './contentPageNav';
 import { Locale } from '../../types/locale';
 import Metadata from '../../components/metadata';
 import useMetadata from '../../hooks/metadata';
+import { getActivityUrls } from '../../services/activity';
 interface ContentPageTemplateProps {
   data: StrapiContentPage;
 }
@@ -47,6 +48,8 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
     localizations: data.contentPage?.localizations,
     localeData: data.localeData
   });
+
+  const activityUrls = getActivityUrls();
   
   return (
     <Layout
@@ -63,7 +66,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
         imageUrl={prependApiUrl(data.contentPage.main_image?.url) || metadata.image || ''}
       />
       <MainContent data={data.contentPage} />
-      <BlockArea blocks={content} links={data.activityUrls?.nodes} />
+      <BlockArea blocks={content} links={activityUrls} />
     </Layout>
   );
 };
@@ -71,15 +74,7 @@ const ContentPageTemplate = ({ path, data }: PageProps<ContentPageQueryType, Con
 export default ContentPageTemplate;
 
 export const query = graphql`
-query getContentPage($locale: String, $id: String) {
-  activityUrls: allSitePage (
-    filter: {context: {locale: {eq: $locale}, type: {eq: "Activity"}}}
-  ) {
-    nodes {
-      ...SitePageLocaleFragment
-    }
-  }
-
+query getContentPage($id: String) {
   localeData: allSitePage(filter: {context: {type: {eq: "ContentPage"}}}) {
     nodes {
       ...SitePageLocaleFragment

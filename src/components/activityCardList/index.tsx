@@ -79,7 +79,7 @@ const ActivityCardList = ({
           })}
         >
           {activitiesWithLinks?.map((activity) => (
-            <ActivityCard activity={activity} key={activity.id + activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} />
+            <ActivityCard activity={activity} key={activity.id + activity.title} showActivityAndAgeGroup={showActivityAndAgeGroup} link={activity.link}/>
           ))}
         </div>
       </div>

@@ -1,6 +1,9 @@
+import { graphql, useStaticQuery } from 'gatsby';
 import { HeaderItem } from '../components/header';
 import { ContentType } from '../types/content';
 import { findHeaderItemByTypeAndId } from './navigation';
+import { currentLocale } from './helpers';
+import { getActivityUrls } from '../services/activity';
 
 export const parseType = (type: ContentType) => {
   switch (type) {
@@ -51,11 +54,17 @@ export interface HitModel {
 export const findHitUrl = (hit: HitModel, type: ContentType, navigation: Partial<HeaderItem>[]) => {
   switch (type) {
     case ContentType.suggestion: {
-      // If contentType is `suggestion`, find its parent activity's path,
-      // and set the suggestion id as query parameter
+      const urls = getActivityUrls();
       const id = hit.activity?.strapi_id || hit.activity?.id;
-      const linkUrl = findUrlForContent(id! as number, ContentType.activity, navigation);
+
+      const linkUrl = urls?.find((url) => url.context?.strapi_id === id)?.path;
       return linkUrl + '?tip=' + (hit?.strapi_id || hit?.id);
+    }
+    case ContentType.activity: {
+      const urls = getActivityUrls();
+      const id = hit.strapi_id || hit.id;
+      const linkUrl = urls?.find((url) => url.context?.strapi_id === id);
+      return linkUrl?.path;
     }
     default: {
       return findUrlForContent(parseInt(hit?.id!), type, navigation);

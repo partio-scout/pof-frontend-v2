@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState } from 'react';
 import { useReducer } from 'react';
 import { SearchState } from 'react-instantsearch-core';
-import { ContentType, SearchableContentType, contentTypes } from '../types/content';
+import { SearchableContentType, contentTypes } from '../types/content';
 
 interface SearchContextState {
   searchState: SearchState;

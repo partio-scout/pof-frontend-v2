@@ -43,7 +43,7 @@ const Hit = ({
   const { activityLogos } = useLogoContext();
   const { t } = useTranslation();
 
-  const linkUrl = findHitUrl(hit, type, navigation);
+  let linkUrl = findHitUrl(hit, type, navigation);
 
   const typeName = t(type);
 

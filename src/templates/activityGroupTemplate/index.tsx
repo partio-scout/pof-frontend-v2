@@ -25,6 +25,7 @@ import { ContentType } from '../../types/content';
 import { SuggestionWithUrl } from '../../components/suggestionCard';
 import { Locale } from '../../types/locale';
 import RichText from '../../components/RichText';
+import { getActivityUrls } from '../../services/activity';
 interface ActivityGroupPageTemplateProps {
   data: StrapiActivityGroup;
 }
@@ -64,6 +65,8 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
   const { t } = useTranslation();
   const metadata = useMetadata(locale || 'fi');
 
+  const activityLinks = getActivityUrls();
+
   const { ageGroup, suggestions, otherGroups, activities } = data;
 
   const subTitle = age_group?.title
@@ -72,7 +75,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
 
   const suggestionsWithUrls = suggestions.nodes.map((suggestion) => ({
     ...suggestion,
-    url: data.activityUrls?.nodes.find((link) => link.context.wp_guid === suggestion.activity?.wp_guid).path + findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
+    url: findHitUrl(suggestion as HitModel, ContentType.suggestion, navigation),
     logo: logo?.formats?.thumbnail?.url,
   }));
 
@@ -123,7 +126,7 @@ const activityGroupTemplate = ({ path, data }: PageProps<QueryType, ActivityGrou
           mandatoryDescription={mandatory_activities_description}
           optionalTitle={optional_activities_title}
           optionalDescription={optional_activities_description}
-          links={data.activityUrls?.nodes}
+          links={activityLinks}
         />
         <div className="my-5">
           <h2 className="uppercase my-5 sm:text-4xl md:text-xxlw">{t('uusimmat-toteutusvinkit')}</h2>
@@ -154,13 +157,6 @@ query Query(
 ) {
   localeData: allSitePage (
     filter: { context: { wp_guid: { eq: $wp_guid } } }
-  ) {
-    nodes {
-      ...SitePageLocaleFragment
-    }
-  }
-  activityUrls: allSitePage (
-    filter: {context: {locale: {eq: $locale}, type: {eq: "Activity"}}}
   ) {
     nodes {
       ...SitePageLocaleFragment
