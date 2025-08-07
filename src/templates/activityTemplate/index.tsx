@@ -23,9 +23,9 @@ interface ActivityQueryType {
 }
 
 const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, ActivityPageTemplateProps>) => {
-  const { activity, activityGroup, localeData, activityUrls } = data;
+  const { activity, activityGroup, localeData } = data;
   const localeLinks = sitePageDataToLocaleLinks(localeData.nodes);
-  const subTitle = `${activityGroup?.title || ''}${
+  const subTitle = `${activity?.age_group?.title || ''}${
     activityGroup?.activity_group_category?.name ? ` - ${activityGroup.activity_group_category?.name}` : ''
   }`;
   const metadata = useMetadata(activity.locale || 'fi');
@@ -40,7 +40,7 @@ const ActivityPageTemplate = ({ path, data }: PageProps<ActivityQueryType, Activ
           logoUrl={
             prependApiUrl(
               activity.logo?.formats?.thumbnail?.url ||
-                activity.activity_group?.logo?.formats?.thumbnail?.url ||
+                activityGroup?.logo?.formats?.thumbnail?.url ||
                 activity.age_group?.logo?.formats?.thumbnail?.url,
             ) || ''
           }

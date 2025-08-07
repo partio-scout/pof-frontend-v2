@@ -76,7 +76,7 @@ const SuggestionCard = ({ suggestion, link }: SuggestionCardProps) => {
       </div>
       {activity && (
         <div className="flex p-3 bg-gray">
-          {logo && <img src={prependApiUrl(activity?.logo?.url)} className="h-8 w-8 mr-1" alt=""></img>}
+          {logo && <img src={prependApiUrl(logo)} className="h-8 w-8 mr-1" alt=""></img>}
           <div>
             <div className="text-xs font-semibold">{activity?.title}</div>
           </div>
