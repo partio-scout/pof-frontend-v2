@@ -8,7 +8,7 @@ export const setSuggestions = (data: any) => {
     }
 };
 
-export const getSuggestions = async (suggestionIds: any) => {
+export const getSuggestions = async (suggestionIds: any, locale: string) => {
   const result: any[] = [];
   const newSuggestionIds: Number[] = [];
 
@@ -25,7 +25,7 @@ export const getSuggestions = async (suggestionIds: any) => {
 
 
   if (newSuggestionIds.length > 0) {
-    return await fetchComments(suggestionIds)
+    return await fetchComments(suggestionIds, locale)
       .then((res) => {
         const fetchedSuggestions = res.data?.data || [];
 

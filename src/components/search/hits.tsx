@@ -6,15 +6,15 @@ import Hit from './hit';
 import useNavigation from '../../hooks/navigation';
 import { currentLocale } from '../../utils/helpers';
 import { getSuggestions } from '../../services/suggestion';
-import { get } from 'http';
 
 const Hits = connectHits<HitsProvided<unknown> & { type: ContentType }, unknown>(({ type, hits }) => {
   const navigation = useNavigation(currentLocale());
   const [suggestions, setSuggestions] = React.useState<any[]>([]);
 
+  const locale = currentLocale();
   useEffect(() => {
     if (type === ContentType.suggestion && hits.length > 0) {
-      getSuggestions(hits.map((hit) => Number(hit.objectID))).then((result) => {
+      getSuggestions(hits.map((hit) => Number(hit.objectID)), locale).then((result) => {
         setSuggestions(result);
       });
     }
