@@ -51,17 +51,6 @@ query FrontPageQuery($locale: String) {
 					name
         }
       }
-      ... on STRAPI__COMPONENT_BLOCKS_TEXT_BLOCK {
-        id
-        strapi_id
-        strapi_component
-        title
-        textBlockText: text {
-					data {
-						text
-					}
-				}
-      }
       ... on STRAPI__COMPONENT_BLOCKS_CONTENT_PAGE_BLOCK {
         id
         strapi_component
