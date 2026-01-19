@@ -99,12 +99,6 @@ query getActivity(
     id
     strapi_id
     wp_guid
-    content {
-			data {
-			  id
-        content
-			}
-    }
     duration {
       locale
       name
@@ -124,64 +118,9 @@ query getActivity(
       locale
       id
     }
-    images {
-      alternativeText
-      caption
-      createdAt
-      hash
-      height
-      id
-      formats {
-        medium {
-          ext
-          url
-          hash
-          mime
-          name
-          size
-          width
-          height
-        }
-        large {
-          ext
-          url
-          hash
-          mime
-          name
-          size
-          width
-          height
-        }
-        small {
-          ext
-          url
-          hash
-          mime
-          name
-          size
-          width
-          height
-        }
-        thumbnail {
-          ext
-          url
-          hash
-          mime
-          name
-          size
-          width
-          height
-        }
-      }
-      mime
-      name
-      size
-      url
-      updatedAt
-      width
-    }
+    content: contentData { data }
     is_marine_activity
-    ingress
+    ingress: ingressData
     leader_skills {
       id
       locale
