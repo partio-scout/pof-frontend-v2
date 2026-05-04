@@ -25,13 +25,13 @@
     "@typescript-eslint/eslint-plugin": "4.26.1",
     "@typescript-eslint/parser": "4.26.1",
     "algoliasearch": "4.19.1",
-    "axios": "0.21.1",
+    "axios": "1.15.0",
     "clsx": "1.1.1",
     "dotenv": "10.0.0",
     "gatsby": "^4.0.0",
     "gatsby-plugin-google-gtag": "^4.0.0",
     "gatsby-plugin-graphql-codegen": "3.1.1",
-    "gatsby-plugin-image": "^3.12.3",
+    "gatsby-plugin-image": "^3.16.0",
     "gatsby-plugin-netlify": "^5.1.1",
     "gatsby-plugin-react-helmet": "^5.0.0",
     "gatsby-plugin-react-svg": "3.3.0",
@@ -42,9 +42,9 @@
     "gatsby-plugin-ts-config": "2.1.3",
     "gatsby-plugin-typescript": "3.14.0",
     "gatsby-plugin-use-query-params": "1.0.1",
-    "gatsby-source-filesystem": "^5.12.1",
-    "gatsby-source-strapi": "^3.3.1",
-    "gatsby-transformer-remark": "6.12.3",
+    "gatsby-source-filesystem": "^5.16.0",
+    "gatsby-source-strapi": "3.3.3",
+    "gatsby-transformer-remark": "^6.16.0",
     "gatsby-transformer-sharp": "^4.0.0",
     "html-react-parser": "1.4.0",
     "i18next": "21.2.4",
@@ -70,7 +70,7 @@
     "@babel/core": "^7.21.8",
     "@babel/eslint-parser": "^7.21.8",
     "@babel/preset-react": "^7.18.6",
-    "@types/node": "15.12.2",
+    "@types/node": "^24",
     "@types/qs": "6.9.7",
     "@types/react": "17.0.11",
     "@types/react-dom": "17.0.7",
@@ -93,5 +93,11 @@
     "hooks": {
       "pre-commit": "yarn lint-staged"
     }
+  },
+  "overrides": {
+    "lmdb": "3.5.2"
+  },
+  "resolutions": {
+    "axios": "1.15.0"
   }
 }

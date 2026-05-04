@@ -16,6 +16,7 @@ const config: GatsbyConfig = {
     {
       resolve: 'gatsby-source-strapi',
       options: {
+        version: '4',
         apiURL: process.env.GATSBY_API_URL,
         skipFileDownloads: true,
         collectionTypes: [
